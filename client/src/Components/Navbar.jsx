@@ -404,7 +404,7 @@ function Navbar(props) {
   };
 
   return (
-    <Nawbar>
+    <Nawbar style={{display: props.showNavbar}}>
       <Nav ref={navRef}>
       <FlexContainer>
         <Linke to="/">

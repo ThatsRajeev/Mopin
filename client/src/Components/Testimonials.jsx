@@ -77,7 +77,7 @@ const Testimonials = () => {
     setAnimate(true);
     setTimeout(() => {
     setAnimate(false);
-  }, 900);
+  }, 899);
   };
 
   return (

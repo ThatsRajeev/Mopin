@@ -58,7 +58,7 @@ const FoodSlider = (props) => {
         },
         1000: {
           slidesPerView: 3,
-          spaceBetween: 52,
+          spaceBetween: 48,
         }
       }}
       scrollbar={false}

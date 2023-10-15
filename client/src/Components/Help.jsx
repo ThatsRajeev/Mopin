@@ -88,7 +88,7 @@ function Help({setShowProp}) {
         <div style={{textAlign: 'center', margin: '12% 0'}}>
           <div>
             <img style={{width: '180px', height: '180px'}} src="https://drive.google.com/uc?id=1pggpvq1qfPOY48yPXRXhLFZydO97ElBJ" alt="confirm-img" />
-            <p style={{fontSize: '18px', fontWeight: '600', marginBottom: '8px'}}>Query sent successfully!</p>
+            <p style={{fontSize: '18px', fontWeight: '600', marginBottom: '8px'}}>Query registered successfully!</p>
           </div>
           <p>Thank you for your patience. We will get back to you as soon as possible</p>
         </div>

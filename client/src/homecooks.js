@@ -1,5 +1,310 @@
 const homecooks = [
   {
+    name: "Anjali Sharma",
+    imgURL: "https://drive.google.com/uc?id=19s3ZXsi3wNAdkPKBbf-s-J7OVM_m6pzB",
+    foodType: "south indian, punjabi",
+    quote: "Homemade goodness that satisfies your cravings",
+    rating: "4.2",
+    noOfOrders: "122",
+    minPrice: "79",
+    dateOfJoining: "2023-10-2",
+    dishes: [
+      {
+        name: "Idli sambar and coconut chutney",
+        description: "A South Indian trio that brings together fluffy rice cakes, flavorful lentil stew, and creamy coconut chutney. A symphony of tastes in every bite!",
+        price: "28",
+        imgURL: "https://img-global.cpcdn.com/recipes/3ad5b61d118fd588/1360x964cq70/idli-sambar-and-coconut-chutney-recipe-main-photo.webp",
+        isVeg: true,
+        availability: [
+          {
+            day: "Monday",
+            meal: "Breakfast"
+          }
+        ]
+      },
+      {
+        name: "Upma with chutney and sambar",
+        description: "A South Indian delight that harmonizes the wholesome goodness of semolina, zesty chutney, and flavorful sambar. A taste of comfort and tradition in every mouthful!",
+        price: "28",
+        imgURL: "https://upload.wikimedia.org/wikipedia/commons/8/86/A_photo_of_Upma.jpg",
+        isVeg: true,
+        availability: [
+          {
+            day: "Tuesday",
+            meal: "Breakfast"
+          }
+        ]
+      },
+      {
+        name: "Aloo Paratha and Tomato Chutney",
+        description: "Crispy, golden parathas embrace a spiced potato filling, while the tangy tomato chutney adds a delightful twist. A delectable combination that's sure to satisfy your cravings.",
+        price: "28",
+        imgURL: "https://i0.wp.com/aartimadan.com/wp-content/uploads/2023/03/vrat-ka-aloo-paratha.jpg?w=800&ssl=1",
+        isVeg: true,
+        availability: [
+          {
+            day: "Wednesday",
+            meal: "Breakfast"
+          }
+        ]
+      },
+      {
+        name: "Puri with Aloo Sabji",
+        description: "Crispy, fluffy, and satisfying, paired with a flavorful potato curry. A symphony of textures and flavors to tantalize your taste buds.",
+        price: "28",
+        imgURL: "https://www.chefkunalkapur.com/wp-content/uploads/2021/05/Aloo-Puri-Bhaji.jpg?v=1620385178",
+        isVeg: true,
+        availability: [
+          {
+            day: "Thursday",
+            meal: "Breakfast"
+          }
+        ]
+      },
+      {
+        name: "Poha",
+        description: "Fluffy flattened rice sautéed with spices, herbs, and a hint of lemon, offering a delightful and quick Breakfast option with a burst of flavors.",
+        price: "28",
+        imgURL: "https://pipingpotcurry.com/wp-content/uploads/2020/12/Poha-Recipe-indori-Piping-Pot-Curry-1024x1024.jpg",
+        isVeg: true,
+        availability: [
+          {
+            day: "Friday",
+            meal: "Breakfast"
+          }
+        ]
+      },
+      {
+        name: "Dosa",
+        description: " South India's crispy marvel, a thin, golden delight that pairs perfectly with spiced potatoes. A tasty crunch in every bite.",
+        price: "28",
+        imgURL: "https://homechefscooking.files.wordpress.com/2017/12/filmora.png",
+        isVeg: true,
+        availability: [
+          {
+            day: "Saturday",
+            meal: "Breakfast"
+          }
+        ]
+      },
+      {
+        name: "Moong Dal Chilla",
+        description: "Wholesome and savory, these lentil pancakes are a healthy, protein-packed delight, perfect for a satisfying Breakfast or snack.",
+        price: "28",
+        imgURL: "https://pipingpotcurry.com/wp-content/uploads/2022/12/moong-dal-chilla-recipe-Piping-Pot-Curry-768x768.jpg",
+        isVeg: true,
+        availability: [
+          {
+            day: "Sunday",
+            meal: "Breakfast"
+          }
+        ]
+      },
+      {
+        name: "Paneer Butter Masala with Chapattis",
+        description: "Paneer cubes simmered in a rich tomato-based gravy with a hint of cream and aromatic spices. Served with soft chapattis. A North Indian favorite that's indulgent and satisfying.",
+        price: "48",
+        imgURL: "https://www.spiceindiaonline.com/wp-content/uploads/2021/02/Easy-Paneer-Butter-Masala-3-500x375.jpg",
+        isVeg: true,
+        availability: [
+          {
+            day: "Monday",
+            meal: "Lunch"
+          }
+        ]
+      },
+      {
+        name: "Mutton Biryani",
+        description: "Fragrant basmati rice cooked with tender mutton pieces and aromatic spices. A delicious and aromatic biryani. Served with raita and salad.",
+        price: "60",
+        imgURL: "https://paattiskitchen.com/wp-content/uploads/2023/03/kmc_20230323_230743-1024x576.jpg",
+        isVeg: false,
+        availability: [
+          {
+            day: "Tuesday",
+            meal: "Lunch"
+          }
+        ]
+      },
+      {
+        name: "Palak Paneer with Roti",
+        description: "Cubes of paneer in a creamy spinach gravy, seasoned with Indian spices. Served with soft rotis. A wholesome and vegetarian delight that's rich in flavor and nutrients.",
+        price: "42",
+        imgURL: "https://cdn.squats.in/thumbnail/5a395a00-cff8-469f-a4a1-eb8588d19c4a.jpeg",
+        isVeg: true,
+        availability: [
+          {
+            day: "Wednesday",
+            meal: "Lunch"
+          }
+        ]
+      },
+      {
+        name: "Vegetable Pulao with Raita",
+        description: "Fragrant basmati rice cooked with a medley of vegetables and aromatic spices. Served with cooling raita. A vegetarian pulao that's both flavorful and satisfying.",
+        price: "45",
+        imgURL: "https://www.vidhyashomecooking.com/wp-content/uploads/2020/09/VegPulao.webp",
+        isVeg: true,
+        availability: [
+          {
+            day: "Thursday",
+            meal: "Lunch"
+          }
+        ]
+      },
+      {
+        name: "Aloo Gobi with Parathas",
+        description: "A comforting blend of potatoes and cauliflower, sautéed with spices and herbs. Served with fresh, hot parathas. A homely and satisfying dish that's full of flavor.",
+        price: "38",
+        imgURL: "https://lh3.googleusercontent.com/g4sB_w3iSRD29-b3ZJTWh0Up3yYFyInpxTAWAlbH6TN5dIwL_vv3R_V_-X4Op2Tpmwi2jtwzrEeFjlhHTV8oLcyMsH2gut8I3dxX_X0=w512-rw",
+        isVeg: true,
+        availability: [
+          {
+            day: "Friday",
+            meal: "Lunch"
+          }
+        ]
+      },
+      {
+        name: "Tandoori Chicken with Rice",
+        description: "Chicken marinated in yogurt and spices, cooked to perfection in a tandoor. Served with fragrant basmati rice, naan, and a side of mint chutney. A smoky and flavorful dish that's a delight for meat lovers.",
+        price: "55",
+        imgURL: "http://lh5.ggpht.com/_dfV_Eqz0Ypw/TW7wtalNsYI/AAAAAAAABoA/lp7vridOTnY/Tandoori-Chicken3.jpg?imgmax=800",
+        isVeg: false,
+        availability: [
+          {
+            day: "Saturday",
+            meal: "Lunch"
+          }
+        ]
+      },
+      {
+        name: "Veg Biryani with Raita",
+        description: "Fragrant basmati rice cooked with a medley of vegetables and aromatic spices. Served with cooling raita. A vegetarian biryani that's a burst of flavors and textures.",
+        price: "48",
+        imgURL: "https://fifolive.com/wp-content/uploads/2021/05/veg-biryani.jpg",
+        isVeg: true,
+        availability: [
+          {
+            day: "Sunday",
+            meal: "Lunch"
+          }
+        ]
+      },
+      {
+        name: "Butter Chicken with Naan",
+        description: "Tender chicken pieces simmered in a rich tomato-based gravy with a hint of cream and aromatic spices. Served with soft naan. A North Indian classic that's indulgent and savory.",
+        price: "50",
+        imgURL: "https://www.missionfoods.com/wp-content/uploads/2022/06/easy-butter-chicken-naan-1024x683.jpg",
+        isVeg: false,
+        availability: [
+          {
+            day: "Monday",
+            meal: "Dinner"
+          }
+        ]
+      },
+      {
+        name: "Mixed Vegetable Curry with Roti",
+        description: "A flavorful medley of mixed vegetables in a spiced curry. Served with soft rotis. A wholesome vegetarian meal that's perfect for Lunch.",
+        price: "40",
+        imgURL: "https://www.cookingandme.com/wp-content/uploads/2012/12/8234784286_ee408b27e6_z1.webp",
+        isVeg: true,
+        availability: [
+          {
+            day: "Tuesday",
+            meal: "Dinner"
+          }
+        ]
+      },
+      {
+        name: "Veg Fried Rice with Manchurian",
+        description: "Fragrant fried rice, accompanied by vegetable Manchurian. A delightful fusion of Indian and Chinese flavors.",
+        price: "48",
+        imgURL: "https://www.nehascookbook.com/wp-content/uploads/2022/10/Fried-rice-lobi-manchurian-WS-768x432.jpg",
+        isVeg: true,
+        availability: [
+          {
+            day: "Wednesday",
+            meal: "Dinner"
+          }
+        ]
+      },
+      {
+        name: "Dal Tadka with Jeera Rice",
+        description: "Yellow lentils cooked with spices and tempered with aromatic ghee. Served with cumin-flavored rice. A comforting and satisfying vegetarian meal.",
+        price: "38",
+        imgURL: "https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2F8c0ef296153b3b754f5770623631eff2.cdn.bubble.io%2Ff1597941414091x788717463110555500%2FJeera%2520Rice%2520and%2520Dal%2520Fry.jpg?w=1024&h=&auto=compress&dpr=1.25&fit=max",
+        isVeg: true,
+        availability: [
+          {
+            day: "Thursday",
+            meal: "Dinner"
+          }
+        ]
+      },
+      {
+        name: "Fish Curry with Steamed Rice",
+        description: "Fish cooked in a spicy and tangy curry, served with steamed rice. A coastal delight for seafood enthusiasts.",
+        price: "55",
+        imgURL: "https://paattiskitchen.com/wp-content/uploads/2023/01/kmc_20230110_142103-1-1200x675.jpg",
+        isVeg: false,
+        availability: [
+          {
+            day: "Friday",
+            meal: "Dinner"
+          }
+        ]
+      },
+      {
+        name: "Malai Kofta with Chapattis",
+        description: "Deep-fried paneer and vegetable dumplings served in a creamy and rich cashew-based gravy, flavored with aromatic spices along with chapattis",
+        price: "35",
+        imgURL: "https://scontent.fdel29-1.fna.fbcdn.net/v/t1.6435-9/79269978_741132956432467_2703428168080824912_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=9267fe&_nc_ohc=WAdv7JKPVfoAX8QFY9C&_nc_ht=scontent.fdel29-1.fna&oh=00_AfAOc5rc7NWycCQtuhpjj5T5BPSnPpucKTzr8gE7ddLhVg&oe=654DEDE3",
+        isVeg: true,
+        availability: [
+          {
+            day: "Saturday",
+            meal: "Dinner"
+          }
+        ]
+      },
+      {
+        name: "Dal Makhni with naan",
+        description: "A creamy and flavorful lentil curry made with a combination of black lentils (urad dal) and kidney beans (rajma), simmered in a rich tomato-based gravy with aromatic spices.",
+        price: "35",
+        imgURL: "https://img-global.cpcdn.com/recipes/549969a2accee087/1360x964cq70/dal-makhni-with-garlic-naan-recipe-main-photo.webp",
+        isVeg: true,
+        availability: [
+          {
+            day: "Sunday",
+            meal: "Dinner"
+          }
+        ]
+      },
+    ]
+  },
+  {
+    name: "Divya Banerjee",
+    imgURL: "https://drive.google.com/uc?id=1C7wtWLPKCSjedIXM2FHHDOvAdnwWxh3a",
+    foodType: "north indian",
+    quote: "Crafting flavors with love and passion",
+    rating: "4.5",
+    noOfOrders: "68",
+    minPrice: "65",
+    dateOfJoining: "2022-08-25"
+  },
+  {
+    name: "Uma Sinha",
+    imgURL: "https://drive.google.com/uc?id=1FcTB06vDEP0wdBwTR3s-PEXBYyJlb4Vq",
+    foodType: "north indian, snacks",
+    quote: "Indulge in the essence of homemade delicacies",
+    rating: "4.2",
+    noOfOrders: "45",
+    minPrice: "99",
+    dateOfJoining: "2022-12-12"
+  },
+  {
     name: "Panchami Devi",
     imgURL: "https://drive.google.com/uc?id=1P1tK47JDYZbPnYRRGXj6HZlBBQ2LMJMa",
     foodType: "biryani, north indian",
@@ -8,176 +313,46 @@ const homecooks = [
     noOfOrders: "153",
     minPrice: "88",
     dateOfJoining: "2023-05-25",
-    dishes: {riceDelights: [{name: "Vegetable Biryani",
-                            desc: "Fragrant basmati rice cooked with an assortment of fresh vegetables, aromatic spices, and herbs. This flavorful and colorful dish is a perfect balance of textures and tastes, making it a favorite among vegetarians and rice lovers.",
-                            price: "₹79",
-                            imgURL: "https://holycowvegan.net/wp-content/uploads/2019/01/vegetable-biryani-recipe-500x500.jpg"},
-                           {name: "Chicken Biryani",
-                            desc: "Fragrant basmati rice cooked with tender chicken pieces, aromatic spices, and a blend of herbs. This classic Indian dish is layered with flavors and served with raita (yogurt sauce) for a satisfying and aromatic meal.",
-                            price: "₹99",
-                            imgURL: "https://www.licious.in/blog/wp-content/uploads/2020/12/Hyderabadi-chicken-Biryani.jpg"},
-                           {name: "Vegetable Pulao",
-                            desc: "A medley of basmati rice and mixed vegetables cooked together with aromatic spices, creating a flavorful and colorful rice dish. Each spoonful is a delightful combination of textures and tastes, perfect for a wholesome meal.",
-                            price: "₹85",
-                            imgURL: "https://www.funfoodfrolic.com/wp-content/uploads/2022/05/Veg-Pulao-Blog.jpg"},
-                           {name: "Lemon Rice",
-                            desc: "Tangy and zesty, lemon rice is made by tossing cooked rice with a tempering of mustard seeds, curry leaves, peanuts, and a generous squeeze of fresh lemon juice. It's a refreshing and light option, bursting with citrusy flavors.",
-                            price: "₹59",
-                            imgURL: "https://www.whiskaffair.com/wp-content/uploads/2019/03/Lemon-Rice-2-3.jpg"},
-                           {name: "Mushroom Biryani",
-                            desc: "A delectable combination of basmati rice, fragrant spices, and succulent mushrooms. This vegetarian biryani is a burst of earthy flavors and is sure to satisfy both mushroom lovers and rice enthusiasts.",
-                            price: "₹89",
-                            imgURL: "https://production-media.gousto.co.uk/cms/mood-image/1485---10-Min-Mushroom-Biryani-With-Cucumber-Raita.jpg"},
-                           {name: "Mutton Biryani",
-                            desc: "Succulent mutton pieces cooked with basmati rice, aromatic spices, and a blend of herbs. This rich and flavorful biryani is a celebration of tender meat and fragrant rice, creating a memorable dining experience.",
-                            price: "₹119",
-                            imgURL: "https://www.licious.in/blog/wp-content/uploads/2022/03/Licious-Holi-2022-009-1-min-1024x1024-1-600x600.jpg"}],
-            curryMagic:  [{name: "Palak Paneer",
-                            desc: "Soft cubes of paneer (Indian cottage cheese) simmered in a luscious spinach gravy with aromatic spices. This vegetarian delight is not only rich in flavor but also packed with the goodness of spinach, making it a favorite choice among Indian food lovers.",
-                            price: "₹99",
-                            imgURL: "https://images.unsplash.com/photo-1589647363585-f4a7d3877b10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGFsYWslMjBwYW5lZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"},
-                           {name: "Chana Masala",
-                            desc: "A popular North Indian dish made with chickpeas simmered in a flavorful and tangy tomato-based gravy, infused with aromatic spices. This vegetarian curry is hearty, protein-packed, and pairs well with rice, naan, or roti.",
-                            price: "₹59",
-                            imgURL: "https://www.archanaskitchen.com/images/archanaskitchen/0-Archanas-Kitchen-Recipes/2020/Amritsari_Chole_Masala_Recipe_Punjabi_Chole_Masala_Chana_Masala_4.jpg"},
-                           {name: "Malai Kofta",
-                            desc: "Deep-fried paneer and vegetable dumplings served in a creamy and rich cashew-based gravy, flavored with aromatic spices. This indulgent vegetarian dish is a true delight, offering a perfect combination of textures and flavors.",
-                            price: "₹79",
-                            imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs_n8Vl3qICMThV3QirKW9szqe64VidCEY_A&usqp=CAU"},
-                           {name: "Butter Chicken",
-                            desc: "Tender chicken cooked in a creamy and flavorful tomato-based gravy, enriched with butter and aromatic spices. This iconic Indian dish is a harmonious blend of tangy and creamy flavors, perfect to be savored with naan or rice.",
-                            price: "₹129",
-                            imgURL: "https://img.freepik.com/free-photo/curry-with-chicken-onions-indian-food-asian-cuisine_2829-6270.jpg?size=626&ext=jpg"},
-                           {name: "Dal Makhni",
-                            desc: "A creamy and flavorful lentil curry made with a combination of black lentils (urad dal) and kidney beans (rajma), simmered in a rich tomato-based gravy with aromatic spices. This comforting and wholesome dish is often enjoyed with rice or naan.",
-                            price: "₹69",
-                            imgURL: "https://img.freepik.com/premium-photo/indian-dhal-spicy-curry-bowl-spices-herbs-rustic-black-wooden-background_2829-4752.jpg?size=626&ext=jpg"}],
-            breadBonaza: [{name: "Aloo Paratha",
-                            desc: "Indulge in the warmth of a perfectly cooked paratha, crispy on the outside and generously stuffed with a spiced potato filling. As you tear into it, the savory aroma fills the air, and with each bite, the tender potatoes melt in your mouth, leaving you craving for more.",
-                            price: "₹25",
-                            imgURL: "https://static.toiimg.com/thumb/53109843.cms?imgsize=244340&width=800&height=800"},
-                           {name: "Onion Kulcha",
-                            desc: "Experience the delightful crunch as you bite into a golden-brown kulcha, revealing the tantalizing blend of onions and aromatic spices inside. The sweet-savory flavors dance on your taste buds, creating a symphony of tastes that perfectly complements your favorite curry.",
-                            price: "₹19",
-                            imgURL: "https://img.freepik.com/free-photo/delicious-assortment-traditional-roti_23-2149033985.jpg?size=626&ext=jpg"},
-                           {name: "Masala Dosa",
-                            desc: "Immerse yourself in the crispiness of a paper-thin dosa, folded over a delicious potato masala filling. With its golden, lacy edges and a delicate crunch, the dosa unveils a burst of flavors with every bite, taking you on a culinary journey to the flavors of South India.",
-                            price: "₹69",
-                            imgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLHNEKsFkGWR1wowkM8m3pOq-AY6myPZc2jA&usqp=CAU"},
-                           {name: "Puri",
-                            desc: "Give in to the temptation of these golden orbs of delight, deep-fried to perfection. As you break into a hot and puffed puri, the irresistible aroma wafts through the air, leading you to a heavenly experience of dipping it into aromatic curries and relishing the crispiness as it melts in your mouth.",
-                            price: "₹9",
-                            imgURL: "https://img.freepik.com/premium-photo/puri-bhaji-indian-semi-dry-potato-spicy-recipe-also-known-as-batata-aloo-ki-sabji-served-with-fried-poori-selective-focus_466689-12820.jpg?size=626&ext=jpg"},
-                           {name: "Roti",
-                            desc: "Savor the simplicity of a warm, freshly made roti, with its softness and slight charred spots imparting a delightful texture. With its wholesome goodness, each tear of the soft bread is a comforting reminder of home-cooked meals and the joy of relishing it with your favorite curry.",
-                            price: "₹7",
-                            imgURL: "https://img.freepik.com/free-photo/homemade-wheat-tortillas-pita-bread-tortilla-pita-with-ingredients-cooking-white-table-top-view_127032-2505.jpg?size=626&ext=jpg"}],
-            snackAttack: [{name: "Pakoras",
-                            desc: "Deep-fried fritters made from a batter of gram flour and a variety of vegetables such as onions, spinach, or potatoes. With their crispy exterior and soft, flavorful interior, pakoras are a delightful snack option, especially when paired with tangy chutneys.",
-                            price: "₹24",
-                            imgURL: "https://pipingpotcurry.com/wp-content/uploads/2022/10/Air-fryer-onion-pakora-Piping-Pot-Curry-1.jpg"},
-                           {name: "Bhel Puri",
-                            desc: "A medley of puffed rice, sev (crunchy chickpea noodles), onions, tomatoes, chutneys, and a burst of tangy and spicy flavors. This iconic street snack offers a riot of textures and tastes, creating a harmonious blend of sweet, sour, and savory elements that will leave your taste buds dancing.",
-                            price: "₹19",
-                            imgURL: "https://upload.wikimedia.org/wikipedia/commons/2/20/Indian_cuisine-Chaat-Bhelpuri-03.jpg"},
-                           {name: "Aloo Tikki",
-                            desc: "Crispy potato patties, golden on the outside and soft on the inside, seasoned with spices and served with tangy tamarind chutney and refreshing mint chutney. These irresistible tikkis are a perfect snack to satisfy your cravings with their delightful combination of flavors and textures.",
-                            price: "₹34",
-                            imgURL: "https://img.freepik.com/free-photo/chicken-skewers-with-slices-apples-chili_2829-19997.jpg?size=626&ext=jpg"},
-                           {name: "Samosas",
-                            desc: "Crispy and golden pastry pockets filled with a savory mixture of spiced potatoes, peas, and aromatic spices. These triangular delights are a popular Indian street food, perfect for satisfying your snack cravings with their irresistible crunch and flavorful filling.",
-                            price: "₹9",
-                            imgURL: "https://img.freepik.com/free-photo/delicious-pakistani-food-with-tomato-sauce_23-2148825164.jpg?size=626&ext=jpg"}],
-            refreshingBeverages:[{name: "Aam Panna",
-                            desc: "A refreshing drink made from raw mango pulp, infused with spices like cumin, black salt, and mint leaves. Aam Panna is known for its sweet and tangy taste and is a popular summer cooler, helping to beat the heat and rejuvenate the body.",
-                            price: "₹14",
-                            imgURL: "https://img.freepik.com/free-photo/two-glasses-melon-juice-put-wooden-floor_1150-28039.jpg?size=626&ext=jpg"},
-                           {name: "Thandai",
-                            desc: "A traditional Indian drink made with a blend of soaked and ground almonds, cashews, melon seeds, and a mix of aromatic spices like cardamom, fennel, and saffron. Thandai is often served during festivals like Holi and provides a cooling and flavorful experience.",
-                            price: "₹29",
-                            imgURL: "https://img.freepik.com/free-photo/almond-milk-with-almond-marble-background_1150-45110.jpg?size=626&ext=jpg"},
-                           {name: "Coconut Water",
-                            desc: "The natural electrolyte-rich water found inside young coconuts is a popular and refreshing beverage in India. It is not only delicious but also hydrating, making it an excellent choice to quench your thirst and replenish essential minerals.",
-                            price: "₹24",
-                            imgURL: "https://img.freepik.com/free-photo/fresh-coconut-hand-with-plumeria-decorated-beach-with-sea-wave-tourist-with-fresh-fruit-sea-sand-sun-vacation-concept_1150-13508.jpg?size=626&ext=jpg"},
-                           {name: "Lassi",
-                            desc: "A popular yogurt-based drink available in sweet or savory variations. Sweet lassi is made with yogurt, sugar, and flavors like rose or mango, while savory lassi includes ingredients like salt, cumin, and mint. Lassi is creamy, refreshing, and a perfect accompaniment to spicy meals.",
-                            price: "₹49",
-                            imgURL: "https://img.freepik.com/free-photo/ayran-drink-with-mint-cucumber-glass-wooden-table_123827-21428.jpg?size=626&ext=jpg"},
-                           {name: "Jaljeera",
-                            desc: "A tangy and savory drink made with a blend of roasted cumin seeds, black salt, mint leaves, and tamarind pulp. Jaljeera is known for its cooling properties and is often enjoyed as a digestive drink, providing a burst of flavors that awaken the taste buds.",
-                            price: "₹12",
-                            imgURL: "https://img.freepik.com/free-photo/glasses-with-lemonade-table_23-2148482456.jpg?size=626&ext=jpg"}]},
   },
   {
-    name: "Anjali Sharma",
-    imgURL: "https://drive.google.com/uc?id=19s3ZXsi3wNAdkPKBbf-s-J7OVM_m6pzB",
-    foodType: "south indian, punjabi",
-    quote: "Homemade goodness that satisfies your cravings",
+    name: "Suhani Suman",
+    imgURL: "https://drive.google.com/uc?id=1QA_gDVsVsQKKpoBx-61nPRfnoDtgLPAH",
+    foodType: "Indian snacks, Italian",
+    quote: "Unleashing flavors that ignite your taste buds",
     rating: "4.2",
-    noOfOrders: "122",
-    minPrice: "79",
-    dateOfJoining: "2023-10-2"
+    noOfOrders: "48",
+    minPrice: "75",
+    dateOfJoining: "2022-07-15"
   },
   {
-  name: "Divya Banerjee",
-  imgURL: "https://drive.google.com/uc?id=1C7wtWLPKCSjedIXM2FHHDOvAdnwWxh3a",
-  foodType: "north indian",
-  quote: "Crafting flavors with love and passion",
-  rating: "4.5",
-  noOfOrders: "68",
-  minPrice: "65",
-  dateOfJoining: "2022-08-25"
+    name: "Mahima Banerjee",
+    imgURL: "https://drive.google.com/uc?id=12lSdjVL2rPgeWb6zxqM_AuNwR3OTp6Qv",
+    foodType: "Bengali Thali",
+    quote: "A delightful journey through the taste of Bengal",
+    rating: "3.8",
+    noOfOrders: "56",
+    minPrice: "55",
+    dateOfJoining: "2023-09-22"
   },
   {
-  name: "Uma Sinha",
-  imgURL: "https://drive.google.com/uc?id=1FcTB06vDEP0wdBwTR3s-PEXBYyJlb4Vq",
-  foodType: "north indian, snacks",
-  quote: "Indulge in the essence of homemade delicacies",
-  rating: "4.2",
-  noOfOrders: "45",
-  minPrice: "99",
-  dateOfJoining: "2022-12-12"
+    name: "Priya mahajan",
+    imgURL: "https://drive.google.com/uc?id=1vXzkhuZ-KjYKn2VV2_oZtbFY-M3TK_0A",
+    foodType: "North Indian, snacks",
+    quote: "Savor the essence of authentic homemade delicacies",
+    rating: "3.7",
+    noOfOrders: "64",
+    minPrice: "89",
+    dateOfJoining: "2023-09-13"
   },
   {
-  name: "Suhani Suman",
-  imgURL: "https://drive.google.com/uc?id=1QA_gDVsVsQKKpoBx-61nPRfnoDtgLPAH",
-  foodType: "Indian snacks, Italian",
-  quote: "Unleashing flavors that ignite your taste buds",
-  rating: "4.2",
-  noOfOrders: "48",
-  minPrice: "75",
-  dateOfJoining: "2022-07-15"
-  },
-  {
-  name: "Mahima Banerjee",
-  imgURL: "https://drive.google.com/uc?id=12lSdjVL2rPgeWb6zxqM_AuNwR3OTp6Qv",
-  foodType: "Bengali Thali",
-  quote: "A delightful journey through the taste of Bengal",
-  rating: "3.8",
-  noOfOrders: "56",
-  minPrice: "55",
-  dateOfJoining: "2023-09-22"
-  },
-  {
-  name: "Priya mahajan",
-  imgURL: "https://drive.google.com/uc?id=1vXzkhuZ-KjYKn2VV2_oZtbFY-M3TK_0A",
-  foodType: "North Indian, snacks",
-  quote: "Savor the essence of authentic homemade delicacies",
-  rating: "3.7",
-  noOfOrders: "64",
-  minPrice: "89",
-  dateOfJoining: "2023-09-13"
-  },
-  {
-  name: "Anamika Singh",
-  imgURL: "https://drive.google.com/uc?id=1aMY8cYpEZBSdtAB-Fwwqt7k0GxwZdCIQ",
-  foodType: "north indian",
-  quote: "Exploring the rich heritage of homemade flavors",
-  rating: "4.4",
-  noOfOrders: "92",
-  minPrice: "75",
-  dateOfJoining: "2023-05-23"
+    name: "Anamika Singh",
+    imgURL: "https://drive.google.com/uc?id=1aMY8cYpEZBSdtAB-Fwwqt7k0GxwZdCIQ",
+    foodType: "north indian",
+    quote: "Exploring the rich heritage of homemade flavors",
+    rating: "4.4",
+    noOfOrders: "92",
+    minPrice: "75",
+    dateOfJoining: "2023-05-23"
   },
   {
     name: "Astha Sharma",

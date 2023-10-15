@@ -63,8 +63,7 @@ const Makers = () => {
             </div>
             <div className="maker-div">
               <h3>{maker.name}</h3>
-              <p className="pc-view">{maker.story.substring(0, 112) + "..."}</p>
-              <p className="mob-view">{maker.story.substring(0, 78) + "..."}</p>
+              <p>{maker.story}</p>
               <div>
                 <button href="#" className="read-btn">
                   <span>Read her story</span>
