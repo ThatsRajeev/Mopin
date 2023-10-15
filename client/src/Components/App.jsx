@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Homepage from "./Homepage";
 import ErrorPage from "./error-page";
-import SellerDetails from "./SellerDetails";
+import SellerPage from "./SellerPage";
 import Profile from "./Profile";
 import Checkout from "./Checkout";
 import Help from "./Help";
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
   },
   {
     path: "sellers/:sellerId",
-    element: <SellerDetails />
+    element: <SellerPage />
   },
   {
     path: "/profile",

@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import woman from "../assets/images/woman.png";
 
-function SellerDetails() {
+function SellerPage() {
   const { sellerId } = useParams();
   const sellerDetails = homecooks.find(item => item.name === sellerId);
   const [activeSwitch, setActiveSwitch] = useState("All");
@@ -437,4 +437,4 @@ function SellerDetails() {
   );
 }
 
-export default SellerDetails;
+export default SellerPage;
