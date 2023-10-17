@@ -189,6 +189,8 @@ const cartSchema = new mongoose.Schema ({
   sellerName: String,
   dishName: String,
   dishPrice: String,
+  dishDesc: String,
+  dishIsVeg: Boolean,
   dishQuantity: Number,
 });
 
@@ -200,6 +202,8 @@ app.post('/api/cartSummary', async (req, res) => {
       sellerName: req.body.sellerName,
       dishName: req.body.dishName,
       dishPrice: req.body.dishPrice,
+      dishDesc: req.body.dishDesc,
+      dishIsVeg: req.body.dishIsVeg,
       dishQuantity: req.body.dishQuantity
     });
     const foundDish = await Cart.findOne({dishName: req.body.dishName})

@@ -202,8 +202,10 @@ const ManageAddressContent = () => {
           <Overlay closeOverlay={() => setShowDelete(false)}>
             <div className="delete-container">
               <h3 className="delete-heading">Are you sure you want to delete the saved Address? </h3>
-              <button className="delete" onClick={deleteAddress}>Delete</button>
-              <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
+              <div style={{display: 'flex'}}>
+                <button className="delete" onClick={deleteAddress}>Delete</button>
+                <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
+              </div>
               <button className="close-button" onClick={() => setShowDelete(false)}>
                 <span class="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
               </button>

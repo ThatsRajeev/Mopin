@@ -108,13 +108,15 @@ function SellerPage() {
     };
   });
 
-  const handleCart = async (name, price, qty) => {
+  const handleCart = async (name, price, desc, isVeg, qty) => {
     return new Promise(async (resolve, reject) => {
       try {
         const data = {
           sellerName: sellerDetails.name,
           dishName: name,
           dishPrice: price,
+          dishDesc: desc,
+          dishIsVeg: isVeg,
           dishQuantity: qty
         };
         const response = await axios.post("http://localhost:5000/api/cartSummary", data);
@@ -163,7 +165,7 @@ function SellerPage() {
     setTotalItems(totalItems+qty);
     setTotalPrice(totalPrice + qty*parseInt(dish.price));
 
-    handleCart(dish.name, dish.price, qty);
+    handleCart(dish.name, dish.price, dish.description, dish.isVeg, qty);
 
     setTimeout(() => {
       toCart.classList.remove('hidden');
@@ -181,7 +183,7 @@ function SellerPage() {
     setTotalItems(totalItems+1);
     setTotalPrice(totalPrice + parseInt(dish.price));
 
-    handleCart(dish.name, dish.price, counterValue.textContent);
+    handleCart(dish.name, dish.price, dish.description, dish.isVeg, counterValue.textContent);
   };
 
   const handleDecrement = (event, dish) => {
@@ -191,7 +193,7 @@ function SellerPage() {
       setTotalItems(totalItems-1);
       setTotalPrice(totalPrice - parseInt(dish.price));
 
-      handleCart(dish.name, dish.price, newValue);
+      handleCart(dish.name, dish.price, dish.description, dish.isVeg, newValue);
     }
     if(newValue === 0) {
       const counter = event.target.parentElement;

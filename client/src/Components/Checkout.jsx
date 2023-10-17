@@ -8,6 +8,7 @@ import ManageAddressContent from './ManageAddressContent';
 const Checkout = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
+  const [showOverlay, setShowOverlay] = useState(false);
   const [address, setAddress] = useState("");
   const [addressType, setAddressType] = useState("");
   const [showLogout, setShowLogout] = useState(false);
@@ -18,6 +19,19 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const navigate = useNavigate();
+  const breakpoint = 35 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -60,9 +74,10 @@ const Checkout = () => {
       let totalPriceCount = 0;
 
       cart.forEach(item => {
-        newdishInfo[item.dishName] = {dishName: item.dishName, sellerName: item.sellerName, dishPrice: item.dishPrice, dishQty: item.dishQuantity};
+        newdishInfo[item.dishName] = {dishName: item.dishName, sellerName: item.sellerName, dishPrice: item.dishPrice, dishDesc: item.dishDesc,
+          dishIsVeg: item.dishIsVeg, dishQty: item.dishQuantity};
         totalItemCount = totalItemCount+item.dishQuantity;
-        totalPriceCount = totalPriceCount+item.dishQuantity*parseInt(item.dishPrice.substring(1));
+        totalPriceCount = totalPriceCount+item.dishQuantity*parseInt(item.dishPrice);
       });
       setdishInfo(newdishInfo);
       setTotalItems(totalItemCount);
@@ -125,12 +140,12 @@ const Checkout = () => {
 };
 
 const verticalLine = {
-    height: name=="" ? '62%' : (!addressChoosen ? '70%' : '50%'),
+    height: name=="" ? '62%' : (!addressChoosen ? '72%' : '50%'),
     width: 0,
     position: 'absolute',
-    left: '188px',
+    left: '60px',
     border: '1px dashed rgb(0,0,0,0.36)',
-    top: '48px',
+    top: '124px',
     zIndex: 1
 }
 
@@ -143,7 +158,9 @@ const verticalLine = {
           <h3 className="delete-heading">Are you sure you want to logout? </h3>
           <button className="delete" onClick={handleLogout}>Yes</button>
           <button className="cancel" onClick={() => {setShowLogout(false)}}>Cancel</button>
-          <button className="close-button" onClick={() => {setShowLogout(false)}}>×</button>
+          <button className="close-button" onClick={() => {setShowLogout(false)}}>
+            <span class="material-symbols-outlined" style={{margin: '0'}}>close</span>
+          </button>
         </div>
       </Overlay>}
       </div>
@@ -171,7 +188,7 @@ const verticalLine = {
     const counterValue = event.target.previousElementSibling;
     counterValue.textContent = parseInt(counterValue.textContent) + 1;
     setTotalItems(totalItems+1);
-    setTotalPrice(totalPrice + parseInt(dish.dishPrice.substring(1)));
+    setTotalPrice(totalPrice + parseInt(dish.dishPrice));
 
     handleCart(dish.dishName, dish.dishPrice, counterValue.textContent);
   };
@@ -181,7 +198,7 @@ const verticalLine = {
     const newValue = parseInt(counterValue.textContent) - 1;
     if (newValue >= 0) {
       setTotalItems(totalItems-1);
-      setTotalPrice(totalPrice - parseInt(dish.dishPrice.substring(1)));
+      setTotalPrice(totalPrice - parseInt(dish.dishPrice));
 
       handleCart(dish.dishName, dish.dishPrice, newValue);
     }
@@ -201,7 +218,7 @@ const verticalLine = {
       key: "rzp_test_vEfERvWyBIr2EW",
       amount: data.amount,
       currency: data.currency,
-      name: sellerName,
+      name: "Mopin",
       description: "Test Transaction",
       order_id: data.id,
       handler: async (response) => {
@@ -226,7 +243,7 @@ const verticalLine = {
   const handlePayment = async () => {
     try {
       const {data} = await axios.post('http://localhost:5000/api/payment/orders', {
-        amount: totalPrice+7+12
+        amount: totalPrice+7+4
       }, {
         withCredentials: true
       });
@@ -239,98 +256,173 @@ const verticalLine = {
 
   return (
     <>
-    <Navbar showAddress="none" header="Secure Checkout"/>
-    <div style={{display: 'flex'}}>
-    <div className="checkout-div">
-      <div className="userDetails">
-        <div className="detailsHead">
-          <div className="logo-circle">
-            <span class="material-symbols-outlined" style={{fontSize: '24px'}}>person</span>
-          </div>
-          {name ? "Logged In" : <div className="deepFocus">Login / Sign Up</div>}
-        </div>
-        {name ?
-        <div className="contactDetails">
-          <span style={{fontWeight: "600"}}>{name}</span>
-          <span style={{margin: '0 6px'}}>|</span>
-          {phoneNumber}
-          <a onClick={() => setShowLogout(true)} className="changeUser"> Change User </a>
-        </div> :
-        <>
-        <p className="placeOrder">To place your order now, log in to your account </p>
-        <Login fromCheckout='true' setLogged={setLogged}/></>
-        }
-      </div>
-      <LogoutContent />
-
-      <div className="userDetails">
-        <div className="detailsHead">
-          <div className="logo-circle">
-          <span class="material-symbols-outlined" style={{fontSize: '24px'}}>location_on</span>
-          </div>
-          {addressChoosen ? "Delivery Address" : <div className="deepFocus">Choose Delivery Address</div>}
-        </div>
-        {addressChoosen ?
-        <div className="contactDetails">
-          <span style={{fontWeight: "600"}}>{addressType}</span>
-          <span style={{margin: '0 6px'}}>|</span>
-          {address.substring(0, 56) + "..."}
-          <a onClick={() => setAddressChoosen(false)} className="changeUser"> Change </a>
-        </div> :
-        <>
-        {name &&<ManageAddressContent fromCheckout='true' setAddressChoosen={setAddressChoosen}/>}</>
-        }
-      </div>
-
-      <div className="userDetails">
-        <div className="detailsHead">
-          <div className="logo-circle">
-          <span class="material-symbols-outlined" style={{fontSize: '24px'}}>account_balance_wallet</span>
-          </div>
-          <div className="deepFocus">Choose Payment Method</div>
-        </div>
-        <div className="contactDetails">
-          <button className="proceedToPay" onClick={handlePayment} disabled={!addressChoosen}>Proceed to Pay</button>
-        </div>
-      </div>
-      <div className="vertical-line" style={verticalLine}></div>
-    </div>
-    <div className="order-summary">
-      <p className="sellerNm">{sellerName}</p>
-      {Object.values(dishInfo).map((dish, index) => (
-        <div key={index} className="readyCheckout">
-          <p className="dishNm">{dish.dishName}</p>
-            <div className="counter ck-counter">
-              <button className="counter-button" onClick={(e) => handleDecrement(e, dish)}>-</button>
-              <span className="counter-value" style={{fontSize: '16px'}}>{dish.dishQty}</span>
-              <button className="counter-button" onClick={(e) => handleIncrement(e, dish)} > +</button>
+      <Navbar showAddress="none" header="Secure Checkout" showNavbar = {windowWidth < breakpoint ? "none" : ""}/>
+      {totalItems ? (
+      <div className="checkout-container">
+        <div className="checkout-div">
+          <div className="delivery-details pc-view">
+            <div className="user-details">
+              <div className="details-head">
+                <div className="checkout-logo-div">
+                  <span class="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>person</span>
+                </div>
+                {name ? "Logged In" : <div className="login-insist">Login / Sign Up</div>}
+              </div>
+              {name ?
+              <div className="contact-details">
+                <div>
+                  <span style={{fontWeight: "600"}}>{name}</span>
+                  <span style={{margin: '0 6px'}}>|</span>
+                  {phoneNumber}
+                </div>
+                <a onClick={() => setShowLogout(true)} className="change-details"> Change User </a>
+              </div> :
+              <>
+              <p className="login-insist-p">To place your order now, log in to your account </p>
+              <Login fromCheckout='true' setLogged={setLogged}/></>
+              }
             </div>
-          <p>{dish.dishPrice}</p>
-        </div>
-      ))}
-      <div className="bill-details">
-        <p style={{fontWeight: '600'}}>Bill Details</p>
-        <div className="priceDetails">
-          <p>Item Total</p>
-          <p>₹{totalPrice}</p>
-        </div>
-        <div className="priceDetails">
-          <p>Delivery Fees</p>
-          <p>₹7</p>
-        </div>
-        <div className="priceDetails">
-          <p>Govt Taxes & Other Charges</p>
-          <p>₹12</p>
-        </div>
-        <div style={{border: '1px solid rgb(0,0,0,0.16)'}}></div>
-        <div className="priceDetails">
-          <p style={{fontWeight: '600', marginTop: '4px'}}>To Pay</p>
-          <p>₹{totalPrice+7+12}</p>
-        </div>
+            <LogoutContent />
 
+            <div className="user-details">
+              <div className="details-head">
+                <div className="checkout-logo-div">
+                <span class="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>location_on</span>
+                </div>
+                {addressChoosen ? "Delivery Address" : <div className="login-insist">Choose Delivery Address</div>}
+              </div>
+              {addressChoosen ?
+              <div className="contact-details">
+                <div>
+                  <span style={{fontWeight: "600"}}>{addressType}</span>
+                  <span style={{margin: '0 6px'}}>|</span>
+                  {address.substring(0, 44) + "..."}
+                </div>
+                <a onClick={() => setAddressChoosen(false)} className="change-details"> Change </a>
+              </div> :
+              <>
+              {name &&<ManageAddressContent fromCheckout='true' setAddressChoosen={setAddressChoosen}/>}</>
+              }
+            </div>
+
+            <div className="user-details">
+              <div className="details-head">
+                <div className="checkout-logo-div">
+                <span class="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>account_balance_wallet</span>
+                </div>
+                <div className="login-insist">Choose Payment Method</div>
+              </div>
+              <div className="contact-details">
+                <button className="proceed-btn" onClick={handlePayment} disabled={!addressChoosen}>Proceed to Pay</button>
+              </div>
+            </div>
+            <div className="vertical-line" style={verticalLine}></div>
+          </div>
+
+          <div className="order-summary">
+            <div className="seller-name">
+              <div className="mob-view">
+                <div style={{display: 'flex', fontSize: '16px'}}>
+                  <span class="material-symbols-outlined" style={{marginRight: '8px'}} onClick={() => navigate(-1)}>arrow_back_ios</span>
+                </div>
+              </div>
+              {sellerName}
+            </div>
+            {Object.values(dishInfo).map((dish, index) => (
+              <div key={index} className="ready-checkout">
+                <div className="checkout-dishinfo">
+                  <div style={{display: 'flex'}}>
+                    <div style={{display: 'inline', marginRight: '6px', fontSize: '20px'}}>
+                      <svg width="16" height="16" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {dish.dishIsVeg ?
+                        <>
+                          <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#43B500"></path>
+                          <circle cx="5" cy="5" r="2" fill="#43B500"></circle>
+                        </> :
+                        <>
+                          <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#a5292a"></path>
+                          <path d="M4.74019 2.825C4.85566 2.625 5.14434 2.625 5.25981 2.825L7.33827 6.425C7.45374 6.625 7.3094 6.875 7.07846 6.875H2.92154C2.6906 6.875 2.54626 6.625 2.66173 6.425L4.74019 2.825Z" fill="#a5292a"></path>
+                        </>}
+                      </svg>
+                    </div>
+                    <div className="dishname">{dish.dishName}</div>
+                  </div>
+                  <h3>₹{dish.dishPrice}</h3>
+                </div>
+                <div className="checkout-dishinfo">
+                  <p>{dish.dishDesc}</p>
+                  <div className="counter" style={{width: '72px', padding: '0.8%', transform: 'unset'}}>
+                    <button className="counter-button" onClick={(e) => handleDecrement(e, dish)}>-</button>
+                    <span className="counter-value" style={{fontSize: '14px'}}>{dish.dishQty}</span>
+                    <button className="counter-button" onClick={(e) => handleIncrement(e, dish)} > +</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div className="ready-checkout">
+              <h4 style={{marginBottom: '4px'}}>APPLY COUPON</h4>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <p>Explore available offers</p>
+                <span class="material-symbols-outlined" style={{margin: '0'}}>chevron_right</span>
+              </div>
+            </div>
+            <div className="ready-checkout">
+              <h4>Bill Details</h4>
+              <div className="price-details">
+                <p>Item Total</p>
+                <p>₹{totalPrice}</p>
+              </div>
+              <div className="price-details">
+                <p>Packaging & Delivery</p>
+                <p>₹7</p>
+              </div>
+              <div className="price-details">
+                <p>Govt Taxes</p>
+                <p>₹4</p>
+              </div>
+              <div style={{border: '1px solid rgb(0,0,0,0.12)', margin: '8px 0'}}></div>
+              <div className="checkout-dishinfo">
+                <h4 style={{marginTop: '4px'}}>To Pay</h4>
+                <h4>₹{totalPrice+7+4}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> ) : (
+      <div className="empty-cart">
+        <div className="empty-cart-img"></div>
+        <h3>Your cart is empty</h3>
+        <p>You can go back back to homepage to view homechefs</p>
+        <button className="explore-btn" onClick={() => navigate("/")}>Explore Food</button>
       </div>
-    </div>
-    </div>
+      )}
+
+      <div className="bottom-container mob-view" style={{display: 'block'}}>
+        {!addressChoosen ? (
+        <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
+          {showOverlay && (
+            <Overlay closeOverlay={() => setShowOverlay(false)}>
+              <div style={{backgroundColor: '#fff'}}>
+                <ManageAddressContent fromCheckout='true' setAddressChoosen={setAddressChoosen} addressFlex='true'/>
+              </div>
+            </Overlay>
+           )}
+           <button className="proceed-btn" onClick={() => setShowOverlay(true)}>Choose Address</button>
+        </div> ) : (
+          <div className="contact-details" style={{margin: '8px 0', flexDirection: 'column'}}>
+            <div className="contact-details" style={{flexDirection: 'column', margin: '0 0 14px'}}>
+              <div className="checkout-dishinfo">
+                <h3>Deliver to</h3>
+                <a onClick={() => setAddressChoosen(false)} className="change-details" style={{color: "#f16122"}}> Change </a>
+              </div>
+              <div className="bottom-container-address">
+                {address}
+              </div>
+            </div>
+            <button className="proceed-btn" onClick={handlePayment}><h4>Proceed to Pay (₹{totalPrice+7+4})</h4></button>
+        </div>
+      )}
+      </div>
     </>
   )
 }

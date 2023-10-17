@@ -84,8 +84,9 @@ const Logo = styled.h1`
 `;
 
 const Head = styled.h3`
-  margin-left: 64px;
-  font-weight: 600;
+  position: absolute;
+  font-size: 18px;
+  transform: translateX(100%);
 `;
 
 const FlexContainer = styled.div`
@@ -257,7 +258,7 @@ const SearchButton = styled.button`
 
 const Menu = styled.ul`
   display: flex;
-  width: ${(props) => (props.open ? "24%" : "42%")};
+  width: ${(props) => (props.open ? "18%" : "42%")};
   justify-content: space-between;
 
 
