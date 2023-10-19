@@ -12,7 +12,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "client/public/index.html"
+      "dest": "build/index.html"
     }
   ]
-} 
+}
