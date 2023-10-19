@@ -233,7 +233,7 @@ app.post('/api/cartSummary', async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).send("Error processing request");
-  }
+  } 
 });
 
 app.get('/api/cartSummary', async (req, res) => {
