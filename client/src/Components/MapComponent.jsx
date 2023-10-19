@@ -102,6 +102,7 @@ function MapComponent({ setShowMap }) {
   const isSmallScreen = window.innerWidth <= 35 * parseFloat(getComputedStyle(document.documentElement).fontSize);
   const [currentLocation, setCurrentLocation] = useState({ lat: null, lng: null });
   const [address, setAddress] = useState("");
+  const [addressType, setAddressType] = useState("");
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(async (position) => {
@@ -118,10 +119,24 @@ function MapComponent({ setShowMap }) {
 
    const fetchData = async () => {
      try {
-       const response = await axios.get('http://localhost:5000/api/userdata', {
+       const response = await axios.get('/api/userdata', {
          withCredentials: true
        });
        setphoneNumber(response.data.phoneNumber);
+
+     } catch (error) {
+       console.error(error);
+     }
+   };
+
+   const fetchAddress = async () => {
+     try {
+       const response = await axios.get('/api/addressdata', {
+         withCredentials: true
+       });
+       setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
+                  response.data.streetDetails + ", " + response.data.address);
+       setAddressType(response.data.addressType);
 
      } catch (error) {
        console.error(error);
@@ -147,8 +162,9 @@ function MapComponent({ setShowMap }) {
           streetDetails: details,
           addressType: type === "Others" ? others : type
         };
-        const response = await axios.post("http://localhost:5000/api/savepoint", data);
+        const response = await axios.post("/api/savepoint", data);
         setShowMap(false);
+        window.location.reload();
         resolve(response.data);
       } catch (error) {
         console.error(error);

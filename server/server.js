@@ -5,9 +5,11 @@ const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const secretKey = "secret";
 const dotenv = require("dotenv");
 const paymentRoutes = require("./routes/payment");
+const path = require("path");
+
+dotenv.config();
 
 app.use(cors({
   origin: "http://localhost:3000",
@@ -16,11 +18,12 @@ app.use(cors({
 dotenv.config();
 
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname, 'build')));
 app.use(cookieParser());
 
 app.use("/api/payment", paymentRoutes);
 
-mongoose.connect("mongodb://127.0.0.1:27017/userDB", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
 const userSchema = new mongoose.Schema ({
   phoneNumber: Number,
@@ -75,7 +78,7 @@ app.post('/api/authenticate', (req, res) => {
   }
   const expiresIn = 60*60*24*30;
 
-  jwt.sign(payload, secretKey, { expiresIn }, (err, token)=> {
+  jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn }, (err, token)=> {
     if (err) {
       console.error(err);
       return res.status(500).json({message: "Error generating token"});
@@ -91,7 +94,7 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json({ message: 'Authentication failed' });
   }
 
-  jwt.verify(token, secretKey, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
     if (err) {
       console.log(err);
       return res.status(401).json({ message: 'Invalid token' });
@@ -108,6 +111,10 @@ app.get('/api/userdata', verifyToken, async (req, res) => {
     // Access user data from the decoded token
     phoneNumber = req.user.phoneNumber;
     const foundUserByPhone = await User.findOne({ phoneNumber: req.user.phoneNumber });
+
+    if (!foundUserByPhone) {
+      return res.status(404).json({ message: 'User not found' });
+    }
     res.json({
       name: foundUserByPhone.name,
       email: foundUserByPhone.email,
@@ -160,6 +167,10 @@ app.get('/api/addressdata', async (req, res) => {
   try {
     if(phoneNumber) {
       const foundAddress = await Address.findOne({ phoneNumber: phoneNumber });
+
+      if (!foundAddress) {
+        return res.status(404).json({ message: 'Address not found' });
+      }
       res.json({
         address: foundAddress.address,
         apartmentNumber: foundAddress.apartmentNumber,
@@ -240,6 +251,6 @@ app.get('/api/logout', (req, res) => {
   res.status(200).json({ message: 'Logout successful' });
 });
 
-app.listen(5000, () => {
-  console.log("Server started on port 5000");
+app.listen(process.env.PORT, () => {
+  console.log(`Server started on port ${process.env.PORT}`);
 });

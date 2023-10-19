@@ -394,7 +394,7 @@ function Navbar(props) {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/userdata', {
+      const response = await axios.get('/api/userdata', {
         withCredentials: true
       });
       setName(response.data.name);

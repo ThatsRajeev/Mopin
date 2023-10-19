@@ -139,7 +139,7 @@ const OTP = async (event) => {
 
     const authenticate = async (event) => {
       try {
-        await axios.post("http://localhost:5000/api/authenticate", {phoneNumber}, {
+        await axios.post("/api/authenticate", {phoneNumber}, {
           withCredentials: true
         });
         fetchData();
@@ -174,7 +174,7 @@ const sendDataToServer = async (event) => {
         name: name.length ? name : "",
         email: email.length ? email : "",
       };
-      const response = await axios.post("http://localhost:5000/api/endpoint", data);
+      const response = await axios.post("/api/endpoint", data);
       console.log(response.data);
 
       resolve(response.data);

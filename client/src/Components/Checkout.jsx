@@ -35,7 +35,7 @@ const Checkout = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/userdata', {
+      const response = await axios.get('/api/userdata', {
         withCredentials: true
       });
       setName(response.data.name);
@@ -48,7 +48,7 @@ const Checkout = () => {
 
   const fetchAddress = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/addressdata', {
+      const response = await axios.get('/api/addressdata', {
         withCredentials: true
       });
       setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
@@ -64,7 +64,7 @@ const Checkout = () => {
 
   const fetchCartInfo = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/cartSummary', {
+      const response = await axios.get('/api/cartSummary', {
         withCredentials: true
       });
       const cart = response.data;
@@ -89,7 +89,7 @@ const Checkout = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/logout', {
+      const response = await axios.get('/api/logout', {
         withCredentials: true
       });
       navigate('/');
@@ -176,7 +176,7 @@ const verticalLine = {
           dishPrice: price,
           dishQuantity: qty
         };
-        const response = await axios.post("http://localhost:5000/api/cartSummary", data);
+        const response = await axios.post("/api/cartSummary", data);
         resolve(response.data);
       } catch (error) {
         console.error(error);
@@ -223,7 +223,7 @@ const verticalLine = {
       order_id: data.id,
       handler: async (response) => {
         try {
-          const {data} = await axios.post('http://localhost:5000/api/payment/verify', {
+          const {data} = await axios.post('/api/payment/verify', {
           }, {
             withCredentials: true
           });
@@ -242,13 +242,19 @@ const verticalLine = {
 
   const handlePayment = async () => {
     try {
-      const {data} = await axios.post('http://localhost:5000/api/payment/orders', {
+      const {data} = await axios.post('/api/payment/orders', {
         amount: totalPrice+7+4
       }, {
         withCredentials: true
       });
       console.log(data);
       initPayment(data.data);
+
+      setdishInfo({});
+      setTotalItems(0);
+      setTotalPrice(0);
+
+      navigate("/");
     } catch (error) {
       console.error(error);
     }

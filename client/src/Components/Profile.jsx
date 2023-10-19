@@ -36,7 +36,7 @@ const Profile = () => {
 
    const fetchData = async () => {
      try {
-       const response = await axios.get('http://localhost:5000/api/userdata', {
+       const response = await axios.get('/api/userdata', {
          withCredentials: true
        });
        setName(response.data.name);
@@ -50,7 +50,7 @@ const Profile = () => {
 
    const fetchAddress = async () => {
      try {
-       const response = await axios.get('http://localhost:5000/api/addressdata', {
+       const response = await axios.get('/api/addressdata', {
          withCredentials: true
        });
        setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
@@ -64,7 +64,7 @@ const Profile = () => {
 
    const deleteAddress = async () => {
      try {
-       const response = await axios.get('http://localhost:5000/api/deletedata', {
+       const response = await axios.get('/api/deletedata', {
          withCredentials: true
        });
        setShowDelete(false);
@@ -76,7 +76,7 @@ const Profile = () => {
 
    const handleLogout = async () => {
      try {
-       const response = await axios.get('http://localhost:5000/api/logout', {
+       const response = await axios.get('/api/logout', {
          withCredentials: true
        });
        navigate('/');

@@ -36,7 +36,7 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
 
   const fetchAddress = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/addressdata', {
+      const response = await axios.get('/api/addressdata', {
         withCredentials: true
       });
       setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
@@ -50,7 +50,7 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
 
   const deleteAddress = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/deletedata', {
+      const response = await axios.get('/api/deletedata', {
         withCredentials: true
       });
       setShowDelete(false);

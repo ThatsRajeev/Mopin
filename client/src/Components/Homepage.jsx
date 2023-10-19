@@ -31,12 +31,8 @@ function Homepage() {
   function rated(props) {
     return { display: props.rating >= 4.4 ? "block" : "none" };
   }
-  function snacks(props) {
-    return {
-      display: props.foodType.toLowerCase().includes("snacks")
-        ? "block"
-        : "none"
-    };
+  function healthy(props) {
+    return { display: props.healthyPick ? "block" : "none" };
   }
 
   return (
@@ -91,12 +87,12 @@ function Homepage() {
 
       <div>
         <div className="header-container">
-          <h1 className="cardHeader">Appetizers</h1>
-          <button className="see-all-btn">See All <div>&nbsp;Appetizers</div>
+          <h1 className="cardHeader">Healthy Picks</h1>
+          <button className="see-all-btn">See All <div>&nbsp;Healthy Picks</div>
             <span className="material-symbols-outlined" style={{marginRight: '-8px'}}>navigate_next</span>
           </button>
         </div>
-        <FoodSlider func={snacks} />
+        <FoodSlider func={healthy} />
       </div>
 
       <div className="border-separator"></div>
@@ -107,6 +103,8 @@ function Homepage() {
         </div>
         <Makers />
       </div>
+
+      <div className="border-separator"></div>
 
       <div>
         <div className="header-container pc-view">
