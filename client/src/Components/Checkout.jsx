@@ -176,7 +176,7 @@ const verticalLine = {
           dishPrice: price,
           dishQuantity: qty
         };
-        const response = await axios.post("https://mopin.vercel.app//api/cartSummary", data);
+        const response = await axios.post("https://mopin.vercel.app/api/cartSummary", data);
         resolve(response.data);
       } catch (error) {
         console.error(error);
@@ -223,7 +223,7 @@ const verticalLine = {
       order_id: data.id,
       handler: async (response) => {
         try {
-          const {data} = await axios.post('https://mopin.vercel.app//api/payment/verify', {
+          const {data} = await axios.post('https://mopin.vercel.app/api/payment/verify', {
           }, {
             withCredentials: true
           });
@@ -242,7 +242,7 @@ const verticalLine = {
 
   const handlePayment = async () => {
     try {
-      const {data} = await axios.post('https://mopin.vercel.app//api/payment/orders', {
+      const {data} = await axios.post('https://mopin.vercel.app/api/payment/orders', {
         amount: totalPrice+7+4
       }, {
         withCredentials: true
