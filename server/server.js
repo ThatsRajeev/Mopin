@@ -12,7 +12,7 @@ const path = require("path");
 dotenv.config();
 
 app.use(cors({
-  origin: "https://mopin-qglb8uy9j-thatsrajeevs-projects.vercel.app",
+  origin: "https://mopin-frontend.vercel.app/",
   methods: ["POST", "GET"],
   credentials: true
 }));

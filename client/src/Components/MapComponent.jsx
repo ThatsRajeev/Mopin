@@ -162,7 +162,7 @@ function MapComponent({ setShowMap }) {
           streetDetails: details,
           addressType: type === "Others" ? others : type
         };
-        const response = await axios.post("/api/savepoint", data);
+        const response = await axios.post("https://mopin.vercel.app//api/savepoint", data);
         setShowMap(false);
         window.location.reload();
         resolve(response.data);

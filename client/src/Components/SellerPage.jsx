@@ -119,7 +119,7 @@ function SellerPage() {
           dishIsVeg: isVeg,
           dishQuantity: qty
         };
-        const response = await axios.post("/api/cartSummary", data);
+        const response = await axios.post("https://mopin.vercel.app//api/cartSummary", data);
         resolve(response.data);
       } catch (error) {
         console.error(error);
