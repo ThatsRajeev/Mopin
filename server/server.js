@@ -12,7 +12,8 @@ const path = require("path");
 dotenv.config();
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://mopin-qglb8uy9j-thatsrajeevs-projects.vercel.app",
+  methods: ["POST", "GET"],
   credentials: true
 }));
 dotenv.config();
@@ -233,7 +234,7 @@ app.post('/api/cartSummary', async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).send("Error processing request");
-  } 
+  }
 });
 
 app.get('/api/cartSummary', async (req, res) => {
