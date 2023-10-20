@@ -7,6 +7,22 @@
   ],
   "routes": [
     {
+      "src":"/",
+      "dest": "/",
+    },
+    {
+      "src": "/sellers/:sellerId",
+      "dest": "/"
+    },
+    {
+      "src": "/profile",
+      "dest": "/"
+    },
+    {
+      "src": "/checkout",
+      "dest": "/"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "server/server.js"
     },
