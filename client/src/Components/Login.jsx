@@ -18,6 +18,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+axios.defaults.withCredentials = true;
 
 function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
   const [isSignUp, setSignUp] = useState(false);
