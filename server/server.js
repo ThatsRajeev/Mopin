@@ -15,8 +15,6 @@ app.use(cors({
   origin: ["https://mopin-frontend.vercel.app"],
   methods: ["POST", "GET"],
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-  exposedHeaders: ["Authorization"]
 }));
 dotenv.config();
 
