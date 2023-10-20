@@ -7,28 +7,24 @@
   ],
   "routes": [
     {
-      "src":"/",
-      "dest": "/",
+      "src": "/",
+      "dest": "client/build/index.html"
     },
     {
       "src": "/sellers/:sellerId",
-      "dest": "/"
+      "dest": "client/build/index.html"
     },
     {
       "src": "/profile",
-      "dest": "/"
+      "dest": "client/build/index.html"
     },
     {
       "src": "/checkout",
-      "dest": "/"
+      "dest": "client/build/index.html"
     },
     {
       "src": "/api/(.*)",
       "dest": "server/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "client/build/index.html"
     }
   ]
 }
