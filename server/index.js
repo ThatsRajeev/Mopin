@@ -26,6 +26,10 @@ app.use("/api/payment", paymentRoutes);
 
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
+app.get("/", (req, res) => {
+  res.json("hello");
+})
+
 const userSchema = new mongoose.Schema ({
   phoneNumber: Number,
   name: String,
