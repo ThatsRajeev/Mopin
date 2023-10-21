@@ -379,7 +379,7 @@ function Navbar(props) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
         const response = await axios.get(
-          `/proxy/geocode/v1/json?q=${latitude}+${longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`
+          `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${latitude}+${longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`
         );
         setSelectedAddress(
           response.data.results[0].formatted
@@ -394,7 +394,7 @@ function Navbar(props) {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('/api/userdata', {
+      const response = await axios.get('https://mopin-server.vercel.app/api/userdata', {
         withCredentials: true
       });
       setName(response.data.name);

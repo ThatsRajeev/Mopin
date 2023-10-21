@@ -140,7 +140,7 @@ const OTP = async (event) => {
 
     const authenticate = async (event) => {
       try {
-        await axios.post("https://mopin.vercel.app/api/authenticate", {phoneNumber}, {
+        await axios.post("https://mopin-server.vercel.app/api/authenticate", {phoneNumber}, {
           withCredentials: true
         });
         fetchData();
@@ -175,7 +175,7 @@ const sendDataToServer = async (event) => {
         name: name.length ? name : "",
         email: email.length ? email : "",
       };
-      const response = await axios.post("https://mopin.vercel.app/api/endpoint", data);
+      const response = await axios.post("https://mopin-server.vercel.app/api/endpoint", data);
       console.log(response.data);
 
       resolve(response.data);

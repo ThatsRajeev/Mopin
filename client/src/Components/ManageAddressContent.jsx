@@ -36,7 +36,7 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
 
   const fetchAddress = async () => {
     try {
-      const response = await axios.get('/api/addressdata', {
+      const response = await axios.get('https://mopin-server.vercel.app/api/addressdata', {
         withCredentials: true
       });
       setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
@@ -50,7 +50,7 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
 
   const deleteAddress = async () => {
     try {
-      const response = await axios.get('/api/deletedata', {
+      const response = await axios.get('https://mopin-server.vercel.app/api/deletedata', {
         withCredentials: true
       });
       setShowDelete(false);

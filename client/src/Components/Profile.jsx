@@ -36,7 +36,7 @@ const Profile = () => {
 
    const fetchData = async () => {
      try {
-       const response = await axios.get('/api/userdata', {
+       const response = await axios.get('https://mopin-server.vercel.app/api/userdata', {
          withCredentials: true
        });
        setName(response.data.name);
@@ -50,7 +50,7 @@ const Profile = () => {
 
    const fetchAddress = async () => {
      try {
-       const response = await axios.get('/api/addressdata', {
+       const response = await axios.get('https://mopin-server.vercel.app/api/addressdata', {
          withCredentials: true
        });
        setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
@@ -64,7 +64,7 @@ const Profile = () => {
 
    const deleteAddress = async () => {
      try {
-       const response = await axios.get('/api/deletedata', {
+       const response = await axios.get('https://mopin-server.vercel.app/api/deletedata', {
          withCredentials: true
        });
        setShowDelete(false);
@@ -76,7 +76,7 @@ const Profile = () => {
 
    const handleLogout = async () => {
      try {
-       const response = await axios.get('/api/logout', {
+       const response = await axios.get('https://mopin-server.vercel.app/api/logout', {
          withCredentials: true
        });
        navigate('/');

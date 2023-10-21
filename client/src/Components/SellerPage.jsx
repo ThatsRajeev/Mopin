@@ -119,7 +119,7 @@ function SellerPage() {
           dishIsVeg: isVeg,
           dishQuantity: qty
         };
-        const response = await axios.post("https://mopin.vercel.app/api/cartSummary", data);
+        const response = await axios.post("https://mopin-server.vercel.app/api/cartSummary", data);
         resolve(response.data);
       } catch (error) {
         console.error(error);
@@ -129,7 +129,7 @@ function SellerPage() {
 
   const fetchCartInfo = async () => {
     try {
-      const response = await axios.get('/api/cartSummary', {
+      const response = await axios.get('https://mopin-server.vercel.app/api/cartSummary', {
         withCredentials: true
       });
       const cart = response.data;
