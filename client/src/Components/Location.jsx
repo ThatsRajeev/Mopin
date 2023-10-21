@@ -10,7 +10,8 @@ const Location = ({ setAddressProp, setShowProp }) => {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
         const response = await axios.get(
-          `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`
+          `/proxy/geocode/v1/json?q=${latitude}+${longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`,
+          { withCredentials: true }
         );
         setAddressProp(
           response.data.results[0].formatted
@@ -27,7 +28,7 @@ const Location = ({ setAddressProp, setShowProp }) => {
     if (inputValue) {
       try {
         const response = await axios.get(
-          `https://api.opencagedata.com/geocode/v1/json?q=${inputValue}&key=12b6daa5213d46898ef052dfacf9ac5a&countrycode=in&limit=5`
+          `/proxy/geocode/v1/json?q=${inputValue}&key=12b6daa5213d46898ef052dfacf9ac5a&countrycode=in&limit=5`
         );
         setSuggestions(response.data.results);
       } catch (error) {
@@ -66,7 +67,7 @@ const Location = ({ setAddressProp, setShowProp }) => {
             onChange={handleInputChange}
             value={inputValue}
           />
-          {inputValue && ( 
+          {inputValue && (
             <button className="clear-button" onClick={handleClearInput}>
             <span class="material-symbols-outlined" style={{fontSize: '16px', margin: '0'}}>close</span>
             </button>

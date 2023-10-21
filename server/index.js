@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const request = require('request');
 const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -12,15 +13,14 @@ const path = require("path");
 dotenv.config();
 
 app.use(cors({
-  origin: ["https://mopin-frontend.vercel.app"],
+  origin: "https://mopin-frontend.vercel.app",
   methods: ["POST", "GET"],
   credentials: true,
 }));
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://mopin-frontend.vercel.app');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
+app.use('/proxy', function(req, res) {
+  var url = 'https://api.opencagedata.com' + req.url;
+  req.pipe(request(url)).pipe(res);
 });
 
 dotenv.config();
