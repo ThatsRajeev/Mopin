@@ -147,7 +147,6 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-var phoneNumber = "";
 app.get('/api/userdata', verifyToken, async (req, res) => {
   try {
     // Access user data from the decoded token
@@ -204,7 +203,7 @@ app.post("/api/savepoint", async (req, res) => {
   }
 });
 
-app.get('/api/addressdata', async (req, res) => {
+app.get('/api/addressdata', verifyToken, async (req, res) => {
   try {
     const foundAddress = await Address.findOne({ phoneNumber: req.user.phoneNumber });
 
