@@ -36,7 +36,7 @@ app.use(cors({
   credentials: true,
 }));
 
-app.get('/proxy', async (req, res) => {
+app.get('/proxy/*', async (req, res) => {
   const url = `https://api.opencagedata.com${req.url}`;
   const response = await axios.get(url);
   res.send(response.data);
