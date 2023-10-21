@@ -123,7 +123,7 @@ app.post('/api/authenticate', (req, res) => {
       console.error(err);
       return res.status(500).json({message: "Error generating token"});
     }
-      res.cookie("token", token);
+      res.cookie("token", token, {httpOnly: true, secure: true});
     res.send(req.cookies);
   });
 });
@@ -151,7 +151,7 @@ app.get('/api/userdata', verifyToken, async (req, res) => {
     // Access user data from the decoded token
     phoneNumber = req.user.phoneNumber;
     const foundUserByPhone = await User.findOne({ phoneNumber: req.user.phoneNumber });
-
+    log(phoneNumber + " " + foundUserByPhone);
     if (!foundUserByPhone) {
       return res.status(404).json({ message: 'User not found' });
     }
