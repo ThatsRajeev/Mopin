@@ -18,9 +18,8 @@ app.use(cors({
   credentials: true,
 }));
 
-app.get('/proxy/*', (req, res) => {
+app.use('/proxy', function(req, res) {
   var url = 'https://api.opencagedata.com' + req.url;
-  console.log(url);
   req.pipe(request(url)).pipe(res);
 });
 
