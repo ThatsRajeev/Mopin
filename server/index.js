@@ -206,20 +206,18 @@ app.post("/api/savepoint", async (req, res) => {
 
 app.get('/api/addressdata', async (req, res) => {
   try {
-    if(phoneNumber) {
-      const foundAddress = await Address.findOne({ phoneNumber: phoneNumber });
+    const foundAddress = await Address.findOne({ phoneNumber: req.user.phoneNumber });
 
-      if (!foundAddress) {
-        return res.status(404).json({ message: 'Address not found' });
-      }
-      res.json({
-        address: foundAddress.address,
-        apartmentNumber: foundAddress.apartmentNumber,
-        apartmentName: foundAddress.apartmentName,
-        streetDetails: foundAddress.streetDetails,
-        addressType: foundAddress.addressType
-      });
+    if (!foundAddress) {
+      return res.status(404).json({ message: 'Address not found' });
     }
+    res.json({
+      address: foundAddress.address,
+      apartmentNumber: foundAddress.apartmentNumber,
+      apartmentName: foundAddress.apartmentName,
+      streetDetails: foundAddress.streetDetails,
+      addressType: foundAddress.addressType
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).send('Error processing request');
