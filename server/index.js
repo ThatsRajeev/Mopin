@@ -20,8 +20,16 @@ app.use(cors({
 
 app.use('/proxy', function(req, res) {
   var url = 'https://api.opencagedata.com' + req.url;
+
+  // Set up headers
+  res.setHeader('Access-Control-Allow-Origin', 'https://mopin-frontend.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
   req.pipe(request(url)).pipe(res);
 });
+
 
 dotenv.config();
 
