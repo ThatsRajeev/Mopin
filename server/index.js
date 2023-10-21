@@ -151,7 +151,6 @@ var phoneNumber = "";
 app.get('/api/userdata', verifyToken, async (req, res) => {
   try {
     // Access user data from the decoded token
-    console.log(req.user.phoneNumber);
     const foundUserByPhone = await User.findOne({ phoneNumber: req.user.phoneNumber });
 
     if (!foundUserByPhone) {

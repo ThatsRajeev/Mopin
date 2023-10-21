@@ -106,10 +106,6 @@ const Checkout = () => {
   }, []);
 
   useEffect(() => {
-    console.log(dishInfo);
-  }, [dishInfo])
-
-  useEffect(() => {
     if(isLogged === true) {
       window.location.reload();
     }
@@ -145,7 +141,7 @@ const verticalLine = {
     position: 'relative',
     left: '60px',
     border: '1px dashed rgb(0,0,0,0.36)',
-    zIndex: 1
+    zIndex: 0
 }
 
   const LogoutContent = () => {
