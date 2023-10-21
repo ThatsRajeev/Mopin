@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const dotenv = require("dotenv");
+const authMiddleware = require("./routes/authMiddleware");
 const paymentRoutes = require("./routes/payment");
 const path = require("path");
 const bodyParser = require('body-parser');
@@ -149,9 +150,9 @@ var phoneNumber = "";
 app.get('/api/userdata', verifyToken, async (req, res) => {
   try {
     // Access user data from the decoded token
-    phoneNumber = req.user.phoneNumber;
+    console.log(req.user.phoneNumber);
     const foundUserByPhone = await User.findOne({ phoneNumber: req.user.phoneNumber });
-    log(phoneNumber + " " + foundUserByPhone);
+
     if (!foundUserByPhone) {
       return res.status(404).json({ message: 'User not found' });
     }
