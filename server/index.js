@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const request = require('request');
+const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -36,9 +36,10 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use('/proxy', function(req, res) {
-  var url = 'https://api.opencagedata.com' + req.url;
-  req.pipe(request(url)).pipe(res);
+app.get('/proxy', async (req, res) => {
+  const url = `https://api.opencagedata.com${req.url}`;
+  const response = await axios.get(url);
+  res.send(response.data);
 });
 
 dotenv.config();
