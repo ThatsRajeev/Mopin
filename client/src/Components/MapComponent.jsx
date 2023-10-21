@@ -16,7 +16,8 @@ function DraggableMarker({ setAddressProp, setCurrentLocation }) {
     setCurrentLocation(newPosition);
 
     const response = await axios.get(
-      `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${newPosition.lat}+${newPosition.lng}&key=12b6daa5213d46898ef052dfacf9ac5a`
+      `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${newPosition.lat}+${newPosition.lng}&key=12b6daa5213d46898ef052dfacf9ac5a`,
+      { withCredentials: false }
     );
     // const response2 = await axios.get(
     //   `https://api.mapmyindia.com/geocoder/v1/geocode?query=<span class="math-inline">\{newPosition\.lat\}\+</span>{newPosition.lng}&key=f49ebcb2a78605e14ba17ae34db120df`
@@ -109,7 +110,8 @@ function MapComponent({ setShowMap }) {
       const coords = position.coords;
       setCurrentLocation({ lat: coords.latitude, lng: coords.longitude });
       const response = await axios.get(
-        `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${coords.latitude}+${coords.longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`
+        `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${coords.latitude}+${coords.longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`,
+        { withCredentials: false }
       );
       setAddress(response.data.results[0].formatted.substring(0, 40) + "...");
     });

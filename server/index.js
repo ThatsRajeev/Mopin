@@ -9,8 +9,13 @@ const cookieParser = require('cookie-parser');
 const dotenv = require("dotenv");
 const paymentRoutes = require("./routes/payment");
 const path = require("path");
+const bodyParser = require('body-parser');
 
 dotenv.config();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.use(cors({
   origin: "https://mopin-frontend.vercel.app",
@@ -28,6 +33,21 @@ app.use('/proxy', function(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', true);
 
   req.pipe(request(url)).pipe(res);
+});
+
+app.post('/formspree', function(req, res) {
+  var url = 'https://formspree.io/f/mknlpedg';
+
+  // Forward the request to the Formspree API
+  request.post({ url: url, form: req.body }, function(err, httpResponse, body) {
+    if (err) {
+      console.error('Error:', err);
+      return res.sendStatus(500);
+    }
+
+    // Forward the response from the Formspree API to the client
+    res.send(body);
+  });
 });
 
 

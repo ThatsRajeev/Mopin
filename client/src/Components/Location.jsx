@@ -11,6 +11,7 @@ const Location = ({ setAddressProp, setShowProp }) => {
         const { latitude, longitude } = position.coords;
         const response = await axios.get(
           `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${latitude}+${longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`,
+          { withCredentials: false }
         );
         setAddressProp(
           response.data.results[0].formatted
@@ -27,7 +28,8 @@ const Location = ({ setAddressProp, setShowProp }) => {
     if (inputValue) {
       try {
         const response = await axios.get(
-          `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${inputValue}&key=12b6daa5213d46898ef052dfacf9ac5a&countrycode=in&limit=5`
+          `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${inputValue}&key=12b6daa5213d46898ef052dfacf9ac5a&countrycode=in&limit=5`,
+          { withCredentials: false }
         );
         setSuggestions(response.data.results);
       } catch (error) {
