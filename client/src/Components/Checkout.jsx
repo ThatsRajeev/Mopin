@@ -140,12 +140,11 @@ const Checkout = () => {
 };
 
 const verticalLine = {
-    height: name=="" ? '62%' : (!addressChoosen ? '72%' : '50%'),
+    height: '48px',
     width: 0,
-    position: 'absolute',
+    position: 'relative',
     left: '60px',
     border: '1px dashed rgb(0,0,0,0.36)',
-    top: '124px',
     zIndex: 1
 }
 
@@ -290,6 +289,8 @@ const verticalLine = {
             </div>
             <LogoutContent />
 
+            <div className="vertical-line" style={verticalLine}></div>
+
             <div className="user-details">
               <div className="details-head">
                 <div className="checkout-logo-div">
@@ -311,6 +312,8 @@ const verticalLine = {
               }
             </div>
 
+            <div className="vertical-line" style={verticalLine}></div>
+
             <div className="user-details">
               <div className="details-head">
                 <div className="checkout-logo-div">
@@ -322,7 +325,6 @@ const verticalLine = {
                 <button className="proceed-btn" onClick={handlePayment} disabled={!addressChoosen}>Proceed to Pay</button>
               </div>
             </div>
-            <div className="vertical-line" style={verticalLine}></div>
           </div>
 
           <div className="order-summary">

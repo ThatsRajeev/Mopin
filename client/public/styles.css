@@ -2019,16 +2019,14 @@ label {
 .delivery-details {
   position: relative;
   min-width: 64%;
+  margin-top: 48px;
 }
 
 .user-details {
   background-color: #f2f2f2;
-  margin: 48px;
-  margin-left: 0;
+  margin-right: 48px;
   border-radius: 8px;
   padding: 12px;
-  position: relative;
-  z-index: 2;
 }
 
 .details-head {
