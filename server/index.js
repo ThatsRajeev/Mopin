@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const axios = require('axios');
+const request = require('request');
 const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -12,34 +12,15 @@ const path = require("path");
 
 dotenv.config();
 
-app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://mopin-frontend.vercel.app');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
-
 app.use(cors({
   origin: "https://mopin-frontend.vercel.app",
   methods: ["POST", "GET"],
   credentials: true,
 }));
 
-app.get('/proxy/*', async (req, res) => {
-  const url = `https://api.opencagedata.com${req.url}`;
-  const response = await axios.get(url);
-  res.send(response.data);
+app.use('/proxy', function(req, res) {
+  var url = 'https://api.opencagedata.com' + req.url;
+  req.pipe(request(url)).pipe(res);
 });
 
 dotenv.config();
