@@ -28,7 +28,7 @@ function Help({setShowProp}) {
 
     // Send the data to the Formspree endpoint using axios or fetch
     try {
-      await axios.post("/formspree", data);
+      await axios.post("https://mopin-server.vercel.app/formspree", data);
       setIsSubmitted(true); // Set the submitted state to true on success
     } catch (error) {
       console.error(error);
