@@ -125,7 +125,7 @@ app.post('/api/authenticate', (req, res) => {
       console.error(err);
       return res.status(500).json({message: "Error generating token"});
     }
-      res.cookie("token", token, {httpOnly: true, secure: true});
+      res.cookie("token", token, {httpOnly: true, secure: true, sameSite: 'none'});
     res.send(req.cookies);
   });
 });
