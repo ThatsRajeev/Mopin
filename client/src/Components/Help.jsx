@@ -28,7 +28,7 @@ function Help({setShowProp}) {
 
     // Send the data to the Formspree endpoint using axios or fetch
     try {
-      await axios.post("https://cors-anywhere.herokuapp.com/https://formspree.io/f/mknlpedg", data);
+      await axios.post("https://formspree.io/f/mknlpedg", data);
       setIsSubmitted(true); // Set the submitted state to true on success
     } catch (error) {
       console.error(error);
