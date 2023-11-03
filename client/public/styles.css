@@ -1540,7 +1540,6 @@ label {
   background-size: cover;
   width: 100%;
   min-height: 178px;
-  padding: 5%;
   display: flex;
   flex-direction: column;
 }
@@ -1548,6 +1547,40 @@ label {
 .backFavBtn-div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  padding: 2.8%;
+  z-index: 1000;
+
+  >div {
+    display: none;
+  }
+}
+
+.backFavBtn-sticky {
+  background: #f2f2f2;
+  position: fixed;
+  width: 100%;
+  border: 1px solid rgba(40,44,63,.1);
+
+  >span {
+    color: #222222;
+  }
+
+  >div {
+    display: block;
+    margin-right: 56%;
+
+    :first-child {
+      font-size: 0.8rem;
+      font-weight: 600;
+      line-height: 1.1rem;
+    }
+
+    :last-child {
+      font-size: 0.7rem;
+    }
+  }
 }
 
 .backFavBtn-icon {
@@ -1566,8 +1599,8 @@ label {
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 
   >img {
-    width: 64%;
-    margin: 0 auto -28%;
+    width: 72%;
+    margin: 0 auto -36%;
     transform: translateY(-50%);
   }
 

@@ -283,6 +283,21 @@ function SellerPage() {
     }
   }, [activeCategory, observer]);
 
+  const [backFavSticky, setBackFavSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setBackFavSticky(window.pageYOffset > 178);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+
   return (
     <>
       <Navbar showNavbar = {windowWidth < breakpoint ? "none" : ""}/>
@@ -319,8 +334,12 @@ function SellerPage() {
         </div>
         <div className="seller-div-mobile mob-view">
           <div className="backFavBtn-wrapper">
-            <div className="backFavBtn-div">
+            <div className={`backFavBtn-div ${backFavSticky ? "backFavBtn-sticky" : ""}`}>
               <span class="material-symbols-outlined backFavBtn-icon" onClick={() => navigate(-1)}>arrow_back_ios</span>
+              <div>
+                <div>{sellerDetails.name}</div>
+                <div>{sellerDetails.foodType}</div>
+              </div>
               <span class="material-symbols-outlined backFavBtn-icon">favorite</span>
             </div>
           </div>

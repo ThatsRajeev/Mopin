@@ -66,7 +66,7 @@ const MobContainer = styled.div`
 `;
 
 const MenuItem = styled.div`
-  padding: 1rem 0px;
+  padding: 0.6rem 0px;
   flex: 0 0 25%;
   -webkit-box-flex: 0;
   text-align: center;
@@ -281,7 +281,7 @@ const Linke = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: bold;
   letter-spacing: 1.6px;
   color: ${(props) => (props.sc ? "#9C9C9C" : "#222222")};
