@@ -13,6 +13,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
   const [email, setEmail] = useState("");
   const [getOTP, setOTP] = useState("");
   const [enterOTP, setEnterOTP] = useState(false);
+  const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {setName(""); setEmail(""); setOTP("");
@@ -50,15 +51,13 @@ const handleSubmit = (event) => {
     } else if (response === "User Details Saved" || response === "User Found") {
       if(isSignUp) { setSignUp(false)};
       setLoading(true);
-
-      setUpRecaptha('+91' + phoneNumber)
-        .then((confirmationResult) => {
-          window.confirmationResult = confirmationResult;
-          setEnterOTP(true);
-        })
-        .catch((error) => {
-          return alert('Error during phone number sign in:', error);
-        })
+      try {
+        const response = await setUpRecaptha('+91' + phoneNumber);
+        setResult(response);
+        setEnterOTP(true);
+      } catch(err) {
+        return alert('Error during phone number sign in:', err);
+      }
     } else {
       return alert(response);
     }
@@ -74,10 +73,7 @@ function handlePhoneNumber(event) {
 const OTP = async (event) => {
   setLoading(true);
   try {
-    const confirmationResult = window.confirmationResult;
-    const result = await confirmationResult.confirm(getOTP);
-    const user = result.user;
-    console.log("OTP verified, user signed in:", user);
+    await result.confirm(getOTP);
     if(setLogged) {
       setLogged(true);
     }
