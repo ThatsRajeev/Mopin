@@ -5,22 +5,6 @@ import loader from "../assets/images/loader.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faAngleLeft} from "@fortawesome/free-solid-svg-icons";
 import { useUserAuth } from "../context/AuthContext";
-import { initializeApp } from 'firebase/app';
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCPueYuXufJKALHnrSVI-oi43MTpaZGTLc",
-  authDomain: "phone-auth21c.firebaseapp.com",
-  projectId: "phone-auth21c",
-  storageBucket: "phone-auth21c.appspot.com",
-  messagingSenderId: "101333056185",
-  appId: "1:101333056185:web:8641527607897a634ab968",
-  measurementId: "G-L6QPBHXLFN"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-axios.defaults.withCredentials = true;
 
 function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
   const [isSignUp, setSignUp] = useState(false);
@@ -40,35 +24,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
     }
   }, [getOTP])
 
-  const [recaptchaVerifier, setRecaptchaVerifier] = useState(null);
   const { setUpRecaptha } = useUserAuth();
-
-  useEffect(() => {
-    const initRecaptcha = () => {
-      if (!recaptchaVerifier && document.getElementById('sign-in-button')) {
-        const verifier = new RecaptchaVerifier('sign-in-button', {
-          'size': 'invisible',
-        }, auth);
-        setRecaptchaVerifier(verifier);
-      }
-    };
-    if (document.getElementById('sign-in-button')) {
-      initRecaptcha();
-    } else {
-      const observer = new MutationObserver((mutations) => {
-        if (document.getElementById('sign-in-button')) {
-          initRecaptcha();
-          observer.disconnect();
-        }
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-    }
-    return () => {
-      if (recaptchaVerifier) {
-        recaptchaVerifier.clear();
-      }
-    };
-  }, [recaptchaVerifier, auth]);
 
 const handleSubmit = (event) => {
   event.preventDefault();
@@ -103,17 +59,6 @@ const handleSubmit = (event) => {
         .catch((error) => {
           return alert('Error during phone number sign in:', error);
         })
-      // const appVerifier = recaptchaVerifier;
-      // try {
-      //   await recaptchaVerifier.verify();
-      //   const confirmationResult = await signInWithPhoneNumber(auth, '+91'+ phoneNumber, appVerifier);
-      //   window.confirmationResult = confirmationResult;
-      //   setEnterOTP(true);
-      // } catch (error) {
-      //   console.error('Error during phone number sign in:', error);
-      // } finally {
-      //   setLoading(false);
-      // }
     } else {
       return alert(response);
     }
