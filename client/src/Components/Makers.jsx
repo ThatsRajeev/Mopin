@@ -1,5 +1,5 @@
 import React from "react";
-import makers from "../makers";
+import makers from "../data/makers";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";

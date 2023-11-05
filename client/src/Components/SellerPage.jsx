@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from 'react-router';
 import axios from "axios";
-import homecooks from "../homecooks";
+import homecooks from "../data/homecooks";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import woman from "../assets/images/woman.png";

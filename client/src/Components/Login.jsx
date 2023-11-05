@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from "react";
+import PhoneInput from "react-phone-number-input";
 import axios from "axios";
 import loader from "../assets/images/loader.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faAngleLeft} from "@fortawesome/free-solid-svg-icons";
+import { useUserAuth } from "../context/AuthContext";
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
@@ -28,18 +30,9 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
   const [getOTP, setOTP] = useState("");
   const [enterOTP, setEnterOTP] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {setName(""); setEmail(""); setOTP("");
     }, [isSignUp]);
-
-  useEffect(() => {
-    if(errorMsg) {
-      const timer = setTimeout(() => {
-        setErrorMsg("");
-      }, 4000)
-    }
-  }, [errorMsg]);
 
   useEffect(() => {
     if(getOTP.length === 6) {
@@ -48,6 +41,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
   }, [getOTP])
 
   const [recaptchaVerifier, setRecaptchaVerifier] = useState(null);
+  const { setUpRecaptha } = useUserAuth();
 
   useEffect(() => {
     const initRecaptcha = () => {
@@ -83,12 +77,10 @@ const handleSubmit = (event) => {
     onSignInSubmit(event);
   } else {
     if (isSignUp && (!phoneNumber || !name || !email)) {
-      setErrorMsg("Please fill in all required fields.");
-      return;
+      return alert("Please fill in all required fields.");
     }
     if (!isSignUp && (!phoneNumber)) {
-      setErrorMsg("Please fill in all required fields.")
-      return;
+      return alert("Please fill in all required fields.")
     }
   }
 }
@@ -102,20 +94,28 @@ const handleSubmit = (event) => {
     } else if (response === "User Details Saved" || response === "User Found") {
       if(isSignUp) { setSignUp(false)};
       setLoading(true);
-      const appVerifier = recaptchaVerifier;
-      try {
-        await recaptchaVerifier.verify();
-        const confirmationResult = await signInWithPhoneNumber(auth, '+91'+ phoneNumber, appVerifier);
-        window.confirmationResult = confirmationResult;
-        setEnterOTP(true);
-      } catch (error) {
-        console.error('Error during phone number sign in:', error);
-      } finally {
-        setLoading(false);
-      }
+
+      setUpRecaptha('+91' + phoneNumber)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          setEnterOTP(true);
+        })
+        .catch((error) => {
+          return alert('Error during phone number sign in:', error);
+        })
+      // const appVerifier = recaptchaVerifier;
+      // try {
+      //   await recaptchaVerifier.verify();
+      //   const confirmationResult = await signInWithPhoneNumber(auth, '+91'+ phoneNumber, appVerifier);
+      //   window.confirmationResult = confirmationResult;
+      //   setEnterOTP(true);
+      // } catch (error) {
+      //   console.error('Error during phone number sign in:', error);
+      // } finally {
+      //   setLoading(false);
+      // }
     } else {
-      setErrorMsg(response);
-      return;
+      return alert(response);
     }
   };
 
@@ -153,7 +153,7 @@ const OTP = async (event) => {
 
     authenticate();
   } catch (error) {
-    setErrorMsg("Invalid OTP - Please try again");
+    return alert("Invalid OTP - Please try again");
     console.error("Error during OTP verification:", error);
   }
 };
@@ -228,14 +228,11 @@ const sendDataToServer = async (event) => {
             </>
           )}
           <button name="submit" className="submit-btn" id="sign-in-button"
-           onClick={handleSubmit} disabled={loading || errorMsg}>
+           onClick={handleSubmit} disabled={loading}>
              {isSignUp ? "Sign Me Up" : "Login With OTP"}
              {loading && <img style={{marginLeft: '6px'}} src={loader} alt="load-img" />}</button>
         </form>
         <p className="login-tc" style={{display: fromCheckout ? 'none':'block'}}>By {isSignUp ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
-      </div>
-      <div className="errorDiv">
-      {errorMsg && <p className='errormessage'> {errorMsg} </p>}
       </div>
     </div>
   );
