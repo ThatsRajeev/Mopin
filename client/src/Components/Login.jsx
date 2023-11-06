@@ -27,20 +27,20 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
 
   const { setUpRecaptha } = useUserAuth();
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const form = event.target.form;
-  if(form.checkValidity() && getOTP.length !== 6) {
-    onSignInSubmit(event);
-  } else {
-    if (isSignUp && (!phoneNumber || !name || !email)) {
-      return alert("Please fill in all required fields.");
-    }
-    if (!isSignUp && (!phoneNumber)) {
-      return alert("Please fill in all required fields.")
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target.form;
+    if(form.checkValidity() && getOTP.length !== 6) {
+      onSignInSubmit(event);
+    } else {
+      if (isSignUp && (!phoneNumber || !name || !email)) {
+        return alert("Please fill in all required fields.");
+      }
+      if (!isSignUp && (!phoneNumber)) {
+        return alert("Please fill in all required fields.")
+      }
     }
   }
-}
 
   const onSignInSubmit = async (event) => {
     const response = await sendDataToServer();
@@ -56,7 +56,8 @@ const handleSubmit = (event) => {
         setResult(response);
         setEnterOTP(true);
       } catch(err) {
-        return alert('Error during phone number sign in:', err);
+        console.log('Error during phone number sign in:', err);
+        setLoading(false);
       }
     } else {
       return alert(response);
@@ -117,7 +118,7 @@ const sendDataToServer = async (event) => {
         email: email.length ? email : "",
       };
       const response = await axios.post("https://mopin-server.vercel.app/api/endpoint", data);
-      console.log(response.data);
+      console.log("Response from server: " + response.data);
 
       resolve(response.data);
     } catch (error) {
