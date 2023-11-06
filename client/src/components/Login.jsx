@@ -53,7 +53,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
       if(isSignUp) { setSignUp(false)};
       setLoading(true);
       try {
-        const response = await setUpRecaptha('+91' + phoneNumber);
+        const response = await setUpRecaptha(phoneNumber);
         setResult(response);
         setEnterOTP(true);
       } catch(err) {
