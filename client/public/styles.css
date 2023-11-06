@@ -1032,6 +1032,14 @@ label {
   width: 100%;
 }
 
+.PhoneInput {
+  padding: 0 8px;
+
+  >input {
+    border: none;
+  }
+}
+
 .submit-btn {
   display: flex;
   justify-content: center;

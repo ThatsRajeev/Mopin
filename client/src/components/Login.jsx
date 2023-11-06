@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import axios from "axios";
 import loader from "../assets/images/loader.svg";
@@ -64,13 +65,6 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
     }
   };
 
-
-function handlePhoneNumber(event) {
-  const { value } = event.target;
-  const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
-  setPhoneNumber(numericValue);
-}
-
 const OTP = async (event) => {
   setLoading(true);
   try {
@@ -78,7 +72,6 @@ const OTP = async (event) => {
     if(setLogged) {
       setLogged(true);
     }
-
 
     const authenticate = async (event) => {
       try {
@@ -99,12 +92,6 @@ const OTP = async (event) => {
     console.error("Error during OTP verification:", error);
   }
 };
-
-function handleOTP(event) {
-  const { value } = event.target;
-  const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
-  setOTP(numericValue);
-}
 
 const sendDataToServer = async (event) => {
   if(event) {
@@ -147,14 +134,14 @@ const sendDataToServer = async (event) => {
 
         <form>
           <div className="form-group">
-          <input type="text" autoComplete="off" pattern="[0-9]*" maxLength="10" placeholder="Phone number" inputMode="numeric" className="form-control"
-           id="phoneNum" value={phoneNumber} onChange={handlePhoneNumber} required/>
+          <PhoneInput autoComplete="off" defaultCountry="IN" placeholder="Phone number" className="form-control"
+           id="phoneNum" value={phoneNumber} onChange={setPhoneNumber} required/>
           </div>
 
           {enterOTP &&
           <div className="form-group">
           <input type="text" autoComplete="off" pattern="[0-9]*" maxLength="6" placeholder="One time password" inputMode="numeric" className="form-control"
-           id="phoneNum" value={getOTP} onChange={handleOTP} required/>
+           id="phoneNum" value={getOTP} onChange={(e) => setOTP(e.target.value)} required/>
           </div>}
 
           {isSignUp && (
