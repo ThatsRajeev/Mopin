@@ -65,11 +65,11 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
         setFlag(false);
         setLoading(true);
         try {
-          console.log("response: " + response + "number:" + number);
           const response = await setUpRecaptha(number);
           setResult(response);
           setEnterOtp(true);
         } catch (err) {
+          console.log("response: " + response + "number:" + number);
           alert(err.message);
           setLoading(false);
         }
