@@ -69,8 +69,8 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
           setResult(response);
           setEnterOtp(true);
         } catch (err) {
-          console.log("response: " + response + "number:" + number);
-          alert(err.message);
+          console.error('Error during phone number sign in:', err);
+          alert("An error occurred during phone number sign in. Please try again.");
           setLoading(false);
         }
       } else {
