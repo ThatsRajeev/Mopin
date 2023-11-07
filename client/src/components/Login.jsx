@@ -128,6 +128,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
           <PhoneInput autoComplete="off" defaultCountry="IN" placeholder="Phone number" className="form-control"
            id="phoneNum" value={number} onChange={setNumber} required/>
           </div>
+           <div id="recaptcha-container"></div>
 
           {enterOtp &&
           <div className="form-group">
@@ -147,7 +148,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
             </div>
             </>
           )}
-          <button name="submit" className="submit-btn" id="sign-in-button"
+          <button name="submit" className="submit-btn"
            onClick={handleSubmit} disabled={loading}>
              {flag ? "Sign Me Up" : "Login With OTP"}
              {loading && <img style={{marginLeft: '6px'}} src={loader} alt="load-img" />}</button>

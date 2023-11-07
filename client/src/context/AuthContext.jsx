@@ -17,7 +17,7 @@ export const UserAuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   function setUpRecaptha(number) {
-    const recaptchaVerifier = new RecaptchaVerifier("sign-in-button",
+    const recaptchaVerifier = new RecaptchaVerifier("recaptcha-container",
       auth, {
         "size": "invisible",
       }
