@@ -22,7 +22,6 @@ export const UserAuthContextProvider = ({ children }) => {
         "size": "invisible",
       }
     );
-    recaptchaVerifier.render();
     return signInWithPhoneNumber(auth, number, recaptchaVerifier);
   }
 
