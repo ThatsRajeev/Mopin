@@ -128,7 +128,6 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
           <PhoneInput autoComplete="off" defaultCountry="IN" placeholder="Phone number" className="form-control"
            id="phoneNum" value={number} onChange={setNumber} required/>
           </div>
-          <div id="recaptcha-container"></div>
 
           {enterOtp &&
           <div className="form-group">
