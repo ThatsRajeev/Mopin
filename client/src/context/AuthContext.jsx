@@ -20,9 +20,6 @@ export const UserAuthContextProvider = ({ children }) => {
     const recaptchaVerifier = new RecaptchaVerifier("sign-in-button",
       auth, {
         "size": "invisible",
-        "callback": (response) => {
-          null;
-        }
       }
     );
     return signInWithPhoneNumber(auth, number, recaptchaVerifier);
