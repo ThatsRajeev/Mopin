@@ -65,6 +65,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
         setFlag(false);
         setLoading(true);
         try {
+          console.log("response: " + response + "number:" + number);
           const response = await setUpRecaptha(number);
           setResult(response);
           setEnterOtp(true);
