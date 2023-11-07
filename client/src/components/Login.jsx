@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import axios from "axios";
@@ -8,111 +9,100 @@ import {faAngleLeft} from "@fortawesome/free-solid-svg-icons";
 import { useUserAuth } from "../context/AuthContext";
 
 function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
-  const [isSignUp, setSignUp] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [flag, setFlag] = useState(false);
+  const [number, setNumber] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [getOTP, setOTP] = useState("");
-  const [enterOTP, setEnterOTP] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [enterOtp, setEnterOtp] = useState(false);
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {setName(""); setEmail(""); setOTP("");
-    }, [isSignUp]);
-
-  useEffect(() => {
-    if(getOTP.length === 6) {
-      OTP();
-    }
-  }, [getOTP])
-
+  const navigate = useNavigate();
   const { setUpRecaptha } = useUserAuth();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target.form;
-    if(form.checkValidity() && getOTP.length !== 6) {
-      onSignInSubmit(event);
-    } else {
-      if (isSignUp && (!phoneNumber || !name || !email)) {
-        return alert("Please fill in all required fields.");
-      }
-      if (!isSignUp && (!phoneNumber)) {
-        return alert("Please fill in all required fields.")
-      }
+  useEffect(() => {
+    setName(""); setEmail(""); setOtp("");
+
+    if (otp.length === 6) {
+      verifyOtp();
     }
-  }
+  }, [flag, otp]);
 
-  const onSignInSubmit = async (event) => {
-    const response = await sendDataToServer();
-
-    if (response === "Create an Account") {
-      setSignUp(true);
-      return;
-    } else if (response === "User Details Saved" || response === "User Found") {
-      if(isSignUp) { setSignUp(false)};
-      setLoading(true);
+  const sendDataToServer = async (event) => {
+    if(event) {
+      event.preventDefault();
+    }
+    return new Promise(async (resolve, reject) => {
       try {
-        const response = await setUpRecaptha(phoneNumber);
-        setResult(response);
-        setEnterOTP(true);
-      } catch(err) {
-        console.log('Error during phone number sign in:', err);
-        setLoading(false);
+        const data = {
+          phoneNumber: number,
+          name: name,
+          email: email,
+        };
+        const response = await axios.post("https://mopin-server.vercel.app/api/endpoint", data);
+        resolve(response.data);
+      } catch (error) {
+        return alert(error);
       }
-    } else {
-      return alert(response);
-    }
+    });
   };
 
-const OTP = async (event) => {
-  setLoading(true);
-  try {
-    await result.confirm(getOTP);
-    if(setLogged) {
-      setLogged(true);
-    }
-
-    const authenticate = async (event) => {
-      try {
-        await axios.post("https://mopin-server.vercel.app/api/authenticate", {phoneNumber}, {
-          withCredentials: true
-        });
-        fetchData();
-        setLoading(false);
-        window.location.reload();
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    authenticate();
-  } catch (error) {
-    return alert("Invalid OTP - Please try again");
-    console.error("Error during OTP verification:", error);
-  }
-};
-
-const sendDataToServer = async (event) => {
-  if(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-  }
-  return new Promise(async (resolve, reject) => {
-    try {
-      const data = {
-        phoneNumber: phoneNumber,
-        name: name.length ? name : "",
-        email: email.length ? email : "",
-      };
-      const response = await axios.post("https://mopin-server.vercel.app/api/endpoint", data);
-      console.log("Response from server: " + response.data);
+    const form = event.target.form;
 
-      resolve(response.data);
-    } catch (error) {
-      console.error(error);
+    if (!form.checkValidity() || enterOtp) {
+      if ((flag && (!number || !name || !email)) || (!flag && !number)) {
+        return alert("Please fill in all required fields.");
+      }
+    } else {
+      const response = await sendDataToServer();
+
+      if (response === "Create an Account") {
+        setFlag(true);
+      } else if (response === "User Details Saved" || response === "User Found") {
+        setFlag(false);
+        setLoading(true);
+        try {
+          const response = await setUpRecaptha(number);
+          setResult(response);
+          setEnterOtp(true);
+        } catch (err) {
+          alert(err.message);
+          setLoading(false);
+        }
+      } else {
+        alert(response);
+      }
     }
-  });
-};
+  }
+
+  const verifyOtp = async (event) => {
+    setLoading(true);
+    try {
+      await result.confirm(otp);
+
+      const authenticate = async (event) => {
+        try {
+          await axios.post("https://mopin-server.vercel.app/api/authenticate", {number}, {
+            withCredentials: true
+          });
+          fetchData();
+          setLoading(false);
+          setLogged(true);
+          navigate("/");
+        } catch (error) {
+          alert(error.message);
+        }
+      };
+
+      authenticate();
+    } catch (error) {
+      return alert("Invalid OTP - Please try again");
+      console.error("Error during OTP verification:", error);
+    }
+  };
 
   return(
     <div className="login-container">
@@ -123,28 +113,28 @@ const sendDataToServer = async (event) => {
       </div>
       <div className={fromCheckout ? "ck-login-img" : "login-img"}></div>
       <div className={fromCheckout ? "ck-login-div" : "login-div"}>
-        {enterOTP ? <p style={{marginBottom: "24px"}}> <span className={fromCheckout ? "ck-active-text" : "active-text"}><FontAwesomeIcon
+        {enterOtp ? <p style={{marginBottom: "24px"}}> <span className={fromCheckout ? "ck-active-text" : "active-text"}><FontAwesomeIcon
           style={{ marginRight: "10px", cursor: "pointer" }}
           icon={faAngleLeft}
-          onClick={(event)=> setEnterOTP(false)}
+          onClick={(event)=> setEnterOtp(false)}
         />Enter OTP</span>
             We've sent an OTP to your phone number.</p> :
-              <p style={{marginBottom: "24px", display: fromCheckout ? "none":"block"}}> <span className="active-text">{isSignUp ? "Signup" : "Login"}</span> or
-            <span className="inactive-text" onClick={() => setSignUp(!isSignUp)}>{isSignUp ? " Login" : " Signup"}</span></p>}
+              <p style={{marginBottom: "24px", display: fromCheckout ? "none":"block"}}> <span className="active-text">{flag ? "Signup" : "Login"}</span> or
+            <span className="inactive-text" onClick={() => setFlag(!flag)}>{flag ? " Login" : " Signup"}</span></p>}
 
         <form>
           <div className="form-group">
           <PhoneInput autoComplete="off" defaultCountry="IN" placeholder="Phone number" className="form-control"
-           id="phoneNum" value={phoneNumber} onChange={setPhoneNumber} required/>
+           id="phoneNum" value={number} onChange={setNumber} required/>
           </div>
 
-          {enterOTP &&
+          {enterOtp &&
           <div className="form-group">
           <input type="text" autoComplete="off" pattern="[0-9]*" maxLength="6" placeholder="One time password" inputMode="numeric" className="form-control"
-           id="phoneNum" value={getOTP} onChange={(e) => setOTP(e.target.value)} required/>
+           id="phoneNum" value={otp} onChange={(e) => setOtp(e.target.value)} required/>
           </div>}
 
-          {isSignUp && (
+          {flag && (
             <>
             <div className="form-group">
               <input type="text" autoComplete="off" placeholder="Full Name" className="form-control" id="name" name="name"
@@ -158,10 +148,10 @@ const sendDataToServer = async (event) => {
           )}
           <button name="submit" className="submit-btn" id="sign-in-button"
            onClick={handleSubmit} disabled={loading}>
-             {isSignUp ? "Sign Me Up" : "Login With OTP"}
+             {flag ? "Sign Me Up" : "Login With OTP"}
              {loading && <img style={{marginLeft: '6px'}} src={loader} alt="load-img" />}</button>
         </form>
-        <p className="login-tc" style={{display: fromCheckout ? 'none':'block'}}>By {isSignUp ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
+        <p className="login-tc" style={{display: fromCheckout ? 'none':'block'}}>By {flag ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
       </div>
     </div>
   );
