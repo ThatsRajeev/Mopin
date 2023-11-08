@@ -67,7 +67,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
         try {
           const response = await setUpRecaptha(number);
           setResult(response);
-          setEnterOtp(true);
+          setLoading(false); setEnterOtp(true);
         } catch (err) {
           console.error('Error during phone number sign in:', err);
           alert("An error occurred during phone number sign in. Please try again.");
