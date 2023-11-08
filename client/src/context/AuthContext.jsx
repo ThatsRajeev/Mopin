@@ -18,7 +18,7 @@ export const UserAuthContextProvider = ({ children }) => {
 
   function setUpRecaptha(number) {
     const recaptchaVerifier = new RecaptchaVerifier(auth,
-      'recaptcha-container',
+      document.getElementById('sign-in-button'),
       {
         'size': 'invisible',
         'callback': (response) => {
