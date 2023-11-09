@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import Location from "./Location";
-import Login from "./Login";
+import Login from "./Login/Login";
 import Help from "./Help";
 
 const Nawbar = styled.div`
@@ -291,24 +291,6 @@ const Linke = styled(Link)`
   }
 `;
 
-const Line = styled.span`
-  display: block;
-  border-radius: 50px;
-  background-color: #222222;
-  height: 3px;
-  width: 25px;
-  margin: 5px;
-  transition: width 0.4s ease-in-out;
-
-  :nth-child(2) {
-    width: ${(props) => (props.open ? "45%" : "70%")};
-  }
-
-  :nth-child(3) {
-    width: ${(props) => (props.open ? "20%" : "70%")};
-  }
-`;
-
 function Navbar(props) {
 
   const [menuItem, setMenuItem] = useState('Home');
@@ -538,19 +520,19 @@ function Navbar(props) {
               Home
             </Linke>
           </MenuItem>
-          <MenuItem active={menuItem=='Profile'}>
+          <MenuItem active={menuItem==='Profile'}>
             <Linke to={name ? "/profile" : ""} sc={menuItem!=='Profile'} onClick={name ? "" : toggleLoginOverlay}>
               <span className="material-symbols-outlined">person</span>
               Profile
             </Linke>
           </MenuItem>
-          <MenuItem active={menuItem=='Help'}>
+          <MenuItem active={menuItem==='Help'}>
             <Linke sc={menuItem!=='Help'} onClick={() => {toggleHelpOverlay()}}>
               <span className="material-symbols-outlined">support</span>
               Help
             </Linke>
           </MenuItem>
-          <MenuItem active={menuItem=='Checkout'}>
+          <MenuItem active={menuItem==='Checkout'}>
             <Linke to={name ? "/checkout" : ""} sc={menuItem!=='Checkout'}>
               <span className="material-symbols-outlined">shopping_cart</span>
               Checkout

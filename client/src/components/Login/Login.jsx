@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import axios from "axios";
-import loader from "../assets/images/loader.svg";
-import { useUserAuth } from "../context/AuthContext";
+import loader from "../../assets/images/loader.svg";
+import { useUserAuth } from "../../context/AuthContext";
+import "./Login.css";
 
 function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
-  const [flag, setFlag] = useState(false);
+  const [isSignUp, setSignUp] = useState(false);
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,7 +22,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
 
   useEffect(() => {
     setName(""); setEmail(""); setOtp("");
-  }, [flag]);
+  }, [isSignUp]);
 
   useEffect(() => {
     if (otp.length === 6) {
@@ -53,16 +54,16 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
     const form = event.target.form;
 
     if (!form.checkValidity() || enterOtp) {
-      if ((flag && (!number || !name || !email)) || (!flag && !number)) {
+      if ((isSignUp && (!number || !name || !email)) || (!isSignUp && !number)) {
         return alert("Please fill in all required fields.");
       }
     } else {
       const response = await sendDataToServer();
 
       if (response === "Create an Account") {
-        setFlag(true);
+        setSignUp(true);
       } else if (response === "User Details Saved" || response === "User Found") {
-        setFlag(false);
+        setSignUp(false);
         setLoading(true);
         try {
           const response = await setUpRecaptha(number);
@@ -102,8 +103,8 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
 
       authenticate();
     } catch (error) {
-      return alert("Invalid OTP - Please try again");
       console.error("Error during OTP verification:", error);
+      return alert("Invalid OTP - Please try again");
     }
   };
 
@@ -122,8 +123,8 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
             Enter OTP
           </div>
           We've sent an OTP to your phone number.</p> :
-        <p style={{marginBottom: "24px", display: fromCheckout ? "none":"block"}}> <span className="active-text">{flag ? "Signup" : "Login"}</span> or
-          <span className="inactive-text" onClick={() => setFlag(!flag)}>{flag ? " Login" : " Signup"}</span></p>}
+        <p style={{marginBottom: "24px", display: fromCheckout ? "none":"block"}}> <span className="active-text">{isSignUp ? "Signup" : "Login"}</span> or
+          <span className="inactive-text" onClick={() => setSignUp(!isSignUp)}>{isSignUp ? " Login" : " Signup"}</span></p>}
 
         <form>
           <div className="form-group">
@@ -137,7 +138,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
            id="phoneNum" value={otp} onChange={(e) => setOtp(e.target.value)} required/>
           </div>}
 
-          {flag && (
+          {isSignUp && (
             <>
             <div className="form-group">
               <input type="text" autoComplete="off" placeholder="Full Name" className="form-control" id="name" name="name"
@@ -151,10 +152,10 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
           )}
           <button name="submit" className="submit-btn" id="sign-in-button"
            onClick={handleSubmit} disabled={loading}>
-             {flag ? "Sign Me Up" : "Login With OTP"}
+             {isSignUp ? "Sign Me Up" : "Login With OTP"}
              {loading && <img style={{marginLeft: '6px'}} src={loader} alt="load-img" />}</button>
         </form>
-        <p className="login-tc" style={{display: fromCheckout ? 'none':'block'}}>By {flag ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
+        <p className="login-tc" style={{display: fromCheckout ? 'none':'block'}}>By {isSignUp ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
       </div>
     </div>
   );

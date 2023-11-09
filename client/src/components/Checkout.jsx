@@ -2,7 +2,7 @@ import react, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "./Navbar";
-import Login from "./Login";
+import Login from "./Login/Login";
 import ManageAddressContent from './ManageAddressContent';
 
 const Checkout = () => {
