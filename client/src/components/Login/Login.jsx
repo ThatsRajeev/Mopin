@@ -112,19 +112,23 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
     <div className="login-container">
       <div className="back-button-div mob-view">
         <button className="back-button">
-          <span class="material-symbols-outlined" style={{fontSize: '18px', margin: '0'}} onClick={() => setShowProp()}>arrow_back_ios</span>
+          <span class="material-symbols-outlined" style={{fontSize: '18px', margin: '0'}}
+          onClick={() => setShowProp()}>arrow_back_ios</span>
         </button>
       </div>
       <div className={fromCheckout ? "ck-login-img" : "login-img"}></div>
       <div className={fromCheckout ? "ck-login-div" : "login-div"}>
         {enterOtp ? <p style={{marginBottom: "24px"}}>
           <div className={fromCheckout ? "ck-active-text" : "active-text"}>
-            <span class="material-symbols-outlined" style={{marginRight: "10px", cursor: "pointer"}} onClick={(event)=> setEnterOtp(false)}>arrow_back_ios</span>
+            <span class="material-symbols-outlined" style={{marginRight: "8px", cursor: "pointer"}}
+            onClick={(event)=> setEnterOtp(false)}>arrow_back_ios</span>
             Enter OTP
           </div>
           We've sent an OTP to your phone number.</p> :
-        <p style={{marginBottom: "24px", display: fromCheckout ? "none":"block"}}> <span className="active-text">{isSignUp ? "Signup" : "Login"}</span> or
-          <span className="inactive-text" onClick={() => setSignUp(!isSignUp)}>{isSignUp ? " Login" : " Signup"}</span></p>}
+        <p style={{marginBottom: "24px", display: fromCheckout ? "none":"block"}}>
+          <span className="active-text">{isSignUp ? "Signup" : "Login"}</span> or
+          <span className="inactive-text" onClick={() => setSignUp(!isSignUp)}>{isSignUp ? " Login" : " Signup"}</span>
+        </p>}
 
         <form>
           <div className="form-group">
@@ -150,10 +154,12 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
             </div>
             </>
           )}
+
           <button name="submit" className="submit-btn" id="sign-in-button"
            onClick={handleSubmit} disabled={loading}>
              {isSignUp ? "Sign Me Up" : "Login With OTP"}
-             {loading && <img style={{marginLeft: '6px'}} src={loader} alt="load-img" />}</button>
+             {loading && <img style={{marginLeft: '6px'}} src={loader} alt="load-img" />}
+          </button>
         </form>
         <p className="login-tc" style={{display: fromCheckout ? 'none':'block'}}>By {isSignUp ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
       </div>
