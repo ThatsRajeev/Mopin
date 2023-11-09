@@ -23,13 +23,8 @@ export const UserAuthContextProvider = ({ children }) => {
 
     return new Promise((resolve, reject) => {
       try {
-        signInWithPhoneNumber(auth, number, recaptchaVerifier)
-          .then(confirmationResult => {
-            resolve(confirmationResult);
-          })
-          .catch(error => {
-            reject(error);
-          });
+        const confirmationResult = signInWithPhoneNumber(auth, number, recaptchaVerifier);
+        resolve(confirmationResult);
       } catch (error) {
         reject(error);
       }
