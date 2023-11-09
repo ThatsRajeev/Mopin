@@ -1220,6 +1220,11 @@ label {
   cursor: pointer;
 }
 
+.back-button-icon {
+  margin: 0;
+  font-size: 18px;
+}
+
 .saved-address {
   position: relative;
   text-align: left;

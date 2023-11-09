@@ -49,6 +49,15 @@
   cursor: pointer;
 }
 
+.clear-otp-icon {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.form-group : first-child {
+  margin-top: 24px;
+}
+
 .form-control {
   padding: 8px;
   border-radius: 12px;
@@ -64,6 +73,8 @@
     border: none;
   }
 }
+
+.loader-img { margin-left: 6px; }
 
 .submit-btn {
   display: flex;
