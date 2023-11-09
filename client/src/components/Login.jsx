@@ -66,7 +66,6 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
         setLoading(true);
         try {
           const response = await setUpRecaptha(number);
-          console.log(response);
           setResult(response);
           setLoading(false); setEnterOtp(true);
         } catch (err) {
@@ -82,6 +81,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
 
   const verifyOtp = async (event) => {
     setLoading(true);
+    console.log(result);
     try {
       await result.confirm(otp);
 
