@@ -4,8 +4,6 @@ import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import axios from "axios";
 import loader from "../assets/images/loader.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faAngleLeft} from "@fortawesome/free-solid-svg-icons";
 import { useUserAuth } from "../context/AuthContext";
 
 function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
@@ -97,6 +95,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
           navigate("/");
         } catch (error) {
           alert(error.message);
+          console.log(error);
         }
       };
 
@@ -116,14 +115,14 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
       </div>
       <div className={fromCheckout ? "ck-login-img" : "login-img"}></div>
       <div className={fromCheckout ? "ck-login-div" : "login-div"}>
-        {enterOtp ? <p style={{marginBottom: "24px"}}> <span className={fromCheckout ? "ck-active-text" : "active-text"}><FontAwesomeIcon
-          style={{ marginRight: "10px", cursor: "pointer" }}
-          icon={faAngleLeft}
-          onClick={(event)=> setEnterOtp(false)}
-        />Enter OTP</span>
-            We've sent an OTP to your phone number.</p> :
-              <p style={{marginBottom: "24px", display: fromCheckout ? "none":"block"}}> <span className="active-text">{flag ? "Signup" : "Login"}</span> or
-            <span className="inactive-text" onClick={() => setFlag(!flag)}>{flag ? " Login" : " Signup"}</span></p>}
+        {enterOtp ? <p style={{marginBottom: "24px"}}>
+          <div className={fromCheckout ? "ck-active-text" : "active-text"}>
+            <span class="material-symbols-outlined" style={{marginRight: "10px", cursor: "pointer"}} onClick={(event)=> setEnterOtp(false)}>arrow_back_ios</span>
+            Enter OTP
+          </div>
+          We've sent an OTP to your phone number.</p> :
+        <p style={{marginBottom: "24px", display: fromCheckout ? "none":"block"}}> <span className="active-text">{flag ? "Signup" : "Login"}</span> or
+          <span className="inactive-text" onClick={() => setFlag(!flag)}>{flag ? " Login" : " Signup"}</span></p>}
 
         <form>
           <div className="form-group">
