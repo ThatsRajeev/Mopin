@@ -84,7 +84,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
     setLoading(true);
     console.log(result);
     try {
-      await result.onConfirmation(otp);
+      await result.confirm(otp);
 
       const authenticate = async (event) => {
         try {
