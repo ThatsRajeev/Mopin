@@ -20,20 +20,8 @@ export const UserAuthContextProvider = ({ children }) => {
     const recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
       'size': 'invisible',
     }, auth);
-
-    return new Promise((resolve, reject) => {
-      try {
-        signInWithPhoneNumber(auth, number, recaptchaVerifier)
-          .then(confirmationResult => {
-            resolve(confirmationResult);
-          })
-          .catch(error => {
-            reject(error);
-          });
-      } catch (error) {
-        reject(error);
-      }
-    });
+    recaptchaVerifier.render();
+    return signInWithPhoneNumber(auth, number, recaptchaVerifier);
   }
 
   function logOut() {
