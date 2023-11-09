@@ -114,7 +114,6 @@ app.post("/api/endpoint", async (req, res) => {
 });
 
 app.post('/api/authenticate', (req, res) => {
-  console.log(req.body.phoneNumber);
   const payload = {
     phoneNumber: req.body.phoneNumber
   }

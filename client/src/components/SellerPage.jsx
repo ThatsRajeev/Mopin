@@ -47,7 +47,6 @@ function SellerPage() {
   }
 
   function handleIntersection(entries, observer) {
-     console.log('Intersection observed:', entries);
     if (isUserClick.current) return;
     entries.forEach(entry => {
       if (entry.isIntersecting) {
