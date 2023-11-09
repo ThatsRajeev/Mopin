@@ -23,11 +23,13 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
 
   useEffect(() => {
     setName(""); setEmail(""); setOtp("");
+  }, [flag]);
 
+  useEffect(() => {
     if (otp.length === 6) {
       verifyOtp();
     }
-  }, [flag, otp]);
+  }, [otp]);
 
   const sendDataToServer = async (event) => {
     if(event) {
