@@ -54,7 +54,7 @@
   cursor: pointer;
 }
 
-.form-group : first-child {
+.form-group:first-child {
   margin-top: 24px;
 }
 
