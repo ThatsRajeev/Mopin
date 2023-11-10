@@ -139,18 +139,18 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
           {enterOtp &&
           <div className="form-group">
           <input type="text" autoComplete="off" pattern="[0-9]*" maxLength="6" placeholder="One time password" inputMode="numeric" className="form-control"
-           id="phoneNum" value={otp} onChange={(e) => setOtp(e.target.value)} required/>
+           id="phoneNum" value={otp} onChange={setOtp} required/>
           </div>}
 
           {isSignUp && (
             <>
             <div className="form-group">
               <input type="text" autoComplete="off" placeholder="Full Name" className="form-control" id="name" name="name"
-               value={name} onChange={(event)=> setName(event.target.value)} required/>
+               value={name} onChange={setName} required/>
             </div>
             <div className="form-group">
               <input type="email" autoComplete="off" maxLength="40" placeholder="Email Address" className="form-control" id="email"
-               name="email" value={email} onChange={(event)=> setEmail(event.target.value)} required/>
+               name="email" value={email} onChange={setEmail} required/>
             </div>
             </>
           )}

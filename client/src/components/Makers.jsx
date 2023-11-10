@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // import required modules
-import { Keyboard, Navigation } from "swiper";
+import { Keyboard, Navigation } from "swiper/modules";
 
 const Makers = () => {
   const params = {

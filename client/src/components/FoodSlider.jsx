@@ -14,7 +14,7 @@ import Food from "./Food";
 import homecooks from "../data/homecooks";
 
 // import required modules
-import { Keyboard, Navigation, Pagination } from "swiper";
+import { Keyboard, Navigation, Pagination } from "swiper/modules";
 
 const FoodSlider = (props) => {
   const params = {

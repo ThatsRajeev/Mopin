@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import MapComponent from "./MapComponent";
 
@@ -266,7 +264,7 @@ const LogoutContent = () => {
         <div className="profile-subdiv">
           <div style={{display: "flex", padding: "16px"}}>
             <div className="user-icon">
-              <FontAwesomeIcon style={{ marginRight: "10px", height: "36px"}} icon={faUser}/>
+            <span class="material-symbols-outlined" style={{height: '36px', marginRight: '10px'}}>person</span>
             </div>
             <div style={{margin: "8px 12px"}}>
               <h4 style={{lineHeight: "1.5"}}>{name}</h4>

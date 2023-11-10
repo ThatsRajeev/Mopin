@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/grid";
 
 // import required modules
-import { Keyboard, Navigation, Grid } from "swiper";
+import { Keyboard, Navigation, Grid } from "swiper/modules";
 
 const Fooder = () => {
   const params = {

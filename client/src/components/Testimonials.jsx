@@ -10,7 +10,7 @@ import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 
 // import required modules
-import { Autoplay } from "swiper";
+import { Autoplay } from "swiper/modules";
 
 const Testimonials = () => {
   const [animate, setAnimate] = useState(false);
