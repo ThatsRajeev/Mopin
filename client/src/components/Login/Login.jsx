@@ -96,7 +96,6 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
           });
           fetchData();
           setLoading(false);
-          setLogged(true);
           navigate("/");
         } catch (error) {
           alert(error.message);
