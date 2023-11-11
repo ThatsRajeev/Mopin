@@ -17,13 +17,17 @@ export const UserAuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   function setUpRecaptha(number) {
-    const recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
-      "size": "invisible"
-    });
-    recaptchaVerifier.render();
-    signInWithPhoneNumber(auth, number, recaptchaVerifier)
-      .then((confirmationResult) => {
-        return confirmationResult;
+    return new Promise(async (resolve, reject) => {
+      try {
+        const recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
+          "size": "invisible"
+        });
+        recaptchaVerifier.render();
+        const confirmationResult = await signInWithPhoneNumber(auth, number, recaptchaVerifier);
+        resolve(confirmationResult);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
