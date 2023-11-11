@@ -58,13 +58,14 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
         return alert("Please fill in all required fields.");
       }
     } else {
+      setLoading(true);
       const response = await sendDataToServer();
 
       if (response === "Create an Account") {
+        setLoading(false);
         setSignUp(true);
       } else if (response === "User Details Saved" || response === "User Found") {
         setSignUp(false);
-        setLoading(true);
         try {
           const confirmationResult = await setUpRecaptha(number);
           setResult(confirmationResult);
@@ -146,11 +147,11 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
             <>
             <div className="form-group">
               <input type="text" autoComplete="off" placeholder="Full Name" className="form-control" id="name" name="name"
-               value={name} onChange={setName} required/>
+               value={name} onChange={(e) => {setName(e.target.value)}} required/>
             </div>
             <div className="form-group">
               <input type="email" autoComplete="off" maxLength="40" placeholder="Email Address" className="form-control" id="email"
-               name="email" value={email} onChange={setEmail} required/>
+               name="email" value={email} onChange={(e) => {setEmail(e.target.value)}} required/>
             </div>
             </>
           )}
