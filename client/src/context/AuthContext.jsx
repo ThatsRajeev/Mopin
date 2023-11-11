@@ -17,9 +17,9 @@ export const UserAuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   function setUpRecaptha(number) {
-    const recaptchaVerifier = new RecaptchaVerifier("sign-in-button", {
-      size: "invisible",
-    }, auth);
+    const recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
+      size: "invisible"
+    });
     recaptchaVerifier.render();
     return signInWithPhoneNumber(auth, number, recaptchaVerifier);
   }
