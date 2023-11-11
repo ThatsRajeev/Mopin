@@ -85,7 +85,9 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
     setLoading(true);
     console.log(result);
     try {
-      await result.confirm(otp);
+      result.confirm(otp).then((result) => {
+        console.log(result.user);
+      });
 
       const authenticate = async (event) => {
         try {
@@ -98,7 +100,6 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
           navigate("/");
         } catch (error) {
           alert(error.message);
-          console.log(error);
         }
       };
 
