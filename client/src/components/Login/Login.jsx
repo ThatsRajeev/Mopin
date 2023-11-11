@@ -139,7 +139,7 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
           {enterOtp &&
           <div className="form-group">
           <input type="text" autoComplete="off" pattern="[0-9]*" maxLength="6" placeholder="One time password" inputMode="numeric" className="form-control"
-           id="phoneNum" value={otp} onChange={setOtp} required/>
+           id="phoneNum" value={otp} onChange={(e) => {setOtp(e.target.value)}} required/>
           </div>}
 
           {isSignUp && (
