@@ -7,8 +7,6 @@ import Login from "./Login/Login";
 import Help from "./Help";
 import { useUserAuth } from "../context/AuthContext";
 
-const { user, logOut } = useUserAuth();
-
 const Nawbar = styled.div`
   background-color: #fff;
   padding: 0 14px;
@@ -307,6 +305,8 @@ function Navbar(props) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDishes, setFilteredDishes] = useState([]);
   const navRef = useRef(null);
+
+  const { user, logOut } = useUserAuth();
 
   useEffect(() => {
     handleGPS();
