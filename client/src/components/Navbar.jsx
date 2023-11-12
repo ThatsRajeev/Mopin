@@ -379,6 +379,7 @@ function Navbar(props) {
   };
 
   const fetchData = async () => {
+    console.log(user);
     try {
       if(user) {
         const response = await axios.post('https://mopin-server.vercel.app/api/userdata', user);

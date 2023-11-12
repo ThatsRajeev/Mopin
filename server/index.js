@@ -148,7 +148,9 @@ const verifyToken = (req, res, next) => {
 
 app.post('/api/userdata', async (req, res) => {
   try {
-    const foundUserByPhone = await User.findOne({ phoneNumber: req.body.phoneNumber });
+    const foundUserByPhone = await User.findOne(
+      { phoneNumber: req.body.phoneNumber }
+    );
 
     if (!foundUserByPhone) {
       return res.status(404).json({ message: 'User not found' });
