@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import OtpInput from "otp-input-react";
+import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import loader from "../../assets/images/loader.svg";
 import { useUserAuth } from "../../context/AuthContext";
@@ -13,11 +14,10 @@ function Login({ setShowProp, fromCheckout }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [enterOtp, setEnterOtp] = useState(false);
+  const [showOtp, setShowOtp] = useState(false);
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
   const { setUpRecaptha } = useUserAuth();
 
   useEffect(() => {
@@ -31,9 +31,6 @@ function Login({ setShowProp, fromCheckout }) {
   }, [otp]);
 
   const sendDataToServer = async (event) => {
-    if(event) {
-      event.preventDefault();
-    }
     return new Promise(async (resolve, reject) => {
       try {
         const data = {
@@ -44,60 +41,64 @@ function Login({ setShowProp, fromCheckout }) {
         const response = await axios.post("https://mopin-server.vercel.app/api/endpoint", data);
         resolve(response.data);
       } catch (error) {
-        return alert(error);
+        toast.error(error.message);
+        reject(error);
       }
     });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.target.form;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if ((!isSignUp && !number) ||
+      (isSignUp && (!number || !name || !email))) {
+      return toast.error("Please fill in all required fields.");
+    }
 
-    if (!form.checkValidity() || enterOtp) {
-      if ((isSignUp && (!number || !name || !email)) || (!isSignUp && !number)) {
-        return alert("Please fill in all required fields.");
-      }
-    } else {
+    try {
       setLoading(true);
       const response = await sendDataToServer();
 
-      if (response === "Create an Account") {
-        setLoading(false);
+      if(response === "Create an Account") {
         setSignUp(true);
-      } else if (response === "User Details Saved" || response === "User Found") {
-        setSignUp(false);
-        try {
-          const confirmationResult = await setUpRecaptha(number);
-          setResult(confirmationResult);
-          setLoading(false); setEnterOtp(true);
-        } catch (err) {
-          console.error('Error during phone number sign in:', err);
-          alert("An error occurred during phone number sign in. Please try again.");
-          setLoading(false);
-        }
-      } else {
-        alert(response);
-      }
-    }
-  }
 
-  const verifyOtp = async (event) => {
+      } else if(response === "User Details Saved" || response === "User Found") {
+        const confirmationResult = await setUpRecaptha(number);
+        toast.success("OTP sent successfully!");
+        setResult(confirmationResult);
+        setShowOtp(true);
+
+      } else {
+        toast.error(response);
+      }
+
+    } catch(err) {
+      console.error("Error during phone number sign in:", err);
+      toast.error("An error occurred during phone number sign in. Please try again.");
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const verifyOtp = async () => {
     setLoading(true);
     try {
       result.confirm(otp).then((result) => {
-        console.log(result.user);
+        console.log(result);
       });
-
-      navigate("/");
       setShowProp();
+
     } catch (error) {
       console.error("Error during OTP verification:", error);
-      return alert("Invalid OTP - Please try again");
+      toast.error("Invalid OTP - Please try again");
     }
   };
 
   return(
     <div className="login-container">
+      <Toaster
+        position="bottom-center"
+      />
       <div className="back-button-div mob-view">
         <button className="back-button">
           <span class="material-symbols-outlined back-button-icon"
@@ -106,45 +107,51 @@ function Login({ setShowProp, fromCheckout }) {
       </div>
       <div className={fromCheckout ? "ck-login-img" : "login-img"}></div>
       <div className={fromCheckout ? "ck-login-div" : "login-div"}>
-        {enterOtp ? <p>
-          <div className={fromCheckout ? "ck-active-text" : "active-text"}>
-            <span class="material-symbols-outlined clear-otp-icon"
-            onClick={(event) => setEnterOtp(false)}>arrow_back_ios</span>
-            Enter OTP
-          </div>
-          We've sent an OTP to your phone number.</p> :
-        <p style={{display: fromCheckout ? "none":"block"}}>
-          <span className="active-text">{isSignUp ? "Signup" : "Login"}</span> or
-          <span className="inactive-text" onClick={() => setSignUp(!isSignUp)}>{isSignUp ? " Login" : " Signup"}</span>
-        </p>}
+        {showOtp ? (
+          <p>
+            <div className={fromCheckout ? "ck-active-text" : "active-text"}>
+              <span class="material-symbols-outlined clear-otp-icon"
+              onClick={(event) => setShowOtp(false)}>arrow_back_ios</span>
+              Enter OTP
+            </div>
+            We've sent an OTP to your phone number.
+          </p>
+        ) : (
+          <p style={{display: fromCheckout ? "none":"block"}}>
+            <span className="active-text">{isSignUp ? "Signup" : "Login"}</span> or
+            <span className="inactive-text" onClick={() => setSignUp(!isSignUp)}>{isSignUp ? " Login" : " Signup"}</span>
+          </p>
+        )}
 
         <form>
           <div className="form-group">
-          <PhoneInput autoComplete="off" defaultCountry="IN" placeholder="Phone number" className="form-control"
-           id="phoneNum" value={number} onChange={setNumber} required/>
+          <PhoneInput defaultCountry="IN" placeholder="Phone number" className="form-control"
+           value={number} onChange={setNumber} />
           </div>
 
-          {enterOtp &&
-          <div className="form-group">
-          <input type="text" autoComplete="off" pattern="[0-9]*" maxLength="6" placeholder="One time password" inputMode="numeric" className="form-control"
-           id="phoneNum" value={otp} onChange={(e) => {setOtp(e.target.value)}} required/>
-          </div>}
+          {showOtp && (
+            <div className="form-group">
+              <OtpInput OTPLength={6} otpType="number" disabled={false} className="form-control"
+               value={otp} onChange={setOtp} autoFocus
+              ></OtpInput>
+            </div>
+          )}
 
           {isSignUp && (
             <>
-            <div className="form-group">
-              <input type="text" autoComplete="off" placeholder="Full Name" className="form-control" id="name" name="name"
-               value={name} onChange={(e) => {setName(e.target.value)}} required/>
-            </div>
-            <div className="form-group">
-              <input type="email" autoComplete="off" maxLength="40" placeholder="Email Address" className="form-control" id="email"
-               name="email" value={email} onChange={(e) => {setEmail(e.target.value)}} required/>
-            </div>
+              <div className="form-group">
+                <input type="text" autoComplete="off" placeholder="Full Name" className="form-control" id="name" name="name"
+                 value={name} onChange={(e) => {setName(e.target.value)}} required/>
+              </div>
+              <div className="form-group">
+                <input type="email" autoComplete="off" maxLength="40" placeholder="Email Address" className="form-control" id="email"
+                 name="email" value={email} onChange={(e) => {setEmail(e.target.value)}} required/>
+              </div>
             </>
           )}
 
           <button name="submit" className="submit-btn" id="sign-in-button"
-           onClick={handleSubmit} disabled={loading}>
+           onClick={showOtp ? "" : handleSubmit} disabled={loading}>
              {isSignUp ? "Sign Me Up" : "Login With OTP"}
              {loading && <img className="loader-img" src={loader} alt="load-img" />}
           </button>

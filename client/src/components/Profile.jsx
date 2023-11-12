@@ -265,7 +265,7 @@ const LogoutContent = () => {
         <div className="profile-subdiv">
           <div style={{display: "flex", padding: "16px"}}>
             <div className="user-icon">
-            <span class="material-symbols-outlined" style={{height: '36px', marginRight: '10px'}}>person</span>
+            <span class="material-symbols-outlined" style={{fontSize: '36px'}}>person</span>
             </div>
             <div style={{margin: "8px 12px"}}>
               <h4 style={{lineHeight: "1.5"}}>{name}</h4>
