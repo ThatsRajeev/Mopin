@@ -5,6 +5,9 @@ import axios from "axios";
 import Location from "./Location";
 import Login from "./Login/Login";
 import Help from "./Help";
+import { useUserAuth } from "../context/AuthContext";
+
+const { user, logOut } = useUserAuth();
 
 const Nawbar = styled.div`
   background-color: #fff;
@@ -377,11 +380,10 @@ function Navbar(props) {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://mopin-server.vercel.app/api/userdata', {
-        withCredentials: true
-      });
-      setName(response.data.name);
-
+      if(user) {
+        const response = await axios.post('https://mopin-server.vercel.app/api/userdata', user);
+        setName(response.data.name);
+      }
     } catch (error) {
       console.error(error);
     }

@@ -146,10 +146,9 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-app.get('/api/userdata', verifyToken, async (req, res) => {
+app.post('/api/userdata', async (req, res) => {
   try {
-    // Access user data from the decoded token
-    const foundUserByPhone = await User.findOne({ phoneNumber: req.user.phoneNumber });
+    const foundUserByPhone = await User.findOne({ phoneNumber: req.body.phoneNumber });
 
     if (!foundUserByPhone) {
       return res.status(404).json({ message: 'User not found' });
