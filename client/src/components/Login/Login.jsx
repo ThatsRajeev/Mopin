@@ -7,7 +7,7 @@ import loader from "../../assets/images/loader.svg";
 import { useUserAuth } from "../../context/AuthContext";
 import "./Login.css";
 
-function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
+function Login({ setShowProp, fromCheckout }) {
   const [isSignUp, setSignUp] = useState(false);
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
@@ -83,26 +83,13 @@ function Login({ fetchData, setShowProp, fromCheckout, setLogged }) {
 
   const verifyOtp = async (event) => {
     setLoading(true);
-    console.log(result);
     try {
       result.confirm(otp).then((result) => {
         console.log(result.user);
       });
 
-      const authenticate = async (event) => {
-        try {
-          await axios.post("https://mopin-server.vercel.app/api/authenticate", {number}, {
-            withCredentials: true
-          });
-          fetchData();
-          setLoading(false);
-          navigate("/");
-        } catch (error) {
-          alert(error.message);
-        }
-      };
-
-      authenticate();
+      navigate("/");
+      setShowProp();
     } catch (error) {
       console.error("Error during OTP verification:", error);
       return alert("Invalid OTP - Please try again");

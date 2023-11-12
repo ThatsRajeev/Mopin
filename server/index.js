@@ -113,38 +113,38 @@ app.post("/api/endpoint", async (req, res) => {
   }
 });
 
-app.post('/api/authenticate', (req, res) => {
-  const payload = {
-    phoneNumber: req.body.phoneNumber
-  }
-  const expiresIn = 60*60*24*30;
-
-  jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn }, (err, token)=> {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({message: "Error generating token"});
-    }
-      res.cookie("token", token, {httpOnly: true, secure: true, sameSite: 'none'});
-    res.send(req.cookies);
-  });
-});
-
-const verifyToken = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) {
-    return res.status(401).json({ message: 'Authentication failed' });
-  }
-
-  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
-    if (err) {
-      console.log(err);
-      return res.status(401).json({ message: 'Invalid token' });
-    }
-    // Store the decoded token in the request object for further use
-    req.user = decoded;
-    next();
-  });
-};
+// app.post('/api/authenticate', (req, res) => {
+//   const payload = {
+//     phoneNumber: req.body.phoneNumber
+//   }
+//   const expiresIn = 60*60*24*30;
+//
+//   jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn }, (err, token)=> {
+//     if (err) {
+//       console.error(err);
+//       return res.status(500).json({message: "Error generating token"});
+//     }
+//       res.cookie("token", token, {httpOnly: true, secure: true, sameSite: 'none'});
+//     res.send(req.cookies);
+//   });
+// });
+//
+// const verifyToken = (req, res, next) => {
+//   const token = req.cookies.token;
+//   if (!token) {
+//     return res.status(401).json({ message: 'Authentication failed' });
+//   }
+//
+//   jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+//     if (err) {
+//       console.log(err);
+//       return res.status(401).json({ message: 'Invalid token' });
+//     }
+//     // Store the decoded token in the request object for further use
+//     req.user = decoded;
+//     next();
+//   });
+// };
 
 app.post('/api/userdata', async (req, res) => {
   try {
@@ -203,9 +203,11 @@ app.post("/api/savepoint", async (req, res) => {
   }
 });
 
-app.get('/api/addressdata', verifyToken, async (req, res) => {
+app.post('/api/addressdata', async (req, res) => {
   try {
-    const foundAddress = await Address.findOne({ phoneNumber: req.user.phoneNumber });
+    const foundAddress = await Address.findOne(
+      { phoneNumber: req.body.phoneNumber }
+    );
 
     if (!foundAddress) {
       return res.status(404).json({ message: 'Address not found' });

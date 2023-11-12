@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import axios from "axios";
 import MapComponent from "./MapComponent";
+import { useUserAuth } from "../context/AuthContext";
 
 const Profile = () => {
   const [name, setName] = useState("");
@@ -11,6 +12,8 @@ const Profile = () => {
   const [address, setAddress] = useState("");
   const [addressType, setAddressType] = useState("");
   const [overlayVisible, setOverlayVisible] = useState(false);
+
+  const { user, logOut } = useUserAuth();
 
   const toggleOverlay = () => {
     setOverlayVisible(!overlayVisible);
@@ -34,13 +37,12 @@ const Profile = () => {
 
    const fetchData = async () => {
      try {
-       const response = await axios.get('https://mopin-server.vercel.app/api/userdata', {
-         withCredentials: true
-       });
-       setName(response.data.name);
-       setEmail(response.data.email);
-       setphoneNumber(response.data.phoneNumber);
-
+       if(user) {
+         const response = await axios.post('https://mopin-server.vercel.app/api/userdata', user);
+         setName(response.data.name);
+         setEmail(response.data.email);
+         setphoneNumber(response.data.phoneNumber);
+       }
      } catch (error) {
        console.error(error);
      }
@@ -48,13 +50,12 @@ const Profile = () => {
 
    const fetchAddress = async () => {
      try {
-       const response = await axios.get('https://mopin-server.vercel.app/api/addressdata', {
-         withCredentials: true
-       });
-       setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
-                  response.data.streetDetails + ", " + response.data.address);
-       setAddressType(response.data.addressType);
-
+       if(user) {
+         const response = await axios.post('https://mopin-server.vercel.app/api/addressdata', user);
+         setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
+                    response.data.streetDetails + ", " + response.data.address);
+         setAddressType(response.data.addressType);
+       }
      } catch (error) {
        console.error(error);
      }
