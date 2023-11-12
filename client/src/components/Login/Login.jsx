@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import OtpInput from "otp-input-react";
+import OtpInput from "react-otp-input";
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import loader from "../../assets/images/loader.svg";
@@ -91,6 +91,7 @@ function Login({ setShowProp, fromCheckout }) {
     } catch (error) {
       console.error("Error during OTP verification:", error);
       toast.error("Invalid OTP - Please try again");
+      setLoading(false);
     }
   };
 
@@ -124,16 +125,28 @@ function Login({ setShowProp, fromCheckout }) {
         )}
 
         <form>
-          <div className="form-group">
-          <PhoneInput defaultCountry="IN" placeholder="Phone number" className="form-control"
-           value={number} onChange={setNumber} />
-          </div>
-
-          {showOtp && (
+          {showOtp ? (
             <div className="form-group">
-              <OtpInput OTPLength={6} otpType="number" disabled={false} className="form-control"
-               value={otp} onChange={setOtp} autoFocus
-              ></OtpInput>
+              <OtpInput numInputs={6} isInputNum={true}
+               value={otp} onChange={setOtp} shouldAutoFocus={true}
+               renderInput={(props) => <input {...props} />}
+               inputStyle={{
+                  border: "1px solid rgb(204, 204, 204)",
+                  borderRadius: "8px",
+                  width: "44px",
+                  height: "44px",
+                  fontSize: "24px",
+                  color: "#222222",
+                  fontWeight: "800",
+                  margin: "0 6px 18px 0",
+                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 4px 4px 0px;"
+                }}
+              />
+            </div>
+          ) : (
+            <div className="form-group">
+              <PhoneInput defaultCountry="IN" placeholder="Phone number" className="form-control"
+               value={number} onChange={setNumber} />
             </div>
           )}
 
