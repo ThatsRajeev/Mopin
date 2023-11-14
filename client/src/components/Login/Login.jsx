@@ -82,13 +82,12 @@ function Login({ setShowProp, fromCheckout }) {
 
   const verifyOtp = async () => {
     setLoading(true);
-    try {
-      result.confirm(otp).then((result) => {
-        console.log(result);
-        setShowProp();
-      });
-    } catch (error) {
-      console.error("Error during OTP verification:", error);
+    result.confirm(otp).then((res) => {
+      console.log(res);
+      setShowProp();
+    })
+    .catch((err) => {
+      lconsole.error("Error during OTP verification:", error);
       toast.error("Invalid OTP - Please try again");
       setLoading(false);
     }
