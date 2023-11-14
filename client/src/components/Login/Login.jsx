@@ -127,9 +127,8 @@ function Login({ setShowProp, fromCheckout }) {
         <form>
           {showOtp ? (
             <div className="form-group">
-              <OtpInput numInputs={6} isInputNum={true}
-               value={otp} onChange={setOtp} shouldAutoFocus={true}
-               renderInput={(props) => <input {...props} />}
+              <OtpInput numInputs={6} isInputNum={true} value={otp} onChange={setOtp}
+               shouldAutoFocus={true} renderInput={(props) => <input {...props} />}
                inputStyle={{
                   border: "1px solid rgb(204, 204, 204)",
                   borderRadius: "8px",
@@ -146,7 +145,7 @@ function Login({ setShowProp, fromCheckout }) {
           ) : (
             <div className="form-group">
               <PhoneInput defaultCountry="IN" placeholder="Phone number" className="form-control"
-               value={number} onChange={setNumber} />
+               autoComplete="off" value={number} onChange={setNumber} />
             </div>
           )}
 

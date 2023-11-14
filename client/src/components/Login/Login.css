@@ -74,6 +74,18 @@
   }
 }
 
+.otpInput {
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  font-size: 24px;
+  color: #222222;
+  font-weight: 800;
+  margin: 0 6px 18px 0;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 4px 0px;
+}
+
 .loader-img { margin-left: 6px; }
 
 .submit-btn {
