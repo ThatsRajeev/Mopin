@@ -87,10 +87,10 @@ function Login({ setShowProp, fromCheckout }) {
       setShowProp();
     })
     .catch((err) => {
-      lconsole.error("Error during OTP verification:", error);
+      console.error("Error during OTP verification:", err);
       toast.error("Invalid OTP - Please try again");
       setLoading(false);
-    }
+    });
   };
 
   return(
