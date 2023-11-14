@@ -65,6 +65,7 @@ function Login({ setShowProp, fromCheckout }) {
         const confirmationResult = await setUpRecaptha(number);
         toast.success("OTP sent successfully!");
         setResult(confirmationResult);
+        setSignUp(false);
         setShowOtp(true);
 
       } else {

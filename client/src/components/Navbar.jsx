@@ -310,8 +310,11 @@ function Navbar(props) {
 
   useEffect(() => {
     handleGPS();
+  }, []);
+
+  useEffect(() => {
     fetchData();
-  }, [], [user]);
+  }, [user]);
 
   const location = useLocation();
   useEffect(() => {
