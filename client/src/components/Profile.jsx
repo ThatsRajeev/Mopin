@@ -75,9 +75,7 @@ const Profile = () => {
 
    const handleLogout = async () => {
      try {
-       const response = await axios.get('https://mopin-server.vercel.app/api/logout', {
-         withCredentials: true
-       });
+       logOut();
        navigate('/');
 
      } catch (error) {

@@ -26,8 +26,6 @@ app.use(cors({
 
 app.use('/proxy', function(req, res) {
   var url = 'https://api.opencagedata.com' + req.url;
-
-
   req.pipe(request(url)).pipe(res);
 });
 
