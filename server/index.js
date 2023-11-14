@@ -27,11 +27,6 @@ app.use(cors({
 app.use('/proxy', function(req, res) {
   var url = 'https://api.opencagedata.com' + req.url;
 
-  // Set up headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://mopin-frontend.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
 
   req.pipe(request(url)).pipe(res);
 });
@@ -50,9 +45,6 @@ app.post('/formspree', function(req, res) {
     res.send(body);
   });
 });
-
-
-dotenv.config();
 
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'build')));
@@ -112,39 +104,6 @@ app.post("/api/endpoint", async (req, res) => {
     return res.status(500).send("Error processing request");
   }
 });
-
-// app.post('/api/authenticate', (req, res) => {
-//   const payload = {
-//     phoneNumber: req.body.phoneNumber
-//   }
-//   const expiresIn = 60*60*24*30;
-//
-//   jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn }, (err, token)=> {
-//     if (err) {
-//       console.error(err);
-//       return res.status(500).json({message: "Error generating token"});
-//     }
-//       res.cookie("token", token, {httpOnly: true, secure: true, sameSite: 'none'});
-//     res.send(req.cookies);
-//   });
-// });
-//
-// const verifyToken = (req, res, next) => {
-//   const token = req.cookies.token;
-//   if (!token) {
-//     return res.status(401).json({ message: 'Authentication failed' });
-//   }
-//
-//   jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
-//     if (err) {
-//       console.log(err);
-//       return res.status(401).json({ message: 'Invalid token' });
-//     }
-//     // Store the decoded token in the request object for further use
-//     req.user = decoded;
-//     next();
-//   });
-// };
 
 app.post('/api/userdata', async (req, res) => {
   try {
@@ -227,8 +186,9 @@ app.post('/api/addressdata', async (req, res) => {
 
 app.get('/api/deletedata', async (req, res) => {
   try {
-    // Access user data from the decoded token
-    await Address.deleteOne({ phoneNumber: phoneNumber });
+    await Address.deleteOne(
+      { phoneNumber: req.body.phoneNumber }
+    );
     res.send("Address Deleted Successfully")
   } catch (err) {
     console.error(err);
@@ -284,11 +244,6 @@ app.get('/api/cartSummary', async (req, res) => {
     console.error(err);
     return res.status(500).send("Error processing request");
   }
-});
-
-app.get('/api/logout', (req, res) => {
-  res.clearCookie('token'); // Clear the token cookie
-  res.status(200).json({ message: 'Logout successful' });
 });
 
 app.listen(process.env.PORT, () => {
