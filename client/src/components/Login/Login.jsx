@@ -85,9 +85,8 @@ function Login({ setShowProp, fromCheckout }) {
     try {
       result.confirm(otp).then((result) => {
         console.log(result);
+        setShowProp();
       });
-      setShowProp();
-
     } catch (error) {
       console.error("Error during OTP verification:", error);
       toast.error("Invalid OTP - Please try again");
@@ -135,10 +134,8 @@ function Login({ setShowProp, fromCheckout }) {
                   width: "44px",
                   height: "44px",
                   fontSize: "24px",
-                  color: "#222222",
-                  fontWeight: "800",
                   margin: "0 6px 18px 0",
-                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 4px 4px 0px;"
+                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 4px 4px 0px"
                 }}
               />
             </div>
