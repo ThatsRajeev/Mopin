@@ -316,8 +316,6 @@ function Navbar(props) {
         if (navigator.geolocation) {
           const res = await handleGPS();
           setSelectedAddress(res.results[0].formatted);
-          setShow(false);
-          setIsOverlayActive(false);
         }
       } catch (e) {
         console.error(e);
