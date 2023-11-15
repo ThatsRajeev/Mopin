@@ -326,10 +326,16 @@ function Navbar(props) {
   }, []);
 
   useEffect(() => {
-    if(user) {
-      const res = fetchData(user);
-      setName(res.name);
-    }
+    (async function() {
+      try {
+        if (user) {
+          const res = await fetchData(user);
+          setName(res.name);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   }, [user]);
 
   const location = useLocation();
