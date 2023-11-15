@@ -6,6 +6,8 @@ import Location from "./Location";
 import Login from "./Login/Login";
 import Help from "./Help";
 import { useUserAuth } from "../context/AuthContext";
+import fetchData from "../utils/fetchData";
+import handleGPS from "../utils/handleGPS";
 
 const Nawbar = styled.div`
   background-color: #fff;
@@ -309,11 +311,25 @@ function Navbar(props) {
   const { user, logOut } = useUserAuth();
 
   useEffect(() => {
-    handleGPS();
+    (async function() {
+      try {
+        if (navigator.geolocation) {
+          const res = await handleGPS();
+          setSelectedAddress(res.results[0].formatted);
+          setShow(false);
+          setIsOverlayActive(false);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   }, []);
 
   useEffect(() => {
-    fetchData();
+    if(user) {
+      const res = fetchData(user);
+      setName(res.name);
+    }
   }, [user]);
 
   const location = useLocation();
@@ -328,13 +344,6 @@ function Navbar(props) {
       setMenuItem('Home');
     }
   }, [location.pathname]);
-
-  // useEffect(() => {
-  //   const filtered = allDishes.filter(dish =>
-  //     dish.name.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-  //   setFilteredDishes(filtered);
-  // }, [searchQuery, allDishes]);
 
   if (isShow || isLoginOverlayActive || isHelpOverlayActive) {
     document.body.style.overflow = "hidden";
@@ -361,36 +370,6 @@ function Navbar(props) {
     setIsHelpOverlayActive(!isHelpOverlayActive);
     setIsOverlayActive(!isOverlayActive);
   }
-
-  const handleGPS = async () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords;
-        const response = await axios.get(
-          `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${latitude}+${longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`,
-          { withCredentials: false }
-        );
-        setSelectedAddress(
-          response.data.results[0].formatted
-        );
-      });
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-    setShow(false);
-    setIsOverlayActive(false);
-  };
-
-  const fetchData = async () => {
-    try {
-      if(user) {
-        const response = await axios.post('https://mopin-server.vercel.app/api/userdata', user);
-        setName(response.data.name);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <Nawbar style={{display: props.showNavbar}}>

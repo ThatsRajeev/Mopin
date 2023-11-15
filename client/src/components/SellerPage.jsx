@@ -5,7 +5,7 @@ import axios from "axios";
 import homecooks from "../data/homecooks";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import woman from "../assets/images/woman.png";
+import woman from "../assets/woman.png";
 
 function SellerPage() {
   const { sellerId } = useParams();

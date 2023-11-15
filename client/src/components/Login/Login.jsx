@@ -4,7 +4,7 @@ import PhoneInput from "react-phone-number-input";
 import OtpInput from "react-otp-input";
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
-import loader from "../../assets/images/loader.svg";
+import loader from "../../assets/loader.svg";
 import { useUserAuth } from "../../context/AuthContext";
 import "./Login.css";
 

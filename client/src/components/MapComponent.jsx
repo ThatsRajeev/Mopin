@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import { createControlComponent } from '@react-leaflet/core';
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
-import locationIcon from "../assets/images/location-icon.png";
+import locationIcon from "../assets/location-icon.png";
 
 function DraggableMarker({ setAddressProp, setCurrentLocation }) {
   const [position, setPosition] = useState({ lat: 28.75, lng: 77.11 })
