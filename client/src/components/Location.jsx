@@ -43,7 +43,7 @@ const Location = ({ setAddressProp, setShowProp }) => {
   const handleSuggestionClick = (suggestion) => {
     setAddressProp(suggestion.formatted);
     setSuggestions([]);
-    setShowProp();
+    setShowProp('address');
   };
 
   const handleClearInput = () => {
@@ -55,7 +55,7 @@ const Location = ({ setAddressProp, setShowProp }) => {
     <>
       <div className="mob-view">
         <div style={{display: 'flex', marginTop: '28px', fontSize: '16px'}}>
-          <span class="material-symbols-outlined" style={{marginRight: '16px'}} onClick={() => setShowProp()}>arrow_back</span>
+          <span class="material-symbols-outlined" style={{marginRight: '16px'}} onClick={() => setShowProp('address')}>arrow_back</span>
           <p> Search your delivery location</p>
         </div>
       </div>

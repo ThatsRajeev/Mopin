@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import Location from "./Location";
 import Login from "./Login/Login";
 import Help from "./Help";
@@ -9,84 +8,37 @@ import { useUserAuth } from "../context/AuthContext";
 import fetchData from "../utils/fetchData";
 import handleGPS from "../utils/handleGPS";
 
-const Nawbar = styled.div`
+const NavContainer = styled.header`
   background-color: #fff;
   padding: 0 14px;
 
   @media (max-width: 35em) {
-    padding: 0;
-    margin: 0 16px;
+    background-color: #f2f2f2;
+    padding: 0 16px;
   }
 `;
 
-const Nav = styled.nav`
+const GlobalNav = styled.nav`
   display: flex;
   position: relative;
-  font-family: "Montserrat", sans-serif;
   align-items: center;
   height: 80px;
   margin: 0 auto;
   justify-content: space-between;
-
-  @media screen and (min-width: 1200px) {
-    max-width: 1200px;
-  }
-
-  @media (max-width: 35em) {
-    min-width: unset;
-    width: 100%;
-    justify-content: space-between;
-    background-color: #f2f2f2;
-  }
-`;
-
-const MobNav = styled.div`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  margin-left: -16px;
-  z-index: 200;
-  background: #f2f2f2;
-  box-shadow: 0px -2px 14px 0px rgba(0, 0, 0, 0.12);
-  transition: transform .3s ease-in;
-  will-change: transform;
-  backface-visibility: hidden;
-
-  @media (min-width: 35em) {
-    display: none;
-  }
-`;
-
-const MobContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-
-  .material-symbols-outlined {
-    margin-right: 0;
-  }
-`;
-
-const MenuItem = styled.div`
-  padding: 0.6rem 0px;
-  flex: 0 0 25%;
-  -webkit-box-flex: 0;
-  text-align: center;
-  font-size: 0.8rem;
+  max-width: 1200px;
 `;
 
 const Logo = styled.h1`
   color: #f16122;
-  font-size: 25px;
-  letter-spacing: 5px;
+  font-size: 26px;
+  letter-spacing: 2px;
 
   @media (max-width: 35em) {
     display: none;
   }
 `;
 
-const Head = styled.h3`
+const Heading = styled.h3`
   position: absolute;
   font-size: 18px;
   transform: translateX(100%);
@@ -294,21 +246,57 @@ const Linke = styled(Link)`
   }
 `;
 
+const MobNav = styled.nav`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-left: -16px;
+  z-index: 200;
+  background: #f2f2f2
+  box-shadow: 0px -2px 14px 0px rgba(0, 0, 0, 0.12);
+  transition: transform .3s ease-in;
+  will-change: transform;
+  backface-visibility: hidden;
+
+  @media (min-width: 35em) {
+    display: none;
+  }
+`;
+
+const MobContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+
+  .material-symbols-outlined {
+    margin-right: 0;
+  }
+`;
+
+const MenuItem = styled.div`
+  padding: 0.6rem 0px;
+  flex: 0 0 25%;
+  -webkit-box-flex: 0;
+  text-align: center;
+  font-size: 0.8rem;
+`;
+
 function Navbar(props) {
 
   const [menuItem, setMenuItem] = useState('Home');
-  const [isShow, setShow] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
+  const [isAddressOverlayActive, setIsAddressOverlayActive] = useState(false);
   const [isLoginOverlayActive, setIsLoginOverlayActive] = useState(false);
   const [isHelpOverlayActive, setIsHelpOverlayActive] = useState(false);
   const [isSearchOverlayActive, setIsSearchOverlayActive] = useState(false);
   const [name, setName] = useState("");
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDishes, setFilteredDishes] = useState([]);
-  const navRef = useRef(null);
 
-  const { user, logOut } = useUserAuth();
+  const { user } = useUserAuth();
+  const location = useLocation();
 
   useEffect(() => {
     (async function() {
@@ -336,10 +324,8 @@ function Navbar(props) {
     })();
   }, [user]);
 
-  const location = useLocation();
   useEffect(() => {
     const pathname = location.pathname;
-
     if (pathname === '/profile') {
       setMenuItem('Profile');
     } else if (pathname === '/checkout') {
@@ -349,47 +335,59 @@ function Navbar(props) {
     }
   }, [location.pathname]);
 
-  if (isShow || isLoginOverlayActive || isHelpOverlayActive) {
+  const toggleOverlay = (overlayType) => {
+    switch(overlayType) {
+      case 'address':
+        setIsAddressOverlayActive(!isAddressOverlayActive);
+        break;
+      case 'login':
+        setIsLoginOverlayActive(!isLoginOverlayActive);
+        break;
+      case 'search':
+        setIsSearchOverlayActive(!isSearchOverlayActive);
+        break;
+      case 'help':
+        setIsHelpOverlayActive(!isHelpOverlayActive);
+        break;
+      default:
+        break;
+    }
+    setIsOverlayActive(!isOverlayActive);
+  }
+
+  // const renderOverlay = (overlayType, contentComponent) => {
+  //   const isActive = overlayType === 'search' ? isSearchOverlayActive : isOverlayActive;
+  //   return isActive && (
+  //     <Overlay>
+  //       <CloseButton onClick={() => toggleOverlay(overlayType)}>
+  //         {/* your close button content */}
+  //       </CloseButton>
+  //       {contentComponent}
+  //     </Overlay>
+  //   );
+  // };
+
+  if (isAddressOverlayActive || isLoginOverlayActive || isHelpOverlayActive) {
     document.body.style.overflow = "hidden";
   } else {
     document.body.style.overflow = "auto";
   }
 
-  const toggleNavbarFocus = () => {
-    setIsOverlayActive(!isOverlayActive);
-    setShow(!isShow);
-  }
-
-  const toggleLoginOverlay = () => {
-    setIsLoginOverlayActive(!isLoginOverlayActive);
-    setIsOverlayActive(!isOverlayActive);
-  }
-
-  const toggleSearchOverlay = () => {
-    setIsSearchOverlayActive(!isSearchOverlayActive);
-    setIsOverlayActive(!isOverlayActive);
-  }
-
-  const toggleHelpOverlay = () => {
-    setIsHelpOverlayActive(!isHelpOverlayActive);
-    setIsOverlayActive(!isOverlayActive);
-  }
-
   return (
-    <Nawbar style={{display: props.showNavbar}}>
-      <Nav ref={navRef}>
-      <FlexContainer>
-        <Linke to="/">
-          <Logo> mopin </Logo>
+    <NavContainer style={{display: props.showNavbar}}>
+      <GlobalNav>
+        <FlexContainer>
+          <Linke to="/">
+            <Logo> mopin </Logo>
           </Linke>
           <Linke className="ad" href="#">
             {isOverlayActive &&
-              <BackgroundOverlay onClick={() => {isLoginOverlayActive ? toggleLoginOverlay() : toggleNavbarFocus()}}
+              <BackgroundOverlay onClick={() => {isLoginOverlayActive ? toggleOverlay('login') : toggleOverlay('address')}}
             />}
 
             <AddressContainer
               style={{display: props.showAddress}}
-              onClick={() => {toggleNavbarFocus()}}>
+              onClick={() => {toggleOverlay('address')}}>
               <span className="material-symbols-outlined" style={{color: "#f16122"}}>pin_drop</span>
               <Address>
                 {selectedAddress}
@@ -397,11 +395,11 @@ function Navbar(props) {
               <span className="material-symbols-outlined" style={{marginRight: '0'}}>expand_more</span>
             </AddressContainer>
 
-            {isShow && (
-              <AddressOverlay open={isShow}>
+            {isAddressOverlayActive && (
+              <AddressOverlay open={isAddressOverlayActive}>
                 <Location
                   setAddressProp={setSelectedAddress}
-                  setShowProp={toggleNavbarFocus}
+                  setShowProp={toggleOverlay}
                 />
                 <p className="gps-location" onClick={handleGPS}>
                 <span className="material-symbols-outlined" style={{marginRight: '16px'}}>my_location</span>
@@ -420,7 +418,7 @@ function Navbar(props) {
         </FlexContainer>
 
         {props.header &&
-        <Head>{props.header}</Head>}
+        <Heading>{props.header}</Heading>}
 
         <Menu open={props.header === "Secure Checkout"}>
           <Item  open={props.header === "Secure Checkout"}>
@@ -430,13 +428,13 @@ function Navbar(props) {
             </Linke>
           </Item>
           <Item>
-            <Linke onClick={toggleHelpOverlay}>
+            <Linke onClick={() => {toggleOverlay('help')}}>
             <span className="material-symbols-outlined">support</span>
               Help
             </Linke>
           </Item>
           <Item>
-            <Linke onClick={name ? "" : toggleLoginOverlay} to={name ? "/profile" : ""}>
+            <Linke onClick={() => {if(!name) {toggleOverlay('login')}}} to={name ? "/profile" : ""}>
               <span className="material-symbols-outlined">person</span>
               {name ? name : "Sign in"}
             </Linke>
@@ -451,46 +449,28 @@ function Navbar(props) {
 
         {isLoginOverlayActive && (
             <LoginOverlay>
-              <button className="close-button" onClick={toggleLoginOverlay}>
+              <button className="close-button" onClick={() => {toggleOverlay('login')}}>
                 <span class="material-symbols-outlined" style={{marginRight: '0', fontSize: '18px'}}>close</span>
               </button>
-              <Login fetchData={fetchData} setShowProp={toggleLoginOverlay}/>
+              <Login fetchData={fetchData} setShowProp={() => {toggleOverlay('login')}}/>
             </LoginOverlay>
         )}
 
         {isHelpOverlayActive && (
             <HelpOverlay>
-              <button className="close-button" onClick={toggleHelpOverlay}>
+              <button className="close-button" onClick={() => {toggleOverlay('help')}}>
                 <span class="material-symbols-outlined" style={{marginRight: '0', fontSize: '18px'}}>close</span>
               </button>
-              <Help setShowProp={toggleHelpOverlay}/>
+              <Help setShowProp={() => {toggleOverlay('help')}}/>
             </HelpOverlay>
         )}
 
-        {isSearchOverlayActive && (
-          <SearchOverlay>
-          <input
-            type="text"
-            placeholder="Search for dishes..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          {filteredDishes.map(dish => (
-            <div key={dish.id} className="dish-card">
-              {/* Display dish information */}
-              <p>{dish.name}</p>
-              {/* ...other dish details */}
-            </div>
-          ))}
-          </SearchOverlay>
-        )}
-
         <Icon style={{padding: '0'}}>
-          <Linke onClick={name ? "" : toggleLoginOverlay} to={name ? "/profile" : ""}>
+          <Linke onClick={() => {if(!name) {toggleOverlay('login')}}} to={name ? "/profile" : ""}>
             <span style={{margin: '6px', fontSize: '24px'}} className="material-symbols-outlined">person</span>
           </Linke>
         </Icon>
-      </Nav>
+      </GlobalNav>
 
       <SearchContainer>
         <SearchBarContainer>
@@ -509,13 +489,13 @@ function Navbar(props) {
             </Linke>
           </MenuItem>
           <MenuItem active={menuItem==='Profile'}>
-            <Linke to={name ? "/profile" : ""} sc={menuItem!=='Profile'} onClick={name ? "" : toggleLoginOverlay}>
+            <Linke to={name ? "/profile" : ""} sc={menuItem!=='Profile'} onClick={() => {if(!name) {toggleOverlay('login')}}}>
               <span className="material-symbols-outlined">person</span>
               Profile
             </Linke>
           </MenuItem>
           <MenuItem active={menuItem==='Help'}>
-            <Linke sc={menuItem!=='Help'} onClick={() => {toggleHelpOverlay()}}>
+            <Linke sc={menuItem!=='Help'} onClick={() => {toggleOverlay('help')}}>
               <span className="material-symbols-outlined">support</span>
               Help
             </Linke>
@@ -528,7 +508,7 @@ function Navbar(props) {
           </MenuItem>
         </MobContainer>
       </MobNav>
-    </Nawbar>
+    </NavContainer>
   );
 }
 

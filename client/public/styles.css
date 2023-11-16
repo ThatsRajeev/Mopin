@@ -108,7 +108,7 @@ label {
     margin: 3.2vw 14px 2.4vw;
   }
 
-  @media (max-width: 35rem) {
+  @media (max-width: 35em) {
     margin: 4.2vw 16px 0;
   }
 }
@@ -119,7 +119,7 @@ label {
   line-height: 1.8rem;
   letter-spacing: 1px;
 
-  @media (max-width: 35rem) {
+  @media (max-width: 35em) {
     font-size: 1.2rem;
   }
 }
@@ -141,7 +141,7 @@ label {
     margin: 0 4px;
   }
 
-  @media (max-width: 35rem) {
+  @media (max-width: 35em) {
     font-size: 0.9rem;
     padding: 6px 12px;
     >div {display: none;}
@@ -149,13 +149,13 @@ label {
 }
 
 .pc-view {
-  @media (max-width: 35rem) {
+  @media (max-width: 35em) {
     display: none !important;
   }
 }
 
 .mob-view {
-  @media (min-width: 35rem) {
+  @media (min-width: 35em) {
     display: none !important;
   }
 }
@@ -375,7 +375,7 @@ label {
   width: 2.8rem !important;
   height: 2.8rem !important;
 
-  @media (max-width: 35rem) {
+  @media (max-width: 35em) {
     display: none !important;
   }
 }
@@ -394,7 +394,7 @@ label {
   background-color: #349E46 !important;
   opacity: 0.64 !important;
 
-  @media (max-width: 35rem) {
+  @media (max-width: 35em) {
     display: none !important;
   }
 }
