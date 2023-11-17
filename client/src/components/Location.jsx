@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Location = ({ setAddressProp, setShowProp }) => {
+const Location = ({ setAdrsProp, setShowProp }) => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -13,7 +13,7 @@ const Location = ({ setAddressProp, setShowProp }) => {
           `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${latitude}+${longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`,
           { withCredentials: false }
         );
-        setAddressProp(response.data.results[0].formatted);
+        setAdrsProp(response.data.results[0].formatted);
         setShowProp('address');
       });
     } else {
@@ -40,7 +40,7 @@ const Location = ({ setAddressProp, setShowProp }) => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    setAddressProp(suggestion.formatted);
+    setAdrsProp(suggestion.formatted);
     setSuggestions([]);
     setShowProp('address');
   };

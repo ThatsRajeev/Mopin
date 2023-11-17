@@ -376,18 +376,9 @@ function Navbar(props) {
           <BackgroundOverlay onClick={() => {toggleOverlay(isLoginActive ? 'login' :
             isHelpActive ? 'help' : 'address')}}
         />}
-
-        {renderOverlay('address', (
-          <Location setShowProp={toggleOverlay} setAddressProp={setSelectedAddress}/>
-        ))}
-
-        {renderOverlay('login', (
-          <Login setShowProp={toggleOverlay}/>
-        ))}
-
-        {renderOverlay('help', (
-          <Help setShowProp={toggleOverlay}/>
-        ))}
+        {renderOverlay('address', (<Location setShowProp={toggleOverlay} setAdrsProp={setSelectedAddress}/>))}
+        {renderOverlay('login', (<Login setShowProp={toggleOverlay}/>))}
+        {renderOverlay('help', (<Help setShowProp={toggleOverlay}/>))}
 
         <Icon style={{padding: '0'}}>
           <NavLink onClick={() => {if(!name) {toggleOverlay('login')}}} to={name ? "/profile" : ""}>
