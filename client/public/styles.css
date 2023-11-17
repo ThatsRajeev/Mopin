@@ -89,7 +89,6 @@ label {
 
 .material-symbols-outlined {
   font-size: 20px;
-  margin-right: 8px;
   font-variation-settings:
   'FILL' 0,
   'wght' 800,
@@ -882,10 +881,14 @@ label {
 }
 
 .gps-location {
+  font-weight: 800;
   z-index: -1;
   display: flex;
   align-items: center;
   margin: 32px 0;
+  font-size: 0.8rem;
+  letter-spacing: 1.2px;
+  cursor: pointer;
 }
 
 .choose-location {
@@ -896,6 +899,9 @@ label {
   flex-direction: column;
   text-align: center;
   padding: 8% 0;
+  font-size: 0.8rem;
+  letter-spacing: 1.2px;
+  font-weight: 800;
   z-index: -1;
 }
 
@@ -2155,4 +2161,16 @@ label {
   background-image: url(https://drive.google.com/uc?export=view&id=1VKp-UmSEfkD4AsjvIgWgEXDzvoNRGj71);
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.pin-icon {
+  color: #f16122;
+}
+
+.my-location-icon {
+  margin-right: 16px;
+}
+
+.location-on-icon {
+  font-size: 48px;
 }

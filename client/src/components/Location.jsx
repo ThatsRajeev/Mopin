@@ -13,9 +13,8 @@ const Location = ({ setAddressProp, setShowProp }) => {
           `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${latitude}+${longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`,
           { withCredentials: false }
         );
-        setAddressProp(
-          response.data.results[0].formatted
-        );
+        setAddressProp(response.data.results[0].formatted);
+        setShowProp('address');
       });
     } else {
       console.error("Geolocation is not supported by this browser.");
@@ -102,6 +101,17 @@ const Location = ({ setAddressProp, setShowProp }) => {
           </div>
         )}
       </ul>
+      <p className="gps-location" onClick={getCurrentLocation}>
+        <span className="material-symbols-outlined my-location-icon">my_location</span>
+        Use Current Location Using GPS
+      </p>
+      <div className="choose-location">
+        <div className="locationIcon-container">
+          <span class="material-symbols-outlined location-on-icon">location_on</span>
+        </div>
+        <p className="choose-location-p1"> Choose your location! </p>
+        <p className="choose-location-p2"> And enjoy delicious homemade cuisines near your location </p>
+      </div>
     </>
   );
 };

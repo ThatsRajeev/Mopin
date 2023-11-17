@@ -85,7 +85,7 @@ function Login({ setShowProp, fromCheckout }) {
     setLoading(true);
     result.confirm(otp).then((res) => {
       console.log(res);
-      setShowProp();
+      setShowProp('login');
     })
     .catch((err) => {
       console.error("Error during OTP verification:", err);
@@ -102,7 +102,7 @@ function Login({ setShowProp, fromCheckout }) {
       <div className="back-button-div mob-view">
         <button className="back-button">
           <span class="material-symbols-outlined back-button-icon"
-          onClick={() => setShowProp()}>arrow_back_ios</span>
+          onClick={() => setShowProp('login')}>arrow_back_ios</span>
         </button>
       </div>
       <div className={fromCheckout ? "ck-login-img" : "login-img"}></div>

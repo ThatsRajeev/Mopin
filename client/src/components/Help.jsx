@@ -40,7 +40,7 @@ function Help({setShowProp}) {
     <div className="help-section" style={{margin: '4%'}}>
     <div className="mob-view">
       <div style={{display: 'flex', margin: '28px 0 14px', fontSize: '18px', fontWeight: '600'}}>
-        <span class="material-symbols-outlined" style={{marginRight: '16px'}} onClick={() => setShowProp()}>arrow_back</span>
+        <span class="material-symbols-outlined" style={{marginRight: '16px'}} onClick={() => setShowProp('help')}>arrow_back</span>
         <p> Help & Support</p>
       </div>
     </div>
