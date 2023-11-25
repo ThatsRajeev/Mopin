@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/Navbar";
 import axios from "axios";
 import MapComponent from "./MapComponent";
 import { useUserAuth } from "../context/AuthContext";

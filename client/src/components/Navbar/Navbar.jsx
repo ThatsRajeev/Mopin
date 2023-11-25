@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import Location from "./Location";
-import Login from "./Login/Login";
-import Help from "./Help";
-import { useUserAuth } from "../context/AuthContext";
-import fetchData from "../utils/fetchData";
-import handleGPS from "../utils/handleGPS";
+import Location from "../Location";
+import Login from "../Login/Login";
+import Help from "../Help";
+import { useUserAuth } from "../../context/AuthContext";
+import fetchData from "../../utils/fetchData";
+import handleGPS from "../../utils/handleGPS";
+import "./Navbar.css";
 
 const NavCase = styled.header`
   display: ${(props) => (props.open ? "none" : "block")};
@@ -114,26 +115,6 @@ const BackgroundOverlay = styled.div`
   z-index: 5;
 `;
 
-const Icon = styled.div`
-  display: flex;
-  background-color: ${(props) => (props.bcg ? "#f16122" : "#d9d9d9")};
-  border-radius: ${(props) => (props.bcg ? "8px" : "50%")};
-  padding: 2px;
-  align-items: center;
-  margin-left: 6px;
-
-  @media (min-width: 35em) {
-    display: none;
-  }
-`;
-
-const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background-color: #f2f2f2;
-`;
-
 const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
@@ -148,21 +129,6 @@ const SearchBarContainer = styled.div`
   @media (min-width: 35em) {
     display: none;
   }
-`;
-
-const SearchInput = styled.input`
-  border: none;
-  outline: none;
-  flex: 1;
-  padding: 4px;
-`;
-
-const SearchButton = styled.button`
-  color: #222222;
-  background-color: #fff;
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
 `;
 
 const Menu = styled.ul`
@@ -186,6 +152,18 @@ const Item = styled.li`
   }
 `;
 
+const NavItem = styled.div`
+  padding: 0.6rem 0px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 0.68rem;
+
+  .material-symbols-outlined {
+    margin: 0 !important;
+  }
+`;
+
 const NavLink = styled(Link)`
   display: ${(props) => (props.open ? "none" : "flex")};
   align-items: center;
@@ -201,12 +179,14 @@ const NavLink = styled(Link)`
 `;
 
 const MobNav = styled.nav`
+  display: flex;
+  justify-content: space-around;
   position: fixed;
   bottom: 0;
   width: 100%;
   margin-left: -16px;
   z-index: 200;
-  background: #f2f2f2
+  background: #f2f2f2;
   box-shadow: 0px -2px 14px 0px rgba(0, 0, 0, 0.12);
   transition: transform .3s ease-in;
   will-change: transform;
@@ -222,27 +202,22 @@ const FlexContainer = styled.div`
   align-items: center;
   width: ${(props) => (props.adr ? "unset" : "100%")};
   justify-content: space-between;
+
+  input {
+    border: none;
+    flex: 1;
+    padding: 4px;
+  }
 `;
 
-const MenuItem = styled.div`
-  padding: 0.6rem 0px;
-  flex: 0 0 25%;
-  -webkit-box-flex: 0;
-  text-align: center;
-  font-size: 0.8rem;
-`;
-
-function Navbar(props) {
-
-  const [menuItem, setMenuItem] = useState('Home');
+function Navbar({showNavbar, showAddress, header}) {
+  const [navItem, setNavItem] = useState('Home');
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [isAddressActive, setIsAddressActive] = useState(false);
   const [isLoginActive, setIsLoginActive] = useState(false);
   const [isHelpActive, setIsHelpActive] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredDishes, setFilteredDishes] = useState([]);
   const [name, setName] = useState("");
 
   const { user } = useUserAuth();
@@ -277,11 +252,11 @@ function Navbar(props) {
   useEffect(() => {
     const pathname = location.pathname;
     if (pathname === '/profile') {
-      setMenuItem('Profile');
+      setNavItem('Profile');
     } else if (pathname === '/checkout') {
-      setMenuItem('Checkout');
+      setNavItem('Checkout');
     } else {
-      setMenuItem('Home');
+      setNavItem('Home');
     }
   }, [location.pathname]);
 
@@ -331,22 +306,22 @@ function Navbar(props) {
   }
 
   return (
-    <NavCase open={props.showNavbar}>
+    <NavCase open={showNavbar}>
       <GlobalNav>
         <FlexContainer adr={true}>
           <Logo to="/"> mopin </Logo>
-          <NavLink onClick={() => {toggleOverlay('address')}} open={props.showAddress}>
+          <NavLink onClick={() => {toggleOverlay('address')}} open={showAddress}>
             <span className="material-symbols-outlined pin-icon">pin_drop</span>
             <Address>{selectedAddress}</Address>
             <span className="material-symbols-outlined">expand_more</span>
           </NavLink>
         </FlexContainer>
 
-        {props.header &&
-        <Heading>{props.header}</Heading>}
+        {header &&
+        <Heading>{header}</Heading>}
 
-        <Menu open={props.header === "Secure Checkout"}>
-          <Item  open={props.header === "Secure Checkout"}>
+        <Menu open={header === "Secure Checkout"}>
+          <Item open={header === "Secure Checkout"}>
             <NavLink>
               <span className="material-symbols-outlined">search</span>
               Search
@@ -359,18 +334,21 @@ function Navbar(props) {
             </NavLink>
           </Item>
           <Item>
-            <NavLink onClick={() => {if(!name) {toggleOverlay('login')}}} to={name ? "/profile" : ""}>
+            <NavLink to={name ? "/profile" : ""} onClick={() => {if(!name) {toggleOverlay('login')}}}>
               <span className="material-symbols-outlined">person</span>
               {name ? name : "Sign in"}
             </NavLink>
           </Item>
-          <Item open={props.header === "Secure Checkout"}>
-            <NavLink className="link" to="/checkout">
+          <Item open={header === "Secure Checkout"}>
+            <NavLink to="/checkout">
               <span className="material-symbols-outlined">shopping_cart</span>
               Cart
             </NavLink>
           </Item>
         </Menu>
+        <NavLink className="mob-view" onClick={() => {if(!name) {toggleOverlay('login')}}} to={name ? "/profile" : ""}>
+          <span className="material-symbols-outlined person-icon">person</span>
+        </NavLink>
 
         {isOverlayActive &&
           <BackgroundOverlay onClick={() => {toggleOverlay(isLoginActive ? 'login' :
@@ -379,49 +357,41 @@ function Navbar(props) {
         {renderOverlay('address', (<Location setShowProp={toggleOverlay} setAdrsProp={setSelectedAddress}/>))}
         {renderOverlay('login', (<Login setShowProp={toggleOverlay}/>))}
         {renderOverlay('help', (<Help setShowProp={toggleOverlay}/>))}
-
-        <Icon style={{padding: '0'}}>
-          <NavLink onClick={() => {if(!name) {toggleOverlay('login')}}} to={name ? "/profile" : ""}>
-            <span style={{margin: '6px', fontSize: '24px'}} className="material-symbols-outlined">person</span>
-          </NavLink>
-        </Icon>
       </GlobalNav>
 
-      <SearchContainer>
+      <FlexContainer className="mob-view">
         <SearchBarContainer>
-          <SearchButton><span style={{fontSize: '24px', display: 'flex', marginRight: '-8px'}} className="material-symbols-outlined">search</span></SearchButton>
-          <SearchInput className="redi" type="text" placeholder="Search your favourite food..." />
+          <span className="material-symbols-outlined search-icon">search</span>
+          <input type="text" placeholder="Search your favourite food..." />
         </SearchBarContainer>
-        <Icon bcg='true'><span style={{margin: '4px', color: '#fff'}} className="material-symbols-outlined">page_info</span></Icon>
-      </SearchContainer>
+        <span className="material-symbols-outlined page-info-icon">page_info</span>
+      </FlexContainer>
 
       <MobNav>
-        <FlexContainer>
-          <MenuItem>
-            <NavLink to="/" sc={menuItem!=='Home'}>
-              <span className="material-symbols-outlined">home</span>
-              Home
-            </NavLink>
-          </MenuItem>
-          <MenuItem active={menuItem==='Profile'}>
-            <NavLink to={name ? "/profile" : ""} sc={menuItem!=='Profile'} onClick={() => {if(!name) {toggleOverlay('login')}}}>
-              <span className="material-symbols-outlined">person</span>
-              Profile
-            </NavLink>
-          </MenuItem>
-          <MenuItem active={menuItem==='Help'}>
-            <NavLink sc={menuItem!=='Help'} onClick={() => {toggleOverlay('help')}}>
-              <span className="material-symbols-outlined">support</span>
-              Help
-            </NavLink>
-          </MenuItem>
-          <MenuItem active={menuItem==='Checkout'}>
-            <NavLink to={name ? "/checkout" : ""} sc={menuItem!=='Checkout'}>
-              <span className="material-symbols-outlined">shopping_cart</span>
-              Checkout
-            </NavLink>
-          </MenuItem>
-        </FlexContainer>
+        <NavLink sc={navItem!=='Home'} to="/">
+          <NavItem>
+            <span className="material-symbols-outlined">home</span>
+            Home
+          </NavItem>
+        </NavLink>
+        <NavLink sc={navItem!=='Profile'} to={name ? "/profile" : ""} onClick={() => {if(!name) {toggleOverlay('login')}}}>
+          <NavItem active={navItem==='Profile'}>
+            <span className="material-symbols-outlined">person</span>
+            Profile
+          </NavItem>
+        </NavLink>
+        <NavLink sc={navItem!=='Help'} onClick={() => {toggleOverlay('help')}}>
+          <NavItem active={navItem==='Help'}>
+            <span className="material-symbols-outlined">support</span>
+            Help
+          </NavItem>
+        </NavLink>
+        <NavLink sc={navItem!=='Checkout'} to={name ? "/checkout" : ""}>
+          <NavItem active={navItem==='Checkout'}>
+            <span className="material-symbols-outlined">shopping_cart</span>
+            Checkout
+          </NavItem>
+        </NavLink>
       </MobNav>
     </NavCase>
   );

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from 'react-router';
 import axios from "axios";
 import homecooks from "../data/homecooks";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/Navbar";
 import Footer from "./Footer";
 import woman from "../assets/woman.png";
 
