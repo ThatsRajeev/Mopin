@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import Location from "../Location";
+import Location from "../Location/Location";
 import Login from "../Login/Login";
-import Help from "../Help";
+import Help from "../Help/Help";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
 import handleGPS from "../../utils/handleGPS";

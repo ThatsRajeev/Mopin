@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
-import MapComponent from "./MapComponent";
-import { useUserAuth } from "../context/AuthContext";
+import MapComponent from "../Checkout/MapComponent";
+import { useUserAuth } from "../../context/AuthContext";
 
 const Profile = () => {
   const [name, setName] = useState("");

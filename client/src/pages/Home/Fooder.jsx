@@ -1,5 +1,5 @@
 import React from "react";
-import regionalFoods from "../data/regionalFoods";
+import regionalFoods from "../../data/regionalFoods";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";

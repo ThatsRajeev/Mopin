@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import Food from "./Food";
-import homecooks from "../data/homecooks";
+import homecooks from "../../data/homecooks";
 
 // import required modules
 import { Keyboard, Navigation, Pagination } from "swiper/modules";

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import "./Help.css";
 
 function Help({setShowProp}) {
   const [name, setName] = useState("");
@@ -26,21 +27,19 @@ function Help({setShowProp}) {
       message,
     };
 
-    // Send the data to the Formspree endpoint using axios or fetch
     try {
       await axios.post("https://mopin-server.vercel.app/formspree", data);
-      setIsSubmitted(true); // Set the submitted state to true on success
+      setIsSubmitted(true);
     } catch (error) {
       console.error(error);
-      // Handle any errors here
     }
   };
 
   return (
-    <div className="help-section" style={{margin: '4%'}}>
+    <div className="help-section">
     <div className="mob-view">
-      <div style={{display: 'flex', margin: '28px 0 14px', fontSize: '18px', fontWeight: '600'}}>
-        <span class="material-symbols-outlined" style={{marginRight: '16px'}} onClick={() => setShowProp('help')}>arrow_back</span>
+      <div className="help-heading">
+        <span class="material-symbols-outlined" onClick={() => setShowProp('help')}>arrow_back</span>
         <p> Help & Support</p>
       </div>
     </div>

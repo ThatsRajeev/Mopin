@@ -1,8 +1,8 @@
 import react, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Navbar from "./Navbar/Navbar";
-import Login from "./Login/Login";
+import Navbar from "../../components/Navbar/Navbar";
+import Login from "../../components/Login/Login";
 import ManageAddressContent from './ManageAddressContent';
 
 const Checkout = () => {
