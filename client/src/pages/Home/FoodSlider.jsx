@@ -10,7 +10,7 @@ import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import Food from "./Food";
+import FoodCard from "./FoodCard/FoodCard";
 import homecooks from "../../data/homecooks";
 
 // import required modules
@@ -72,7 +72,7 @@ const FoodSlider = (props) => {
       {homecooks.map((cook, index) => (
           <SwiperSlide style={props.func(cook)} className="card-wrapper" key={index}>
             <Link to ={`/sellers/${cook.name}`} style={{textDecoration: 'none'}}>
-              <Food
+              <FoodCard
                 key={index}
                 id={index}
                 name={cook.name}

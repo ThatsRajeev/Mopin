@@ -1,4 +1,5 @@
 import React from "react";
+import "./Features.css"
 
 function Features() {
   return (
@@ -12,7 +13,7 @@ function Features() {
         <h2 className="feature-text">Authentic Homemade Food</h2>
         <p className="feature-desc"> All meals are prepared by local talented homechefs providing a unique homemade taste which you would relish all the way</p>
       </div>
-      <div style={{margin: '4.8% 2.4% 0'}}className="feature-div">
+      <div className="feature-div" style={{margin: '4.8% 2.4% 0'}}>
         <img
           className="feature-img"
           src="https://drive.google.com/uc?export=view&id=1qnWepLlQRzUohJQR772ny4ozdjYTFW2e"

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Hero from "./Hero";
 import FoodSlider from "./FoodSlider";
-import Features from "./Features";
+import Features from "./Features/Features";
 import Fooder from "./Fooder";
 import Makers from "./Makers";
 import Testimonials from "./Testimonials";
