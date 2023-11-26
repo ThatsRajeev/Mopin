@@ -1,5 +1,6 @@
 import React from "react";
-import regionalFoods from "../../data/regionalFoods";
+import regionalFoods from "../../../data/regionalFoods";
+import "./Fooder.css"
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -45,7 +46,6 @@ const Fooder = () => {
             slidesPerColumn: 2,
             fill: "row"
           }
-
         },
         550: {
           slidesPerView: 4,

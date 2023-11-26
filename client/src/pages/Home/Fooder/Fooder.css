@@ -1,0 +1,47 @@
+
+.fooder-slide-container {
+  @media (max-width: 35em) {
+    padding: 1.6rem 14px !important;
+  }
+}
+
+.fooder-slide-container .swiper-button-next,
+.fooder-slide-container .swiper-button-prev {
+  margin: -3.2% 1% !important;
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+}
+
+.fooder-slide-container .swiper-button-next:after,
+.fooder-slide-container .swiper-button-prev:after {
+  font-size: 0.8rem !important;
+}
+
+.fooder-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.regional-food-img {
+  width: 148px;
+  height: 148px;
+  margin: 12px auto 16px;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: drop-shadow(0px -2px 5px rgba(0, 0, 0, 0.36));
+
+  @media screen and (max-width: 35em) {
+    width: 84px;
+    height: 84px;
+  }
+}
+
+.regional-food-name {
+  display: flex;
+  font-size: 1.1rem;
+  color: #434242;
+  text-align: center;
+  justify-content: center;
+  max-width: 20px;
+  margin: 5px auto 0;
+}

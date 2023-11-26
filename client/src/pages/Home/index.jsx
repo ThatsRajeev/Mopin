@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import Hero from "./Hero";
-import FoodSlider from "./FoodSlider";
+import Hero from "./Hero/Hero";
+import FoodSlider from "./FoodSlider/FoodSlider";
 import Features from "./Features/Features";
-import Fooder from "./Fooder";
-import Makers from "./Makers";
-import Testimonials from "./Testimonials";
+import Fooder from "./Fooder/Fooder";
+import Makers from "./Makers/Makers";
+import Testimonials from "./Testimonials/Testimonials";
 import Footer from "../../components/Footer/Footer";
 import "leaflet/dist/leaflet.css";
 

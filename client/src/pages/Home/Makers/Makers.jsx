@@ -1,5 +1,6 @@
 import React from "react";
-import makers from "../../data/makers";
+import makers from "../../../data/makers";
+import "./Makers.css"
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -57,7 +58,7 @@ const Makers = () => {
         <SwiperSlide key={index} className="card-wrapper" key={index}>
           <div className="makers-container">
             <div className="makers-ellipse">
-              <div style={{display: "flex", backgroundColor: "#fff", borderRadius: "50%"}}>
+              <div>
                 <img className="makers-img" src={maker.imgURL} alt="makers-img" />
               </div>
             </div>

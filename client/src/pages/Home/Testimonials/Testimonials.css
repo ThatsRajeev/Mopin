@@ -1,0 +1,142 @@
+.testimonials-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto 64px;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 1240px) {
+    margin: 0 14px;
+  }
+
+  @media (max-width: 35em) {
+    display: none;
+  }
+}
+
+.testimonials-slide-container {
+  max-width: unset;
+  font-size: 1em;
+  line-height: 1.6em;
+  background: #222222;
+  border-radius: 24px;
+  width: 64%;
+  margin: 1.2% 0 !important;
+}
+
+#testimonials-content {
+  color: #fff;
+  margin-left: 24px;
+}
+
+.quote-container {
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  width: 64px;
+  height: 64px;
+  margin-left: -24px;
+}
+
+.testimonial-quote {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-size: 100px;
+  padding: 48px 14px;
+  color: #222222;
+}
+
+.testimonial-div {
+  font-size: 1.2rem;
+  padding-top: 16px;
+}
+
+.author-h2 {
+  font-size: 1.2rem;
+  padding-top: 24px;
+
+  .dash {
+    margin: 0 8px;
+    opacity: 78%;
+  }
+
+  .location {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
+
+.testimonial-image-container {
+  height: 320px;
+  width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .animation-div {
+    position: absolute;
+  }
+}
+
+.testimonial-image {
+  height: 64px;
+  width: 64px;
+  border: 1px solid #fff;
+  box-shadow: 0 0 0 1.6px #222222;
+  opacity: 0.84;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.8s ease-in-out, opacity 1.2s;
+}
+
+.container-animation {
+  animation: alpha 3.60s infinite linear paused;
+
+  .top { top: 0}
+  .bottom { bottom: 0}
+  .left { left: 0}
+  .right {right: 0}
+}
+
+@keyframes alpha {
+     0% { transform: rotate(0deg) }
+     15% { transform: rotate(50deg) }
+     25% { transform: rotate(90deg) }
+     40% { transform: rotate(140deg) }
+     50% { transform: rotate(180deg) }
+     65% { transform: rotate(230deg) }
+     75% { transform: rotate(270deg) }
+     90% { transform: rotate(320deg) }
+     100% { transform: rotate(360deg) }
+ }
+
+.animation-div {
+  animation: beta 3.6s infinite linear paused;
+}
+
+@keyframes beta {
+  0% { transform: rotate(0deg) }
+  15% { transform: rotate(-50deg) }
+  25% { transform: rotate(-90deg) }
+  40% { transform: rotate(-140deg) }
+  50% { transform: rotate(-180deg) }
+  65% { transform: rotate(-230deg) }
+  75% { transform: rotate(-270deg) }
+  90% { transform: rotate(-320deg) }
+  100% { transform: rotate(-360deg) }
+ }
+
+.play {
+  animation-play-state: running;
+}
+
+.zoom-in {
+  transform: scale(1.6);
+  opacity: 1;
+  transition: transform opacity 1.2s;
+}
+
+.lost {
+  opacity: 0;
+  transition: opacity 1.2s;
+}

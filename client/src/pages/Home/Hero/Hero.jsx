@@ -1,4 +1,5 @@
 import React from "react";
+import "./Hero.css"
 
 function Hero() {
   const scroll = () => {
@@ -13,7 +14,7 @@ function Hero() {
         <div className="hero-bigScreen">
           <p className="hero-tag">
             Experience the Taste of Home with Authentic{" "}
-            <span style={{ color: "#f16122", fontFamily: "poppins" }}>
+            <span>
               Homemade Food
             </span>
           </p>

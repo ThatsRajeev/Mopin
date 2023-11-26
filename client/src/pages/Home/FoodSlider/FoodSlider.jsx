@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./FoodSlider.css"
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,8 +11,8 @@ import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import FoodCard from "./FoodCard/FoodCard";
-import homecooks from "../../data/homecooks";
+import FoodCard from "../FoodCard/FoodCard";
+import homecooks from "../../../data/homecooks";
 
 // import required modules
 import { Keyboard, Navigation, Pagination } from "swiper/modules";

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import "./Testimonials.css"
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import testimonials from "../../data/testimonials";
+import testimonials from "../../../data/testimonials";
 
 // Import Swiper styles
 import "swiper/css";
@@ -88,7 +89,7 @@ const Testimonials = () => {
         spaceBetween={50}
         loop={true}
         autoplay={{
-          delay: 6000,
+          delay: 60000,
           disableOnInteraction: false
         }}
         fadeEffect={true}
@@ -127,31 +128,31 @@ const Testimonials = () => {
         ))}
       </Swiper>
 
-      <span class="material-symbols-outlined" style={{margin: 'auto'}}>arrow_left</span>
+      <span class="material-symbols-outlined">arrow_left</span>
 
       <div className={`testimonial-image-container container-animation ${animate ? 'play' : ''}`}>
-        <div className={`animation-div div-animation ${animate ? 'play' : ''}`} style={{top:'0'}}>
+        <div className={`animation-div top ${animate ? 'play' : ''}`}>
           <img
             src={testimonials[previousIndex].imgURL}
             alt={testimonials[previousIndex].author}
             className="testimonial-image previous"
           />
         </div>
-        <div className={`animation-div div-animation ${animate ? 'play' : ''}`}  style={{left:'0'}}>
+        <div className={`animation-div left ${animate ? 'play' : ''}`}>
           <img
             src={testimonials[activeIndex].imgURL}
             alt={testimonials[activeIndex].author}
             className="testimonial-image active zoom-in"
           />
         </div>
-        <div className={`animation-div div-animation ${animate ? 'play' : ''}`} style={{bottom:'0'}}>
+        <div className={`animation-div bottom ${animate ? 'play' : ''}`}>
           <img
             src={testimonials[nextIndex].imgURL}
             alt={testimonials[nextIndex].author}
             className="testimonial-image next"
           />
         </div>
-        <div className={`animation-div div-animation ${animate ? 'play' : ''}`}  style={{right:'0'}}>
+        <div className={`animation-div right ${animate ? 'play' : ''}`}>
           <img
             src={testimonials[invisibleIndex].imgURL}
             alt={testimonials[invisibleIndex].author}
