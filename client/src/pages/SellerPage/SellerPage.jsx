@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import axios from "axios";
 import homecooks from "../../data/homecooks";
 import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Footer";
+import Footer from "../../components/Footer/Footer";
 import woman from "../../assets/woman.png";
 
 function SellerPage() {

@@ -1,9 +1,10 @@
 import React from "react";
-import insta from "../assets/insta.png";
-import fb from "../assets/fb.png";
-import twitter from "../assets/twitter.png";
-import googleLogo from "../assets/google-play-badge.png";
-import AppleLogo from "../assets/app-store-logo.png";
+import insta from "../../assets/insta.png";
+import fb from "../../assets/fb.png";
+import twitter from "../../assets/twitter.png";
+import googleLogo from "../../assets/google-play-badge.png";
+import AppleLogo from "../../assets/app-store-logo.png";
+import "./Footer.css";
 
 export default function Footer() {
   const year = new Date().getFullYear();

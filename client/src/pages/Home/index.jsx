@@ -6,7 +6,7 @@ import Features from "./Features";
 import Fooder from "./Fooder";
 import Makers from "./Makers";
 import Testimonials from "./Testimonials";
-import Footer from "../../components/Footer";
+import Footer from "../../components/Footer/Footer";
 import "leaflet/dist/leaflet.css";
 
 function Homepage() {

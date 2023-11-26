@@ -780,67 +780,6 @@ label {
 
 /***************** Footer component *****************/
 
-.footer {
-  background-color: #222222;
-  color: #fff;
-  margin-bottom: 8px;
-
-  @media screen and (max-width: 1240px) {
-    padding: 0 14px;
-  }
-
-  @media screen and (max-width: 35em) {
-    padding-bottom: 98.4px;
-  }
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  text-align: left;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 1.6rem 0;
-  gap: 16px;
-}
-
-.footer-container p {
-  margin: 6px 0;
-  opacity: 78%;
-}
-
-.social-container {
-  display: flex;
-  justify-content: space-between;
-  margin: 8% 0 12%;
-}
-
-.download-img {
-  display: flex;
-  width: 180px;
-  margin-bottom: 16px;
-
-  @media screen and (max-width: 460px) {
-    width: 124px;
-  }
-}
-
-.company-details {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #828282;
-  padding: 1.6rem 0;
-}
 
 /***************** Location component *****************/
 
