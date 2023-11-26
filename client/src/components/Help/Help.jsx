@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PhoneInput from "react-phone-number-input";
 import axios from "axios";
 import "./Help.css";
 
@@ -40,24 +41,24 @@ function Help({setShowProp}) {
     <div className="mob-view">
       <div className="help-heading">
         <span class="material-symbols-outlined" onClick={() => setShowProp('help')}>arrow_back</span>
-        <p> Help & Support</p>
+        <p> Help & Support </p>
       </div>
     </div>
-      <h1 style={{fontSize: '20px'}} className="pc-view">Help & Support</h1>
+      <h3 className="pc-view"> Help & Support </h3>
       {!isSubmitted ? (
         <>
-          <p className="help-info" style={{fontSize: '15px', color: 'rgba(0,0,0,0.64)', margin: '8px 0 16px'}}>
+          <p className="help-info">
             If you have any questions or need help with your order, please don't hesitate to contact us.</p>
           <form onSubmit={handleSubmit}>
             <div>
               <div className="form-group">
-              <input name="name" type="text" autoComplete="off" placeholder="Your name" className="form-control"
-               value={name} onChange={(e) => setName(e.target.value)} required/>
+              <PhoneInput defaultCountry="IN" placeholder="Your phone number" className="form-control"
+               autoComplete="off" value={phone} onChange={setPhone} />
               </div>
 
               <div className="form-group">
-              <input name="phone" type="text" autoComplete="off" pattern="[0-9]*" maxLength="10" placeholder="Your phone number" inputMode="numeric"
-                className="form-control" value={phone} onChange={(e) => setPhone(e.target.value)} required/>
+              <input name="name" type="text" autoComplete="off" placeholder="Your name" className="form-control"
+               value={name} onChange={(e) => setName(e.target.value)} required/>
               </div>
 
               <div className="form-group">
@@ -84,10 +85,10 @@ function Help({setShowProp}) {
           </form>
         </>
       ) : (
-        <div style={{textAlign: 'center', margin: '12% 0'}}>
+        <div className="success-container">
           <div>
-            <img style={{width: '180px', height: '180px'}} src="https://drive.google.com/uc?id=1pggpvq1qfPOY48yPXRXhLFZydO97ElBJ" alt="confirm-img" />
-            <p style={{fontSize: '18px', fontWeight: '600', marginBottom: '8px'}}>Query registered successfully!</p>
+            <img className="success-img" src="https://drive.google.com/uc?id=1pggpvq1qfPOY48yPXRXhLFZydO97ElBJ" alt="confirm-img" />
+            <p className="success-msg">Query registered successfully!</p>
           </div>
           <p>Thank you for your patience. We will get back to you as soon as possible</p>
         </div>
