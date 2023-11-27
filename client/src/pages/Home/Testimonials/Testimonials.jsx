@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Testimonials.css"
 
 // Import Swiper React components
@@ -19,77 +19,98 @@ const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState(1);
   const [invisibleIndex, setInvisibleIndex] = useState(2);
-  const [previousIndex, setpreviousIndex] = useState(testimonials.length-1);
+  const [previousIndex, setpreviousIndex] = useState(testimonials.length - 1);
+  const [key, setKey] = useState(0);
+
+  useEffect(() => {
+    let timeoutId;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setKey((prevKey) => prevKey + 1);
+      }, 100);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    setAnimate(false);
+    setChangeIndex('previousIndex');
+    setActiveIndex(0);
+    setNextIndex(1);
+    setInvisibleIndex(2);
+    setpreviousIndex(testimonials.length - 1);
+  }, [key]);
 
   const handleSlideChange = (swiper) => {
-    var e;
-    if(changeIndex === 'previousIndex') {
-      setpreviousIndex((invisibleIndex+1)% testimonials.length);
-      e = document.getElementsByClassName("active");
-      e[0].classList.remove("zoom-in");
-      e = document.getElementsByClassName("next");
-      e[0].classList.add("zoom-in");
+    let hasUpdatedSlideClasses = false;
 
-      e = document.getElementsByClassName("invisible");
-      e[0].classList.remove("lost");
-      e = document.getElementsByClassName("previous");
-      e[0].classList.add("lost");
+    swiper.on('transitionEnd', () => {
+      if (!hasUpdatedSlideClasses) {
+        updateSlideClasses();
+
+        setAnimate(true);
+        setTimeout(() => {
+          setAnimate(false);
+          hasUpdatedSlideClasses = false;
+        }, 900);
+      }
+    });
+  };
+
+  const updateSlideClasses = () => {
+    const elements = {
+      previous: document.getElementsByClassName('previous')[0],
+      active: document.getElementsByClassName('active')[0],
+      next: document.getElementsByClassName('next')[0],
+      invisible: document.getElementsByClassName('invisible')[0],
+    };
+
+    if (changeIndex === 'previousIndex') {
+      setpreviousIndex((invisibleIndex + 1) % testimonials.length);
+      elements.active.classList.remove('zoom-in');
+      elements.invisible.classList.remove('lost');
+      elements.next.classList.add('zoom-in');
+      elements.previous.classList.add('lost');
       setChangeIndex('activeIndex');
-
-    } else if(changeIndex === 'activeIndex') {
-      setActiveIndex((previousIndex+1)% testimonials.length);
-      e = document.getElementsByClassName("next");
-      e[0].classList.remove("zoom-in");
-      e = document.getElementsByClassName("invisible");
-      e[0].classList.add("zoom-in");
-
-      e = document.getElementsByClassName("previous");
-      e[0].classList.remove("lost");
-      e = document.getElementsByClassName("active");
-      e[0].classList.add("lost");
+    } else if (changeIndex === 'activeIndex') {
+      setActiveIndex((previousIndex + 1) % testimonials.length);
+      elements.next.classList.remove('zoom-in');
+      elements.previous.classList.remove('lost');
+      elements.invisible.classList.add('zoom-in');
+      elements.active.classList.add('lost');
       setChangeIndex('nextIndex');
-
-    } else if(changeIndex === 'nextIndex') {
-      setNextIndex((activeIndex+1)% testimonials.length);
-      e = document.getElementsByClassName("invisible");
-      e[0].classList.remove("zoom-in");
-      e = document.getElementsByClassName("previous");
-      e[0].classList.add("zoom-in");
-
-      e = document.getElementsByClassName("active");
-      e[0].classList.remove("lost");
-      e = document.getElementsByClassName("next");
-      e[0].classList.add("lost");
+    } else if (changeIndex === 'nextIndex') {
+      setNextIndex((activeIndex + 1) % testimonials.length);
+      elements.invisible.classList.remove('zoom-in');
+      elements.active.classList.remove('lost');
+      elements.previous.classList.add('zoom-in');
+      elements.next.classList.add('lost');
       setChangeIndex('invisibleIndex');
     } else {
-      setInvisibleIndex((nextIndex + 1)% testimonials.length);
-      e = document.getElementsByClassName("previous");
-      e[0].classList.remove("zoom-in");
-      e = document.getElementsByClassName("active");
-      e[0].classList.add("zoom-in");
-
-      e = document.getElementsByClassName("next");
-      e[0].classList.remove("lost");
-      e = document.getElementsByClassName("invisible");
-      e[0].classList.add("lost");
+      setInvisibleIndex((nextIndex + 1) % testimonials.length);
+      elements.previous.classList.remove('zoom-in');
+      elements.next.classList.remove('lost');
+      elements.active.classList.add('zoom-in');
+      elements.invisible.classList.add('lost');
       setChangeIndex('previousIndex');
     }
-
-    setAnimate(true);
-    setTimeout(() => {
-    setAnimate(false);
-  }, 899);
   };
 
   return (
-    <div className="testimonials-container">
+    <div key={key} className="testimonials-container">
       <Swiper
         className="slide-container testimonials-slide-container"
         slidesPerView={1}
         spaceBetween={50}
         loop={true}
         autoplay={{
-          delay: 60000,
+          delay: 9000,
           disableOnInteraction: false
         }}
         fadeEffect={true}

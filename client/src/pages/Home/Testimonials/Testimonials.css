@@ -111,7 +111,7 @@
  }
 
 .animation-div {
-  animation: beta 3.6s infinite linear paused;
+  animation: beta 3.60s infinite linear paused;
 }
 
 @keyframes beta {
