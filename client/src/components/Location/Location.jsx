@@ -3,7 +3,7 @@ import axios from "axios";
 import handleGPS from "../../utils/handleGPS";
 import "./Location.css";
 
-const Location = ({ setAdrsProp, setShowProp }) => {
+const Location = ({ setShowProp }) => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -12,7 +12,7 @@ const Location = ({ setAdrsProp, setShowProp }) => {
       if (navigator.geolocation) {
         setShowProp('address');
         const res = await handleGPS();
-        setAdrsProp(res.results[0].formatted);
+        localStorage.setItem("userLocation", res.results[0].formatted);
       }
     } catch (e) {
       console.error(e);
@@ -38,7 +38,7 @@ const Location = ({ setAdrsProp, setShowProp }) => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    setAdrsProp(suggestion.formatted);
+    localStorage.setItem("userLocation", suggestion.formatted);
     setSuggestions([]);
     setShowProp('address');
   };

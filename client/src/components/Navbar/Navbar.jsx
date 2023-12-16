@@ -6,7 +6,6 @@ import Login from "../Login/Login";
 import Help from "../Help/Help";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
-import handleGPS from "../../utils/handleGPS";
 import "./Navbar.css";
 
 const NavCase = styled.header`
@@ -212,7 +211,6 @@ const FlexContainer = styled.div`
 
 function Navbar({showNavbar, showAddress, header}) {
   const [navItem, setNavItem] = useState('Home');
-  const [selectedAddress, setSelectedAddress] = useState(null);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [isAddressActive, setIsAddressActive] = useState(false);
   const [isLoginActive, setIsLoginActive] = useState(false);
@@ -222,19 +220,6 @@ function Navbar({showNavbar, showAddress, header}) {
 
   const { user } = useUserAuth();
   const location = useLocation();
-
-  useEffect(() => {
-    (async function() {
-      try {
-        if (navigator.geolocation) {
-          const res = await handleGPS();
-          setSelectedAddress(res.results[0].formatted);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, []);
 
   useEffect(() => {
     (async function() {
@@ -312,7 +297,7 @@ function Navbar({showNavbar, showAddress, header}) {
           <Logo to="/"> mopin </Logo>
           <NavLink onClick={() => {toggleOverlay('address')}} open={showAddress}>
             <span className="material-symbols-outlined pin-icon">pin_drop</span>
-            <Address>{selectedAddress}</Address>
+            <Address>{localStorage.getItem("userLocation")}</Address>
             <span className="material-symbols-outlined">expand_more</span>
           </NavLink>
         </FlexContainer>
@@ -354,7 +339,7 @@ function Navbar({showNavbar, showAddress, header}) {
           <BackgroundOverlay onClick={() => {toggleOverlay(isLoginActive ? 'login' :
             isHelpActive ? 'help' : 'address')}}
         />}
-        {renderOverlay('address', (<Location setShowProp={toggleOverlay} setAdrsProp={setSelectedAddress}/>))}
+        {renderOverlay('address', (<Location setShowProp={toggleOverlay}/>))}
         {renderOverlay('login', (<Login setShowProp={toggleOverlay}/>))}
         {renderOverlay('help', (<Help setShowProp={toggleOverlay}/>))}
       </GlobalNav>
