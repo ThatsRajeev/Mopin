@@ -248,7 +248,8 @@ label {
 
 .profile-list {
   list-style: none;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 800;
 
   @media screen and (max-width: 35em) {
     font-size: 16px;
@@ -256,30 +257,30 @@ label {
 }
 
 .li-div {
-  border: 3.8px solid #d9d9d9;
-  border-width: 0 7.6px 7.6px 0;
+  border: 1.9px solid #d9d9d9;
+  border-width: 0 3.8px 3.8px 0;
 
   @media screen and (max-width: 35em) {
     border: 1.9px solid #d9d9d9;
-    border-width: 0 3.8px 3.8px 0;
+    border-width: 0 1.9px 1.9px 0;
   }
 }
 
 .li-div:first-child {
-  border-width: 7.6px 7.6px 7.6px 0;
+  border-width: 3.8px 3.8px 3.8px 0;
   border-radius: 0 24px 0 0;
 
   @media screen and (max-width: 35em) {
-    border-width: 3.8px 3.8px 3.8px 0;
+    border-width: 1.9px 1.9px 1.9px 0;
   }
 }
 
 .li-div:last-child {
-  border-width: 0 7.6px 7.6px 0;
+  border-width: 0 3.8px 3.8px 0;
   border-radius: 0 0 24px 0;
 
   @media screen and (max-width: 35em) {
-    border-width: 0 3.8px 3.8px 0;
+    border-width: 0 1.9px 1.9px 0;
   }
 }
 
