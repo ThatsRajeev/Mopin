@@ -27,7 +27,7 @@ function Hero() {
         </div>
       </div>
       <div className="hero-smallScreen-div">
-        <img className="hero-smallScreen" src="https://drive.google.com/uc?id=18cwBYHdteK7zGIs_yga-DqSzv2wW1xZE" alt="food_img" />
+        <img className="hero-smallScreen" src="https://drive.google.com/uc?id=1UzMJDGvW37Y5kimKYE2npNtJtGy0Dx0p" alt="food_img" />
       </div>
     </>
   );

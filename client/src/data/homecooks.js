@@ -8,7 +8,7 @@ const homecooks = [
     noOfOrders: "122",
     minPrice: "79",
     healthyPick: false,
-    dateOfJoining: "2023-10-2",
+    dateOfJoining: "2023-12-22",
     dishes: [
       {
         name: "Idli sambar and coconut chutney",
@@ -316,7 +316,7 @@ const homecooks = [
     noOfOrders: "153",
     minPrice: "88",
     healthyPick: false,
-    dateOfJoining: "2023-05-25",
+    dateOfJoining: "2023-11-25",
   },
   {
     name: "Sakshi Iyer",
@@ -338,7 +338,7 @@ const homecooks = [
     noOfOrders: "56",
     minPrice: "55",
     healthyPick: false,
-    dateOfJoining: "2023-09-22"
+    dateOfJoining: "2023-11-22"
   },
   {
     name: "Sneha Mishra",
@@ -349,7 +349,7 @@ const homecooks = [
     noOfOrders: "64",
     minPrice: "89",
     healthyPick: false,
-    dateOfJoining: "2023-09-13"
+    dateOfJoining: "2024-02-13"
   },
   {
     name: "Ananya Reddy",
@@ -371,7 +371,7 @@ const homecooks = [
     noOfOrders: "76",
     minPrice: "90",
     healthyPick: false,
-    dateOfJoining: "2023-09-18"
+    dateOfJoining: "2024-02-18"
   },
   {
     name: "Meera Joshi",
@@ -382,7 +382,7 @@ const homecooks = [
     noOfOrders: "322",
     minPrice: "74",
     healthyPick: true,
-    dateOfJoining: "2023-10-1"
+    dateOfJoining: "2023-12-1"
   },
   {
     name: "Radha Iyer",
@@ -415,7 +415,7 @@ const homecooks = [
     noOfOrders: "72",
     minPrice: "84",
     healthyPick: false,
-    dateOfJoining: "2023-09-18"
+    dateOfJoining: "2024-01-18"
   },
   {
     name: "Bharti Verma",
@@ -492,7 +492,7 @@ const homecooks = [
     noOfOrders: "128",
     minPrice: "89",
     healthyPick: false,
-    dateOfJoining: "2023-09-24"
+    dateOfJoining: "2024-01-24"
   }
 ];
 

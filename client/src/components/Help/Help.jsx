@@ -87,7 +87,7 @@ function Help({setShowProp}) {
       ) : (
         <div className="success-container">
           <div>
-            <img className="success-img" src="https://drive.google.com/uc?id=1pggpvq1qfPOY48yPXRXhLFZydO97ElBJ" alt="confirm-img" />
+            <img className="success-img" src="https://drive.google.com/uc?id=1l2BlxW-B5l47c5QanudkPSvUwrii_jiW" alt="confirm-img" />
             <p className="success-msg">Query registered successfully!</p>
           </div>
           <p>Thank you for your patience. We will get back to you as soon as possible</p>
