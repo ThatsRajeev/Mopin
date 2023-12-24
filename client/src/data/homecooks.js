@@ -386,7 +386,7 @@ const homecooks = [
   },
   {
     name: "Radha Iyer",
-    imgURL: "https://drive.google.com/uc?id=371VAyHl8UkFwZ3DVe5eFtTBdPazk82u",
+    imgURL: "https://drive.google.com/uc?id=1371VAyHl8UkFwZ3DVe5eFtTBdPazk82u",
     foodType: "Idli, Dosa, Upma, Vada",
     quote: "Experience a fusion of traditional Indian flavors with a modern twist",
     rating: "4.5",
