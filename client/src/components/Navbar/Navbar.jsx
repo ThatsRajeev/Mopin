@@ -152,7 +152,7 @@ const Item = styled.li`
 `;
 
 const NavItem = styled.div`
-  padding: 0.6rem 0px;
+  padding: 0.72rem 0px;
   display: flex;
   flex-direction: column;
   text-align: center;

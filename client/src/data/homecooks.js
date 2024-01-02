@@ -9,6 +9,9 @@ const homecooks = [
     minPrice: "79",
     healthyPick: false,
     dateOfJoining: "2023-12-22",
+    veg: false,
+    spicy: false,
+    dairyFree: false,
     dishes: [
       {
         name: "Idli sambar and coconut chutney",
@@ -294,6 +297,9 @@ const homecooks = [
     noOfOrders: "68",
     minPrice: "65",
     healthyPick: true,
+    veg: false,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2022-08-25"
   },
   {
@@ -305,6 +311,9 @@ const homecooks = [
     noOfOrders: "45",
     minPrice: "99",
     healthyPick: true,
+    veg: true,
+    spicy: false,
+    dairyFree: true,
     dateOfJoining: "2022-12-12"
   },
   {
@@ -316,6 +325,9 @@ const homecooks = [
     noOfOrders: "153",
     minPrice: "88",
     healthyPick: false,
+    veg: false,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2023-11-25",
   },
   {
@@ -327,6 +339,9 @@ const homecooks = [
     noOfOrders: "48",
     minPrice: "75",
     healthyPick: true,
+    veg: true,
+    spicy: false,
+    dairyFree: true,
     dateOfJoining: "2022-07-15"
   },
   {
@@ -338,6 +353,9 @@ const homecooks = [
     noOfOrders: "56",
     minPrice: "55",
     healthyPick: false,
+    veg: false,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2023-11-22"
   },
   {
@@ -349,6 +367,9 @@ const homecooks = [
     noOfOrders: "64",
     minPrice: "89",
     healthyPick: false,
+    veg: true,
+    spicy: true,
+    dairyFree: true,
     dateOfJoining: "2024-02-13"
   },
   {
@@ -360,6 +381,9 @@ const homecooks = [
     noOfOrders: "92",
     minPrice: "75",
     healthyPick: false,
+    veg: true,
+    spicy: false,
+    dairyFree: true,
     dateOfJoining: "2023-05-23"
   },
   {
@@ -371,6 +395,9 @@ const homecooks = [
     noOfOrders: "76",
     minPrice: "90",
     healthyPick: false,
+    veg: true,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2024-02-18"
   },
   {
@@ -382,6 +409,9 @@ const homecooks = [
     noOfOrders: "322",
     minPrice: "74",
     healthyPick: true,
+    veg: true,
+    spicy: true,
+    dairyFree: true,
     dateOfJoining: "2023-12-1"
   },
   {
@@ -393,6 +423,9 @@ const homecooks = [
     noOfOrders: "102",
     minPrice: "87",
     healthyPick: true,
+    veg: false,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2022-11-16"
   },
   {
@@ -404,6 +437,9 @@ const homecooks = [
     noOfOrders: "68",
     minPrice: "59",
     healthyPick: false,
+    veg: true,
+    spicy: false,
+    dairyFree: false,
     dateOfJoining: "2022-09-25"
   },
   {
@@ -415,6 +451,9 @@ const homecooks = [
     noOfOrders: "72",
     minPrice: "84",
     healthyPick: false,
+    veg: true,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2024-01-18"
   },
   {
@@ -426,6 +465,9 @@ const homecooks = [
     noOfOrders: "32",
     minPrice: "99",
     healthyPick: true,
+    veg: false,
+    spicy: false,
+    dairyFree: true,
     dateOfJoining: "2022-03-18"
   },
   {
@@ -437,6 +479,9 @@ const homecooks = [
     noOfOrders: "72",
     minPrice: "94",
     healthyPick: true,
+    veg: true,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2022-07-18"
   },
   {
@@ -448,6 +493,9 @@ const homecooks = [
     noOfOrders: "54",
     minPrice: "64",
     healthyPick: false,
+    veg: true,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2022-03-25"
   },
   {
@@ -459,6 +507,9 @@ const homecooks = [
     noOfOrders: "102",
     minPrice: "79",
     healthyPick: true,
+    veg: false,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2022-12-18"
   },
   {
@@ -470,6 +521,9 @@ const homecooks = [
     noOfOrders: "132",
     minPrice: "69",
     healthyPick: false,
+    veg: false,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2023-01-25"
   },
   {
@@ -481,6 +535,9 @@ const homecooks = [
     noOfOrders: "107",
     minPrice: "59",
     healthyPick: true,
+    veg: false,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2022-09-25"
   },
   {
@@ -492,6 +549,9 @@ const homecooks = [
     noOfOrders: "128",
     minPrice: "89",
     healthyPick: false,
+    veg: true,
+    spicy: true,
+    dairyFree: false,
     dateOfJoining: "2024-01-24"
   }
 ];

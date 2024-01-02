@@ -1,6 +1,7 @@
 .makers-slide-container {
   max-width: 1200px;
   padding: 0 !important;
+  margin-bottom: 84px;
   box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 
   @media (max-width: 1240px) {

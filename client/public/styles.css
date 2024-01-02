@@ -64,6 +64,12 @@ label {
   transition: 300ms ease all;
 }
 
+hr {
+  border-color: rgba(217, 217, 217, 0.16);
+  width: 100%;
+  margin: 2% 0;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 8px;
@@ -142,14 +148,36 @@ label {
   cursor: pointer;
 
   .material-symbols-outlined {
-    margin: 0 4px;
+    margin: 0 -8px 0 4px;
   }
+}
 
-  @media (max-width: 35em) {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-    >div {display: none;}
+.foodCatgor {
+  display: flex;
+  gap: 12px;
+  margin: 0 16px;
+  overflow: scroll;
+
+  div {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border: 2px solid #f16122;
+    border-radius: 20px;
+    white-space: nowrap;
+    opacity: 0.64;
   }
+}
+
+.foodCatgor::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.active-catgor {
+  background-color: #f16122;
+  color: #fff;
+  opacity: 1 !important;
 }
 
 .pc-view {
@@ -162,12 +190,6 @@ label {
   @media (min-width: 35em) {
     display: none !important;
   }
-}
-
-.border-separator {
-  border-bottom: 2px solid rgba(217, 217, 217, 0.36);
-  width: 100%;
-  margin: 2% 0;
 }
 
 /***************** Hero component *****************/
@@ -667,7 +689,7 @@ label {
   justify-content: space-between;
   align-items: center;
   text-align: left;
-  padding: 2.8%;
+  padding: 3.6%;
   z-index: 1000;
 
   >div {
@@ -687,7 +709,8 @@ label {
 
   >div {
     display: block;
-    margin-right: 56%;
+    position: absolute;
+    left: 38px;
 
     :first-child {
       font-size: 0.8rem;
@@ -697,6 +720,7 @@ label {
 
     :last-child {
       font-size: 0.7rem;
+      white-space: nowrap;
     }
   }
 }

@@ -70,7 +70,7 @@
 
   @media (max-width: 35em) {
     font-size: 0.8rem;
-    padding-top: 0.36rem;
+    padding-top: 0.24rem;
   }
 }
 
@@ -85,6 +85,14 @@
 
   >span {
     color: #349E46;
+  }
+
+  @media (max-width: 35em) {
+    gap: 4px;
+
+    >svg {
+      width: 0.72rem;
+    }
   }
 }
 
