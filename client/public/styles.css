@@ -1210,6 +1210,7 @@ hr {
 
 .hidden {
   display: none;
+  transform: translateY(-20px);
 }
 
 .bottom-container {
