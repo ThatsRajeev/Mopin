@@ -331,7 +331,7 @@ function SellerPage() {
   const handlePayment = async () => {
     try {
       const {data} = await axios.post('https://mopin-server.vercel.app/api/payment/orders', {
-        amount: 100
+        amount: {subsPrice}
       }, {
         withCredentials: true
       });
