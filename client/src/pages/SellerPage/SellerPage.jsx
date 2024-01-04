@@ -520,19 +520,24 @@ function SellerPage() {
           ))}
           </div>
         </div>
-        <div className="bottom-container" style={{opacity: totalItems ? '1' : '0'}}>
-          <div className="itemsAndPrice">
-            <h4>{totalItems} {totalItems===1 ? 'item' : 'items'}</h4>
-            <span>|</span>
-            <h4>₹{totalPrice}</h4>
-          </div>
-          <button className="toCheckout">
-            <Link className="custom-link" to="/checkout">
-              <div className="continue-div">
-                CONTINUE
-              </div>
-            </Link>
-          </button>
+
+        <div className="bottom-container">
+          {totalItems && (
+            <>
+            <div className="itemsAndPrice">
+              <h4>{totalItems} {totalItems===1 ? 'item' : 'items'}</h4>
+              <span>|</span>
+              <h4>₹{totalPrice}</h4>
+            </div>
+            <button className="toCheckout">
+              <Link className="custom-link" to="/checkout">
+                <div className="continue-div">
+                  CONTINUE
+                </div>
+              </Link>
+            </button>
+            </>
+          )}
         </div>
         {showCheckboxes && (
           <div className="checkbox-container">
