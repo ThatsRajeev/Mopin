@@ -13,6 +13,10 @@ function SellerPage() {
   const [activeSwitch, setActiveSwitch] = useState("All");
   const debouncedHandleIntersection = debounce(handleIntersection, 0);
   const [observer, setObserver] = useState(null);
+  const [showCheckboxes, setShowCheckboxes] = useState(false);
+  const [selectedMeals, setSelectedMeals] = useState(["Breakfast", "Lunch", "Dinner"]);
+  const [subsDays, setSubsDays] = useState("");
+  const [subsPrice, setSubsPrice] = useState(0);
   const isUserClick = useRef(false);
   const [isSticky, setIsSticky] = useState(false);
   const spyRef = useRef(null);
@@ -21,6 +25,8 @@ function SellerPage() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [dishQty, setdishQty] = useState({});
   let categoryOffsetTop=9999;
+
+  const daysOptions = [28, 21, 14, 7];
 
   const navigate = useNavigate();
   const breakpoint = 35 * parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -296,6 +302,79 @@ function SellerPage() {
     };
   }, []);
 
+  const initPayment = (data)=> {
+    const options = {
+      key: "rzp_test_vEfERvWyBIr2EW",
+      amount: data.amount,
+      currency: data.currency,
+      name: "Mopin",
+      description: "Test Transaction",
+      order_id: data.id,
+      handler: async (response) => {
+        try {
+          const {data} = await axios.post('https://mopin-server.vercel.app/api/payment/verify', {
+          }, {
+            withCredentials: true
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      theme: {
+        color: "#f16122",
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  }
+
+  const handlePayment = async () => {
+    try {
+      const {data} = await axios.post('https://mopin-server.vercel.app/api/payment/orders', {
+        amount: 100
+      }, {
+        withCredentials: true
+      });
+      console.log(data);
+      initPayment(data.data);
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // Function to handle checkbox change
+  const handleCheckboxChange = (meal) => {
+    const updatedMeals = selectedMeals.includes(meal)
+      ? selectedMeals.filter((selectedMeal) => selectedMeal !== meal)
+      : [...selectedMeals, meal];
+
+    setSelectedMeals(updatedMeals);
+  };
+
+  useEffect(() => {
+    const calculateTotalCost = () => {
+      let totalCost = 0;
+
+      homecooks[0].dishes.forEach((dish) => {
+        if (selectedMeals.includes(dish.availability[0].meal)) {
+          totalCost += parseInt(dish.price);
+        }
+      });
+
+      totalCost *= parseInt(subsDays/7);
+      setSubsPrice(totalCost);
+    };
+
+    calculateTotalCost();
+  }, [selectedMeals, subsDays])
+
+  if (showCheckboxes) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
 
   return (
     <>
@@ -347,6 +426,9 @@ function SellerPage() {
             <div>
               <h1> {sellerDetails.name} </h1>
               <p>{sellerDetails.foodType}</p>
+              <button className="subscribe" onClick={() => setShowCheckboxes(!showCheckboxes)}>
+                Subscribe
+              </button>
             </div>
             <div className="sub-info-mobile">
               <p>serves 1</p>
@@ -452,6 +534,41 @@ function SellerPage() {
             </Link>
           </button>
         </div>
+        {showCheckboxes && (
+          <div className="checkbox-container">
+            <div className="checkbox-div">
+              {["Breakfast", "Lunch", "Dinner"].map((meal) => (
+                <label key={meal}>
+                  <input
+                    type="checkbox"
+                    value={meal}
+                    checked={selectedMeals.includes(meal)}
+                    onChange={() => handleCheckboxChange(meal)}
+                  />
+                  {meal}
+                </label>
+              ))}
+            </div>
+            <div className="pay-div">
+              <div className="form-group">
+                <select className="form-control" value={subsDays} onChange={(e) => setSubsDays(e.target.value)} required>
+                  <option value="" disabled>
+                    Days
+                  </option>
+                  {daysOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button onClick={handlePayment} disabled={!subsDays}>To Pay (₹{subsPrice})</button>
+            </div>
+          </div>
+        )}
+        {showCheckboxes &&
+          <div className="backgroundOverlay" onClick={() => setShowCheckboxes(!showCheckboxes)}>
+          </div>}
       <Footer />
     </>
   );

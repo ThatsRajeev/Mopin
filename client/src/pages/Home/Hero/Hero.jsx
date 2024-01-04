@@ -26,7 +26,7 @@ function Hero() {
           <button className="hero-btn ghost-btn">SELL FOOD</button>
         </div>
       </div>
-      <div className="hero-smallScreen-div">
+      <div className="hero-smallScreen-div" onClick={scroll}>
         <img className="hero-smallScreen" src="https://drive.google.com/uc?id=1WYtT-li2rZnRvGY9eTeWeXVmONDP4jIv" alt="food_img" />
       </div>
     </>
