@@ -73,9 +73,10 @@ const Checkout = () => {
       cart.forEach(item => {
         newdishInfo[item.dishName] = {dishName: item.dishName, sellerName: item.sellerName, dishPrice: item.dishPrice, dishDesc: item.dishDesc,
           dishIsVeg: item.dishIsVeg, dishQty: item.dishQuantity};
-        totalItemCount = totalItemCount+item.dishQuantity;
-        totalPriceCount = totalPriceCount+item.dishQuantity*parseInt(item.dishPrice);
+        totalItemCount = totalItemCount + parseInt(item.dishQuantity);
+        totalPriceCount = totalPriceCount + parseInt(item.dishQuantity) * parseInt(item.dishPrice);
       });
+
       setdishInfo(newdishInfo);
       setTotalItems(totalItemCount);
       setTotalPrice(totalPriceCount);
@@ -169,14 +170,20 @@ const verticalLine = {
       dishQuantity: qty
     };
 
-    // Retrieve existing cart items from localStorage
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Update the cart with the new item
-    const updatedCart = [...existingCart, cartItem];
+    const existingItemIndex = existingCart.findIndex(item => item.dishName === name);
 
-    // Save the updated cart back to localStorage
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    if (existingItemIndex !== -1) {
+      existingCart[existingItemIndex].dishQuantity = qty;
+
+      if (qty === 0) {
+        existingCart.splice(existingItemIndex, 1);
+      }
+    } else {
+      existingCart.push(cartItem);
+    }
+    localStorage.setItem('cart', JSON.stringify(existingCart));
   };
 
   const handleIncrement = (event, dish) => {
