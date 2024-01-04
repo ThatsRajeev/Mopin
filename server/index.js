@@ -194,56 +194,6 @@ app.get('/api/deletedata', async (req, res) => {
   }
 });
 
-const cartSchema = new mongoose.Schema ({
-  sellerName: String,
-  dishName: String,
-  dishPrice: String,
-  dishDesc: String,
-  dishIsVeg: Boolean,
-  dishQuantity: Number,
-});
-
-const Cart = new mongoose.model("Cart", cartSchema);
-
-app.post('/api/cartSummary', async (req, res) => {
-  try {
-    const cartInfo = new Cart({
-      sellerName: req.body.sellerName,
-      dishName: req.body.dishName,
-      dishPrice: req.body.dishPrice,
-      dishDesc: req.body.dishDesc,
-      dishIsVeg: req.body.dishIsVeg,
-      dishQuantity: req.body.dishQuantity
-    });
-    const foundDish = await Cart.findOne({dishName: req.body.dishName})
-
-    if(foundDish) {
-      if(req.body.dishQuantity==0) {
-        await Cart.deleteOne({dishName: req.body.dishName});
-      } else {
-        await Cart.updateOne({dishName: req.body.dishName}, {dishQuantity: req.body.dishQuantity});
-      }
-    } else {
-      await cartInfo.save();
-    }
-    return res.send("Cart Items Saved");
-
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send("Error processing request");
-  }
-});
-
-app.get('/api/cartSummary', async (req, res) => {
-  try {
-    const cartItems = await Cart.find();
-    return res.json(cartItems);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send("Error processing request");
-  }
-});
-
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
 });

@@ -113,49 +113,48 @@ function SellerPage() {
     };
   });
 
-  const handleCart = async (name, price, desc, isVeg, qty) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const data = {
-          sellerName: sellerDetails.name,
-          dishName: name,
-          dishPrice: price,
-          dishDesc: desc,
-          dishIsVeg: isVeg,
-          dishQuantity: qty
-        };
-        const response = await axios.post("https://mopin-server.vercel.app/api/cartSummary", data);
-        resolve(response.data);
-      } catch (error) {
-        console.error(error);
+  const handleCart = (name, price, desc, isVeg, qty) => {
+    const cartItem = {
+      sellerName: sellerDetails.name,
+      dishName: name,
+      dishPrice: price,
+      dishDesc: desc,
+      dishIsVeg: isVeg,
+      dishQuantity: qty
+    };
+
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existingItemIndex = existingCart.findIndex(item => item.dishName === name);
+
+    if (existingItemIndex !== -1) {
+      existingCart[existingItemIndex].dishQuantity = qty;
+
+      if (qty === 0) {
+        existingCart.splice(existingItemIndex, 1);
       }
-    });
-  }
-
-  const fetchCartInfo = async () => {
-    try {
-      const response = await axios.get('https://mopin-server.vercel.app/api/cartSummary', {
-        withCredentials: true
-      });
-      const cart = response.data;
-
-      const newdishQty = {};
-      let totalItemCount = 0;
-      let totalPriceCount = 0;
-
-      cart.forEach(item => {
-        newdishQty[item.dishName] = item.dishQuantity;
-        totalItemCount = totalItemCount+item.dishQuantity;
-        totalPriceCount = totalPriceCount+item.dishQuantity*parseInt(item.dishPrice.substring(1));
-      });
-      setdishQty(newdishQty);
-      setTotalItems(totalItemCount);
-      setTotalPrice(totalPriceCount);
-
-      console.log(totalItems + " " + totalPrice);
-    } catch (error) {
-      console.error(error);
+    } else {
+      existingCart.push(cartItem);
     }
+    localStorage.setItem('cart', JSON.stringify(existingCart));
+  };
+
+  const fetchCartInfo = () => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const newdishQty = {};
+    let totalItemCount = 0;
+    let totalPriceCount = 0;
+
+    cart.forEach(item => {
+      newdishQty[item.dishName] = item.dishQuantity;
+      totalItemCount = totalItemCount + parseInt(item.dishQuantity);
+      totalPriceCount = totalPriceCount + parseInt(item.dishQuantity) * parseInt(item.dishPrice);
+    });
+
+    setdishQty(newdishQty);
+    setTotalItems(totalItemCount);
+    setTotalPrice(totalPriceCount);
   };
 
   useEffect(() => {
@@ -165,18 +164,13 @@ function SellerPage() {
   const handleButtonClick = (event, dish, qty) => {
     const button = event.target;
     const counter = button.nextElementSibling;
-    const toCart = document.getElementsByClassName('bottom-container')[0];
     button.classList.add('hidden');
-    toCart.style.display = 'flex';
-    toCart.classList.add('hidden');
+
     setTotalItems(totalItems+qty);
     setTotalPrice(totalPrice + qty*parseInt(dish.price));
 
     handleCart(dish.name, dish.price, dish.description, dish.isVeg, qty);
 
-    setTimeout(() => {
-      toCart.classList.remove('hidden');
-    }, 24);
     setTimeout(() => {
       button.style.display = 'none';
       counter.style.display = 'flex';
@@ -522,20 +516,22 @@ function SellerPage() {
           ))}
           </div>
         </div>
-        <div className="bottom-container" style={{opacity: totalItems ? '1' : '0'}}>
-          <div className="itemsAndPrice">
-            <h4>{totalItems} {totalItems===1 ? 'item' : 'items'}</h4>
-            <span>|</span>
-            <h4>₹{totalPrice}</h4>
+        {totalItems && (
+          <div className="bottom-container">
+            <div className="itemsAndPrice">
+              <h4>{totalItems} {totalItems===1 ? 'item' : 'items'}</h4>
+              <span>|</span>
+              <h4>₹{totalPrice}</h4>
+            </div>
+            <button className="toCheckout">
+              <Link className="custom-link" to="/checkout">
+                <div className="continue-div">
+                  CONTINUE
+                </div>
+              </Link>
+            </button>
           </div>
-          <button className="toCheckout">
-            <Link className="custom-link" to="/checkout">
-              <div className="continue-div">
-                CONTINUE
-              </div>
-            </Link>
-          </button>
-        </div>
+        )}
         {showCheckboxes && (
           <div className="checkbox-container">
             <div className="checkbox-div">

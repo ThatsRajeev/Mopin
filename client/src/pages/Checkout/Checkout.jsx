@@ -64,10 +64,7 @@ const Checkout = () => {
 
   const fetchCartInfo = async () => {
     try {
-      const response = await axios.get('https://mopin-server.vercel.app/api/cartSummary', {
-        withCredentials: true
-      });
-      const cart = response.data;
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
       setSellerName(cart[0].sellerName);
       const newdishInfo = {};
       let totalItemCount = 0;
@@ -162,22 +159,25 @@ const verticalLine = {
     )
   };
 
-  const handleCart = async (name, price, qty) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const data = {
-          sellerName: sellerName,
-          dishName: name,
-          dishPrice: price,
-          dishQuantity: qty
-        };
-        const response = await axios.post("https://mopin-server.vercel.app/api/cartSummary", data);
-        resolve(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    });
-  }
+  const handleCart = (name, price, desc, isVeg, qty) => {
+    const cartItem = {
+      sellerName: sellerName,
+      dishName: name,
+      dishPrice: price,
+      dishDesc: desc,
+      dishIsVeg: isVeg,
+      dishQuantity: qty
+    };
+
+    // Retrieve existing cart items from localStorage
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Update the cart with the new item
+    const updatedCart = [...existingCart, cartItem];
+
+    // Save the updated cart back to localStorage
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
 
   const handleIncrement = (event, dish) => {
     const counterValue = event.target.previousElementSibling;

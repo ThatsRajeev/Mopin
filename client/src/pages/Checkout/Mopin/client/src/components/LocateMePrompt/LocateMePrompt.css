@@ -1,0 +1,179 @@
+.locateMe-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  @media screen and (max-width: 35em) {
+    flex-direction: column;
+    gap: 24px;
+    overflow: auto;
+    background: #fff;
+  }
+}
+
+.locateMe-div {
+  font-size: 15px;
+  width: 49%;
+  padding: 36px 48px 32px 72px;
+  background: #fff;
+
+  @media screen and (max-width: 35em) {
+    width: unset;
+    position: static;
+    margin: 0 16px;
+  }
+
+  .address-input-div {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(214, 214, 214);
+  }
+
+  .address-input {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 18px 0 18px 18px;
+  }
+
+  .address-input::placeholder {
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  .gps-location {
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    opacity: 0.78;
+    white-space: nowrap;
+    z-index: 1;
+    margin: unset;
+  }
+
+  .list-div {
+    position: relative;
+    overflow-y: hidden;
+  }
+}
+
+.locateMe-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 51%;
+  padding: 24px;
+  color: #fff;
+  background-image: url("https://drive.google.com/uc?export=view&id=1t6J2MiSayQ5IN-F9xEpq3pyUa5oXeKiX");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @media screen and (max-width: 35em) {
+    width: 100%;
+    height: -webkit-fill-available;
+    background-position: 38%;
+    order: -1;
+    align-items: flex-end;
+    padding: 56px 24px 56px;
+  }
+}
+
+.head-container {
+  position: relative;
+  width: 248px;
+  display: flex;
+  align-items: flex-start;
+
+  @media screen and (max-width: 35em) {
+    width: 224px;
+  }
+}
+
+.content-heading {
+  margin-bottom: 24px;
+
+  @media screen and (max-width: 35em) {
+    font-size: 18px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    width: 50%;
+    height: 3.2px;
+    background: rgba(255, 255, 255, 0.64);
+  }
+}
+
+.content-div {
+  background-color: #fff;
+  color: #222222;
+  margin: 18px 0;
+  border-radius: 18px;
+  min-height: 48px;
+  font-size: 16px;
+  width: 248px;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 35em) {
+    min-height: 40px;
+    width: 224px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  >img {
+    margin-right: 6px;
+  }
+}
+
+.logo-name {
+  color: rgb(241, 97, 34);
+  font-size: 32px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  font-weight: 800;
+
+  @media screen and (max-width: 35em) {
+    display: none;
+  }
+}
+
+.logo-tagline {
+  font-size: 36px;
+  margin-top: 84px;
+
+  @media screen and (max-width: 35em) {
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto 48px;
+  }
+}
+
+.logo-p {
+  font-size: 26px;
+  opacity: 0.78;
+  margin: 16px 0 32px;
+
+  @media screen and (max-width: 35em) {
+    display: none;
+  }
+}
+
+.explore-foods {
+  background-color: #f16122;
+  white-space: nowrap;
+  color: #fff;
+  align-items: center;
+  display: flex;
+  padding: 16px;
+  margin-left: 16px;
+  cursor: pointer;
+}

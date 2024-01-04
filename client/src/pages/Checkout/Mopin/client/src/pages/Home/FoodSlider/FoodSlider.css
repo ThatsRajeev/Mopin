@@ -1,0 +1,51 @@
+.slide-container {
+  max-width: 1248px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 1.6rem !important;
+}
+
+.food-slide-container {
+  padding: 7.8rem 1.6rem 2.4rem !important;
+
+  @media (max-width: 35em) {
+    padding: 6.8rem 16px 1.6rem !important;
+  }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: #349E46 !important;
+  border-radius: 50%;
+  color: #fff !important;
+  margin: 1.6% -0.4% !important;
+  width: 2.8rem !important;
+  height: 2.8rem !important;
+
+  @media (max-width: 35em) {
+    display: none !important;
+  }
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 1rem !important;
+  font-weight: bold;
+}
+
+.swiper-button-disabled {
+  opacity: 0 !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: #349E46 !important;
+  opacity: 0.64 !important;
+
+  @media (max-width: 35em) {
+    display: none !important;
+  }
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+}

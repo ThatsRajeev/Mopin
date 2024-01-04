@@ -1215,7 +1215,7 @@ hr {
 }
 
 .bottom-container {
-  display: none;
+  display: flex;
   align-items: center;
   background-color: #fff;
   position: fixed;
