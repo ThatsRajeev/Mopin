@@ -224,7 +224,7 @@ function Navbar({showNavbar, showAddress, header}) {
   useEffect(() => {
     (async function() {
       try {
-        if (user && user.name) {
+        if (user && Object.keys(user).length !== 0) {
           const res = await fetchData(user);
           setName(res.name);
         }
