@@ -6,12 +6,12 @@ import Login from "../../components/Login/Login";
 import ManageAddressContent from './ManageAddressContent';
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
-import handleGPS from "../../utils/handleGPS";
 
 const Checkout = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
-  const [showOverlay, setShowOverlay] = useState(false);
+  const [showLoginOverlay, setShowLoginOverlay] = useState(false);
+  const [showAddressOverlay, setShowAddressOverlay] = useState(false);
   const [address, setAddress] = useState("");
   const [addressType, setAddressType] = useState("");
   const [showLogout, setShowLogout] = useState(false);
@@ -145,6 +145,19 @@ const verticalLine = {
     left: '60px',
     border: '1px dashed rgb(0,0,0,0.36)',
     zIndex: 0
+}
+
+const toggleOverlay = (overlayType) => {
+  switch(overlayType) {
+    case 'address':
+      setShowAddressOverlay(!showAddressOverlay);
+      break;
+    case 'login':
+      setShowLoginOverlay(!showLoginOverlay);
+      break;
+    default:
+      break;
+  }
 }
 
   const LogoutContent = () => {
@@ -413,17 +426,27 @@ const verticalLine = {
       )}
 
       <div className="bottom-container mob-view" style={{display: 'block'}}>
-        {!addressChoosen ? (
-        <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
-          {showOverlay && (
-            <Overlay closeOverlay={() => setShowOverlay(false)}>
-              <div style={{backgroundColor: '#fff'}}>
-                <ManageAddressContent fromCheckout='true' setAddressChoosen={setAddressChoosen} addressFlex='true'/>
-              </div>
-            </Overlay>
-           )}
-           <button className="proceed-btn" onClick={() => setShowOverlay(true)}>Choose Address</button>
-        </div> ) : (
+        {!user || !addressChoosen ? (
+          <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
+            {showLoginOverlay && (
+              <Overlay closeOverlay={() => setShowLoginOverlay(false)}>
+                <div style={{backgroundColor: '#fff', width: '100vw', height: '100vh'}}>
+                  <Login setShowProp={toggleOverlay}/>
+                </div>
+              </Overlay>
+             )}
+            {showAddressOverlay && (
+              <Overlay closeOverlay={() => setShowAddressOverlay(false)}>
+                <div style={{backgroundColor: '#fff'}}>
+                  <ManageAddressContent fromCheckout='true' setAddressChoosen={setAddressChoosen} addressFlex='true'/>
+                </div>
+              </Overlay>
+             )}
+             <button className="proceed-btn" onClick={() => {!user ? setShowLoginOverlay(true) : setShowAddressOverlay(true)}}>
+              {!user ? "Login / SignUp" : "Choose Address"}
+             </button>
+          </div>
+          ) : (
           <div className="contact-details" style={{margin: '8px 0', flexDirection: 'column'}}>
             <div className="contact-details" style={{flexDirection: 'column', margin: '0 0 14px'}}>
               <div className="checkout-dishinfo">

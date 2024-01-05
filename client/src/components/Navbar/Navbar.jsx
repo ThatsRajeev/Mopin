@@ -371,7 +371,7 @@ function Navbar({showNavbar, showAddress, header}) {
             Help
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Checkout' ? "true" : "false"} to={name ? "/checkout" : ""}>
+        <NavLink sc={navItem!=='Checkout' ? "true" : "false"} to="/checkout">
           <NavItem>
             <span className="material-symbols-outlined">shopping_cart</span>
             Checkout
