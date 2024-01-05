@@ -140,20 +140,37 @@ app.get("/api/savepoint", (req, res) => {
 });
 
 app.post("/api/savepoint", async (req, res) => {
-
   try {
-    const newAddress = new Address({
-      phoneNumber: req.body.phoneNumber,
-      address: req.body.address,
-      apartmentNumber: req.body.apartmentNumber,
-      apartmentName: req.body.apartmentName,
-      streetDetails: req.body.streetDetails,
-      addressType: req.body.addressType
-    });
+    const phoneNumber = req.body.phoneNumber;
 
-    await newAddress.save();
-    return res.send("Address Details Saved");
+    const existingAddress = await Address.findOne({ phoneNumber });
 
+    if (existingAddress) {
+      await Address.findOneAndUpdate(
+        { phoneNumber },
+        {
+          address: req.body.address,
+          apartmentNumber: req.body.apartmentNumber,
+          apartmentName: req.body.apartmentName,
+          streetDetails: req.body.streetDetails,
+          addressType: req.body.addressType
+        }
+      );
+      return res.send("Address Details Updated");
+    } else {
+
+      const newAddress = new Address({
+        phoneNumber: req.body.phoneNumber,
+        address: req.body.address,
+        apartmentNumber: req.body.apartmentNumber,
+        apartmentName: req.body.apartmentName,
+        streetDetails: req.body.streetDetails,
+        addressType: req.body.addressType
+      });
+
+      await newAddress.save();
+      return res.send("Address Details Saved");
+    }
   } catch (err) {
     console.error(err);
     return res.status(500).send("Error processing request");

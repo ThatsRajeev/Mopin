@@ -434,7 +434,6 @@ hr {
 
 .new-address-div {
   display: flex;
-  justify-content: center;
   align-items: center;
   border: 2px dotted rgb(0, 0, 0, 0.5);
   cursor: pointer;
@@ -607,7 +606,7 @@ hr {
 
   @media screen and (max-width: 35em) {
     position: absolute;
-    bottom: 48px;
+    bottom: 52px;
     z-index: 1000;
     width: 100vw;
   }
