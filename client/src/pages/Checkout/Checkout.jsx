@@ -4,6 +4,8 @@ import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
 import Login from "../../components/Login/Login";
 import ManageAddressContent from './ManageAddressContent';
+import { useUserAuth } from "../../context/AuthContext";
+import fetchData from "../../utils/fetchData";
 
 const Checkout = () => {
   const [name, setName] = useState("");
@@ -17,6 +19,8 @@ const Checkout = () => {
   const [sellerName, setSellerName] = useState("");
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const { user } = useUserAuth();
 
   const navigate = useNavigate();
   const breakpoint = 35 * parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -45,6 +49,20 @@ const Checkout = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    (async function() {
+      try {
+        if (user && Object.keys(user).length !== 0) {
+          const res = await fetchData(user);
+          console.log(res);
+          setName(res.name);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, [user]);
 
   const fetchAddress = async () => {
     try {
@@ -170,7 +188,7 @@ const verticalLine = {
       dishQuantity: qty
     };
 
-    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+    let existingCart = JSON.parse(localStorage.getItem('cart')) || [];
 
     const existingItemIndex = existingCart.findIndex(item => item.dishName === name);
 
@@ -178,7 +196,7 @@ const verticalLine = {
       existingCart[existingItemIndex].dishQuantity = qty;
 
       if (qty === 0) {
-        existingCart.splice(existingItemIndex, 1);
+        existingCart = existingCart.filter(item => item.dishName !== name);
       }
     } else {
       existingCart.push(cartItem);
