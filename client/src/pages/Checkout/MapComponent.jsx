@@ -6,7 +6,7 @@ import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
 import locationIcon from "../../assets/location-icon.png";
 import { useUserAuth } from "../../context/AuthContext";
-import fetchAddress from "../../utils/fetchAddress";
+import handleGPS from "../../utils/handleGPS";
 
 function DraggableMarker({ setAddressProp, setCurrentLocation }) {
   const [position, setPosition] = useState({ lat: 28.75, lng: 77.11 })
@@ -39,7 +39,6 @@ function DraggableMarker({ setAddressProp, setCurrentLocation }) {
 
   return null;
 }
-
 
 const LocationControl = createControlComponent(function createLocationControl(options) {
   return L.control(options);
@@ -84,7 +83,6 @@ function LocationButton({getCurrentLocation}) {
   return null;
 }
 
-
 function MapComponent({ setShowMap }) {
 
   const { user } = useUserAuth();
@@ -113,27 +111,11 @@ function MapComponent({ setShowMap }) {
     navigator.geolocation.getCurrentPosition(async (position) => {
       const coords = position.coords;
       setCurrentLocation({ lat: coords.latitude, lng: coords.longitude });
-      const response = await axios.get(
-        `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${coords.latitude}+${coords.longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`,
-        { withCredentials: false }
-      );
-      setAddress(response.data.results[0].formatted.substring(0, 40) + "...");
+
+      const res = await handleGPS();
+      setAddress(res.results[0].formatted.substring(0, 40) + "...");
     });
   };
-
-   const fetchAddress = async () => {
-     try {
-       const response = await axios.get('https://mopin-server.vercel.app/api/addressdata', {
-         withCredentials: true
-       });
-       setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
-                  response.data.streetDetails + ", " + response.data.address);
-       setAddressType(response.data.addressType);
-
-     } catch (error) {
-       console.error(error);
-     }
-   };
 
   const handleSave = async (event) => {
     setDisable(true);
