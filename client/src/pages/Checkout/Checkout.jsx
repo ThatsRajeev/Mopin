@@ -48,7 +48,6 @@ const Checkout = () => {
           setphoneNumber(res.phoneNumber);
 
           const resp = await fetchAddress(user);
-          console.log(resp);
           setAddress(resp.apartmentNumber + ", " + resp.apartmentName + ", " +
                      resp.streetDetails + ", " + resp.address);
           setAddressType(resp.addressType);

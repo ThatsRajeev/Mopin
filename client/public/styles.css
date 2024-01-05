@@ -435,6 +435,7 @@ hr {
 .new-address-div {
   display: flex;
   align-items: center;
+  justify-content: center;
   border: 2px dotted rgb(0, 0, 0, 0.5);
   cursor: pointer;
 }
