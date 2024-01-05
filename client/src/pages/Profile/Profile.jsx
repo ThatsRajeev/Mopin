@@ -5,6 +5,7 @@ import axios from "axios";
 import MapComponent from "../Checkout/MapComponent";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
+import fetchAddress from "../../utils/fetchAddress";
 
 const Profile = () => {
   const [name, setName] = useState("");
@@ -44,25 +45,17 @@ const Profile = () => {
            setName(res.name);
            setphoneNumber(res.phoneNumber);
            setEmail(res.email);
+
+           const resp = await fetchAddress(user);
+           setAddress(resp.apartmentNumber + ", " + resp.apartmentName + ", " +
+                      resp.streetDetails + ", " + resp.address);
+           setAddressType(resp.addressType);
          }
        } catch (e) {
          console.error(e);
        }
      })();
    }, [user]);
-
-   const fetchAddress = async () => {
-     try {
-       if(user) {
-         const response = await axios.post('https://mopin-server.vercel.app/api/addressdata', user);
-         setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
-                    response.data.streetDetails + ", " + response.data.address);
-         setAddressType(response.data.addressType);
-       }
-     } catch (error) {
-       console.error(error);
-     }
-   };
 
    const deleteAddress = async () => {
      try {
@@ -85,10 +78,6 @@ const Profile = () => {
        console.error(error);
      }
    };
-
-   useEffect(() => {
-     fetchAddress();
-   }, []);
 
     const lineStyle = {
     content: '""',
