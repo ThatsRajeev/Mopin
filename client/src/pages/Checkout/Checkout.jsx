@@ -22,7 +22,7 @@ const Checkout = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { user } = useUserAuth();
+  const { user, logOut } = useUserAuth();
 
   const navigate = useNavigate();
   const breakpoint = 35 * parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -48,6 +48,7 @@ const Checkout = () => {
           setphoneNumber(res.phoneNumber);
 
           const resp = await fetchAddress(user);
+          console.log(resp);
           setAddress(resp.apartmentNumber + ", " + resp.apartmentName + ", " +
                      resp.streetDetails + ", " + resp.address);
           setAddressType(resp.addressType);
@@ -85,9 +86,7 @@ const Checkout = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get('https://mopin-server.vercel.app/api/logout', {
-        withCredentials: true
-      });
+      logOut();
       navigate('/');
 
     } catch (error) {

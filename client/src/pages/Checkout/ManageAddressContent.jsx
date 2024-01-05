@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import MapComponent from "./MapComponent";
+import { useUserAuth } from "../../context/AuthContext";
+import fetchAddress from "../../utils/fetchAddress";
 
 const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) => {
   const [address, setAddress] = useState("");
@@ -9,6 +11,8 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
   const [showMap, setShowMap] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
+
+  const { user } = useUserAuth();
 
   const Overlay = ({ children, closeOverlay }) => {
     return (
@@ -34,19 +38,21 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
     );
   };
 
-  const fetchAddress = async () => {
-    try {
-      const response = await axios.get('https://mopin-server.vercel.app/api/addressdata', {
-        withCredentials: true
-      });
-      setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
-                 response.data.streetDetails + ", " + response.data.address);
-      setAddressType(response.data.addressType);
+  useEffect(() => {
+    (async function() {
+      try {
+        if (user && Object.keys(user).length !== 0) {
+          const resp = await fetchAddress(user);
 
-    } catch (error) {
-      console.error(error);
-    }
-  };
+          setAddress(resp.apartmentNumber + ", " + resp.apartmentName + ", " +
+                     resp.streetDetails + ", " + resp.address);
+          setAddressType(resp.addressType);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, [user]);
 
   const deleteAddress = async () => {
     try {
