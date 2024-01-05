@@ -37,32 +37,32 @@ const Checkout = () => {
     };
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('https://mopin-server.vercel.app/api/userdata', {
-        withCredentials: true
-      });
-      setName(response.data.name);
-      setphoneNumber(response.data.phoneNumber);
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
     (async function() {
       try {
         if (user && Object.keys(user).length !== 0) {
           const res = await fetchData(user);
-          console.log(res);
           setName(res.name);
+          setphoneNumber(res.phoneNumber);
         }
       } catch (e) {
         console.error(e);
       }
     })();
   }, [user]);
+
+  useEffect(() => {
+    (async function() {
+      try {
+        if (user && Object.keys(user).length !== 0) {
+          const res = await handleGPS();
+          console.log(res);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, []);
 
   const fetchAddress = async () => {
     try {
