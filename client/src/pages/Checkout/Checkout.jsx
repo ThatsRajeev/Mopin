@@ -6,6 +6,7 @@ import Login from "../../components/Login/Login";
 import ManageAddressContent from './ManageAddressContent';
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
+import handleGPS from "../../utils/handleGPS";
 
 const Checkout = () => {
   const [name, setName] = useState("");
