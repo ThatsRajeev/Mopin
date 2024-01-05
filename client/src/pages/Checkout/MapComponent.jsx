@@ -12,8 +12,6 @@ function DraggableMarker({ setAddressProp, setCurrentLocation }) {
   const [position, setPosition] = useState({ lat: 28.75, lng: 77.11 })
   const map = useMap();
 
-  const { user } = useUserAuth();
-
   const handleDragEnd = async () => {
     const newPosition = map.getCenter();
     setPosition(newPosition);
@@ -88,6 +86,8 @@ function LocationButton({getCurrentLocation}) {
 
 
 function MapComponent({ setShowMap }) {
+
+  const { user } = useUserAuth();
 
   const mapContainerStyle = {
     height: '386px',
