@@ -131,7 +131,7 @@ function SellerPage() {
       existingCart[existingItemIndex].dishQuantity = qty;
 
       if (qty === 0) {
-        existingCart.splice(existingItemIndex, 1);
+        existingCart = existingCart.filter(item => item.dishName !== name);
       }
     } else {
       existingCart.push(cartItem);
@@ -147,16 +147,14 @@ function SellerPage() {
     let totalPriceCount = 0;
 
     cart.forEach(item => {
-      newdishQty[item.dishName] = item.dishQuantity;
-      totalItemCount = totalItemCount + parseInt(item.dishQuantity);
-      totalPriceCount = totalPriceCount + parseInt(item.dishQuantity) * parseInt(item.dishPrice);
+      newdishQty[item.dishName] = parseInt(item.dishQuantity);
+      totalItemCount += parseInt(item.dishQuantity);
+      totalPriceCount += parseInt(item.dishQuantity) * parseInt(item.dishPrice);
     });
 
     setdishQty(newdishQty);
     setTotalItems(totalItemCount);
     setTotalPrice(totalPriceCount);
-
-    console.log(newdishQty);
   };
 
   useEffect(() => {
