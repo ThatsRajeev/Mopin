@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 import MapComponent from "../Checkout/MapComponent";
 import { useUserAuth } from "../../context/AuthContext";
+import fetchData from "../../utils/fetchData";
 
 const Profile = () => {
   const [name, setName] = useState("");
@@ -35,18 +36,20 @@ const Profile = () => {
 
   const navigate = useNavigate();
 
-   const fetchData = async () => {
-     try {
-       if(user) {
-         const response = await axios.post('https://mopin-server.vercel.app/api/userdata', user);
-         setName(response.data.name);
-         setEmail(response.data.email);
-         setphoneNumber(response.data.phoneNumber);
+   useEffect(() => {
+     (async function() {
+       try {
+         if (user && Object.keys(user).length !== 0) {
+           const res = await fetchData(user);
+           setName(res.name);
+           setphoneNumber(res.phoneNumber);
+           setEmail(res.email);
+         }
+       } catch (e) {
+         console.error(e);
        }
-     } catch (error) {
-       console.error(error);
-     }
-   };
+     })();
+   }, [user]);
 
    const fetchAddress = async () => {
      try {
@@ -84,7 +87,6 @@ const Profile = () => {
    };
 
    useEffect(() => {
-     fetchData();
      fetchAddress();
    }, []);
 

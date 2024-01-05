@@ -6,6 +6,7 @@ import Login from "../../components/Login/Login";
 import ManageAddressContent from './ManageAddressContent';
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
+import fetchAddress from "../../utils/fetchAddress";
 
 const Checkout = () => {
   const [name, setName] = useState("");
@@ -45,26 +46,17 @@ const Checkout = () => {
           const res = await fetchData(user);
           setName(res.name);
           setphoneNumber(res.phoneNumber);
+
+          const resp = await fetchAddress(user);
+          setAddress(resp.apartmentNumber + ", " + resp.apartmentName + ", " +
+                     resp.streetDetails + ", " + resp.address);
+          setAddressType(resp.addressType);
         }
       } catch (e) {
         console.error(e);
       }
     })();
   }, [user]);
-
-  const fetchAddress = async () => {
-    try {
-      const response = await axios.get('https://mopin-server.vercel.app/api/addressdata', {
-        withCredentials: true
-      });
-      setAddress(response.data.apartmentNumber + ", " + response.data.apartmentName + ", " +
-                 response.data.streetDetails + ", " + response.data.address);
-      setAddressType(response.data.addressType);
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const [dishInfo, setdishInfo] = useState({});
 
@@ -104,7 +96,6 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    fetchAddress();
     fetchCartInfo();
   }, []);
 
