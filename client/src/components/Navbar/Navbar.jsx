@@ -170,7 +170,7 @@ const NavLink = styled(Link)`
   font-size: 0.8rem;
   font-weight: bold;
   letter-spacing: 1.6px;
-  color: ${(props) => (props.sc ? "#9C9C9C" : "#222222")};
+  color: ${(props) => (props.sc=="true" ? "#9C9C9C" : "#222222")};
 
   .material-symbols-outlined {
     margin-right: 8px;
@@ -199,7 +199,7 @@ const MobNav = styled.nav`
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
-  width: ${(props) => (props.adr ? "unset" : "100%")};
+  width: ${(props) => (props.adr=="true" ? "unset" : "100%")};
   justify-content: space-between;
 
   input {
@@ -293,7 +293,7 @@ function Navbar({showNavbar, showAddress, header}) {
   return (
     <NavCase open={showNavbar}>
       <GlobalNav>
-        <FlexContainer adr={true}>
+        <FlexContainer adr={"true"}>
           <Logo to="/"> mopin </Logo>
           <NavLink onClick={() => {toggleOverlay('address')}} open={showAddress}>
             <span className="material-symbols-outlined pin-icon">pin_drop</span>
@@ -353,26 +353,26 @@ function Navbar({showNavbar, showAddress, header}) {
       </FlexContainer>
 
       <MobNav>
-        <NavLink sc={navItem!=='Home'} to="/">
+        <NavLink sc={navItem!=='Home' ? "true" : "false"} to="/">
           <NavItem>
             <span className="material-symbols-outlined">home</span>
             Home
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Profile'} to={name ? "/profile" : ""} onClick={() => {if(!name) {toggleOverlay('login')}}}>
-          <NavItem active={navItem==='Profile'}>
+        <NavLink sc={navItem!=='Profile' ? "true" : "false"} to={name ? "/profile" : ""} onClick={() => {if(!name) {toggleOverlay('login')}}}>
+          <NavItem>
             <span className="material-symbols-outlined">person</span>
             Profile
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Help'} onClick={() => {toggleOverlay('help')}}>
-          <NavItem active={navItem==='Help'}>
+        <NavLink sc={navItem!=='Help' ? "true" : "false"} onClick={() => {toggleOverlay('help')}}>
+          <NavItem>
             <span className="material-symbols-outlined">support</span>
             Help
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Checkout'} to={name ? "/checkout" : ""}>
-          <NavItem active={navItem==='Checkout'}>
+        <NavLink sc={navItem!=='Checkout' ? "true" : "false"} to={name ? "/checkout" : ""}>
+          <NavItem>
             <span className="material-symbols-outlined">shopping_cart</span>
             Checkout
           </NavItem>

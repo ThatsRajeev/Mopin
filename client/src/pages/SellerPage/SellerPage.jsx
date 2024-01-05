@@ -155,6 +155,8 @@ function SellerPage() {
     setdishQty(newdishQty);
     setTotalItems(totalItemCount);
     setTotalPrice(totalPriceCount);
+
+    console.log(newdishQty);
   };
 
   useEffect(() => {
@@ -474,7 +476,7 @@ function SellerPage() {
                 </h2>
                 <div className="food-cards-container">
                   {dishes.map((dish, dishIndex) => (
-                  <div>
+                  <div key={dishIndex}>
                     <h3 className="meal-time">{dish.availability[0].meal}</h3>
                     <div className="seller-food-container" key={dishIndex}>
                       <div className="food-details">
@@ -560,7 +562,7 @@ function SellerPage() {
                   ))}
                 </select>
               </div>
-              <button onClick={handlePayment} disabled={!subsDays}>To Pay (₹{subsPrice})</button>
+              <button onClick={handlePayment} disabled={!subsDays || selectedMeals.length===0}>To Pay (₹{subsPrice})</button>
             </div>
           </div>
         )}

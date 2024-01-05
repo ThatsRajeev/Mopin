@@ -84,7 +84,7 @@ function Homepage() {
             <>
               <div className="foodCatgor">
                 {foodCatgor.map((catgor, index) => (
-                  <div className={`${active === catgor ? "active-catgor" : ""}`}
+                  <div key={index} className={`${active === catgor ? "active-catgor" : ""}`}
                     onClick={() => setActive(catgor)}>{catgor}</div>
                 ))}
               </div>
