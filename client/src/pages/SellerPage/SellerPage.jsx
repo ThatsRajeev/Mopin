@@ -123,7 +123,7 @@ function SellerPage() {
       dishQuantity: qty
     };
 
-    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+    let existingCart = JSON.parse(localStorage.getItem('cart')) || [];
 
     const existingItemIndex = existingCart.findIndex(item => item.dishName === name);
 
