@@ -52,19 +52,6 @@ const Checkout = () => {
     })();
   }, [user]);
 
-  useEffect(() => {
-    (async function() {
-      try {
-        if (user && Object.keys(user).length !== 0) {
-          const res = await handleGPS();
-          console.log(res);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, []);
-
   const fetchAddress = async () => {
     try {
       const response = await axios.get('https://mopin-server.vercel.app/api/addressdata', {
@@ -117,7 +104,6 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    fetchData();
     fetchAddress();
     fetchCartInfo();
   }, []);
