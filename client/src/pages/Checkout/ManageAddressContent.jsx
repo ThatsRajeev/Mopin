@@ -56,9 +56,7 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
 
   const deleteAddress = async () => {
     try {
-      const response = await axios.get('https://mopin-server.vercel.app/api/deletedata', {
-        withCredentials: true
-      });
+      const response = await axios.post('https://mopin-server.vercel.app/api/deletedata', user);
       setShowDelete(false);
 
     } catch (error) {

@@ -182,7 +182,7 @@ app.post('/api/addressdata', async (req, res) => {
   }
 });
 
-app.get('/api/deletedata', async (req, res) => {
+app.post('/api/deletedata', async (req, res) => {
   try {
     await Address.deleteOne(
       { phoneNumber: req.body.phoneNumber }
