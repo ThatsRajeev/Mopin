@@ -5,10 +5,14 @@ import { createControlComponent } from '@react-leaflet/core';
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
 import locationIcon from "../../assets/location-icon.png";
+import { useUserAuth } from "../../context/AuthContext";
+import fetchAddress from "../../utils/fetchAddress";
 
 function DraggableMarker({ setAddressProp, setCurrentLocation }) {
   const [position, setPosition] = useState({ lat: 28.75, lng: 77.11 })
   const map = useMap();
+
+  const { user } = useUserAuth();
 
   const handleDragEnd = async () => {
     const newPosition = map.getCenter();
@@ -117,20 +121,6 @@ function MapComponent({ setShowMap }) {
     });
   };
 
-  const [phoneNumber, setphoneNumber] = useState("");
-
-   const fetchData = async () => {
-     try {
-       const response = await axios.get('https://mopin-server.vercel.app/api/userdata', {
-         withCredentials: true
-       });
-       setphoneNumber(response.data.phoneNumber);
-
-     } catch (error) {
-       console.error(error);
-     }
-   };
-
    const fetchAddress = async () => {
      try {
        const response = await axios.get('https://mopin-server.vercel.app/api/addressdata', {
@@ -145,10 +135,6 @@ function MapComponent({ setShowMap }) {
      }
    };
 
-   useEffect(() => {
-     fetchData();
-   }, []);
-
   const handleSave = async (event) => {
     setDisable(true);
     if(event) {
@@ -157,7 +143,7 @@ function MapComponent({ setShowMap }) {
     return new Promise(async (resolve, reject) => {
       try {
         const data = {
-          phoneNumber: phoneNumber,
+          phoneNumber: user.phoneNumber,
           address: address,
           apartmentNumber: no,
           apartmentName: name,
@@ -166,7 +152,7 @@ function MapComponent({ setShowMap }) {
         };
         const response = await axios.post("https://mopin-server.vercel.app/api/savepoint", data);
         setShowMap(false);
-        // window.location.reload();
+        window.location.reload();
         resolve(response.data);
       } catch (error) {
         console.error(error);
