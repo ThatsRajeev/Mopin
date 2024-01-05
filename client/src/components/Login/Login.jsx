@@ -101,7 +101,7 @@ function Login({ setShowProp, fromCheckout }) {
       />
       <div className="back-button-div mob-view">
         <button className="back-button">
-          <span class="material-symbols-outlined back-button-icon"
+          <span className="material-symbols-outlined back-button-icon"
           onClick={() => setShowProp('login')}>arrow_back_ios</span>
         </button>
       </div>
@@ -110,7 +110,7 @@ function Login({ setShowProp, fromCheckout }) {
         {showOtp ? (
           <p>
             <div className={fromCheckout ? "ck-active-text" : "active-text"}>
-              <span class="material-symbols-outlined clear-otp-icon"
+              <span className="material-symbols-outlined clear-otp-icon"
               onClick={(event) => setShowOtp(false)}>arrow_back_ios</span>
               Enter OTP
             </div>

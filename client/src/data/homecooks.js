@@ -173,7 +173,7 @@ const homecooks = [
         name: "Tandoori Chicken with Rice",
         description: "Chicken marinated in yogurt and spices, cooked to perfection in a tandoor. Served with fragrant basmati rice, naan, and a side of mint chutney. A smoky and flavorful dish that's a delight for meat lovers.",
         price: "55",
-        imgURL: "http://lh5.ggpht.com/_dfV_Eqz0Ypw/TW7wtalNsYI/AAAAAAAABoA/lp7vridOTnY/Tandoori-Chicken3.jpg?imgmax=800",
+        imgURL: "https://img.taste.com.au/rqiE1KpD/w720-h480-cfill-q80/taste/2016/11/tandoori-chicken-with-basmati-rice-104271-1.jpeg",
         isVeg: false,
         availability: [
           {
@@ -186,7 +186,7 @@ const homecooks = [
         name: "Veg Biryani with Raita",
         description: "Fragrant basmati rice cooked with a medley of vegetables and aromatic spices. Served with cooling raita. A vegetarian biryani that's a burst of flavors and textures.",
         price: "48",
-        imgURL: "https://fifolive.com/wp-content/uploads/2021/05/veg-biryani.jpg",
+        imgURL: "https://img-global.cpcdn.com/recipes/74bc670d9918e7b8/680x482cq70/veg-hyderabadi-biryani-with-boondi-raita-recipe-main-photo.jpg",
         isVeg: true,
         availability: [
           {
@@ -264,7 +264,7 @@ const homecooks = [
         name: "Malai Kofta with Chapattis",
         description: "Deep-fried paneer and vegetable dumplings served in a creamy and rich cashew-based gravy, flavored with aromatic spices along with chapattis",
         price: "35",
-        imgURL: "https://scontent.fdel29-1.fna.fbcdn.net/v/t1.6435-9/79269978_741132956432467_2703428168080824912_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=9267fe&_nc_ohc=WAdv7JKPVfoAX8QFY9C&_nc_ht=scontent.fdel29-1.fna&oh=00_AfAOc5rc7NWycCQtuhpjj5T5BPSnPpucKTzr8gE7ddLhVg&oe=654DEDE3",
+        imgURL: "https://img-global.cpcdn.com/recipes/8d6f90118e354b90/680x482cq70/malai-kofta-and-tandoori-roti-recipe-main-photo.jpg",
         isVeg: true,
         availability: [
           {
