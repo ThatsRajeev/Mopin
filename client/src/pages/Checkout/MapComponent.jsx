@@ -166,7 +166,7 @@ function MapComponent({ setShowMap }) {
         };
         const response = await axios.post("https://mopin-server.vercel.app/api/savepoint", data);
         setShowMap(false);
-        window.location.reload();
+        // window.location.reload();
         resolve(response.data);
       } catch (error) {
         console.error(error);
