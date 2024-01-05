@@ -74,10 +74,6 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
     }
   }, [showMap, showDelete])
 
-  useEffect(() => {
-    fetchAddress();
-  }, []);
-
   return (
     <div className={`component ${fromCheckout ? "ck-address-comp" : "address-comp"}`} style={{flexDirection: addressFlex ? 'column' : 'row'}}>
         <div style={{maxWidth: fromCheckout ? '280px': '380px'}}
