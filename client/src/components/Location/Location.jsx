@@ -25,7 +25,7 @@ const Location = ({ setShowProp }) => {
     if (inputValue) {
       try {
         const response = await axios.get(
-          `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${inputValue}&key=12b6daa5213d46898ef052dfacf9ac5a&countrycode=in&limit=5`,
+          `https://mopin-server.vercel.app/proxy/?q=${inputValue}`,
           { withCredentials: false }
         );
         setSuggestions(response.data.results);
@@ -51,7 +51,7 @@ const Location = ({ setShowProp }) => {
   return (
     <>
       <div className="search-heading mob-view">
-        <span class="material-symbols-outlined" onClick={() => setShowProp('address')}>arrow_back</span>
+        <span className="material-symbols-outlined" onClick={() => setShowProp('address')}>arrow_back</span>
         <p> Search your delivery location</p>
       </div>
       <div className="address-container">
@@ -101,7 +101,7 @@ const Location = ({ setShowProp }) => {
       </p>
       <div className="choose-location">
         <div className="location-icon-container">
-          <span class="material-symbols-outlined location-on-icon">location_on</span>
+          <span className="material-symbols-outlined location-on-icon">location_on</span>
         </div>
         <p className="choose-location-p1"> Choose your location! </p>
         <p className="choose-location-p2"> And enjoy delicious homemade cuisines near your location </p>
