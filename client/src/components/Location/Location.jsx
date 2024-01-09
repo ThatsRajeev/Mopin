@@ -20,7 +20,8 @@ const Location = ({ setShowProp }) => {
   };
 
   const handleInputChange = async (event) => {
-    setInputValue(event.target.value);
+    const inputValue = event.target.value;
+    setInputValue(inputValue);
 
     if (inputValue.length > 2) {
       try {
