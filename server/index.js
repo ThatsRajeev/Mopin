@@ -35,17 +35,6 @@ app.get('/proxy', async (req, res) => {
   }
 });
 
-app.get('/decode', async (req, res) => {
-  try {
-    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?${req.url.slice(1)}`);
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 app.post('/formspree', function(req, res) {
   var url = 'https://formspree.io/f/mknlpedg';
 
