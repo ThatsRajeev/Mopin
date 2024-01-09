@@ -17,11 +17,15 @@ function DraggableMarker({ setAddressProp, setCurrentLocation }) {
     setPosition(newPosition);
     setCurrentLocation(newPosition);
 
-    const response = await axios.get(
-      `https://mopin-server.vercel.app/proxy?reverse?lat=${newPosition.lat}&lon=${newPosition.lng}&format=json`,
-      { withCredentials: false }
-    );
-    setAddressProp(response.display_name);
+    try {
+      const response = await axios.get(
+        `https://mopin-server.vercel.app/proxy/reverse?lat=${newPosition.lat}&lon=${newPosition.lng}&format=json`,
+        { withCredentials: false }
+      );
+      setAddressProp(response.display_name);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -109,7 +113,7 @@ function MapComponent({ setShowMap }) {
       setCurrentLocation({ lat: coords.latitude, lng: coords.longitude });
 
       const res = await handleGPS();
-      setAddress(res.results[0].formatted.substring(0, 40) + "...");
+      setAddress(res.display_name);
     });
   };
 
@@ -203,7 +207,7 @@ function MapComponent({ setShowMap }) {
       {currentLocation.lat && currentLocation.lng && (
         <div>
           <p> Your Delivery Location </p>
-          <h2>{address}</h2>
+          <h2>{address.substring(0, 40) + "..."}</h2>
           {!show &&<button className="save-btn" onClick={() => setShow(true)}>Confirm Location and Proceed</button>}
         </div>
       )}
