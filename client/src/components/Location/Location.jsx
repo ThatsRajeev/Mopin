@@ -28,6 +28,7 @@ const Location = ({ setShowProp }) => {
           `https://mopin-server.vercel.app/proxy/?q=${inputValue}&format=json&addressdetails=1`,
           { withCredentials: false }
         );
+        console.log(response);
         setSuggestions(response.data.results);
       } catch (error) {
         console.error(error);
