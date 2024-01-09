@@ -30,7 +30,7 @@ const Location = ({ setShowProp }) => {
           { withCredentials: false }
         );
         console.log(response.data);
-        setSuggestions(response.data.results);
+        setSuggestions(response.data);
       } catch (error) {
         console.error(error);
       }
