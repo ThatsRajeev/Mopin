@@ -22,6 +22,7 @@ function DraggableMarker({ setAddressProp, setCurrentLocation }) {
         `https://mopin-server.vercel.app/decode/?lat=${newPosition.lat}&lon=${newPosition.lng}&format=json`,
         { withCredentials: false }
       );
+      console.log(response);
       setAddressProp(response.display_name);
     } catch (error) {
       console.error(error);
