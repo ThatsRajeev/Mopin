@@ -30,7 +30,7 @@ app.get('/proxy', async (req, res) => {
     const query = req.url.slice(1);
 
     if (query.includes('reverse')) {
-      apiUrl = 'https://nominatim.openstreetmap.org/reverse';
+      apiUrl = 'https://nominatim.openstreetmap.org';
     } else {
       apiUrl = 'https://nominatim.openstreetmap.org/search';
     }
