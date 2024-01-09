@@ -26,7 +26,9 @@ app.use(cors({
 
 app.get('/api/proxy', async (req, res) => {
   try {
+    console.log(`https://nominatim.openstreetmap.org/search?${req.url.slice(1)}`);
     const response = await fetch(`https://nominatim.openstreetmap.org/search?${req.url.slice(1)}`);
+      console.log(response);
     const data = await response.json();
     res.json(data);
   } catch (error) {

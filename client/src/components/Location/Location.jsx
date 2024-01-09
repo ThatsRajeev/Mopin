@@ -22,7 +22,7 @@ const Location = ({ setShowProp }) => {
   const handleInputChange = async (event) => {
     setInputValue(event.target.value);
 
-    if (inputValue) {
+    if (inputValue.length > 2) {
       try {
         const response = await axios.get(
           `https://mopin-server.vercel.app/proxy/?q=${inputValue}`,
