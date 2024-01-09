@@ -12,7 +12,6 @@ const Location = ({ setShowProp }) => {
       if (navigator.geolocation) {
         setShowProp('address');
         const res = await handleGPS();
-        console.log(res);
         localStorage.setItem("userLocation", res.display_name);
       }
     } catch (e) {
@@ -27,7 +26,7 @@ const Location = ({ setShowProp }) => {
     if (inputValue.length > 2) {
       try {
         const response = await axios.get(
-          `https://mopin-server.vercel.app/proxy/?q=${inputValue}&format=json&addressdetails=1&countrycodes=in`,
+          `https://mopin-server.vercel.app/proxy/search?q=${inputValue}&format=json&addressdetails=1&countrycodes=in`,
           { withCredentials: false }
         );
         setSuggestions(response.data);
