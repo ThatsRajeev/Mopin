@@ -19,7 +19,7 @@ function DraggableMarker({ setAddressProp, setCurrentLocation }) {
 
     try {
       const response = await axios.get(
-        `https://mopin-server.vercel.app/proxy/reverse?lat=${newPosition.lat}&lon=${newPosition.lng}&format=json`,
+        `https://mopin-server.vercel.app/decode/?lat=${newPosition.lat}&lon=${newPosition.lng}&format=json`,
         { withCredentials: false }
       );
       setAddressProp(response.display_name);
