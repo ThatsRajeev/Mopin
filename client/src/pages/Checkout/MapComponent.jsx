@@ -54,8 +54,8 @@ function LocationButton({getCurrentLocation}) {
       const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
       container.style.backgroundColor = '#fff';
       container.style.color = '#f16122';
-      container.style.width = '32px';
-      container.style.height = '32px';
+      container.style.width = '36px';
+      container.style.height = '36px';
       container.style.borderRadius = '50%';
       container.style.display = 'flex';
       container.style.cursor = 'pointer';
