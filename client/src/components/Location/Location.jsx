@@ -78,7 +78,7 @@ const Location = ({ setShowProp }) => {
             {suggestions.map((suggestion) => (
               <li
                 className="suggLI"
-                key={suggestion.annotations.geohash}
+                key={suggestion.place_id}
                 onClick={() => handleSuggestionClick(suggestion)}
               >
                 <span class="material-symbols-outlined location-icon">location_on</span>
