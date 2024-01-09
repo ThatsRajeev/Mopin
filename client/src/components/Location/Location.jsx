@@ -85,12 +85,12 @@ const Location = ({ setShowProp }) => {
                 <div className="SuggDiv">
                   <p>
                     {
-                      suggestion.formatted
+                      suggestion.display_name
                         .split(",")
                         .map((part) => part.trim())[0]
                     }
                   </p>
-                  <p className="suggDetails">{suggestion.formatted}</p>
+                  <p className="suggDetails">{suggestion.display_name}</p>
                 </div>
               </li>
             ))}
