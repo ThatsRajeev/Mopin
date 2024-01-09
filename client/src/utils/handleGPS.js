@@ -8,7 +8,7 @@ const handleGPS = () => {
           const { latitude, longitude } = position.coords;
           try {
             const response = await axios.get(
-              `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+              `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
               { withCredentials: false }
             );
             resolve(response.data);
