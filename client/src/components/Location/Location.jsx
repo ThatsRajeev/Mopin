@@ -25,7 +25,7 @@ const Location = ({ setShowProp }) => {
     if (inputValue.length > 2) {
       try {
         const response = await axios.get(
-          `https://mopin-server.vercel.app/proxy/?q=${inputValue}`,
+          `https://mopin-server.vercel.app/proxy/?q=${inputValue}&format=json&addressdetails=1`,
           { withCredentials: false }
         );
         setSuggestions(response.data.results);
