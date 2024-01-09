@@ -24,19 +24,26 @@ app.use(cors({
   credentials: true,
 }));
 
-const fetchNominatimData = async (req, res) => {
+app.get('/proxy', async (req, res) => {
   try {
-    const response = await fetch(`https://nominatim.openstreetmap.org/${req.url.slice(1)}`);
+    let apiUrl;
+    const query = req.url.slice(1);
+
+    if (query.includes('reverse')) {
+      apiUrl = 'https://nominatim.openstreetmap.org/reverse';
+    } else {
+      apiUrl = 'https://nominatim.openstreetmap.org/search';
+    }
+
+    const response = await fetch(`${apiUrl}?${query}`);
     const data = await response.json();
     res.json(data);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-};
+});
 
-app.get('/proxy/search', fetchNominatimData);
-app.get('/proxy/reverse', fetchNominatimData);
 
 app.post('/formspree', function(req, res) {
   var url = 'https://formspree.io/f/mknlpedg';
