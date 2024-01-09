@@ -23,7 +23,7 @@ function LocateMePrompt() {
   const handleInputChange = async (event) => {
     setInputValue(event.target.value);
 
-    if (inputValue) {
+    if (inputValue && inputValue.length > 2) {
       try {
         const response = await axios.get(
           `https://mopin-server.vercel.app/proxy/?q=${inputValue}&format=json&addressdetails=1&countrycodes=in`,

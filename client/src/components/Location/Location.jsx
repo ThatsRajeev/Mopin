@@ -21,16 +21,14 @@ const Location = ({ setShowProp }) => {
   };
 
   const handleInputChange = async (event) => {
-    const inputValue = event.target.value;
     setInputValue(inputValue);
 
-    if (inputValue.length > 2) {
+    if (inputValue && inputValue.length > 2) {
       try {
         const response = await axios.get(
           `https://mopin-server.vercel.app/proxy/?q=${inputValue}&format=json&addressdetails=1&countrycodes=in`,
           { withCredentials: false }
         );
-        console.log(response.data);
         setSuggestions(response.data);
       } catch (error) {
         console.error(error);
