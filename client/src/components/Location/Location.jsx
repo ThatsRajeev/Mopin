@@ -12,7 +12,7 @@ const Location = ({ setShowProp }) => {
       if (navigator.geolocation) {
         setShowProp('address');
         const res = await handleGPS();
-        localStorage.setItem("userLocation", res.results[0].formatted);
+        localStorage.setItem("userLocation", res.results[0].display_name);
       }
     } catch (e) {
       console.error(e);
@@ -40,7 +40,7 @@ const Location = ({ setShowProp }) => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    localStorage.setItem("userLocation", suggestion.formatted);
+    localStorage.setItem("userLocation", suggestion.display_name);
     setSuggestions([]);
     setShowProp('address');
   };

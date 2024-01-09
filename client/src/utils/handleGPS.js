@@ -8,7 +8,7 @@ const handleGPS = () => {
           const { latitude, longitude } = position.coords;
           try {
             const response = await axios.get(
-              `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${latitude}+${longitude}&key=12b6daa5213d46898ef052dfacf9ac5a`,
+              `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
               { withCredentials: false }
             );
             resolve(response.data);
