@@ -12,7 +12,7 @@ function LocateMePrompt() {
     try {
       if (navigator.geolocation) {
         const res = await handleGPS();
-        localStorage.setItem("userLocation", res.results[0].formatted);
+        localStorage.setItem("userLocation", res.display_name);
         window.location.reload();
       }
     } catch (e) {
@@ -26,10 +26,10 @@ function LocateMePrompt() {
     if (inputValue) {
       try {
         const response = await axios.get(
-          `https://mopin-server.vercel.app/proxy/geocode/v1/json?q=${inputValue}&key=12b6daa5213d46898ef052dfacf9ac5a&countrycode=in&limit=5`,
+          `https://mopin-server.vercel.app/proxy/?q=${inputValue}&format=json&addressdetails=1&countrycodes=in`,
           { withCredentials: false }
         );
-        setSuggestions(response.data.results);
+        setSuggestions(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -39,7 +39,7 @@ function LocateMePrompt() {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    localStorage.setItem("userLocation", suggestion.formatted);
+    localStorage.setItem("userLocation", suggestion.display_name);
     window.location.reload();
     setSuggestions([]);
   };

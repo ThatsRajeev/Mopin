@@ -12,7 +12,8 @@ const Location = ({ setShowProp }) => {
       if (navigator.geolocation) {
         setShowProp('address');
         const res = await handleGPS();
-        localStorage.setItem("userLocation", res.results[0].display_name);
+        console.log(res);
+        localStorage.setItem("userLocation", res.display_name);
       }
     } catch (e) {
       console.error(e);
