@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 import locationIcon from "../../assets/location-icon.png";
 import { useUserAuth } from "../../context/AuthContext";
 import handleGPS from "../../utils/handleGPS";
+import handleGeocoding from "../../utils/handleGeocoding";
 
 function DraggableMarker({ setAddressProp, setCurrentLocation }) {
   const [position, setPosition] = useState({ lat: 28.75, lng: 77.11 })
@@ -16,13 +17,9 @@ function DraggableMarker({ setAddressProp, setCurrentLocation }) {
     const newPosition = map.getCenter();
     setPosition(newPosition);
     setCurrentLocation(newPosition);
-    console.log(newPosition);
+
     try {
-      const response = await axios.get(
-        `https://mopin-server.vercel.app/decode/?lat=${newPosition.lat}&lon=${newPosition.lng}&format=json`,
-        { withCredentials: false }
-      );
-      console.log(response);
+      const response = await handleGeocoding(newPosition);
       setAddressProp(response.display_name);
     } catch (error) {
       console.error(error);
