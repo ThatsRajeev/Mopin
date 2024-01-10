@@ -22,10 +22,6 @@ function LocateMePrompt() {
     }
   };
 
-  const toggleOverlay = () => {
-    setAddessOverlay(!addressOverlay)
-  }
-
   const handleInputChange = async (event) => {
     const inputValue = event.target.value;
     setInputValue(inputValue);
@@ -55,6 +51,11 @@ function LocateMePrompt() {
     setInputValue('');
     setSuggestions([]);
   };
+
+  const toggleOverlay = () => {
+    setAddessOverlay(!addressOverlay);
+    window.location.reload();
+  }
 
   return (
     <div className="locateMe-container">
