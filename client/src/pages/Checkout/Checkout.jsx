@@ -184,7 +184,7 @@ const toggleOverlay = (overlayType) => {
     if (existingItemIndex !== -1) {
       existingCart[existingItemIndex].dishQuantity = qty;
 
-      if ((qty || 0) === 0) {
+      if (qty === 0) {
         existingCart = existingCart.filter(item => item.dishName !== name);
       }
     } else {
@@ -199,14 +199,14 @@ const toggleOverlay = (overlayType) => {
     setTotalItems(totalItems+1);
     setTotalPrice(totalPrice + parseInt(dish.dishPrice));
 
-    handleCart(dish.dishName, dish.dishPrice, counterValue.textContent);
+    handleCart(dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, counterValue.textContent);
   };
 
   const handleDecrement = (event, dish) => {
     const counterValue = event.target.nextElementSibling;
     const newValue = parseInt(counterValue.textContent) - 1;
 
-    handleCart(dish.dishName, dish.dishPrice, newValue || 0);
+    handleCart(dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, newValue);
 
     if (newValue >= 0) {
       setTotalItems(totalItems-1);
