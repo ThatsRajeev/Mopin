@@ -516,7 +516,7 @@ function SellerPage() {
           ))}
           </div>
         </div>
-        {totalItems && (
+        {dishQty && (
           <div className="bottom-container">
             <div className="itemsAndPrice">
               <h4>{totalItems} {totalItems===1 ? 'item' : 'items'}</h4>

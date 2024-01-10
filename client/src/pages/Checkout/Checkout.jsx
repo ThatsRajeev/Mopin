@@ -256,12 +256,12 @@ const toggleOverlay = (overlayType) => {
       }, {
         withCredentials: true
       });
-      console.log(data);
       initPayment(data.data);
 
       setdishInfo({});
       setTotalItems(0);
       setTotalPrice(0);
+      localStorage.removeItem('cart');
 
       navigate("/");
     } catch (error) {
