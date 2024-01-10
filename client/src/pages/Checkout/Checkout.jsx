@@ -217,6 +217,7 @@ const toggleOverlay = (overlayType) => {
       setTimeout(() => {
         counter.style.display = 'none';
       }, 300);
+      fetchCartInfo();
     } else {
       counterValue.textContent = newValue;
     }
