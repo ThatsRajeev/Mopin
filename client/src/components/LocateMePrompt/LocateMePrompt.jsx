@@ -56,16 +56,10 @@ function LocateMePrompt() {
   }
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      const updatedUserLocation = localStorage.getItem('userLocation');
+    if(localStorage.getItem('userLocation')) {
       window.location.reload();
-    };
+    }
 
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
   }, [localStorage.getItem('userLocation')]);
 
   return (
