@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import handleGPS from "../../utils/handleGPS";
 import Location from "../Location/Location";
@@ -43,7 +43,6 @@ function LocateMePrompt() {
 
   const handleSuggestionClick = (suggestion) => {
     localStorage.setItem("userLocation", suggestion.display_name);
-    window.location.reload();
     setSuggestions([]);
   };
 
@@ -54,8 +53,20 @@ function LocateMePrompt() {
 
   const toggleOverlay = () => {
     setAddessOverlay(!addressOverlay);
-    window.location.reload();
   }
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updatedUserLocation = localStorage.getItem('userLocation');
+      window.location.reload();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [localStorage.getItem('userLocation')]);
 
   return (
     <div className="locateMe-container">
