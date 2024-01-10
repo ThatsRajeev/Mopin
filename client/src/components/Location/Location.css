@@ -131,6 +131,10 @@
   z-index: -1;
 }
 
+.loader-img {
+  margin-left: 6px;
+}
+
 .location-icon-container {
   display: flex;
   border-radius: 50%;

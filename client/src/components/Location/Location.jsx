@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import handleGPS from "../../utils/handleGPS";
+import loader from "../../assets/loader2.svg";
 import "./Location.css";
 
 const Location = ({ setShowProp }) => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   const getCurrentLocation = async () => {
     try {
       if (navigator.geolocation) {
-        setShowProp('address');
+        setLoading(true);
         const res = await handleGPS();
-        console.log(res);
         localStorage.setItem("userLocation", res.display_name);
+        setShowProp('address');
       }
     } catch (e) {
       console.error(e);
@@ -100,6 +102,7 @@ const Location = ({ setShowProp }) => {
       <p className="gps-location" onClick={getCurrentLocation}>
         <span className="material-symbols-outlined my-location-icon">my_location</span>
         Use Current Location Using GPS
+        {isLoading && <img className="loader-img" src={loader} alt="load-img" />}
       </p>
       <div className="choose-location">
         <div className="location-icon-container">
