@@ -59,6 +59,31 @@
   }
 }
 
+.locateMe-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f16122;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #fff;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.addressOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: #f2f2f2;
+  padding: 0 16px;
+}
+
 .locateMe-img {
   display: flex;
   flex-direction: column;
@@ -153,7 +178,7 @@
   @media screen and (max-width: 35em) {
     font-size: 20px;
     text-align: center;
-    margin: 0 auto 48px;
+    margin: 0 auto 24px;
   }
 }
 

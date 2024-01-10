@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import axios from "axios";
 import handleGPS from "../../utils/handleGPS";
+import Location from "../Location/Location";
 import Check from "../../assets/check.svg";
 import "./LocateMePrompt.css";
 
 function LocateMePrompt() {
+  const [addressOverlay, setAddessOverlay] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -19,6 +21,10 @@ function LocateMePrompt() {
       console.error(e);
     }
   };
+
+  const toggleOverlay = () => {
+    setAddessOverlay(!addressOverlay)
+  }
 
   const handleInputChange = async (event) => {
     const inputValue = event.target.value;
@@ -56,7 +62,7 @@ function LocateMePrompt() {
         <h2 className="logo-name">mopin</h2>
         <h1 className="logo-tagline">Nourishing Your Soul with Mom-Crafted Meals.</h1>
         <p className="logo-p"> Order homemade food from homechefs near you. </p>
-        <div className="address-input-div">
+        <div className="address-input-div pc-view">
           <input
             className="address-input"
             placeholder="Enter your delivery location"
@@ -76,6 +82,9 @@ function LocateMePrompt() {
           )}
           <h3 className="explore-foods">Explore food</h3>
         </div>
+        <button onClick={() => {toggleOverlay()}} className="locateMe-btn mob-view">
+          Set your Location
+        </button>
         <ul className="suggUL">
           {suggestions.length !== 0 && (
             <div className="list-div">
@@ -102,6 +111,12 @@ function LocateMePrompt() {
           )}
         </ul>
       </div>
+
+      {addressOverlay &&
+        <div className="addressOverlay">
+          <Location setShowProp={toggleOverlay}/>
+        </div>
+      }
 
       <div className="locateMe-img">
         <div className="head-container">
