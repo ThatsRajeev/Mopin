@@ -148,8 +148,8 @@ function SellerPage() {
 
     cart.forEach(item => {
       newdishQty[item.dishName] = parseInt(item.dishQuantity);
-      totalItemCount += parseInt(item.dishQuantity);
-      totalPriceCount += parseInt(item.dishQuantity) * parseInt(item.dishPrice);
+      totalItemCount += parseInt(item.dishQuantity) || 0;
+      totalPriceCount += parseInt(item.dishQuantity) * parseInt(item.dishPrice) || 0;
     });
 
     setdishQty(newdishQty);
@@ -516,7 +516,7 @@ function SellerPage() {
           ))}
           </div>
         </div>
-        {dishQty && (
+        {totalItems && (
           <div className="bottom-container">
             <div className="itemsAndPrice">
               <h4>{totalItems} {totalItems===1 ? 'item' : 'items'}</h4>

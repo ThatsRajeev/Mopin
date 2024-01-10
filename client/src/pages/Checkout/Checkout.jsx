@@ -71,8 +71,8 @@ const Checkout = () => {
       cart.forEach(item => {
         newdishInfo[item.dishName] = {dishName: item.dishName, sellerName: item.sellerName, dishPrice: item.dishPrice, dishDesc: item.dishDesc,
           dishIsVeg: item.dishIsVeg, dishQty: item.dishQuantity};
-        totalItemCount = totalItemCount + parseInt(item.dishQuantity);
-        totalPriceCount = totalPriceCount + parseInt(item.dishQuantity) * parseInt(item.dishPrice);
+          totalItemCount += parseInt(item.dishQuantity) || 0;
+          totalPriceCount += parseInt(item.dishQuantity) * parseInt(item.dishPrice) || 0;
       });
 
       setdishInfo(newdishInfo);
@@ -184,7 +184,7 @@ const toggleOverlay = (overlayType) => {
     if (existingItemIndex !== -1) {
       existingCart[existingItemIndex].dishQuantity = qty;
 
-      if (qty === 0) {
+      if ((qty || 0) === 0) {
         existingCart = existingCart.filter(item => item.dishName !== name);
       }
     } else {
@@ -205,11 +205,12 @@ const toggleOverlay = (overlayType) => {
   const handleDecrement = (event, dish) => {
     const counterValue = event.target.nextElementSibling;
     const newValue = parseInt(counterValue.textContent) - 1;
+
+    handleCart(dish.dishName, dish.dishPrice, newValue || 0);
+
     if (newValue >= 0) {
       setTotalItems(totalItems-1);
       setTotalPrice(totalPrice - parseInt(dish.dishPrice));
-
-      handleCart(dish.dishName, dish.dishPrice, newValue);
     }
     if(newValue === 0) {
       const counter = event.target.parentElement;
@@ -217,7 +218,17 @@ const toggleOverlay = (overlayType) => {
       setTimeout(() => {
         counter.style.display = 'none';
       }, 300);
-      fetchCartInfo();
+
+      setdishInfo((prevDishInfo) => {
+        const updatedDishInfo = { ...prevDishInfo };
+        updatedDishInfo[dish.dishName].dishQty = newValue;
+
+        if (newValue === 0) {
+          delete updatedDishInfo[dish.dishName];
+        }
+
+        return updatedDishInfo;
+      });
     } else {
       counterValue.textContent = newValue;
     }
@@ -415,42 +426,44 @@ const toggleOverlay = (overlayType) => {
       </div>
       )}
 
-      <div className="bottom-container mob-view" style={{display: 'block'}}>
-        {!user || !addressChoosen ? (
-          <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
-            {showLoginOverlay && (
-              <Overlay closeOverlay={() => setShowLoginOverlay(false)}>
-                <div style={{backgroundColor: '#fff', width: '100vw', height: '100vh'}}>
-                  <Login setShowProp={toggleOverlay}/>
-                </div>
-              </Overlay>
-             )}
-            {showAddressOverlay && (
-              <Overlay closeOverlay={() => setShowAddressOverlay(false)}>
-                <div style={{backgroundColor: '#fff'}}>
-                  <ManageAddressContent fromCheckout='true' setAddressChoosen={setAddressChoosen} addressFlex='true'/>
-                </div>
-              </Overlay>
-             )}
-             <button className="proceed-btn" onClick={() => {!user ? setShowLoginOverlay(true) : setShowAddressOverlay(true)}}>
-              {!user ? "Login / SignUp" : "Choose Address"}
-             </button>
-          </div>
-          ) : (
-          <div className="contact-details" style={{margin: '8px 0', flexDirection: 'column'}}>
-            <div className="contact-details" style={{flexDirection: 'column', margin: '0 0 14px'}}>
-              <div className="checkout-dishinfo">
-                <h3>Deliver to</h3>
-                <a onClick={() => setAddressChoosen(false)} className="change-details" style={{color: "#f16122"}}> Change </a>
-              </div>
-              <div className="bottom-container-address">
-                {address}
-              </div>
+      {totalItems>0 && (
+        <div className="bottom-container mob-view" style={{display: 'block'}}>
+          {!user || !addressChoosen ? (
+            <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
+              {showLoginOverlay && (
+                <Overlay closeOverlay={() => setShowLoginOverlay(false)}>
+                  <div style={{backgroundColor: '#fff', width: '100vw', height: '100vh'}}>
+                    <Login setShowProp={toggleOverlay}/>
+                  </div>
+                </Overlay>
+               )}
+              {showAddressOverlay && (
+                <Overlay closeOverlay={() => setShowAddressOverlay(false)}>
+                  <div style={{backgroundColor: '#fff'}}>
+                    <ManageAddressContent fromCheckout='true' setAddressChoosen={setAddressChoosen} addressFlex='true'/>
+                  </div>
+                </Overlay>
+               )}
+               <button className="proceed-btn" onClick={() => {!user ? setShowLoginOverlay(true) : setShowAddressOverlay(true)}}>
+                {!user ? "Login / SignUp" : "Choose Address"}
+               </button>
             </div>
-            <button className="proceed-btn" onClick={handlePayment}><h4>Proceed to Pay (₹{totalPrice+7+4})</h4></button>
+            ) : (
+            <div className="contact-details" style={{margin: '8px 0', flexDirection: 'column'}}>
+              <div className="contact-details" style={{flexDirection: 'column', margin: '0 0 14px'}}>
+                <div className="checkout-dishinfo">
+                  <h3>Deliver to</h3>
+                  <a onClick={() => setAddressChoosen(false)} className="change-details" style={{color: "#f16122"}}> Change </a>
+                </div>
+                <div className="bottom-container-address">
+                  {address}
+                </div>
+              </div>
+              <button className="proceed-btn" onClick={handlePayment}><h4>Proceed to Pay (₹{totalPrice+7+4})</h4></button>
+          </div>
+        )}
         </div>
       )}
-      </div>
     </>
   )
 }
