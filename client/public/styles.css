@@ -1510,4 +1510,7 @@ hr {
 .empty-cart-img {
   height: 256px;
   width: 350px;
-  background-image: url(https://www.googleapis.com/drive/v3/files/1UIYER4g2CTnGYogo6WJioR5zXv8wnbLn?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA
+  background-image: url(https://www.googleapis.com/drive/v3/files/1MP9AYnqieKEyY4DLeCmiclgeRfl6oY5G?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
