@@ -25,7 +25,6 @@ const Checkout = () => {
   const { user, logOut } = useUserAuth();
 
   const navigate = useNavigate();
-  const breakpoint = 35 * parseFloat(getComputedStyle(document.documentElement).fontSize);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -282,7 +281,7 @@ const toggleOverlay = (overlayType) => {
 
   return (
     <>
-      <Navbar showAddress="none" header="Secure Checkout" showNavbar = {windowWidth < breakpoint ? "none" : ""}/>
+      <Navbar showAddress="none" header="Secure Checkout" showNavbar = {windowWidth < 768 ? "none" : ""}/>
       {totalItems ? (
       <div className="checkout-container">
         <div className="checkout-div">

@@ -29,7 +29,6 @@ function SellerPage() {
   const daysOptions = [28, 21, 14, 7];
 
   const navigate = useNavigate();
-  const breakpoint = 35 * parseFloat(getComputedStyle(document.documentElement).fontSize);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -374,7 +373,7 @@ function SellerPage() {
 
   return (
     <>
-      <Navbar showNavbar = {windowWidth < breakpoint ? "none" : ""}/>
+      <Navbar showNavbar = {windowWidth < 768 ? "none" : ""}/>
       <div className="seller-container">
         <div className="seller-div-pc pc-view">
           <span className="top-bar"></span>

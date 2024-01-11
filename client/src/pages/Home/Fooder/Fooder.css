@@ -1,6 +1,6 @@
 
 .fooder-slide-container {
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     padding: 1.6rem 14px !important;
   }
 }
@@ -30,7 +30,7 @@
   border-radius: 50%;
   filter: drop-shadow(0px -2px 5px rgba(0, 0, 0, 0.36));
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     width: 84px;
     height: 84px;
   }

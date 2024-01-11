@@ -13,7 +13,7 @@ const NavCase = styled.header`
   background-color: #fff;
   padding: 0 14px;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     background-color: #f2f2f2;
     padding: 0 16px;
   }
@@ -37,7 +37,7 @@ const Logo = styled(Link)`
   font-weight: 800;
   margin-right: 20px;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -61,7 +61,7 @@ const Address = styled.div`
     margin: 0;
   }
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     width: 64vw;
     background-color: #f2f2f2;
   }
@@ -76,7 +76,7 @@ const Overlay = styled.div`
   background: #fff;
   z-index: 10;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     top: 0;
     height: 100vh;
     width: 100vw;
@@ -96,7 +96,7 @@ const AddressOverlay = styled.div`
   padding: 0 2%;
   z-index: 10;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     top: 0;
     left: -16px;
     height: 100vh;
@@ -125,7 +125,7 @@ const SearchBarContainer = styled.div`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
   margin-right: 16px;
 
-  @media (min-width: 35em) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;
@@ -136,7 +136,7 @@ const Menu = styled.ul`
   justify-content: space-between;
 
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -191,7 +191,7 @@ const MobNav = styled.nav`
   will-change: transform;
   backface-visibility: hidden;
 
-  @media (min-width: 35em) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;

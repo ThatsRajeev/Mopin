@@ -7,7 +7,7 @@
     padding: 0 14px;
   }
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     padding-bottom: 98.4px;
   }
 }

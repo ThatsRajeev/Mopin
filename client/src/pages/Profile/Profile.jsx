@@ -21,7 +21,6 @@ const Profile = () => {
     setOverlayVisible(!overlayVisible);
   };
 
-  const breakpoint = 35 * parseFloat(getComputedStyle(document.documentElement).fontSize);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -324,10 +323,10 @@ const LogoutContent = () => {
             </div>
           </ul>
         </div>
-        {windowWidth > breakpoint ? renderContent() : null}
+        {windowWidth > 768 ? renderContent() : null}
       </div>
     </div>
-    {windowWidth <= breakpoint && overlayVisible && (
+    {windowWidth <= 768 && overlayVisible && (
       <div className="overlay mob-view">
         <div className="overlay-content">
           <div className="profile-head" onClick={toggleOverlay}>

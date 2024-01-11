@@ -10,7 +10,7 @@
   transition: transform 0.3s;
   box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     border-radius: 32px 8px;
   }
 }
@@ -45,7 +45,7 @@
   line-height: 1.8rem;
   font-weight: 500;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     font-size: 1rem;
     line-height: 1.4rem;
   }
@@ -56,7 +56,7 @@
   font-size: 1rem;
   line-height: 1.5rem;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     font-size: 0.9rem;
   }
 }
@@ -68,7 +68,7 @@
   padding-top: 0.5rem;
   font-size: 0.9rem;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     font-size: 0.8rem;
     padding-top: 0.24rem;
   }
@@ -87,7 +87,7 @@
     color: #349E46;
   }
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     gap: 4px;
 
     >svg {
@@ -103,7 +103,7 @@
   background-color: #000;
   opacity: 16%;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     margin: 0.36rem 0;
   }
 }

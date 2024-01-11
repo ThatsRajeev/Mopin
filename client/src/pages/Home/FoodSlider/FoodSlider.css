@@ -8,7 +8,7 @@
 .food-slide-container {
   padding: 7.8rem 1.6rem 2.4rem !important;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     padding: 6.8rem 16px 1.6rem !important;
   }
 }
@@ -22,7 +22,7 @@
   width: 2.8rem !important;
   height: 2.8rem !important;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     display: none !important;
   }
 }
@@ -41,7 +41,7 @@
   background-color: #349E46 !important;
   opacity: 0.64 !important;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     display: none !important;
   }
 }

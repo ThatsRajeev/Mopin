@@ -16,7 +16,6 @@ import "leaflet/dist/leaflet.css";
 function Homepage() {
   const [locationPrompt, setLocationPrompt] = useState(false);
   const [active, setActive] = useState('All');
-  const breakpoint = 35 * parseFloat(getComputedStyle(document.documentElement).fontSize);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const foodCatgor = ['All', 'Spicy', 'Veg', 'Non-veg', 'Dairy-free'];
@@ -80,7 +79,7 @@ function Homepage() {
         <>
           <Navbar />
           <Hero />
-          {windowWidth < breakpoint ? (
+          {windowWidth < 768 ? (
             <>
               <div className="foodCatgor">
                 {foodCatgor.map((catgor, index) => (

@@ -7,7 +7,7 @@
   @media (max-width: 1240px) {
     margin: 0 14px !important
   }
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     margin: 32px 0 !important;
     padding: 0 16px !important;
   }
@@ -35,7 +35,7 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
   background-color: #ffffff;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     height: 25em;
   }
 }
@@ -54,7 +54,7 @@
     border-radius: 50%;
   }
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     height: 170px;
     width: 170px;
   }
@@ -67,7 +67,7 @@
   border-radius: 50%;
   border: 2px solid #fff;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     height: 164px;
     width: 164px;
   }

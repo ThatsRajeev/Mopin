@@ -40,7 +40,7 @@
   opacity: 0.8;
   background: linear-gradient(118deg, rgba(255, 255, 0, 0.36) -44.13%, rgba(241, 97, 34, 0.36) 116.05%);
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     display: none;
   }
 }

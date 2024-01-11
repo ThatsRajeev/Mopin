@@ -122,7 +122,7 @@ hr {
     margin: 3.2vw 14px 2.4vw;
   }
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     margin: 4.2vw 16px 0;
   }
 }
@@ -133,7 +133,7 @@ hr {
   line-height: 1.8rem;
   letter-spacing: 1px;
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     font-size: 1.2rem;
   }
 }
@@ -185,13 +185,13 @@ hr {
 }
 
 .pc-view {
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     display: none !important;
   }
 }
 
 .mob-view {
-  @media (min-width: 35em) {
+  @media (min-width: 768px) {
     display: none !important;
   }
 }
@@ -237,7 +237,7 @@ hr {
     padding: 48px 14px 0;
   }
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     position: absolute;
     padding: 0;
     top: 0;
@@ -252,13 +252,13 @@ hr {
   margin: 0 auto;
   display: flex;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     width: 100vw;
   }
 }
 
 .profile-subdiv {
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     width: 100%;
     margin-right: 16px;
   }
@@ -277,7 +277,7 @@ hr {
   font-size: 18px;
   font-weight: 800;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     font-size: 16px;
   }
 }
@@ -286,7 +286,7 @@ hr {
   border: 1.9px solid #d9d9d9;
   border-width: 0 3.8px 3.8px 0;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     border: 1.9px solid #d9d9d9;
     border-width: 0 1.9px 1.9px 0;
   }
@@ -296,7 +296,7 @@ hr {
   border-width: 3.8px 3.8px 3.8px 0;
   border-radius: 0 24px 0 0;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     border-width: 1.9px 1.9px 1.9px 0;
   }
 }
@@ -305,7 +305,7 @@ hr {
   border-width: 0 3.8px 3.8px 0;
   border-radius: 0 0 24px 0;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     border-width: 0 1.9px 1.9px 0;
   }
 }
@@ -318,7 +318,7 @@ hr {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     height: 56px;
   }
 }
@@ -346,7 +346,7 @@ hr {
   color: #93959f;
 }
 
-@media screen and (min-width: 35em) {
+@media screen and (min-width: 768px) {
   .active-nav {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.02),
                 3px 3px 6px rgba(0, 0, 0, 0.04),
@@ -378,7 +378,7 @@ hr {
   margin: 0 auto;
   padding-bottom: 48px;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     padding-top: 24%;
   }
 }
@@ -427,7 +427,7 @@ hr {
   left: 50%;
   transform: translateX(-50%);
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     top: 0;
   }
 }
@@ -500,7 +500,7 @@ hr {
   margin-top: 114px;
   gap: 24px;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     margin: 0;
   }
 }
@@ -610,7 +610,7 @@ hr {
     text-overflow: ellipsis;
   }
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     position: absolute;
     bottom: 52px;
     z-index: 1000;
@@ -624,7 +624,7 @@ hr {
   z-index: 1000;
   padding: 20px 24px;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     position: absolute;
     bottom: 48px;
   }
@@ -661,7 +661,7 @@ hr {
   justify-content: center;
   margin-bottom: 36px;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     margin: 0;
   }
 }
@@ -1005,7 +1005,7 @@ hr {
     margin: 0 14px 64px;
   }
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     margin: 0 16px 48px;
   }
 }
@@ -1033,7 +1033,7 @@ hr {
     }
   }
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     display: none;
   }
 }
@@ -1058,7 +1058,7 @@ hr {
   background-color: #f2f2f2;
   justify-content: flex-end;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     padding: 8px 0;
   }
 }
@@ -1090,7 +1090,7 @@ hr {
   opacity: 0.88;
   cursor: pointer;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     font-size: 12px;
     padding: 6px 12px;
   }
@@ -1106,7 +1106,7 @@ hr {
 .weekday {
   margin: 16px 0;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     font-size: 20px;
     margin: 8px 0;
   }
@@ -1122,7 +1122,7 @@ hr {
   margin: 16px 0;
   font-weight: 100;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     margin: 8px 0;
   }
 }
@@ -1235,7 +1235,7 @@ hr {
   padding: 0 24%;
   justify-content: space-between;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     margin: 16px;
     padding: 12px;
     border-radius: 12px;
@@ -1251,7 +1251,7 @@ hr {
     font-size: 20px;
     font-weight: 100;
 
-    @media screen and (max-width: 35em) {
+    @media screen and (max-width: 768px) {
       font-size: 18px;
     }
   }
@@ -1280,7 +1280,7 @@ hr {
   font-weight: 600;
   color: #fff;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     padding: 8px 16px;
   }
 }
@@ -1288,7 +1288,7 @@ hr {
 /***************** Checkout component *****************/
 
 .checkout-container {
-  @media screen and (min-width: 35em) {
+  @media screen and (min-width: 768px) {
     background-color: #D9D9D9;
     min-height: 100vh;
   }
@@ -1409,7 +1409,7 @@ hr {
   background-color: #f2f2f2;
   margin: 48px 0;
 
-  @media screen and (max-width: 35em) {
+  @media screen and (max-width: 768px) {
     margin: 0;
   }
 }

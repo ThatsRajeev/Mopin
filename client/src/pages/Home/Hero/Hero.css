@@ -13,7 +13,7 @@
     background-image: none;
   }
 
-  @media (max-width: 35em) {
+  @media (max-width: 768px) {
     display: none;
     }
 }
@@ -38,7 +38,7 @@
 .hero-smallScreen {
   width: 100%;
 
-  @media (min-width: 35em) {
+  @media (min-width: 768px) {
     display: none;
     }
 }
