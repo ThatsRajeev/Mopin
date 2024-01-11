@@ -7,7 +7,7 @@ function Features() {
       <div className="feature-div">
         <img
           className="feature-img"
-          src="https://drive.google.com/uc?export=view&id=1RTqSkW07KN4bP5Nu30nBi7goZso7hfZF"
+          src="https://www.googleapis.com/drive/v3/files/1RTqSkW07KN4bP5Nu30nBi7goZso7hfZF?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
           alt=""
         />
         <h2 className="feature-text">Authentic Homemade Food</h2>
@@ -16,7 +16,7 @@ function Features() {
       <div className="feature-div" style={{margin: '4.8% 2.4% 0'}}>
         <img
           className="feature-img"
-          src="https://drive.google.com/uc?export=view&id=1BQ-u2ai9UCg4dYOPa-WjeOqOyW7sJF8u"
+          src="https://www.googleapis.com/drive/v3/files/1BQ-u2ai9UCg4dYOPa-WjeOqOyW7sJF8u?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
           alt=""
         />
         <h2 className="feature-text">Variey of Cuisines</h2>
@@ -25,7 +25,7 @@ function Features() {
       <div className="feature-div">
         <img
           className="feature-img"
-          src="https://drive.google.com/uc?export=view&id=1HuraCYNrvn8pysGbnetkYNh6OGkECV3I"
+          src="https://www.googleapis.com/drive/v3/files/1HuraCYNrvn8pysGbnetkYNh6OGkECV3I?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
           alt=""
         />
         <h2 className="feature-text">Quality Certified Kitchens</h2>

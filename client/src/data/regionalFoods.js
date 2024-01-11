@@ -2,52 +2,52 @@ const regionalFoods = [
   {
     name: "Biryani",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=15AsuTd3DxenN5XuSoQUOr6PhKJT3ASVj"
+      "https://www.googleapis.com/drive/v3/files/15AsuTd3DxenN5XuSoQUOr6PhKJT3ASVj?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   },
   {
     name: "Butter Chicken",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=1pomCISHkM_KpqjRzsjrYw_2vjr5F4WVv"
+      "https://www.googleapis.com/drive/v3/files/1pomCISHkM_KpqjRzsjrYw_2vjr5F4WVv?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   },
   {
     name: "Dosa",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=1fLWzQDsB2oGrKELowHula38fhed7ARlp"
+      "https://www.googleapis.com/drive/v3/files/1fLWzQDsB2oGrKELowHula38fhed7ARlp?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   },
   {
     name: "Idli",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=1vmPjamDjEZ5byvEZuBNwUn6Wi4GZ3_X0"
+      "https://www.googleapis.com/drive/v3/files/1vmPjamDjEZ5byvEZuBNwUn6Wi4GZ3_X0?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   },
   {
     name: "Chole Bhature",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=1DQk4bMGFoKSDmQTOKnF4FUSaI1Gc80wI"
+      "https://www.googleapis.com/drive/v3/files/1DQk4bMGFoKSDmQTOKnF4FUSaI1Gc80wI?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   },
   {
     name: "Thali",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=1A5Hu6TjPZlFlGkQnX_rJnKzouEsreMuw"
+      "https://www.googleapis.com/drive/v3/files/1A5Hu6TjPZlFlGkQnX_rJnKzouEsreMuw?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   },
   {
     name: "Pav Bhaji",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=1oec4n_apC7SPwbIsX07g6dfShLzoc81-"
+      "https://www.googleapis.com/drive/v3/files/1oec4n_apC7SPwbIsX07g6dfShLzoc81-?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   },
   {
     name: "Khichdi",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=1ngwoBfu1kaYZtciOzIcn5W-nJHI1JPD_"
+      "https://www.googleapis.com/drive/v3/files/1ngwoBfu1kaYZtciOzIcn5W-nJHI1JPD_?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   },
   {
     name: "Poori",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=1Gno7OQePgyCZFOxlb_E0lUnbVA-_HJXe"
+      "https://www.googleapis.com/drive/v3/files/1Gno7OQePgyCZFOxlb_E0lUnbVA-_HJXe?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   },
   {
     name: "Parathas",
     imgURL:
-      "https://drive.google.com/uc?export=view&id=15qcQj38hFGeuP7K1_5vDhcROnIIuKq9W"
+      "https://www.googleapis.com/drive/v3/files/15qcQj38hFGeuP7K1_5vDhcROnIIuKq9W?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
   }
 ];
 

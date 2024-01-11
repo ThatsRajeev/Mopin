@@ -4,7 +4,7 @@
   min-height: 665px;
   align-items: center;
   background-color: #222222;
-  background-image: url(https://drive.google.com/uc?export=view&id=1fAaZZfXnSsbHWPPEbkwRoOsZNS-w5zcu);
+  background-image: url(https://www.googleapis.com/drive/v3/files/1fAaZZfXnSsbHWPPEbkwRoOsZNS-w5zcu?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA);
   background-repeat: no-repeat;
   background-size: 44rem;
   background-position: 52vw 20px;
@@ -19,7 +19,7 @@
 }
 
 .hero-bigScreen {
-  background-image: url(https://drive.google.com/uc?export=view&id=1xMMCz_j6daf_GV9jQFoFojZEeSiOvHs3);
+  background-image: url(https://www.googleapis.com/drive/v3/files/1xMMCz_j6daf_GV9jQFoFojZEeSiOvHs3?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA);
   background-repeat: no-repeat;
   background-position: -6vw -5vw;
   background-size: 40vw;
@@ -44,7 +44,7 @@
 }
 
 .hero-tag {
-  font-family: "Poppins";
+  font-family: ?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"Poppins";
   line-height: 4.6rem;
   font-size: 56px;
   letter-spacing: -1.28px;
