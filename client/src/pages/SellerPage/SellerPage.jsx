@@ -6,6 +6,7 @@ import homecooks from "../../data/homecooks";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import woman from "../../assets/woman.png";
+import "./SellerPage.css"
 
 function SellerPage() {
   const { sellerId } = useParams();
