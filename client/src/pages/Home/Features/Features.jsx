@@ -7,7 +7,7 @@ function Features() {
       <div className="feature-div">
         <img
           className="feature-img"
-          src="https://www.googleapis.com/drive/v3/files/1RTqSkW07KN4bP5Nu30nBi7goZso7hfZF?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
+          src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/homemade_5044740.avif"
           alt=""
         />
         <h2 className="feature-text">Authentic Homemade Food</h2>
@@ -16,7 +16,7 @@ function Features() {
       <div className="feature-div" style={{margin: '4.8% 2.4% 0'}}>
         <img
           className="feature-img"
-          src="https://www.googleapis.com/drive/v3/files/1BQ-u2ai9UCg4dYOPa-WjeOqOyW7sJF8u?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
+          src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/food-tray_1922417.avif"
           alt=""
         />
         <h2 className="feature-text">Variey of Cuisines</h2>
@@ -25,7 +25,7 @@ function Features() {
       <div className="feature-div">
         <img
           className="feature-img"
-          src="https://www.googleapis.com/drive/v3/files/1HuraCYNrvn8pysGbnetkYNh6OGkECV3I?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA"
+          src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/teppanyaki_1659420.avif"
           alt=""
         />
         <h2 className="feature-text">Quality Certified Kitchens</h2>

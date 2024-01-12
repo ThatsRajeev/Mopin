@@ -1,7 +1,7 @@
 const homecooks = [
   {
     name: "Anjali Sharma",
-    imgURL: "https://www.googleapis.com/drive/v3/files/18HdS78hUBEsyE-ALtmAEcPEjJGqCQ-kv?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/174915046-removebg-preview.avif",
     foodType: "South indian, Punjabi",
     quote: "Homemade goodness that satisfies your cravings",
     rating: "4.2",
@@ -290,8 +290,7 @@ const homecooks = [
   },
   {
     name: "Aisha Khan",
-
-    imgURL: "https://www.googleapis.com/drive/v3/files/111Xml6eQqj69sbAvPegspY-ak3YJ36Bc?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/190926-chicken-tikka-masala-se-405p-removebg-preview.avif",
     foodType: "North indian, Punjabi",
     quote: "Crafting flavors with love and passion",
     rating: "4.1",
@@ -305,7 +304,7 @@ const homecooks = [
   },
   {
     name: "Nandini Verma",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1LC9FEMiyzE7rYJSXC_uX3pbVjRf5TmSW?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Coconut-Chocolate-Ladoo.-Chocolate-Almond-Truffles-Piping-Pot-Curry-removebg-preview.avif",
     foodType: "North indian, Gujrati",
     quote: "Indulge in the essence of homemade delicacies",
     rating: "4.2",
@@ -319,7 +318,7 @@ const homecooks = [
   },
   {
     name: "Lakshmi Patel",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1N1Wt104e7_L7ahM6GDiH4x4lH3E5p0-T?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Curry-769792415-removebg-preview.avif",
     foodType: "Biryani, Rajasthani",
     quote: "Authentic homemade flavors delivered with love",
     rating: "4.5",
@@ -333,7 +332,7 @@ const homecooks = [
   },
   {
     name: "Sakshi Iyer",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1fbSErkSm1418iHntp_7kYLFSHItnO8GP?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Dahi-Vada_18129fb9c3a_large-removebg-preview.avif",
     foodType: "Italian, Chinese",
     quote: "Unleashing flavors that ignite your taste buds",
     rating: "4.2",
@@ -347,7 +346,7 @@ const homecooks = [
   },
   {
     name: "Neha Das",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1gCOCXh5EvepWdKOWZCCZp-jKHE8z6KlS?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/homemade-indian-dessert-ornate-patterned-plate-generated-by-ai_188544-53755-removebg-preview.avif",
     foodType: "Bengali thali",
     quote: "A delightful journey through the taste of Bengal",
     rating: "3.8",
@@ -361,7 +360,7 @@ const homecooks = [
   },
   {
     name: "Sneha Mishra",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1sGYWkrVBx4k7fVl9MMlINfR4l5afhpK4?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/homemade-indian-vegetarian-food-allo-paratha-served-with-potato-curry-bowl-curd-traditional-cuisine_859990-3274-removebg-preview__1_-removebg-preview.avif",
     foodType: "North Indian, Kashmiri",
     quote: "Savor the essence of authentic homemade delicacies",
     rating: "3.7",
@@ -375,7 +374,7 @@ const homecooks = [
   },
   {
     name: "Ananya Reddy",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1_R4qnhEax83mL_6hD2EEkMooDwahzJ0j?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Indian-Dish-Malai-Kofta-removebg-preview.avif",
     foodType: "North indian",
     quote: "Exploring the rich heritage of homemade flavors",
     rating: "4.4",
@@ -389,7 +388,7 @@ const homecooks = [
   },
   {
     name: "Nisha Choudhary",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1IF4Z7M1omGvqnwJ7--eJ1N7JP8VtNzOY?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/indian-heart-homemade-sweet-with-plate-photo-removebg-preview.avif",
     foodType: "North indian, Rajasthani",
     quote: "Indulge in the authentic taste of Marwari cuisine",
     rating: "4.2",
@@ -403,7 +402,7 @@ const homecooks = [
   },
   {
     name: "Meera Joshi",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1fF8XjRHuLVgD37W9oKqmntTYdZwZLs8G?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/istockphoto-1164476202-170667a-removebg-preview.avif",
     foodType: "Gujrati thali",
     quote: "Delight in the flavors of Gujarat with a variety of snacks",
     rating: "3.8",
@@ -417,7 +416,7 @@ const homecooks = [
   },
   {
     name: "Radha Iyer",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1371VAyHl8UkFwZ3DVe5eFtTBdPazk82u?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Masala-Oats-Upma-removebg-preview.avif",
     foodType: "Idli, Dosa, Upma, Vada",
     quote: "Experience a fusion of traditional Indian flavors with a modern twist",
     rating: "4.5",
@@ -431,7 +430,7 @@ const homecooks = [
   },
   {
     name: "Jyoti Yadav",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1QnJnmJQxoH-rmMxytVokFkOx3-q-i4PJ?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/paneer-stuffed-besan-chilla-cheela-made-using-chickpea-flour-with-cottage-cheese-stuffing_466689-86791-removebg-preview.avif",
     foodType: "Rajasthani thali",
     quote: "Savor the rich and aromatic flavors of North Indian and Mughlai cuisine",
     rating: "4.5",
@@ -445,7 +444,7 @@ const homecooks = [
   },
   {
     name: "Kiara sodi",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1lDIsh9tUsKKkbC7Tn3mk9kPQuwlzZTIa?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/plate-3-removebg-preview.avif",
     foodType: "Punjabi thali",
     quote: "An amalgamation of South Indian and Indo-Chinese delicacies",
     rating: "4.2",
@@ -459,7 +458,7 @@ const homecooks = [
   },
   {
     name: "Bharti Verma",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1MyGQgV8Y0iEAnoBPeui4tfIPq8pH3uIn?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/ras-malai-1-1-removebg-preview.avif",
     foodType: "North indian",
     quote: "Savor the authentic taste of South India with our flavorful Kerala dishes",
     rating: "4.0",
@@ -473,7 +472,7 @@ const homecooks = [
   },
   {
     name: "Mithali",
-    imgURL: "https://www.googleapis.com/drive/v3/files/15eVsJxh0yr3l9vUouCngISlRo-kp13ZL?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Saffron-rice-kheer-indian-rice-pudding-keer-diwali-removebg-preview.avif",
     foodType: "Punjabi thali",
     quote: "Taste the authentic flavors of Bengal with our delectable fish curries and more",
     rating: "4.3",
@@ -487,7 +486,7 @@ const homecooks = [
   },
   {
     name: "Vedika Rama",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1WNX26ZjRMvU9_GS7KyvOKdGxedjgNGgQ?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/360_F_226357770_cMpMAH76wCOIs1uwURL0BXMWlspPyBGQ-removebg-preview.avif",
     foodType: "South indian",
     quote: "Experience the opulence of Mughlai and Awadhi delicacies fit for the royals",
     rating: "4.4",
@@ -501,7 +500,7 @@ const homecooks = [
   },
   {
     name: "Aishwarya Sharma",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1g2bEk6PuphI31Y1J6g-4Q5l6gOV2wkzi?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Veg-Cutlet-2-3-removebg-preview.avif",
     foodType: "North indian",
     quote: "Indulge in the rich and aromatic flavors of Kashmir with our authentic Wazwan dishes",
     rating: "4.4",
@@ -515,7 +514,7 @@ const homecooks = [
   },
   {
     name: "Ishika Banerjee",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1Gwzqsmwu3rSO8BWwAX7xQ3usTstBHk7L?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Canon_190217_MG_2243is-removebg-preview.avif",
     foodType: "Bengali dishes",
     quote: "Savor the traditional flavors of Gujarat and Rajasthan in every bite",
     rating: "4.6",
@@ -529,7 +528,7 @@ const homecooks = [
   },
   {
     name: "Tania Singh",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1LA8O7-kpn5T4M1GPDbCaiLvXOjffg1PR?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/8zfbp5zp4ze51-removebg-preview.avif",
     foodType: "Biryani",
     quote: "Experience the authentic flavors of Maharashtra and the coastal delights of Konkan",
     rating: "4.0",
@@ -543,7 +542,7 @@ const homecooks = [
   },
   {
     name: "Rashmika Dubey",
-    imgURL: "https://www.googleapis.com/drive/v3/files/1kLopUlCrMDVc4wOoJi3y_cJ_mPtPYmZ_?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/9eezpaar58q-removebg-preview.avif",
     foodType: "Continental, Chinese",
     quote: "Tantalize your taste buds with the perfect blend of Indian and Chinese flavors",
     rating: "3.9",

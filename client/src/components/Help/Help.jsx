@@ -87,7 +87,7 @@ function Help({setShowProp}) {
       ) : (
         <div className="success-container">
           <div>
-            <img className="success-img" src="https://www.googleapis.com/drive/v3/files/1l2BlxW-B5l47c5QanudkPSvUwrii_jiW?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA" alt="confirm-img" />
+            <img className="success-img" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/checkmark-icon" alt="confirm-img" />
             <p className="success-msg">Query registered successfully!</p>
           </div>
           <p>Thank you for your patience. We will get back to you as soon as possible</p>

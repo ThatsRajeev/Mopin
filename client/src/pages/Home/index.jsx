@@ -109,7 +109,7 @@ function Homepage() {
                   </Link>
               ))}
 
-              <img className="hero-smallScreen" src="https://www.googleapis.com/drive/v3/files/1SQzBNvnThISB54W6h8hPkak3FEvfoqsa?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA" alt="footer_img" />
+              <img className="hero-smallScreen" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/Group-182.avif" alt="footer_img" />
             </>
           ) : (
             <>

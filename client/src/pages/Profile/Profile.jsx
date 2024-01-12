@@ -143,7 +143,7 @@ const renderContent = () => {
 const MyOrdersContent = () => {
   return (
     <div className="component">
-      <img className="default-img" src="https://www.googleapis.com/drive/v3/files/1zp8cJ2Ygjlkm1--o-wTTlQEyb4dPhzUF?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA" />
+      <img className="default-img" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/_0d3b19ad-bc5d-40ed-923a-ce2caabe524e+(1).avif" />
       <h2 style={{fontWeight: "500"}}>You don't have any orders!</h2>
       <button className="explore-btn">Explore Dishes</button>
     </div>
@@ -209,7 +209,7 @@ const ManageAddressContent = () => {
 const PaymentMethodsContent = () => {
   return (
     <div className="component">
-      <img className="default-img" src="https://www.googleapis.com/drive/v3/files/1zp8cJ2Ygjlkm1--o-wTTlQEyb4dPhzUF?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA" />
+      <img className="default-img" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/_0d3b19ad-bc5d-40ed-923a-ce2caabe524e+(1).avif" />
       <h2 style={{fontWeight: "500"}}>We will add Payment methods soon!</h2>
       <button className="explore-btn">Explore Dishes</button>
     </div>
@@ -219,7 +219,7 @@ const PaymentMethodsContent = () => {
 const SubscriptionsContent = () => {
   return (
     <div className="component">
-      <img className="default-img" src="https://www.googleapis.com/drive/v3/files/1zp8cJ2Ygjlkm1--o-wTTlQEyb4dPhzUF?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA" />
+      <img className="default-img" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/_0d3b19ad-bc5d-40ed-923a-ce2caabe524e+(1).avif" />
       <h2 style={{fontWeight: "500"}}>We will add Subscriptions soon!</h2>
       <button className="explore-btn">Explore Dishes</button>
     </div>
