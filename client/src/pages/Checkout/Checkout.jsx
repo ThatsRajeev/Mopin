@@ -58,6 +58,7 @@ const Checkout = () => {
   }, [user]);
 
   const [dishInfo, setdishInfo] = useState({});
+  const [subsInfo, setSubsInfo] = useState({});
 
   const fetchCartInfo = async () => {
     try {
@@ -387,6 +388,9 @@ const toggleOverlay = (overlayType) => {
                 </div>
               </div>
             ))}
+            {
+
+            }
             <div className="ready-checkout">
               <h4 style={{marginBottom: '4px'}}>APPLY COUPON</h4>
               <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -394,7 +398,7 @@ const toggleOverlay = (overlayType) => {
                 <span class="material-symbols-outlined" style={{margin: '0'}}>chevron_right</span>
               </div>
             </div>
-            <div className="ready-checkout">
+            <div className="ready-checkout" style={{marginBottom: '6rem'}}>
               <h4>Bill Details</h4>
               <div className="price-details">
                 <p>Item Total</p>

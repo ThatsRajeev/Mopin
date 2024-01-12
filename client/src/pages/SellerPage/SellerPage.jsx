@@ -298,49 +298,6 @@ function SellerPage() {
     };
   }, []);
 
-  const initPayment = (data)=> {
-    const options = {
-      key: "rzp_test_vEfERvWyBIr2EW",
-      amount: data.amount,
-      currency: data.currency,
-      name: "Mopin",
-      description: "Test Transaction",
-      order_id: data.id,
-      handler: async (response) => {
-        try {
-          const {data} = await axios.post('https://mopin-server.vercel.app/api/payment/verify', {
-          }, {
-            withCredentials: true
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      theme: {
-        color: "#f16122",
-      },
-    };
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
-  }
-
-  const handlePayment = async () => {
-    try {
-      const {data} = await axios.post('https://mopin-server.vercel.app/api/payment/orders', {
-        amount: {subsPrice}
-      }, {
-        withCredentials: true
-      });
-      console.log(data);
-      initPayment(data.data);
-
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  // Function to handle checkbox change
   const handleCheckboxChange = (meal) => {
     const updatedMeals = selectedMeals.includes(meal)
       ? selectedMeals.filter((selectedMeal) => selectedMeal !== meal)
@@ -364,6 +321,29 @@ function SellerPage() {
     };
 
     calculateTotalCost();
+
+    const subsDetails = {
+      sellerName: sellerDetails.name,
+      selectedMeals: selectedMeals,
+      subsDays: subsDays,
+    };
+
+    let existingSubs = JSON.parse(localStorage.getItem('subs')) || [];
+
+    const existingItemIndex = existingSubs.findIndex(item => item.sellerName === sellerDetails.name);
+
+    if (existingItemIndex !== -1) {
+      existingSubs[existingItemIndex].selectedMeals = selectedMeals;
+      existingSubs[existingItemIndex].subsDays = subsDays;
+
+      if (!subsDays || selectedMeals.length===0) {
+        existingSubs = existingSubs.filter(item => item.sellerName !== sellerDetails.name);
+      }
+    } else {
+      existingSubs.push(subsDetails);
+    }
+    localStorage.setItem('subs', JSON.stringify(existingSubs));
+    console.log(existingSubs);
   }, [selectedMeals, subsDays])
 
   if (showCheckboxes) {
@@ -560,7 +540,13 @@ function SellerPage() {
                   ))}
                 </select>
               </div>
-              <button onClick={handlePayment} disabled={!subsDays || selectedMeals.length===0}>To Pay (₹{subsPrice})</button>
+              <button to="/checkout" disabled={!subsDays || selectedMeals.length===0}>
+                <Link className="custom-link" to="/checkout">
+                  <div className="subsPay">
+                    To Pay (₹{subsPrice})
+                  </div>
+                </Link>
+              </button>
             </div>
           </div>
         )}

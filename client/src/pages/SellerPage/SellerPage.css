@@ -619,6 +619,10 @@
   color: #fff;
 }
 
+.subsPay {
+  font-weight: 400;
+}
+
 .continue-div {
   padding: 8px 16px;
   text-decoration: none;
