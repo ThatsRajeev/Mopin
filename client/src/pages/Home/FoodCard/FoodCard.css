@@ -6,12 +6,12 @@
   flex-direction: column;
   padding: 4.8%;
   margin: 0 auto;
-  border-radius: 48px 12px;
+  border-radius: 32px 8px;
   transition: transform 0.3s;
   box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
 
-  @media (max-width: 768px) {
-    border-radius: 32px 8px;
+  @media (width > 768px){
+    border-radius: 48px 12px;
   }
 }
 
@@ -41,23 +41,23 @@
 
 .food-name-price {
   color: #222222;
-  font-size: 1.2rem;
-  line-height: 1.8rem;
+  font-size: 1rem;
+  line-height: 1.4rem;
   font-weight: 500;
 
-  @media (max-width: 768px) {
-    font-size: 1rem;
-    line-height: 1.4rem;
+  @media (width > 768px){
+    font-size: 1.2rem;
+    line-height: 1.8rem;
   }
 }
 
 .food-desc {
   color: #686b78;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.5rem;
 
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
+  @media (width > 768px){
+    font-size: 1rem;
   }
 }
 
@@ -65,33 +65,33 @@
   display: flex;
   justify-content: space-between;
   color: #686b78;
-  padding-top: 0.5rem;
-  font-size: 0.9rem;
+  padding-top: 0.24rem;
+  font-size: 0.8rem;
 
-  @media (max-width: 768px) {
-    font-size: 0.8rem;
-    padding-top: 0.24rem;
+  @media (width > 768px){
+    font-size: 0.9rem;
+    padding-top: 0.5rem;
   }
 }
 
 .rating-div {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 
   >svg {
-    width: 0.9rem;
+    width: 0.72rem;
   }
 
   >span {
     color: #349E46;
   }
 
-  @media (max-width: 768px) {
-    gap: 4px;
+  @media (width > 768px){
+    gap: 8px;
 
     >svg {
-      width: 0.72rem;
+      width: 0.9rem;
     }
   }
 }
@@ -99,11 +99,11 @@
 .line {
   height: 1px;
   width: 100%;
-  margin: 0.8rem 0;
+  margin: 0.36rem 0;
   background-color: #000;
   opacity: 16%;
 
-  @media (max-width: 768px) {
-    margin: 0.36rem 0;
+  @media (width > 768px){
+    margin: 0.8rem 0;
   }
 }

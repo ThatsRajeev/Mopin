@@ -65,9 +65,9 @@ function LocateMePrompt() {
   return (
     <div className="locateMe-container">
       <div className="locateMe-div">
-        <h2 className="logo-name">mopin</h2>
+        <h2 className="logo-name pc-view">mopin</h2>
         <h1 className="logo-tagline">Nourishing Your Soul with Mom-Crafted Meals.</h1>
-        <p className="logo-p"> Order homemade food from homechefs near you. </p>
+        <p className="logo-p pc-view"> Order homemade food from homechefs near you. </p>
         <div className="address-input-div pc-view">
           <input
             className="address-input"

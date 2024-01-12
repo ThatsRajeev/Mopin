@@ -10,12 +10,12 @@ import "./Navbar.css";
 
 const NavCase = styled.header`
   display: ${(props) => (props.open ? "none" : "block")};
-  background-color: #fff;
-  padding: 0 14px;
+  background-color: #f2f2f2;
+  padding: 0 16px;
 
-  @media (max-width: 768px) {
-    background-color: #f2f2f2;
-    padding: 0 16px;
+  @media (width > 768px){
+    background-color: #fff;
+    padding: 0 14px;
   }
 `;
 
@@ -30,6 +30,7 @@ const GlobalNav = styled.nav`
 `;
 
 const Logo = styled(Link)`
+  display: none;
   color: #f16122;
   font-size: 26px;
   letter-spacing: 2px;
@@ -37,8 +38,8 @@ const Logo = styled(Link)`
   font-weight: 800;
   margin-right: 20px;
 
-  @media (max-width: 768px) {
-    display: none;
+  @media (width > 768px){
+    display: flex;
   }
 `;
 
@@ -53,55 +54,55 @@ const Address = styled.div`
   font-weight: 600;
   letter-spacing: 0;
   white-space: nowrap;
-  width: 18vw;
+  width: 64vw;
+  margin: 0;
+  background-color: #f2f2f2;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @media (max-width: 750px) {
-    margin: 0;
-  }
-
-  @media (max-width: 768px) {
-    width: 64vw;
-    background-color: #f2f2f2;
+  @media (width > 768px){
+    margin: unset;
+    width: 18vw;
+    background-color: unset;
   }
 `;
 
 const Overlay = styled.div`
   position: absolute;
-  top: 148px;
+  top: 0;
   left: 50%;
+  height: 100vh;
+  width: 100vw;
   transform: translateX(-50%);
-  width: ${(props) => (props.type==='help' ? "464px" : "unset")};
   background: #fff;
-  z-index: 10;
+  z-index: 1000;
 
-  @media screen and (max-width: 768px) {
-    top: 0;
-    height: 100vh;
-    width: 100vw;
-    z-index: 1000;
+  @media (width > 768px){
+    top: 148px;
+    height: unset;
+    width: ${(props) => (props.type==='help' ? "464px" : "unset")};
+    z-index: 10;
   }
 `;
 
 const AddressOverlay = styled.div`
   position: absolute;
-  top: 80px;
-  left: 0;
-  width: 444px;
-  height: 464px;
+  top: 0;
+  left: -16px;
+  width: 100vw;
+  height: 100vh;
   background: #fff;
   display: flex;
   flex-direction: column;
-  padding: 0 2%;
+  padding: 0 16px;
   z-index: 10;
 
-  @media screen and (max-width: 768px) {
-    top: 0;
-    left: -16px;
-    height: 100vh;
-    width: 100vw;
-    padding: 0 16px;
+  @media (width > 768px){
+    top: 80px;
+    left: 0;
+    height: 464px;
+    width: 444px;
+    padding: 0 2%;
   }
 `;
 const BackgroundOverlay = styled.div`
@@ -125,19 +126,19 @@ const SearchBarContainer = styled.div`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
   margin-right: 16px;
 
-  @media (min-width: 768px) {
+  @media (width > 768px){
     display: none;
   }
 `;
 
 const Menu = styled.ul`
-  display: flex;
+  display: none;
   width: ${(props) => (props.open ? "18%" : "42%")};
   justify-content: space-between;
 
 
-  @media (max-width: 768px) {
-    display: none;
+  @media (width > 768px){
+    display: flex;
   }
 `;
 
@@ -191,7 +192,7 @@ const MobNav = styled.nav`
   will-change: transform;
   backface-visibility: hidden;
 
-  @media (min-width: 768px) {
+  @media (width > 768px){
     display: none;
   }
 `;

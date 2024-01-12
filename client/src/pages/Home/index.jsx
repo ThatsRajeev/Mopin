@@ -131,7 +131,7 @@ function Homepage() {
               </div>
               <Fooder />
 
-              <div className="feature-bcg">
+              <div className="feature-bcg pc-view">
                 <div className="header-container">
                   <h1 className="cardHeader">
                     Grab your <span style={{ color: "#f16122" }}>ORDER NOW!</span>

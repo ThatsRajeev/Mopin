@@ -441,7 +441,7 @@ function SellerPage() {
         </div>
       </div>
       <div className="dish-wrapper">
-        <div className={`spy-container ${isSticky ? "sticky" : ""}`} ref={spyDivRef}>
+        <div className={`spy-container pc-view ${isSticky ? "sticky" : ""}`} ref={spyDivRef}>
           <ul>
           {daysInOrder.map(day => (
             <li key={day}>

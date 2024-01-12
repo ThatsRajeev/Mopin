@@ -27,7 +27,7 @@ function Hero() {
         </div>
       </div>
       <div className="hero-smallScreen-div" onClick={scroll}>
-        <img className="hero-smallScreen" src="https://www.googleapis.com/drive/v3/files/1WYtT-li2rZnRvGY9eTeWeXVmONDP4jIv?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA" alt="food_img" />
+        <img className="hero-smallScreen mob-view" src="https://www.googleapis.com/drive/v3/files/1WYtT-li2rZnRvGY9eTeWeXVmONDP4jIv?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA" alt="food_img" />
       </div>
     </>
   );

@@ -103,7 +103,7 @@ const Testimonials = () => {
   };
 
   return (
-    <div key={key} className="testimonials-container">
+    <div key={key} className="testimonials-container pc-view">
       <Swiper
         className="slide-container testimonials-slide-container"
         slidesPerView={1}
@@ -115,7 +115,6 @@ const Testimonials = () => {
         }}
         fadeEffect={true}
         loopPreventsSliding={true}
-        slidesPerGroupSkip={2}
         grabCursor={true}
         keyboard={{
           enabled: true

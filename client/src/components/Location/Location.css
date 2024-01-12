@@ -56,7 +56,7 @@
 }
 
 .list-div {
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   position: absolute;
   z-index: 100;
@@ -65,8 +65,8 @@
   width: 94%;
   height: 384px;
 
-  @media screen and (max-width: 768px) {
-    overflow-y: auto;
+  @media (width > 768px){
+    overflow-y: scroll;
   }
 }
 

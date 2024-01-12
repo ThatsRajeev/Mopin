@@ -1,27 +1,31 @@
 .locateMe-container {
   display: flex;
+  flex-direction: column;
+  gap: 24px;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
+  background: #fff;
 
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-    gap: 24px;
-    overflow: auto;
-    background: #fff;
+  @media (width > 768px){
+    flex-direction: row;
+    gap: unset;
+    overflow: hidden;
+    background: unset;
   }
 }
 
 .locateMe-div {
+  position: static;
   font-size: 15px;
-  width: 49%;
   padding: 36px 48px 32px 72px;
+  margin: 0 16px;
   background: #fff;
 
-  @media screen and (max-width: 768px) {
-    width: unset;
-    position: static;
-    margin: 0 16px;
+  @media (width > 768px){
+    width: 49%;
+    position: unset;
+    margin: unset;
   }
 
   .address-input-div {
@@ -88,40 +92,44 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
-  width: 51%;
-  padding: 24px;
+  height: -webkit-fill-available;
+  width: 100%;
+  padding: 56px 24px 56px;
+  align-items: flex-end;
   color: #fff;
   background-image: url("https://www.googleapis.com/drive/v3/files/1t6J2MiSayQ5IN-F9xEpq3pyUa5oXeKiX?alt=media&key=AIzaSyBZYf7YtNbwVd-1XK6FDOitv66mfkv4tHA");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: 38%;
+  order: -1;
 
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    height: -webkit-fill-available;
-    background-position: 38%;
-    order: -1;
-    align-items: flex-end;
-    padding: 56px 24px 56px;
+  @media (width > 768px){
+    width: 51%;
+    height: 100vh;
+    background-position: unset;
+    order: unset;
+    align-items: unset;
+    padding: 24px;
   }
 }
 
 .head-container {
   position: relative;
-  width: 248px;
+  width: 224px;
   display: flex;
   align-items: flex-start;
 
-  @media screen and (max-width: 768px) {
-    width: 224px;
+  @media (width > 768px){
+    width: 248px;
   }
 }
 
 .content-heading {
+  font-size: 18px;
   margin-bottom: 24px;
 
-  @media screen and (max-width: 768px) {
-    font-size: 18px;
+  @media (width > 768px){
+    font-size: unset;
   }
 
   &::after {
@@ -140,18 +148,19 @@
   color: #222222;
   margin: 18px 0;
   border-radius: 18px;
-  min-height: 48px;
-  font-size: 16px;
-  width: 248px;
+  min-height: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  width: 224px;
   padding-left: 12px;
   display: flex;
   align-items: center;
 
-  @media screen and (max-width: 768px) {
-    min-height: 40px;
-    width: 224px;
-    font-size: 14px;
-    font-weight: 600;
+  @media (width > 768px) {
+    min-height: 48px;
+    width: 248px;
+    font-size: 16px;
+    font-weight: unset;
   }
 
   >img {
@@ -165,20 +174,17 @@
   letter-spacing: 2px;
   text-decoration: none;
   font-weight: 800;
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
 }
 
 .logo-tagline {
-  font-size: 36px;
-  margin-top: 84px;
+  font-size: 20px;
+  text-align: center;
+  margin: 0 auto 24px;
 
-  @media screen and (max-width: 768px) {
-    font-size: 20px;
-    text-align: center;
-    margin: 0 auto 24px;
+  @media (width > 768px) {
+    font-size: 36px;
+    text-align: unset;
+    margin: 84px 0 0;
   }
 }
 
@@ -186,10 +192,6 @@
   font-size: 26px;
   opacity: 0.78;
   margin: 16px 0 32px;
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
 }
 
 .explore-foods {

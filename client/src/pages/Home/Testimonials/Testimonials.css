@@ -1,16 +1,12 @@
 .testimonials-container {
   display: flex;
   max-width: 1200px;
-  margin: 0 auto 64px;
+  margin: 0 14px;
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 1240px) {
-    margin: 0 14px;
-  }
-
-  @media (max-width: 768px) {
-    display: none;
+@media (width > 1240px){
+    margin: 0 auto 64px;
   }
 }
 

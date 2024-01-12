@@ -1,13 +1,15 @@
 
 .fooder-slide-container {
-  @media (max-width: 768px) {
-    padding: 1.6rem 14px !important;
+  padding: 1.6rem 14px !important;
+
+  @media (width > 768px){
+    padding: unset !important;
   }
 }
 
 .fooder-slide-container .swiper-button-next,
 .fooder-slide-container .swiper-button-prev {
-  margin: -3.2% 1% !important;
+  margin: -3.2% 0 !important;
   width: 2.4rem !important;
   height: 2.4rem !important;
 }
@@ -23,16 +25,16 @@
 }
 
 .regional-food-img {
-  width: 148px;
-  height: 148px;
+  width: 84px;
+  height: 84px;
   margin: 12px auto 4px;
   object-fit: cover;
   border-radius: 50%;
   filter: drop-shadow(0px -2px 5px rgba(0, 0, 0, 0.36));
 
-  @media screen and (max-width: 768px) {
-    width: 84px;
-    height: 84px;
+  @media (width > 768px){
+    width: 148px;
+    height: 148px;
   }
 }
 

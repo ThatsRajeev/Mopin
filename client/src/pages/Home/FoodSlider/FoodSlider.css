@@ -6,15 +6,16 @@
 }
 
 .food-slide-container {
-  padding: 7.8rem 1.6rem 2.4rem !important;
+  padding: 6.8rem 16px 1.6rem !important;
 
-  @media (max-width: 768px) {
-    padding: 6.8rem 16px 1.6rem !important;
+  @media (width > 768px){
+    padding: 7.8rem 1.6rem 2.4rem !important;
   }
 }
 
 .swiper-button-next,
 .swiper-button-prev {
+  display: none !important;
   background-color: #349E46 !important;
   border-radius: 50%;
   color: #fff !important;
@@ -22,8 +23,8 @@
   width: 2.8rem !important;
   height: 2.8rem !important;
 
-  @media (max-width: 768px) {
-    display: none !important;
+  @media (width > 768px){
+    display: flex !important;
   }
 }
 
@@ -38,11 +39,12 @@
 }
 
 .swiper-pagination-bullet {
+  display: none !important;
   background-color: #349E46 !important;
   opacity: 0.64 !important;
 
-  @media (max-width: 768px) {
-    display: none !important;
+  @media (width > 768px){
+    display: inline-block !important;
   }
 }
 
