@@ -40,7 +40,7 @@ function Help({setShowProp}) {
     <div className="help-section">
     <div className="mob-view">
       <div className="help-heading">
-        <span class="material-symbols-outlined" onClick={() => setShowProp('help')}>arrow_back</span>
+        <span className="material-symbols-outlined" onClick={() => setShowProp('help')}>arrow_back</span>
         <p> Help & Support </p>
       </div>
     </div>

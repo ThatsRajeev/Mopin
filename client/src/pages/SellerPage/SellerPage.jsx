@@ -307,8 +307,8 @@ function SellerPage() {
   };
 
   useEffect(() => {
+    let totalCost = 0;
     const calculateTotalCost = () => {
-      let totalCost = 0;
 
       homecooks[0].dishes.forEach((dish) => {
         if (selectedMeals.includes(dish.availability[0].meal)) {
@@ -326,6 +326,7 @@ function SellerPage() {
       sellerName: sellerDetails.name,
       selectedMeals: selectedMeals,
       subsDays: subsDays,
+      subsPrice: totalCost
     };
 
     let existingSubs = JSON.parse(localStorage.getItem('subs')) || [];
@@ -335,15 +336,15 @@ function SellerPage() {
     if (existingItemIndex !== -1) {
       existingSubs[existingItemIndex].selectedMeals = selectedMeals;
       existingSubs[existingItemIndex].subsDays = subsDays;
+      existingSubs[existingItemIndex].subsPrice = totalCost;
 
-      if (!subsDays || selectedMeals.length===0) {
+      if (!subsPrice) {
         existingSubs = existingSubs.filter(item => item.sellerName !== sellerDetails.name);
       }
     } else {
       existingSubs.push(subsDetails);
     }
     localStorage.setItem('subs', JSON.stringify(existingSubs));
-    console.log(existingSubs);
   }, [selectedMeals, subsDays])
 
   if (showCheckboxes) {
@@ -389,12 +390,12 @@ function SellerPage() {
         <div className="seller-div-mobile mob-view">
           <div className="backFavBtn-wrapper">
             <div className={`backFavBtn-div ${backFavSticky ? "backFavBtn-sticky" : ""}`}>
-              <span class="material-symbols-outlined backFavBtn-icon" onClick={() => navigate(-1)}>arrow_back_ios</span>
+              <span className="material-symbols-outlined backFavBtn-icon" onClick={() => navigate(-1)}>arrow_back_ios</span>
               <div>
                 <div>{sellerDetails.name}</div>
                 <div>{sellerDetails.foodType}</div>
               </div>
-              <span class="material-symbols-outlined backFavBtn-icon">favorite</span>
+              <span className="material-symbols-outlined backFavBtn-icon">favorite</span>
             </div>
           </div>
           <div className="seller-details-wrapper">

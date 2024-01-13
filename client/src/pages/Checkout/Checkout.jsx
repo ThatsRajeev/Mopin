@@ -18,7 +18,6 @@ const Checkout = () => {
   const [showLogout, setShowLogout] = useState(false);
   const [addressChoosen, setAddressChoosen] = useState(false);
   const [isLogged, setLogged] = useState(false);
-  const [sellerName, setSellerName] = useState("");
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -63,18 +62,26 @@ const Checkout = () => {
   const fetchCartInfo = async () => {
     try {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      setSellerName(cart[0].sellerName);
       const newdishInfo = {};
       let totalItemCount = 0;
       let totalPriceCount = 0;
 
       cart.forEach(item => {
-        newdishInfo[item.dishName] = {dishName: item.dishName, sellerName: item.sellerName, dishPrice: item.dishPrice, dishDesc: item.dishDesc,
+        newdishInfo[item.sellerName] = {dishName: item.dishName, dishPrice: item.dishPrice, dishDesc: item.dishDesc,
           dishIsVeg: item.dishIsVeg, dishQty: item.dishQuantity};
           totalItemCount += parseInt(item.dishQuantity) || 0;
           totalPriceCount += parseInt(item.dishQuantity) * parseInt(item.dishPrice) || 0;
       });
 
+      const subs = JSON.parse(localStorage.getItem('subs')) || [];
+      const newsubsInfo = {};
+
+      subs.forEach(item => {
+        newsubsInfo[item.sellerName] = {selectedMeals: item.selectedMeals, subsDays: item.subsDays, subsPrice: item.subsPrice};
+          totalItemCount +=1 || 0;
+          totalPriceCount += parseInt(item.subsPrice) || 0;
+      });
+console.log(newsubsInfo);
       setdishInfo(newdishInfo);
       setTotalItems(totalItemCount);
       setTotalPrice(totalPriceCount);
@@ -159,7 +166,7 @@ const toggleOverlay = (overlayType) => {
           <button className="delete" onClick={handleLogout}>Yes</button>
           <button className="cancel" onClick={() => {setShowLogout(false)}}>Cancel</button>
           <button className="close-button" onClick={() => {setShowLogout(false)}}>
-            <span class="material-symbols-outlined" style={{margin: '0'}}>close</span>
+            <span className="material-symbols-outlined" style={{margin: '0'}}>close</span>
           </button>
         </div>
       </Overlay>}
@@ -167,7 +174,27 @@ const toggleOverlay = (overlayType) => {
     )
   };
 
-  const handleCart = (name, price, desc, isVeg, qty) => {
+const groupDishesBySeller = (dishInfo) => {
+  const groupedDishes = {};
+
+  Object.keys(dishInfo).forEach((sellerName) => {
+    const dish = dishInfo[sellerName];
+
+    if (!groupedDishes[sellerName]) {
+      groupedDishes[sellerName] = {
+        sellerName: sellerName,
+        dishes: [],
+      };
+    }
+
+    groupedDishes[sellerName].dishes.push(dish);
+  });
+
+  return Object.values(groupedDishes);
+};
+const groupedDishInfo = groupDishesBySeller(dishInfo);
+
+  const handleCart = (sellerName, name, price, desc, isVeg, qty) => {
     const cartItem = {
       sellerName: sellerName,
       dishName: name,
@@ -199,14 +226,14 @@ const toggleOverlay = (overlayType) => {
     setTotalItems(totalItems+1);
     setTotalPrice(totalPrice + parseInt(dish.dishPrice));
 
-    handleCart(dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, counterValue.textContent);
+    handleCart(Object.keys(dish)[0], dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, counterValue.textContent);
   };
 
   const handleDecrement = (event, dish) => {
     const counterValue = event.target.nextElementSibling;
     const newValue = parseInt(counterValue.textContent) - 1;
 
-    handleCart(dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, newValue);
+    handleCart(Object.keys(dish)[0], dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, newValue);
 
     if (newValue >= 0) {
       setTotalItems(totalItems-1);
@@ -290,7 +317,7 @@ const toggleOverlay = (overlayType) => {
             <div className="user-details">
               <div className="details-head">
                 <div className="checkout-logo-div">
-                  <span class="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>person</span>
+                  <span className="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>person</span>
                 </div>
                 {name ? "Logged In" : <div className="login-insist">Login / Sign Up</div>}
               </div>
@@ -315,7 +342,7 @@ const toggleOverlay = (overlayType) => {
             <div className="user-details">
               <div className="details-head">
                 <div className="checkout-logo-div">
-                <span class="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>location_on</span>
+                <span className="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>location_on</span>
                 </div>
                 {addressChoosen ? "Delivery Address" : <div className="login-insist">Choose Delivery Address</div>}
               </div>
@@ -338,7 +365,7 @@ const toggleOverlay = (overlayType) => {
             <div className="user-details">
               <div className="details-head">
                 <div className="checkout-logo-div">
-                <span class="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>account_balance_wallet</span>
+                <span className="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>account_balance_wallet</span>
                 </div>
                 <div className="login-insist">Choose Payment Method</div>
               </div>
@@ -349,53 +376,56 @@ const toggleOverlay = (overlayType) => {
           </div>
 
           <div className="order-summary">
-            <div className="seller-name">
+            <div className="cart-div">
               <div className="mob-view">
                 <div style={{display: 'flex', fontSize: '16px'}}>
-                  <span class="material-symbols-outlined" style={{marginRight: '8px'}} onClick={() => navigate(-1)}>arrow_back_ios</span>
+                  <span className="material-symbols-outlined" style={{marginRight: '8px'}} onClick={() => navigate(-1)}>arrow_back_ios</span>
                 </div>
               </div>
-              {sellerName}
+              Cart
             </div>
-            {Object.values(dishInfo).map((dish, index) => (
-              <div key={index} className="ready-checkout">
-                <div className="checkout-dishinfo">
-                  <div style={{display: 'flex'}}>
-                    <div style={{display: 'inline', marginRight: '6px', fontSize: '20px'}}>
-                      <svg width="16" height="16" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      {dish.dishIsVeg ?
-                        <>
-                          <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#43B500"></path>
-                          <circle cx="5" cy="5" r="2" fill="#43B500"></circle>
-                        </> :
-                        <>
-                          <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#a5292a"></path>
-                          <path d="M4.74019 2.825C4.85566 2.625 5.14434 2.625 5.25981 2.825L7.33827 6.425C7.45374 6.625 7.3094 6.875 7.07846 6.875H2.92154C2.6906 6.875 2.54626 6.625 2.66173 6.425L4.74019 2.825Z" fill="#a5292a"></path>
-                        </>}
-                      </svg>
+            {groupedDishInfo.map((seller, index) => (
+              <div key={index} className="seller-section">
+                <h2>{seller.sellerName}</h2>
+                {seller.dishes.map((dish, dishIndex) => (
+                  <div key={dishIndex} className="ready-checkout">
+                  <div className="checkout-dishinfo">
+                    <div style={{display: 'flex'}}>
+                      <div style={{display: 'inline', marginRight: '6px', fontSize: '20px'}}>
+                        <svg width="16" height="16" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        {dish.dishIsVeg ?
+                          <>
+                            <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#43B500"></path>
+                            <circle cx="5" cy="5" r="2" fill="#43B500"></circle>
+                          </> :
+                          <>
+                            <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#a5292a"></path>
+                            <path d="M4.74019 2.825C4.85566 2.625 5.14434 2.625 5.25981 2.825L7.33827 6.425C7.45374 6.625 7.3094 6.875 7.07846 6.875H2.92154C2.6906 6.875 2.54626 6.625 2.66173 6.425L4.74019 2.825Z" fill="#a5292a"></path>
+                          </>}
+                        </svg>
+                      </div>
+                      <div className="dishname">{dish.dishName}</div>
                     </div>
-                    <div className="dishname">{dish.dishName}</div>
+                    <h3>₹{dish.dishPrice}</h3>
                   </div>
-                  <h3>₹{dish.dishPrice}</h3>
-                </div>
-                <div className="checkout-dishinfo">
-                  <p>{dish.dishDesc}</p>
-                  <div className="counter" style={{width: '72px', padding: '0.8%', transform: 'unset'}}>
-                    <button className="counter-button" onClick={(e) => handleDecrement(e, dish)}>-</button>
-                    <span className="counter-value" style={{fontSize: '14px'}}>{dish.dishQty}</span>
-                    <button className="counter-button" onClick={(e) => handleIncrement(e, dish)} > +</button>
+                  <div className="checkout-dishinfo">
+                    <p>{dish.dishDesc}</p>
+                    <div className="counter" style={{width: '72px', padding: '0.8%', transform: 'unset'}}>
+                      <button className="counter-button" onClick={(e) => handleDecrement(e, dish)}>-</button>
+                      <span className="counter-value" style={{fontSize: '14px'}}>{dish.dishQty}</span>
+                      <button className="counter-button" onClick={(e) => handleIncrement(e, dish)} > +</button>
+                    </div>
                   </div>
-                </div>
+                  </div>
+                ))}
               </div>
             ))}
-            {
 
-            }
             <div className="ready-checkout">
               <h4 style={{marginBottom: '4px'}}>APPLY COUPON</h4>
               <div style={{display: 'flex', justifyContent: 'space-between'}}>
                 <p>Explore available offers</p>
-                <span class="material-symbols-outlined" style={{margin: '0'}}>chevron_right</span>
+                <span className="material-symbols-outlined" style={{margin: '0'}}>chevron_right</span>
               </div>
             </div>
             <div className="ready-checkout" style={{marginBottom: '6rem'}}>

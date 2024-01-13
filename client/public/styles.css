@@ -792,7 +792,7 @@ hr {
   }
 }
 
-.seller-name {
+.cart-div {
   display: flex;
   align-items: center;
   border-radius: 8px;
@@ -804,6 +804,25 @@ hr {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 16px;
+}
+
+.seller-section {
+  padding: 8px 12px;
+  margin: 0 12px 12px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 24px 4px rgba(0, 0, 0, 0.08);
+
+  >h2 {
+    padding: 0 12px;
+    font-size: 18px;
+  }
+
+  >div {
+    margin: unset;
+    box-shadow: unset;
+    background-color: unset;
+  }
 }
 
 .ready-checkout {

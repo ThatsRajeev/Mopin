@@ -83,11 +83,11 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
         <Overlay closeOverlay={() => setShowMap(false)}>
           <div className="map-container">
             <button className="close-button" onClick={() => setShowMap(false)} style={{right: '-28px'}}>
-              <span class="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
+              <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
             </button>
             <div className="mob-view">
               <div className="profile-head" onClick={() => setShowMap(false)}>
-                <span class="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
+                <span className="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
                 <p> Edit Address </p>
               </div>
             </div>
@@ -106,10 +106,10 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
       <p className="addressed" onClick={() => setAddressChoosen(true)} style={{cursor: fromCheckout ? 'pointer' : 'unset'}}>{address}</p>
       <div className="modify-div">
         <button className="modify" onClick={() => {setShowMap(true)}}>
-          <span class="material-symbols-outlined type-icon">edit</span>
+          <span className="material-symbols-outlined type-icon">edit</span>
         </button>
         <button className="modify" onClick={() => {setShowDelete(true)}}>
-          <span class="material-symbols-outlined type-icon">delete</span>
+          <span className="material-symbols-outlined type-icon">delete</span>
         </button>
         {showDelete &&
           <Overlay closeOverlay={() => setShowDelete(false)}>
@@ -120,7 +120,7 @@ const ManageAddressContent = ({ fromCheckout, setAddressChoosen, addressFlex }) 
                 <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
               </div>
               <button className="close-button" onClick={() => setShowDelete(false)}>
-                <span class="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
+                <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
               </button>
             </div>
           </Overlay>

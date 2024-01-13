@@ -148,7 +148,7 @@ const Testimonials = () => {
         ))}
       </Swiper>
 
-      <span class="material-symbols-outlined">arrow_left</span>
+      <span className="material-symbols-outlined">arrow_left</span>
 
       <div className={`testimonial-image-container container-animation ${animate ? 'play' : ''}`}>
         <div className={`animation-div top ${animate ? 'play' : ''}`}>

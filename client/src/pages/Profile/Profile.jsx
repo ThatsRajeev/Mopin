@@ -161,11 +161,11 @@ const ManageAddressContent = () => {
         <Overlay closeOverlay={() => setShowMap(false)}>
           <div className="map-container">
             <button className="close-button" onClick={() => setShowMap(false)} style={{right: '-28px'}}>
-              <span class="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
+              <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
             </button>
             <div className="mob-view">
               <div className="profile-head" onClick={() => setShowMap(false)}>
-                <span class="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
+                <span className="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
                 <p> Edit Address </p>
               </div>
             </div>
@@ -183,8 +183,8 @@ const ManageAddressContent = () => {
       </div>
       <p className="addressed">{address}</p>
       <div className="modify-div">
-        <button className="modify" onClick={() => {setShowMap(true)}}><span class="material-symbols-outlined type-icon">edit</span></button>
-        <button className="modify" onClick={() => {setShowDelete(true)}}><span class="material-symbols-outlined type-icon">delete</span></button>
+        <button className="modify" onClick={() => {setShowMap(true)}}><span className="material-symbols-outlined type-icon">edit</span></button>
+        <button className="modify" onClick={() => {setShowDelete(true)}}><span className="material-symbols-outlined type-icon">delete</span></button>
         {showDelete &&
           <Overlay closeOverlay={() => setShowDelete(false)}>
             <div className="delete-container">
@@ -194,7 +194,7 @@ const ManageAddressContent = () => {
                 <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
               </div>
               <button className="close-button" onClick={() => setShowDelete(false)}>
-                <span class="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
+                <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
               </button>
             </div>
           </Overlay>
@@ -236,7 +236,7 @@ const LogoutContent = () => {
         <button className="delete" onClick={handleLogout}>Yes</button>
         <button className="cancel" onClick={() => {setShowLogout(false); setActive("My Orders"); setOverlayVisible(false);}}>Cancel</button>
         <button className="close-button" onClick={() => {setShowLogout(false);  setActive("My Orders")}}>
-          <span class="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
+          <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
         </button>
       </div>
     </Overlay>}
@@ -253,7 +253,7 @@ const LogoutContent = () => {
         <div className="profile-subdiv">
           <div style={{display: "flex", padding: "16px"}}>
             <div className="user-icon">
-            <span class="material-symbols-outlined" style={{fontSize: '36px', display: 'flex', justifyContent: 'center'}}>person</span>
+            <span className="material-symbols-outlined" style={{fontSize: '36px', display: 'flex', justifyContent: 'center'}}>person</span>
             </div>
             <div style={{margin: "8px 12px"}}>
               <h4 style={{lineHeight: "1.5"}}>{name}</h4>
@@ -270,7 +270,7 @@ const LogoutContent = () => {
                 <span className={`material-symbols-outlined profile-icon ${active === "My Orders" ? "active-icon" : ""}`}>local_dining</span>
               </div>
               <li className = "profile-list">My Orders</li>
-              <span class="material-symbols-outlined arrow-right mob-view">chevron_right</span>
+              <span className="material-symbols-outlined arrow-right mob-view">chevron_right</span>
             </div>
             </div>
 
@@ -282,7 +282,7 @@ const LogoutContent = () => {
                   <span className={`material-symbols-outlined profile-icon ${active === "Manage Address" ? "active-icon" : ""}`}>edit_location</span>
                 </div>
                 <li className = "profile-list">Manage Address</li>
-                <span class="material-symbols-outlined arrow-right mob-view">chevron_right</span>
+                <span className="material-symbols-outlined arrow-right mob-view">chevron_right</span>
               </div>
             </div>
 
@@ -294,7 +294,7 @@ const LogoutContent = () => {
                   <span className={`material-symbols-outlined profile-icon ${active === "Payment Methods" ? "active-icon" : ""}`}>wallet</span>
                 </div>
                 <li className = "profile-list">Payment Methods</li>
-                <span class="material-symbols-outlined arrow-right mob-view">chevron_right</span>
+                <span className="material-symbols-outlined arrow-right mob-view">chevron_right</span>
               </div>
             </div>
 
@@ -306,7 +306,7 @@ const LogoutContent = () => {
                   <span className={`material-symbols-outlined profile-icon ${active === "Subscriptions" ? "active-icon" : ""}`}>card_membership</span>
                 </div>
                 <li className = "profile-list">Subscriptions</li>
-                <span class="material-symbols-outlined arrow-right mob-view">chevron_right</span>
+                <span className="material-symbols-outlined arrow-right mob-view">chevron_right</span>
               </div>
             </div>
 
@@ -318,7 +318,7 @@ const LogoutContent = () => {
                   <span className={`material-symbols-outlined profile-icon ${active === "logout" ? "active-icon" : ""}`}>logout</span>
                 </div>
                 <li className = "profile-list">Logout</li>
-                <span class="material-symbols-outlined arrow-right mob-view">chevron_right</span>
+                <span className="material-symbols-outlined arrow-right mob-view">chevron_right</span>
               </div>
             </div>
           </ul>
@@ -330,7 +330,7 @@ const LogoutContent = () => {
       <div className="overlay mob-view">
         <div className="overlay-content">
           <div className="profile-head" onClick={toggleOverlay}>
-            <span class="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
+            <span className="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
             <p> {active}</p>
           </div>
           <div className="border-separator"></div>

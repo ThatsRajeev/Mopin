@@ -59,7 +59,7 @@ function LocationButton({getCurrentLocation}) {
       container.style.cursor = 'pointer';
       container.style.alignItems = 'center';
       container.style.justifyContent = 'center';
-      container.innerHTML = '<span class="material-symbols-outlined home-icon" style="margin: 0">my_location</span>';
+      container.innerHTML = '<span className="material-symbols-outlined home-icon" style="margin: 0">my_location</span>';
 
       container.onclick = function(){
         navigator.geolocation.getCurrentPosition((position) => {
@@ -163,7 +163,7 @@ function MapComponent({ setShowMap }) {
   return (
     <div style={isSmallScreen ? smallScreenStyle : mapContainerStyle}>
     {show && <button className="back-button pc-view" onClick={() => setShow(false)}>
-    <span class="material-symbols-outlined" style={{fontSize: '16px', marginRight: '0'}}>arrow_back_ios</span></button>}
+    <span className="material-symbols-outlined" style={{fontSize: '16px', marginRight: '0'}}>arrow_back_ios</span></button>}
 
       {currentLocation.lat && currentLocation.lng && (
         <div style={mapStyle}>

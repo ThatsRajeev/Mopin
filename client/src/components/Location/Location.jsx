@@ -69,7 +69,7 @@ const Location = ({ setShowProp }) => {
           />
           {inputValue && (
             <button className="clear-button" onClick={handleClearInput}>
-              <span class="material-symbols-outlined">close</span>
+              <span className="material-symbols-outlined">close</span>
             </button>
           )}
         </div>
@@ -83,7 +83,7 @@ const Location = ({ setShowProp }) => {
                 key={suggestion.place_id}
                 onClick={() => handleSuggestionClick(suggestion)}
               >
-                <span class="material-symbols-outlined location-icon">location_on</span>
+                <span className="material-symbols-outlined location-icon">location_on</span>
                 <div className="SuggDiv">
                   <p>
                     {
