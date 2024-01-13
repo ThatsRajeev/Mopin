@@ -115,7 +115,6 @@ function SellerPage() {
 
   const handleCart = (name, price, desc, isVeg, qty) => {
     const cartItem = {
-      sellerName: sellerDetails.name,
       dishName: name,
       dishPrice: price,
       dishDesc: desc,
@@ -125,36 +124,58 @@ function SellerPage() {
 
     let existingCart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const existingItemIndex = existingCart.findIndex(item => item.dishName === name);
+    const existingSellerIndex = existingCart.findIndex(group => group.sellerName === sellerDetails.name);
 
-    if (existingItemIndex !== -1) {
-      existingCart[existingItemIndex].dishQuantity = qty;
+    if (existingSellerIndex !== -1) {
+      const existingItemIndex = existingCart[existingSellerIndex].items.findIndex(item => item.dishName === name);
 
-      if (qty === 0) {
-        existingCart = existingCart.filter(item => item.dishName !== name);
+      if (existingItemIndex !== -1) {
+        existingCart[existingSellerIndex].items[existingItemIndex].dishQuantity = qty;
+
+        if (qty === 0) {
+          existingCart[existingSellerIndex].items.splice(existingItemIndex, 1);
+        }
+      } else {
+        existingCart[existingSellerIndex].items.push(cartItem);
+      }
+
+      if (existingCart[existingSellerIndex].items.length === 0) {
+        existingCart.splice(existingSellerIndex, 1);
       }
     } else {
-      existingCart.push(cartItem);
+      existingCart.push({
+        sellerName: sellerDetails.name,
+        items: [cartItem]
+      });
     }
+
     localStorage.setItem('cart', JSON.stringify(existingCart));
   };
 
   const fetchCartInfo = () => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    try {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const newdishQty = {};
-    let totalItemCount = 0;
-    let totalPriceCount = 0;
+      const newdishQty = {};
+      let totalItemCount = 0;
+      let totalPriceCount = 0;
 
-    cart.forEach(item => {
-      newdishQty[item.dishName] = parseInt(item.dishQuantity);
-      totalItemCount += parseInt(item.dishQuantity) || 0;
-      totalPriceCount += parseInt(item.dishQuantity) * parseInt(item.dishPrice) || 0;
-    });
+      const currentSellerCart = cart.find(sellerGroup => sellerGroup.sellerName === sellerDetails.name);
 
-    setdishQty(newdishQty);
-    setTotalItems(totalItemCount);
-    setTotalPrice(totalPriceCount);
+      if (currentSellerCart) {
+        currentSellerCart.items.forEach(item => {
+          newdishQty[item.dishName] = parseInt(item.dishQuantity, 10);
+          totalItemCount += parseInt(item.dishQuantity, 10) || 0;
+          totalPriceCount += parseInt(item.dishQuantity, 10) * parseInt(item.dishPrice, 10) || 0;
+        });
+      }
+
+      setdishQty(newdishQty);
+      setTotalItems(totalItemCount);
+      setTotalPrice(totalPriceCount);
+    } catch (error) {
+      console.error('Error while processing cart information:', error);
+    }
   };
 
   useEffect(() => {

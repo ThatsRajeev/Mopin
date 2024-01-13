@@ -59,37 +59,6 @@ const Checkout = () => {
   const [dishInfo, setdishInfo] = useState({});
   const [subsInfo, setSubsInfo] = useState({});
 
-  const fetchCartInfo = async () => {
-    try {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const newdishInfo = {};
-      let totalItemCount = 0;
-      let totalPriceCount = 0;
-
-      cart.forEach(item => {
-        newdishInfo[item.sellerName] = {dishName: item.dishName, dishPrice: item.dishPrice, dishDesc: item.dishDesc,
-          dishIsVeg: item.dishIsVeg, dishQty: item.dishQuantity};
-          totalItemCount += parseInt(item.dishQuantity) || 0;
-          totalPriceCount += parseInt(item.dishQuantity) * parseInt(item.dishPrice) || 0;
-      });
-
-      const subs = JSON.parse(localStorage.getItem('subs')) || [];
-      const newsubsInfo = {};
-
-      subs.forEach(item => {
-        newsubsInfo[item.sellerName] = {selectedMeals: item.selectedMeals, subsDays: item.subsDays, subsPrice: item.subsPrice};
-          totalItemCount +=1 || 0;
-          totalPriceCount += parseInt(item.subsPrice) || 0;
-      });
-console.log(newsubsInfo);
-      setdishInfo(newdishInfo);
-      setTotalItems(totalItemCount);
-      setTotalPrice(totalPriceCount);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const handleLogout = async () => {
     try {
       logOut();
@@ -99,10 +68,6 @@ console.log(newsubsInfo);
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    fetchCartInfo();
-  }, []);
 
   useEffect(() => {
     if(isLogged === true) {
@@ -174,29 +139,62 @@ const toggleOverlay = (overlayType) => {
     )
   };
 
-const groupDishesBySeller = (dishInfo) => {
-  const groupedDishes = {};
+  const fetchCartInfo = async () => {
+    try {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const newdishInfo = [];
+      let totalItemCount = 0;
+      let totalPriceCount = 0;
 
-  Object.keys(dishInfo).forEach((sellerName) => {
-    const dish = dishInfo[sellerName];
+      cart.forEach(sellerGroup => {
+        const sellerInfo = {
+          sellerName: sellerGroup.sellerName,
+          dishes: [],
+        };
 
-    if (!groupedDishes[sellerName]) {
-      groupedDishes[sellerName] = {
-        sellerName: sellerName,
-        dishes: [],
-      };
+        sellerGroup.items.forEach(item => {
+          sellerInfo.dishes.push({
+            dishName: item.dishName,
+            dishDesc: item.dishDesc,
+            dishIsVeg: item.dishIsVeg,
+            dishPrice: item.dishPrice,
+            dishQty: parseInt(item.dishQuantity, 10),
+          });
+
+          totalItemCount += parseInt(item.dishQuantity, 10) || 0;
+          totalPriceCount += parseInt(item.dishQuantity, 10) * parseInt(item.dishPrice, 10) || 0;
+        });
+
+        newdishInfo.push(sellerInfo);
+      });
+
+      const subs = JSON.parse(localStorage.getItem('subs')) || [];
+      const newsubsInfo = {};
+
+      subs.forEach(item => {
+        newsubsInfo[item.sellerName] = {
+          selectedMeals: item.selectedMeals,
+          subsDays: item.subsDays,
+          subsPrice: item.subsPrice,
+        };
+        totalPriceCount += parseInt(item.subsPrice) || 0;
+      });
+
+      setdishInfo(newdishInfo);
+      setTotalItems(totalItemCount);
+      setTotalPrice(totalPriceCount);
+
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    groupedDishes[sellerName].dishes.push(dish);
-  });
-
-  return Object.values(groupedDishes);
-};
-const groupedDishInfo = groupDishesBySeller(dishInfo);
+  useEffect(() => {
+    fetchCartInfo();
+  }, []);
 
   const handleCart = (sellerName, name, price, desc, isVeg, qty) => {
     const cartItem = {
-      sellerName: sellerName,
       dishName: name,
       dishPrice: price,
       dishDesc: desc,
@@ -206,52 +204,75 @@ const groupedDishInfo = groupDishesBySeller(dishInfo);
 
     let existingCart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const existingItemIndex = existingCart.findIndex(item => item.dishName === name);
+    const existingSellerIndex = existingCart.findIndex(group => group.sellerName === sellerName);
 
-    if (existingItemIndex !== -1) {
-      existingCart[existingItemIndex].dishQuantity = qty;
+    if (existingSellerIndex !== -1) {
+      const existingItemIndex = existingCart[existingSellerIndex].items.findIndex(item => item.dishName === name);
 
-      if (qty === 0) {
-        existingCart = existingCart.filter(item => item.dishName !== name);
+      if (existingItemIndex !== -1) {
+        existingCart[existingSellerIndex].items[existingItemIndex].dishQuantity = qty;
+
+        if (qty === 0) {
+          existingCart[existingSellerIndex].items.splice(existingItemIndex, 1);
+        }
+      } else {
+        existingCart[existingSellerIndex].items.push(cartItem);
       }
+
+      if (existingCart[existingSellerIndex].items.length === 0) {
+        existingCart.splice(existingSellerIndex, 1);
+      }
+
     } else {
-      existingCart.push(cartItem);
+      existingCart.push({
+        sellerName: sellerName,
+        items: [cartItem]
+      });
     }
     localStorage.setItem('cart', JSON.stringify(existingCart));
   };
 
-  const handleIncrement = (event, dish) => {
+  const handleIncrement = (event, dish, seller) => {
     const counterValue = event.target.previousElementSibling;
     counterValue.textContent = parseInt(counterValue.textContent) + 1;
     setTotalItems(totalItems+1);
     setTotalPrice(totalPrice + parseInt(dish.dishPrice));
 
-    handleCart(Object.keys(dish)[0], dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, counterValue.textContent);
+    handleCart(seller.sellerName, dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, counterValue.textContent);
   };
 
-  const handleDecrement = (event, dish) => {
+  const handleDecrement = (event, dish, seller) => {
     const counterValue = event.target.nextElementSibling;
     const newValue = parseInt(counterValue.textContent) - 1;
 
-    handleCart(Object.keys(dish)[0], dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, newValue);
+    handleCart(seller.sellerName, dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, newValue);
 
     if (newValue >= 0) {
-      setTotalItems(totalItems-1);
+      setTotalItems(totalItems - 1);
       setTotalPrice(totalPrice - parseInt(dish.dishPrice));
     }
-    if(newValue === 0) {
-      const counter = event.target.parentElement;
-      counter.classList.add('hidden');
-      setTimeout(() => {
-        counter.style.display = 'none';
-      }, 300);
 
+    if (newValue === 0) {
       setdishInfo((prevDishInfo) => {
-        const updatedDishInfo = { ...prevDishInfo };
-        updatedDishInfo[dish.dishName].dishQty = newValue;
+        const updatedDishInfo = [...prevDishInfo];
+        const sellerIndex = updatedDishInfo.findIndex((seller2) => seller2.sellerName === seller.sellerName);
 
-        if (newValue === 0) {
-          delete updatedDishInfo[dish.dishName];
+        if (sellerIndex !== -1) {
+          const dishIndex = updatedDishInfo[sellerIndex].dishes.findIndex(
+            (currentDish) => currentDish.dishName === dish.dishName
+          );
+
+          if (dishIndex !== -1) {
+            updatedDishInfo[sellerIndex].dishes[dishIndex].dishQty = newValue;
+
+            if (newValue === 0) {
+              updatedDishInfo[sellerIndex].dishes.splice(dishIndex, 1);
+
+              if (updatedDishInfo[sellerIndex].dishes.length === 0) {
+                updatedDishInfo.splice(sellerIndex, 1);
+              }
+            }
+          }
         }
 
         return updatedDishInfo;
@@ -310,7 +331,7 @@ const groupedDishInfo = groupDishesBySeller(dishInfo);
   return (
     <>
       <Navbar showAddress="none" header="Secure Checkout" showNavbar = {windowWidth < 768 ? "none" : ""}/>
-      {totalItems ? (
+      {JSON.parse(localStorage.getItem('cart')).length ? (
       <div className="checkout-container">
         <div className="checkout-div">
           <div className="delivery-details pc-view">
@@ -384,41 +405,43 @@ const groupedDishInfo = groupDishesBySeller(dishInfo);
               </div>
               Cart
             </div>
-            {groupedDishInfo.map((seller, index) => (
-              <div key={index} className="seller-section">
-                <h2>{seller.sellerName}</h2>
-                {seller.dishes.map((dish, dishIndex) => (
-                  <div key={dishIndex} className="ready-checkout">
-                  <div className="checkout-dishinfo">
-                    <div style={{display: 'flex'}}>
-                      <div style={{display: 'inline', marginRight: '6px', fontSize: '20px'}}>
-                        <svg width="16" height="16" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        {dish.dishIsVeg ?
-                          <>
-                            <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#43B500"></path>
-                            <circle cx="5" cy="5" r="2" fill="#43B500"></circle>
-                          </> :
-                          <>
-                            <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#a5292a"></path>
-                            <path d="M4.74019 2.825C4.85566 2.625 5.14434 2.625 5.25981 2.825L7.33827 6.425C7.45374 6.625 7.3094 6.875 7.07846 6.875H2.92154C2.6906 6.875 2.54626 6.625 2.66173 6.425L4.74019 2.825Z" fill="#a5292a"></path>
-                          </>}
-                        </svg>
+            {Array.isArray(dishInfo) && dishInfo.map((seller, index) => (
+              seller.dishes.length > 0 && (
+                <div key={index} className="seller-section">
+                  <h2>{seller.sellerName}</h2>
+                  {Array.isArray(seller.dishes) && seller.dishes.map((dish, dishIndex) => (
+                    <div key={dishIndex} className="ready-checkout">
+                      <div className="checkout-dishinfo">
+                        <div style={{display: 'flex'}}>
+                          <div style={{display: 'inline', marginRight: '6px', fontSize: '20px'}}>
+                            <svg width="16" height="16" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            {dish.dishIsVeg ?
+                              <>
+                                <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#43B500"></path>
+                                <circle cx="5" cy="5" r="2" fill="#43B500"></circle>
+                              </> :
+                              <>
+                                <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#a5292a"></path>
+                                <path d="M4.74019 2.825C4.85566 2.625 5.14434 2.625 5.25981 2.825L7.33827 6.425C7.45374 6.625 7.3094 6.875 7.07846 6.875H2.92154C2.6906 6.875 2.54626 6.625 2.66173 6.425L4.74019 2.825Z" fill="#a5292a"></path>
+                              </>}
+                            </svg>
+                          </div>
+                          <div className="dishname">{dish.dishName}</div>
+                        </div>
+                        <h3>₹{dish.dishPrice}</h3>
                       </div>
-                      <div className="dishname">{dish.dishName}</div>
+                      <div className="checkout-dishinfo">
+                        <p>{dish.dishDesc}</p>
+                        <div className="counter" style={{width: '72px', padding: '0.8%', transform: 'unset'}}>
+                          <button className="counter-button" onClick={(e) => handleDecrement(e, dish, seller)}>-</button>
+                          <span className="counter-value" style={{fontSize: '14px'}}>{dish.dishQty}</span>
+                          <button className="counter-button" onClick={(e) => handleIncrement(e, dish, seller)} > +</button>
+                        </div>
+                      </div>
                     </div>
-                    <h3>₹{dish.dishPrice}</h3>
-                  </div>
-                  <div className="checkout-dishinfo">
-                    <p>{dish.dishDesc}</p>
-                    <div className="counter" style={{width: '72px', padding: '0.8%', transform: 'unset'}}>
-                      <button className="counter-button" onClick={(e) => handleDecrement(e, dish)}>-</button>
-                      <span className="counter-value" style={{fontSize: '14px'}}>{dish.dishQty}</span>
-                      <button className="counter-button" onClick={(e) => handleIncrement(e, dish)} > +</button>
-                    </div>
-                  </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )
             ))}
 
             <div className="ready-checkout">
