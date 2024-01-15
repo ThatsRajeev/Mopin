@@ -633,3 +633,41 @@
     padding: 12px 24px;
   }
 }
+
+.meet-maker-div {
+  text-align: center;
+  padding: 32px 16px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0, rgba(27, 31, 35, 0.15) 0 0 0 1px;
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .makers-container {
+    margin-top: 16px;
+    background-color: unset;
+  }
+}
+
+.makerOverlay-img {
+  width: -webkit-fill-available;
+  height: 16rem;
+  object-fit: cover;
+  margin: 16px 0;
+  border: 2px solid #fff;
+}
+
+.makerOverlay-div {
+  padding: 0 2.8%;
+
+  h3 {
+    font-size: 20px;
+    margin: 16px 0 8px
+  }
+
+  p {
+    margin: 0.8em auto 1.6em;
+    line-height: 1.6em;
+    display: -webkit-box;
+  }
+}

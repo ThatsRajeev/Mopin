@@ -181,6 +181,7 @@ const toggleOverlay = (overlayType) => {
       });
 
       setdishInfo(newdishInfo);
+      setSubsInfo(newsubsInfo);      
       setTotalItems(totalItemCount);
       setTotalPrice(totalPriceCount);
 
