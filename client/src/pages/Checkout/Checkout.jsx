@@ -181,7 +181,7 @@ const toggleOverlay = (overlayType) => {
       });
 
       setdishInfo(newdishInfo);
-      setSubsInfo(newsubsInfo);      
+      setSubsInfo(newsubsInfo);
       setTotalItems(totalItemCount);
       setTotalPrice(totalPriceCount);
 
@@ -410,6 +410,11 @@ const toggleOverlay = (overlayType) => {
               seller.dishes.length > 0 && (
                 <div key={index} className="seller-section">
                   <h2>{seller.sellerName}</h2>
+                  {Array.isArray(subsInfo) && subsInfo.map((subs, subsIndex) => (
+                    <div>
+                    {subs}
+                    </div>
+                  ))}
                   {Array.isArray(seller.dishes) && seller.dishes.map((dish, dishIndex) => (
                     <div key={dishIndex} className="ready-checkout">
                       <div className="checkout-dishinfo">
