@@ -127,7 +127,7 @@ function Login({ setShowProp, fromCheckout }) {
           {showOtp ? (
             <div className="form-group">
               <OtpInput numInputs={6} inputType="number" value={otp} onChange={setOtp}
-               shouldAutoFocus={true} renderInput={(props) => <input {...props} />}
+               shouldAutoFocus={true} renderInput={(props) => <input {...props} keyboardType="numeric"/>}
                inputStyle={{
                   border: "1px solid rgb(204, 204, 204)",
                   borderRadius: "8px",
