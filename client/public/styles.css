@@ -525,7 +525,7 @@ hr {
 
   div {
     display: flex;
-    gap: 12%
+    gap: 16%
   }
 }
 
@@ -538,7 +538,7 @@ hr {
   font-size: 16px;
   border: 1px solid;
   background-color: #fff;
-  padding: 12px 36px;
+  padding: 12px 42px;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
