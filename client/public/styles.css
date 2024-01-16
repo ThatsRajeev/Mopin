@@ -786,6 +786,7 @@ hr {
   border-radius: 8px;
   background-color: #f2f2f2;
   margin: 0;
+  width: -webkit-fill-available;
 
   @media (width > 768px) {
     margin: 48px 0;
