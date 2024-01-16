@@ -233,8 +233,10 @@ const LogoutContent = () => {
       <Overlay closeOverlay={() => setShowLogout(false)}>
       <div className="delete-container">
         <h3 className="delete-heading">Are you sure you want to logout? </h3>
-        <button className="delete" onClick={handleLogout}>Yes</button>
-        <button className="cancel" onClick={() => {setShowLogout(false); setActive("My Orders"); setOverlayVisible(false);}}>Cancel</button>
+        <div>
+          <button className="delete" onClick={handleLogout}>Yes</button>
+          <button className="cancel" onClick={() => {setShowLogout(false); setActive("My Orders"); setOverlayVisible(false);}}>Cancel</button>
+        </div>
         <button className="close-button" onClick={() => {setShowLogout(false);  setActive("My Orders")}}>
           <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
         </button>
