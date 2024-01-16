@@ -557,6 +557,8 @@ hr {
   margin: 12px 0;
 
   >li {
+    display: flex;
+    align-items: center;
     font-size: 12px;
     border: 1px solid rgb(150,150,150, 0.6);
     padding: 3px 10px;

@@ -59,7 +59,7 @@ function LocationButton({getCurrentLocation}) {
       container.style.cursor = 'pointer';
       container.style.alignItems = 'center';
       container.style.justifyContent = 'center';
-      container.innerHTML = '<span className="material-symbols-outlined home-icon" style="margin: 0">my_location</span>';
+      container.innerHTML = '<span className="material-symbols-outlined" style="margin: 0">my_location</span>';
 
       container.onclick = function(){
         navigator.geolocation.getCurrentPosition((position) => {
