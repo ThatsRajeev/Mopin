@@ -840,7 +840,6 @@ hr {
   div {
     display: flex;
     justify-content: space-between;
-    gap: 54px;
     margin: 4px 12px;
 
     h2 {
