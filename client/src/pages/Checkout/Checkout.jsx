@@ -57,7 +57,6 @@ const Checkout = () => {
   }, [user]);
 
   const [dishInfo, setdishInfo] = useState({});
-  const [subsInfo, setSubsInfo] = useState({});
 
   const handleLogout = async () => {
     try {
@@ -147,41 +146,48 @@ const toggleOverlay = (overlayType) => {
       let totalPriceCount = 0;
 
       cart.forEach(sellerGroup => {
+        const { sellerName, items, subs } = sellerGroup;
         const sellerInfo = {
-          sellerName: sellerGroup.sellerName,
+          sellerName,
           dishes: [],
+          subs: [],
         };
 
-        sellerGroup.items.forEach(item => {
-          sellerInfo.dishes.push({
-            dishName: item.dishName,
-            dishDesc: item.dishDesc,
-            dishIsVeg: item.dishIsVeg,
-            dishPrice: item.dishPrice,
-            dishQty: parseInt(item.dishQuantity, 10),
-          });
+        if(items) {
+          items.forEach(item => {
+            const { dishName, dishDesc, dishIsVeg, dishPrice, dishQuantity } = item;
+            const dishQty = parseInt(dishQuantity, 10) || 0;
 
-          totalItemCount += parseInt(item.dishQuantity, 10) || 0;
-          totalPriceCount += parseInt(item.dishQuantity, 10) * parseInt(item.dishPrice, 10) || 0;
-        });
+            sellerInfo.dishes.push({
+              dishName,
+              dishDesc,
+              dishIsVeg,
+              dishPrice,
+              dishQty,
+            });
+
+            totalItemCount += dishQty;
+            totalPriceCount += dishQty * parseInt(dishPrice, 10) || 0;
+          });
+        }
+
+        if(subs) {
+          subs.forEach(sub => {
+            const { selectedMeals, subsDays, subsPrice } = sub;
+            totalPriceCount += parseInt(subsPrice, 10) || 0;
+
+            sellerInfo.subs.push({
+              selectedMeals,
+              subsDays,
+              subsPrice,
+            });
+          });
+        }
 
         newdishInfo.push(sellerInfo);
       });
 
-      const subs = JSON.parse(localStorage.getItem('subs')) || [];
-      const newsubsInfo = {};
-
-      subs.forEach(item => {
-        newsubsInfo[item.sellerName] = {
-          selectedMeals: item.selectedMeals,
-          subsDays: item.subsDays,
-          subsPrice: item.subsPrice,
-        };
-        totalPriceCount += parseInt(item.subsPrice) || 0;
-      });
-
       setdishInfo(newdishInfo);
-      setSubsInfo(newsubsInfo);
       setTotalItems(totalItemCount);
       setTotalPrice(totalPriceCount);
 
@@ -220,14 +226,15 @@ const toggleOverlay = (overlayType) => {
         existingCart[existingSellerIndex].items.push(cartItem);
       }
 
-      if (existingCart[existingSellerIndex].items.length === 0) {
+      if (existingCart[existingSellerIndex].items.length === 0 && existingCart[existingSellerIndex].subs.length === 0) {
         existingCart.splice(existingSellerIndex, 1);
       }
 
     } else {
       existingCart.push({
         sellerName: sellerName,
-        items: [cartItem]
+        items: [cartItem],
+        subs: []
       });
     }
     localStorage.setItem('cart', JSON.stringify(existingCart));
@@ -244,6 +251,7 @@ const toggleOverlay = (overlayType) => {
 
   const handleDecrement = (event, dish, seller) => {
     const counterValue = event.target.nextElementSibling;
+    const sellerIndex = dishInfo.findIndex((sell) => sell.sellerName === seller.sellerName);
     const newValue = parseInt(counterValue.textContent) - 1;
 
     handleCart(seller.sellerName, dish.dishName, dish.dishPrice, dish.dishDesc, dish.dishIsVeg, newValue);
@@ -251,37 +259,65 @@ const toggleOverlay = (overlayType) => {
     if (newValue >= 0) {
       setTotalItems(totalItems - 1);
       setTotalPrice(totalPrice - parseInt(dish.dishPrice));
-    }
 
-    if (newValue === 0) {
-      setdishInfo((prevDishInfo) => {
-        const updatedDishInfo = [...prevDishInfo];
-        const sellerIndex = updatedDishInfo.findIndex((seller2) => seller2.sellerName === seller.sellerName);
+      if (newValue === 0) {
+        setdishInfo((prevDishInfo) => {
+          const updatedDishInfo = [...prevDishInfo];
 
-        if (sellerIndex !== -1) {
-          const dishIndex = updatedDishInfo[sellerIndex].dishes.findIndex(
-            (currentDish) => currentDish.dishName === dish.dishName
-          );
+          if (sellerIndex !== -1) {
+            const dishIndex = updatedDishInfo[sellerIndex].dishes.findIndex(
+              currentDish => currentDish.dishName === dish.dishName
+            );
 
-          if (dishIndex !== -1) {
-            updatedDishInfo[sellerIndex].dishes[dishIndex].dishQty = newValue;
-
-            if (newValue === 0) {
+            if (dishIndex !== -1) {
               updatedDishInfo[sellerIndex].dishes.splice(dishIndex, 1);
+            }
 
-              if (updatedDishInfo[sellerIndex].dishes.length === 0) {
-                updatedDishInfo.splice(sellerIndex, 1);
-              }
+            if (updatedDishInfo[sellerIndex].dishes.length === 0 && updatedDishInfo[sellerIndex].subs.length === 0) {
+              return updatedDishInfo.filter(sellerInfo => sellerInfo.sellerName !== seller.sellerName);
             }
           }
-        }
 
-        return updatedDishInfo;
-      });
-    } else {
-      counterValue.textContent = newValue;
+          return updatedDishInfo;
+        });
+      } else {
+        counterValue.textContent = newValue;
+      }
     }
   };
+
+  const removeSubs = (seller) => {
+    let existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existingSellerIndex = existingCart.findIndex(group => group.sellerName === seller.sellerName);
+
+    if (existingSellerIndex !== -1) {
+      if (seller.dishes.length === 0) {
+        existingCart.splice(existingSellerIndex, 1);
+
+        localStorage.setItem('cart', JSON.stringify(existingCart));
+
+        setdishInfo((prevDishInfo) => {
+          const updatedDishInfo = prevDishInfo.filter(sellerInfo => sellerInfo.sellerName !== seller.sellerName);
+          return updatedDishInfo;
+        });
+      } else {
+        existingCart[existingSellerIndex].subs = [];
+
+        localStorage.setItem('cart', JSON.stringify(existingCart));
+
+        setdishInfo((prevDishInfo) => {
+          const updatedDishInfo = prevDishInfo.map(sellerInfo => {
+            if (sellerInfo.sellerName === seller.sellerName) {
+              sellerInfo.subs = [];
+            }
+            return sellerInfo;
+          });
+          return updatedDishInfo;
+        });
+      }
+    }
+  }
 
   const initPayment = (data)=> {
     const options = {
@@ -332,7 +368,7 @@ const toggleOverlay = (overlayType) => {
   return (
     <>
       <Navbar showAddress="none" header="Secure Checkout" showNavbar = {windowWidth < 768 ? "none" : ""}/>
-      {JSON.parse(localStorage.getItem('cart')).length ? (
+      {dishInfo.length ? (
       <div className="checkout-container">
         <div className="checkout-div">
           <div className="delivery-details pc-view">
@@ -407,12 +443,21 @@ const toggleOverlay = (overlayType) => {
               Cart
             </div>
             {Array.isArray(dishInfo) && dishInfo.map((seller, index) => (
-              seller.dishes.length > 0 && (
+              (seller.dishes.length > 0 || seller.subs.length > 0) && (
                 <div key={index} className="seller-section">
                   <h2>{seller.sellerName}</h2>
-                  {Array.isArray(subsInfo) && subsInfo.map((subs, subsIndex) => (
-                    <div>
-                    {subs}
+                  {Array.isArray(seller.subs) && seller.subs.map((subs, subsIndex) => (
+                    <div className="subs-section" key={subsIndex}>
+                      <h3>{subs.subsDays} days subscription</h3>
+                      <div>
+                        {subs.selectedMeals.map((meal, mealIndex) => (
+                          <h2 key={mealIndex}>{meal}</h2>
+                        ))}
+                      </div>
+                      <div style={{marginTop: '8px'}}>
+                        <button onClick={() => removeSubs(seller)}>Remove</button>
+                        <h3>₹{subs.subsPrice}</h3>
+                      </div>
                     </div>
                   ))}
                   {Array.isArray(seller.dishes) && seller.dishes.map((dish, dishIndex) => (
@@ -488,7 +533,7 @@ const toggleOverlay = (overlayType) => {
       </div>
       )}
 
-      {totalItems>0 && (
+      {dishInfo.length>0 && (
         <div className="bottom-container mob-view" style={{display: 'block'}}>
           {!user || !addressChoosen ? (
             <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>

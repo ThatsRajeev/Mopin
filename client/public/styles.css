@@ -825,6 +825,38 @@ hr {
   }
 }
 
+.subs-section {
+  margin: 8px !important;
+  background: rgb(255, 245, 240) !important;
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
+
+  h3 {
+    font-size: 18px;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 54px;
+    margin: 4px 12px;
+
+    h2 {
+      font-size: 17px;
+      font-weight: 100;
+    }
+
+    button {
+      border: none;
+      background: #fff;
+      padding: 2%;
+      border-radius: 8px;
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    }
+  }
+}
+
 .ready-checkout {
   display: flex;
   flex-direction: column;

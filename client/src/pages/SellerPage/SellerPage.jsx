@@ -148,7 +148,8 @@ function SellerPage() {
     } else {
       existingCart.push({
         sellerName: sellerDetails.name,
-        items: [cartItem]
+        items: [cartItem],
+        subs: [],
       });
     }
 
@@ -347,29 +348,29 @@ function SellerPage() {
     calculateTotalCost();
 
     const subsDetails = {
-      sellerName: sellerDetails.name,
       selectedMeals: selectedMeals,
       subsDays: subsDays,
       subsPrice: totalCost
     };
 
-    let existingSubs = JSON.parse(localStorage.getItem('subs')) || [];
+    let existingCart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const existingItemIndex = existingSubs.findIndex(item => item.sellerName === sellerDetails.name);
+    const existingSellerIndex = existingCart.findIndex(item => item.sellerName === sellerDetails.name);
 
-    if (existingItemIndex !== -1) {
-      existingSubs[existingItemIndex].selectedMeals = selectedMeals;
-      existingSubs[existingItemIndex].subsDays = subsDays;
-      existingSubs[existingItemIndex].subsPrice = totalCost;
+    if (existingSellerIndex !== -1) {
+      existingCart[existingSellerIndex].subs = [subsDetails];
 
-      if (!subsPrice) {
-        existingSubs = existingSubs.filter(item => item.sellerName !== sellerDetails.name);
-      }
     } else {
-      existingSubs.push(subsDetails);
+      existingCart.push({
+        sellerName: sellerDetails.name,
+        subs: [subsDetails]
+      });
     }
-    localStorage.setItem('subs', JSON.stringify(existingSubs));
-  }, [selectedMeals, subsDays])
+
+    if(subsDetails.subsPrice) {
+      localStorage.setItem('cart', JSON.stringify(existingCart));
+    }
+  }, [selectedMeals, subsDays]);
 
   if (showCheckboxes) {
     document.body.style.overflow = "hidden";
