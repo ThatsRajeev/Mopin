@@ -68,7 +68,7 @@ const Address = styled.div`
 `;
 
 const Overlay = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 50%;
   height: 100vh;
