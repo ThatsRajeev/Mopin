@@ -519,9 +519,14 @@ hr {
 
 .delete-container {
   position: relative;
-  width: 24rem;
+  width: -webkit-fill-available;
   background-color: #fff;
   padding: 24px;
+
+  div {
+    display: flex;
+    gap: 12%
+  }
 }
 
 .delete-heading {
@@ -533,10 +538,9 @@ hr {
   font-size: 16px;
   border: 1px solid;
   background-color: #fff;
-  padding: 12px 52px;
+  padding: 12px 36px;
   border-radius: 6px;
   font-weight: 600;
-  margin-right: 16px;
   cursor: pointer;
 }
 

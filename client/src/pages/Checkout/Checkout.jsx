@@ -127,8 +127,10 @@ const toggleOverlay = (overlayType) => {
         <Overlay closeOverlay={() => setShowLogout(false)}>
         <div className="delete-container">
           <h3 className="delete-heading">Are you sure you want to logout? </h3>
-          <button className="delete" onClick={handleLogout}>Yes</button>
-          <button className="cancel" onClick={() => {setShowLogout(false)}}>Cancel</button>
+          <div>
+            <button className="delete" onClick={handleLogout}>Yes</button>
+            <button className="cancel" onClick={() => {setShowLogout(false)}}>Cancel</button>
+          </div>
           <button className="close-button" onClick={() => {setShowLogout(false)}}>
             <span className="material-symbols-outlined" style={{margin: '0'}}>close</span>
           </button>
