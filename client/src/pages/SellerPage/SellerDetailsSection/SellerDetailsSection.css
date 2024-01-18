@@ -1,0 +1,273 @@
+.seller-container {
+  background-color: #222222;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  margin: 0;
+
+  @media (width > 768px) {
+    margin-bottom: 36px;
+  }
+}
+
+.seller-div-pc {
+  display: flex;
+  width: 1232px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-items: center;
+}
+
+.seller-div-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  background-color: #f2f2f2;
+}
+
+.backFavBtn-wrapper {
+  background-image: url("https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/Group+164.avif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  min-height: 178px;
+  display: flex;
+  flex-direction: column;
+}
+
+.backFavBtn-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  padding: 3.6%;
+  z-index: 1000;
+
+  >div {
+    display: none;
+  }
+}
+
+.backFavBtn-sticky {
+  background: #f2f2f2;
+  position: fixed;
+  width: 100%;
+  border: 1px solid rgba(40,44,63,.1);
+  z-index: 1000;
+
+  >span {
+    color: #222222;
+  }
+
+  >div {
+    display: block;
+    position: absolute;
+    left: 38px;
+
+    :first-child {
+      font-size: 0.8rem;
+      font-weight: 600;
+      line-height: 1.1rem;
+    }
+
+    :last-child {
+      font-size: 0.7rem;
+      white-space: nowrap;
+    }
+  }
+}
+
+.backFavBtn-icon {
+  margin: 0;
+  font-size: 20px;
+  color: #fff;
+}
+
+.seller-details-wrapper {
+  position: relative;
+  background: #f2f2f2;
+  top: -24px;
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0,
+    rgba(27, 31, 35, 0.15) 0 0 0 1px;
+
+  >img {
+    width: 72%;
+    margin: 0 auto -36%;
+    transform: translateY(-50%);
+  }
+
+  >div>h1 {
+    font-size: 24px;
+    color: #222222;
+    margin-bottom: 8px;
+  }
+
+  >div>p {
+    font-size: 14px;
+    color: #666666;
+  }
+}
+
+.subscribe {
+  margin: 12px 0 0;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 16px;
+  color: #fff;
+  background-color: #222222;
+}
+
+.rating-svg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span {
+    color: #349E46;
+  }
+
+  @media (width > 768px) {
+    gap: 16px;
+  }
+}
+
+.sub-info-mobile {
+  width: 100%;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 100;
+  color: #222222;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  >p {
+    color: #222222 !important;
+    font-size: 16px !important;
+  }
+
+  >span {
+    font-size: 24px;
+  }
+}
+
+.seller-details-div {
+  padding: 24px 16px;
+  max-width: 100%;
+
+  @media (width > 900px) {
+    padding: unset;
+    max-width: 64%;
+  }
+}
+
+.top-bar, .bottom-bar {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  top: 0;
+  background: linear-gradient(270deg, #222 18.14%, #E49B2A 57.29%, #222 100%);
+}
+
+.bottom-bar {
+  top: unset;
+  bottom: 0;
+}
+
+.seller-food-img {
+  display: none;
+  max-height: 316px;
+
+  @media (width > 900px) {
+    display: block;
+  }
+}
+
+.sellerName-div {
+  background-color: rgba(217, 217, 217, 0.16);
+  border-radius: 50px;
+  display: flex;
+  margin: 0 8px 16px;
+  padding-right: 4px;
+  width: max-content;
+  align-items: center;
+}
+
+.avatar-img {
+  height: 56px;
+  width: 56px;
+  object-fit: cover;
+  margin: 4px 8px;
+  border-radius: 50%;
+  border: 2px solid #349E46;
+}
+
+.sellerName {
+  font-size: 36px;
+  padding-right: 8px;
+  color: #f2f2f2;
+}
+
+.quote-div {
+  height: 24px;
+  width: 24px;
+  margin-left: 8px;
+  border-radius: 50%;
+  color: #fff;
+  font-family: "PT Sans", sans-serif;
+  font-size: 36px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.tag-line {
+  display: block;
+  height: 1px;
+  position: relative;
+  bottom: 12px;
+  left: 32px;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.tag-line:last-child {
+  top: 16px;
+  left: 16px;
+}
+
+.tag {
+  color: #f2f2f2;
+  font-size: 28px;
+  opacity: 64%;
+  margin-left: 16px;
+}
+
+.seller-sub-info {
+  margin: 16px 0 0 16px;
+  font-size: 24px;
+  line-height: 3.2rem;
+
+  .* {
+    font-size: inherit;
+  }
+
+  >span {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.blurred-img {
+  display: block;
+  opacity: 0.36;
+  filter: blur(0.36px);
+  transform: rotate(-180deg);
+  position: absolute;
+  right: -148px;
+}

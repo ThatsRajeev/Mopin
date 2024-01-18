@@ -1,0 +1,102 @@
+.dish-wrapper {
+  max-width: 1200px;
+  display: flex;
+  margin: 0 16px 48px;
+
+  @media (width > 768px) {
+    margin: 0 14px 64px;
+  }
+
+  @media (width > 1240px) {
+    margin: 0 auto 64px;
+  }
+}
+
+.spy-container {
+  height: max-content;
+  width: 24%;
+  margin-right: 24px;
+
+  >ul {
+    display: flex;
+    flex-direction: column;
+
+    >li {
+      list-style: none;
+
+      >h2 {
+        display: inline-block;
+        position: relative;
+        font-size: 16px;
+        opacity: 64%;
+        padding: 24px 0;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.active-spy {
+  opacity: 100% !important;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    width: 50%;
+    height: 3.2px;
+    background-color: #349E46;
+  }
+}
+
+.vegNonVegFilter {
+  display: flex;
+  padding: 8px 0;
+  background-color: #f2f2f2;
+  justify-content: flex-end;
+
+  @media (width > 768px) {
+    padding: 24px 0 16px;
+  }
+}
+
+.vegNonVegFilter.sticky, .spy-container.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.vegNonVegFilter-title {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  margin-right: 16px;
+}
+
+.switch {
+  background: rgb(230, 230, 230);
+  padding: 3.2px;
+  border-radius: 8px;
+}
+
+.switch-btn {
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: inherit;
+  border: none;
+  opacity: 0.88;
+  cursor: pointer;
+
+  @media (width > 768px) {
+    font-size: 14px;
+    padding: 6px 16px;
+  }
+}
+
+.active-switch-btn {
+  opacity: 1;
+  background-color: #349E46;
+  color: #fff;
+  transition: background-color 0.8s ease 0s;
+}

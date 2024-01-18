@@ -536,7 +536,7 @@ const toggleOverlay = (overlayType) => {
       )}
 
       {dishInfo.length>0 && (
-        <div className="bottom-container mob-view" style={{display: 'block'}}>
+        <div className="cart-container mob-view" style={{display: 'block'}}>
           {!user || !addressChoosen ? (
             <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
               {showLoginOverlay && (

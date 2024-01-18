@@ -246,6 +246,14 @@ function Navbar({showNavbar, showAddress, header}) {
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    window.addEventListener('popstate', handleBackButton);
+
+    return () => {
+      window.removeEventListener('popstate', handleBackButton);
+    };
+  }, [isAddressActive, isLoginActive, isHelpActive, isSearchActive]);
+
   const toggleOverlay = (overlayType) => {
     switch(overlayType) {
       case 'address':
@@ -265,6 +273,17 @@ function Navbar({showNavbar, showAddress, header}) {
     }
     setIsOverlayActive(!isOverlayActive);
   }
+
+  const handleBackButton = () => {
+    if (isAddressActive || isLoginActive || isHelpActive || isSearchActive) {
+      toggleOverlay('address');
+      toggleOverlay('login');
+      toggleOverlay('help');
+      toggleOverlay('search');
+    } else {
+      window.history.back();
+    }
+  };
 
   const renderOverlay = (overlayType, contentComponent) => {
     const isActive =
@@ -320,7 +339,7 @@ function Navbar({showNavbar, showAddress, header}) {
             </NavLink>
           </Item>
           <Item>
-            <NavLink to={name ? "/profile" : ""} onClick={() => {if(!name) {toggleOverlay('login')}}}>
+            <NavLink to={user ? "/profile" : ""} onClick={() => {if(!user) {toggleOverlay('login')}}}>
               <span className="material-symbols-outlined">person</span>
               {name ? name : "Sign in"}
             </NavLink>
@@ -332,7 +351,7 @@ function Navbar({showNavbar, showAddress, header}) {
             </NavLink>
           </Item>
         </Menu>
-        <NavLink className="mob-view" onClick={() => {if(!name) {toggleOverlay('login')}}} to={name ? "/profile" : ""}>
+        <NavLink className="mob-view" onClick={() => {if(!user) {toggleOverlay('login')}}} to={user ? "/profile" : ""}>
           <span className="material-symbols-outlined person-icon">person</span>
         </NavLink>
 
@@ -360,7 +379,7 @@ function Navbar({showNavbar, showAddress, header}) {
             Home
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Profile' ? "true" : "false"} to={name ? "/profile" : ""} onClick={() => {if(!name) {toggleOverlay('login')}}}>
+        <NavLink sc={navItem!=='Profile' ? "true" : "false"} to={user ? "/profile" : ""} onClick={() => {if(!user) {toggleOverlay('login')}}}>
           <NavItem>
             <span className="material-symbols-outlined">person</span>
             Profile
