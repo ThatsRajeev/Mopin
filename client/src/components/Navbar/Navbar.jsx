@@ -6,6 +6,7 @@ import Login from "../Login/Login";
 import Help from "../Help/Help";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
+import fetchAndStore from "../../utils/fetchAndStore";
 import "./Navbar.css";
 
 const NavCase = styled.header`
@@ -223,16 +224,9 @@ function Navbar({showNavbar, showAddress, header}) {
   const location = useLocation();
 
   useEffect(() => {
-    (async function() {
-      try {
-        if (user && Object.keys(user).length !== 0) {
-          const res = await fetchData(user);
-          setName(res.name);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    })();
+    if (user && Object.keys(user).length !== 0) {
+      fetchAndStore(user, "userName", fetchData, setName);
+    }
   }, [user]);
 
   useEffect(() => {
@@ -341,7 +335,7 @@ function Navbar({showNavbar, showAddress, header}) {
           <Item>
             <NavLink to={user ? "/profile" : ""} onClick={() => {if(!user) {toggleOverlay('login')}}}>
               <span className="material-symbols-outlined">person</span>
-              {name ? name : "Sign in"}
+              {name ? name.name : "Sign in"}
             </NavLink>
           </Item>
           <Item open={header === "Secure Checkout"}>

@@ -263,11 +263,11 @@ hr {
 
 .profile-subdiv {
   width: 100%;
-  margin-right: 16px;
+  height: 100vh;
 
   @media (width > 768px) {
     width: unset;
-    margin: unset;
+    height: unset;
   }
 }
 
