@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(cors({
-  origin: "https://mopin-frontend.vercel.app",
+  origin: ["https://mopin-frontend.vercel.app", "http://localhost:3000"],
   methods: ["POST", "GET"],
   credentials: true,
 }));
