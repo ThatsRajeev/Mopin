@@ -1,23 +1,24 @@
 import React, {useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
 import useWindowResize from "../../hooks/useWindowResize";
 import Navbar from "../../components/Navbar/Navbar";
-import axios from "axios";
-import MapComponent from "../Checkout/MapComponent";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
-import fetchAddress from "../../utils/fetchAddress";
 import fetchAndStore from "../../utils/fetchAndStore";
+import MyOrdersContent from "./MyOrdersContent/MyOrdersContent";
+import ManageAddressContent from "./ManageAddressContent/ManageAddressContent";
+import PaymentMethodsContent from "./PaymentMethodsContent/PaymentMethodsContent";
+import SubscriptionsContent from "./SubscriptionsContent/SubscriptionsContent";
+import LogoutContent from "./LogoutContent/LogoutContent";
+import Overlay from "../../components/Overlay/Overlay";
 
 const Profile = () => {
   const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [addressType, setAddressType] = useState("");
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [active, setActive] = useState("My Orders");
+  const [showLogout, setShowLogout] = useState(false);
 
   const { user, logOut } = useUserAuth();
   const windowWidth = useWindowResize();
-  const navigate = useNavigate();
 
   const toggleOverlay = () => {
     setOverlayVisible(!overlayVisible);
@@ -26,76 +27,8 @@ const Profile = () => {
   useEffect(() => {
     if (user && Object.keys(user).length !== 0) {
       fetchAndStore(user, "userName", fetchData, setName);
-      fetchAndStore(user, "address", fetchAddress, setAddress);
     }
   }, [user]);
-
-   const deleteAddress = async () => {
-     try {
-       const response = await axios.get('https://mopin-server.vercel.app/api/deletedata', {
-         withCredentials: true
-       });
-       setShowDelete(false);
-
-     } catch (error) {
-       console.error(error);
-     }
-   };
-
-   const handleLogout = async () => {
-     try {
-       logOut();
-       navigate('/');
-
-     } catch (error) {
-       console.error(error);
-     }
-   };
-
-    const lineStyle = {
-    content: '""',
-    height: '100%',
-    width: '5px',
-    background: '#fff',
-  };
-
-  const Overlay = ({ children, closeOverlay }) => {
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1000
-      }}
-      onClick={closeOverlay}
-    >
-      <div onClick={e => e.stopPropagation()}>
-        {children}
-      </div>
-    </div>
-  );
-};
-
-  const [active, setActive] = useState("My Orders");
-  const [showMap, setShowMap] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
-  const [showLogout, setShowLogout] = useState(false);
-
-
-  useEffect(() => {
-    if (showMap || showDelete) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [showMap, showDelete])
 
 const renderContent = () => {
   switch (active) {
@@ -108,116 +41,15 @@ const renderContent = () => {
     case "Subscriptions":
       return <SubscriptionsContent />;
     case "logout":
-      return <LogoutContent />;
+      return <LogoutContent
+                showLogout={showLogout}
+                setShowLogout={setShowLogout}
+                setActive={setActive}
+                setOverlayVisible={setOverlayVisible}
+              />;
     default:
       return null;
   }
-};
-
-const MyOrdersContent = () => {
-  return (
-    <div className="component">
-      <img className="default-img" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/_0d3b19ad-bc5d-40ed-923a-ce2caabe524e+(1).avif" />
-      <h2 style={{fontWeight: "500"}}>You don't have any orders!</h2>
-      <button className="explore-btn">Explore Dishes</button>
-    </div>
-  )
-};
-
-const ManageAddressContent = () => {
-  return (
-    <div className="component address-comp">
-        <div className="new-address-div addresses" onClick={() => {setShowMap(true)}}>
-          <span className="material-symbols-outlined address-icon ">add_circle</span>
-          <h3 style={{fontWeight: "100"}}> Add New Address </h3>
-        </div>
-      {showMap &&
-        <Overlay closeOverlay={() => setShowMap(false)}>
-          <div className="map-container">
-            <button className="close-button" onClick={() => setShowMap(false)} style={{right: '-28px'}}>
-              <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
-            </button>
-            <div className="mob-view">
-              <div className="profile-head" onClick={() => setShowMap(false)}>
-                <span className="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
-                <p> Edit Address </p>
-              </div>
-            </div>
-            <MapComponent setShowMap={setShowMap} />
-          </div>
-        </Overlay>
-      }
-      {address !== "" &&
-    <div className="saved-address addresses">
-      <div className="address-type-div">
-        {addressType === "Home" &&<span className="material-symbols-outlined address-icon">home</span>}
-        {addressType === "Office" &&<span className="material-symbols-outlined address-icon">apartment</span>}
-        {(addressType !== "Home") && (addressType !== "Office")  &&<span className="material-symbols-outlined address-icon">person_pin_circle</span>}
-        <p style={{fontWeight: '600'}}>{addressType}</p>
-      </div>
-      <p className="addressed">{address}</p>
-      <div className="modify-div">
-        <button className="modify" onClick={() => {setShowMap(true)}}><span className="material-symbols-outlined type-icon">edit</span></button>
-        <button className="modify" onClick={() => {setShowDelete(true)}}><span className="material-symbols-outlined type-icon">delete</span></button>
-        {showDelete &&
-          <Overlay closeOverlay={() => setShowDelete(false)}>
-            <div className="delete-container">
-              <h3 className="delete-heading">Are you sure you want to delete the saved Address? </h3>
-              <div style={{display: 'flex'}}>
-                <button className="delete" onClick={deleteAddress}>Delete</button>
-                <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
-              </div>
-              <button className="close-button" onClick={() => setShowDelete(false)}>
-                <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
-              </button>
-            </div>
-          </Overlay>
-        }
-      </div>
-      </div>}
-    </div>
-  )
-};
-
-
-const PaymentMethodsContent = () => {
-  return (
-    <div className="component">
-      <img className="default-img" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/_0d3b19ad-bc5d-40ed-923a-ce2caabe524e+(1).avif" />
-      <h2 style={{fontWeight: "500"}}>We will add Payment methods soon!</h2>
-      <button className="explore-btn">Explore Dishes</button>
-    </div>
-  )
-};
-
-const SubscriptionsContent = () => {
-  return (
-    <div className="component">
-      <img className="default-img" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/_0d3b19ad-bc5d-40ed-923a-ce2caabe524e+(1).avif" />
-      <h2 style={{fontWeight: "500"}}>We will add Subscriptions soon!</h2>
-      <button className="explore-btn">Explore Dishes</button>
-    </div>
-  );
-};
-
-const LogoutContent = () => {
-  return(
-    <div className="component">
-    {showLogout &&
-      <Overlay closeOverlay={() => setShowLogout(false)}>
-      <div className="delete-container">
-        <h3 className="delete-heading">Are you sure you want to logout? </h3>
-        <div>
-          <button className="delete" onClick={handleLogout}>Yes</button>
-          <button className="cancel" onClick={() => {setShowLogout(false); setActive("My Orders"); setOverlayVisible(false);}}>Cancel</button>
-        </div>
-        <button className="close-button" onClick={() => {setShowLogout(false);  setActive("My Orders")}}>
-          <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
-        </button>
-      </div>
-    </Overlay>}
-    </div>
-  )
 };
 
   return (
@@ -233,7 +65,7 @@ const LogoutContent = () => {
             </div>
             <div style={{margin: "8px 12px"}}>
               <h4 style={{lineHeight: "1.5"}}>{name.name}</h4>
-              <h4 style={{fontWeight: "500"}}>{user ? "+" + user.phoneNumber : ""}</h4>
+              <h4 style={{fontWeight: "500"}}>{user.phoneNumber}</h4>
             </div>
           </div>
 
@@ -241,7 +73,7 @@ const LogoutContent = () => {
             <div className="li-div">
             <div className={`li-subdiv ${active === "My Orders" ? "active-nav" : ""}`}
               onClick={() => {setActive("My Orders"); toggleOverlay()}}>
-              <div className={`${active === "My Orders" ? "active-div" : ""}`} style={lineStyle}></div>
+              <div className={`line-style ${active === "My Orders" ? "active-div" : ""}`}></div>
               <div className={`userInfo-icon ${active === "My Orders" ? "active-icon-div" : ""}`}>
                 <span className={`material-symbols-outlined profile-icon ${active === "My Orders" ? "active-icon" : ""}`}>local_dining</span>
               </div>
@@ -253,7 +85,7 @@ const LogoutContent = () => {
             <div className="li-div">
               <div className={`li-subdiv ${active === "Manage Address" ? "active-nav" : ""}`}
                 onClick={() => {setActive("Manage Address"); toggleOverlay()}}>
-                <div className={`${active === "Manage Address" ? "active-div" : ""}`} style={lineStyle}></div>
+                <div className={`line-style ${active === "Manage Address" ? "active-div" : ""}`}></div>
                 <div className={`userInfo-icon ${active === "Manage Address" ? "active-icon-div" : ""}`}>
                   <span className={`material-symbols-outlined profile-icon ${active === "Manage Address" ? "active-icon" : ""}`}>edit_location</span>
                 </div>
@@ -265,7 +97,7 @@ const LogoutContent = () => {
             <div className="li-div">
               <div className={`li-subdiv ${active === "Payment Methods" ? "active-nav" : ""}`}
                 onClick={() => {setActive("Payment Methods"); toggleOverlay()}}>
-                <div className={`${active === "Payment Methods" ? "active-div" : ""}`} style={lineStyle}></div>
+                <div className={`line-style ${active === "Payment Methods" ? "active-div" : ""}`}></div>
                 <div className={`userInfo-icon ${active === "Payment Methods" ? "active-icon-div" : ""}`}>
                   <span className={`material-symbols-outlined profile-icon ${active === "Payment Methods" ? "active-icon" : ""}`}>wallet</span>
                 </div>
@@ -277,7 +109,7 @@ const LogoutContent = () => {
             <div className="li-div">
               <div className={`li-subdiv ${active === "Subscriptions" ? "active-nav" : ""}`}
                 onClick={() => {setActive("Subscriptions"); toggleOverlay()}}>
-                <div className={`${active === "Subscriptions" ? "active-div" : ""}`} style={lineStyle}></div>
+                <div className={`line-style ${active === "Subscriptions" ? "active-div" : ""}`}></div>
                 <div className={`userInfo-icon ${active === "Subscriptions" ? "active-icon-div" : ""}`}>
                   <span className={`material-symbols-outlined profile-icon ${active === "Subscriptions" ? "active-icon" : ""}`}>card_membership</span>
                 </div>
@@ -289,7 +121,7 @@ const LogoutContent = () => {
             <div className="li-div">
               <div className={`li-subdiv last-nav ${active === "logout" ? "active-nav" : ""}`}
                 onClick={() => {setActive("logout"); setShowLogout(true); toggleOverlay()}} >
-                <div className={`${active === "logout" ? "active-div" : ""}`} style={lineStyle}></div>
+                <div className={`line-style ${active === "logout" ? "active-div" : ""}`}></div>
                 <div className={`userInfo-icon ${active === "logout" ? "active-icon-div" : ""}`}>
                   <span className={`material-symbols-outlined profile-icon ${active === "logout" ? "active-icon" : ""}`}>logout</span>
                 </div>
@@ -303,16 +135,14 @@ const LogoutContent = () => {
       </div>
     </div>
     {windowWidth <= 768 && overlayVisible && (
-      <div className="overlay mob-view">
-        <div className="overlay-content">
-          <div className="profile-head" onClick={toggleOverlay}>
-            <span className="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
-            <p> {active}</p>
-          </div>
-          <div className="border-separator"></div>
-          {renderContent()}
+      <Overlay>
+        <div className="profile-head" onClick={toggleOverlay}>
+          <span className="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
+          <p> {active}</p>
         </div>
-      </div>
+        <div className="border-separator"></div>
+        {renderContent()}
+      </Overlay>
     )}
     </>
   )

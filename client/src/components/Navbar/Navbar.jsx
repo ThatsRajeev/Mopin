@@ -186,7 +186,7 @@ const MobNav = styled.nav`
   bottom: 0;
   width: 100%;
   margin-left: -16px;
-  z-index: 200;
+  z-index: 100;
   background: #f2f2f2;
   box-shadow: 0px -2px 14px 0px rgba(0, 0, 0, 0.12);
   transition: transform .3s ease-in;
