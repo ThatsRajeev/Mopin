@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../../context/AuthContext";
 import Overlay from "../../../components/Overlay/Overlay";
+import "./LogoutContent.css";
 
 const LogoutContent = ({ setActive, setOverlayVisible }) => {
   const navigate = useNavigate();

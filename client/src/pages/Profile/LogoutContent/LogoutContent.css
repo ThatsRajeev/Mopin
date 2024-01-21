@@ -1,0 +1,35 @@
+.delete-container {
+  position: relative;
+  width: -webkit-fill-available;
+  background-color: #fff;
+
+  div {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.delete-heading {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.delete, .cancel {
+  font-size: 16px;
+  border: 1px solid;
+  background-color: #fff;
+  padding: 12px 36px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel {
+  background-color: #000;
+  color: #fff
+}
+
+.logout > .overlay-container > .overlay-content {
+  height: unset;
+  width: unset;
+}

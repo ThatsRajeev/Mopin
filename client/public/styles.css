@@ -404,20 +404,6 @@ hr {
   font-weight: 600;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000;
-}
-
-.logout > .overlay-container > .overlay-content {
-  height: unset;
-  width: unset;
-}
-
 .default-img {
   height: 216px;
 }
@@ -521,37 +507,6 @@ hr {
 .type-icon {
   font-size: 24px;
   color: #f16122;
-}
-
-.delete-container {
-  position: relative;
-  width: -webkit-fill-available;
-  background-color: #fff;
-
-  div {
-    display: flex;
-    justify-content: space-around;
-  }
-}
-
-.delete-heading {
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-.delete, .cancel {
-  font-size: 16px;
-  border: 1px solid;
-  background-color: #fff;
-  padding: 12px 36px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.cancel {
-  background-color: #000;
-  color: #fff
 }
 
 /***************** MapComponet component *****************/
