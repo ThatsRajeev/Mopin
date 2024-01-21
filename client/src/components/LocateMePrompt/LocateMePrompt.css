@@ -78,18 +78,6 @@
   cursor: pointer;
 }
 
-.addressOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000;
-  background: #f2f2f2;
-  padding: 0 16px;
-  overflow: auto;
-}
-
 .locateMe-img {
   display: flex;
   flex-direction: column;

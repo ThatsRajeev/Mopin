@@ -94,7 +94,7 @@ const AddressOverlay = styled.div`
   background: #fff;
   display: flex;
   flex-direction: column;
-  padding: 0 16px;
+  padding: 16px;
   z-index: 10;
 
   @media (width > 768px){

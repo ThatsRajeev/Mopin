@@ -14,7 +14,6 @@ const Profile = () => {
   const [name, setName] = useState("");
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [active, setActive] = useState("My Orders");
-  const [showLogout, setShowLogout] = useState(false);
 
   const { user, logOut } = useUserAuth();
   const windowWidth = useWindowResize();
@@ -48,8 +47,6 @@ const renderContent = () => {
       return <SubscriptionsContent />;
     case "logout":
       return <LogoutContent
-                showLogout={showLogout}
-                setShowLogout={setShowLogout}
                 setActive={setActive}
                 setOverlayVisible={setOverlayVisible}
               />;
@@ -126,7 +123,7 @@ const renderContent = () => {
 
             <div className="li-div">
               <div className={`li-subdiv last-nav ${active === "logout" ? "active-nav" : ""}`}
-                onClick={() => {setActive("logout"); setShowLogout(true); toggleOverlay()}} >
+                onClick={() => {setActive("logout"); toggleOverlay()}} >
                 <div className={`line-style ${active === "logout" ? "active-div" : ""}`}></div>
                 <div className={`userInfo-icon ${active === "logout" ? "active-icon-div" : ""}`}>
                   <span className={`material-symbols-outlined profile-icon ${active === "logout" ? "active-icon" : ""}`}>logout</span>

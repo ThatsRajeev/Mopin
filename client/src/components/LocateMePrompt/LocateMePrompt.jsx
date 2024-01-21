@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import handleGPS from "../../utils/handleGPS";
+import Overlay from "../Overlay/Overlay"
 import Location from "../Location/Location";
 import Check from "../../assets/check.svg";
 import "./LocateMePrompt.css";
@@ -119,9 +120,9 @@ function LocateMePrompt() {
       </div>
 
       {addressOverlay &&
-        <div className="addressOverlay">
+        <Overlay closeOverlay={toggleOverlay}>
           <Location setShowProp={toggleOverlay}/>
-        </div>
+        </Overlay>
       }
 
       <div className="locateMe-img">

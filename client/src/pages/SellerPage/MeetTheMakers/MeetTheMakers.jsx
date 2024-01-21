@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import makers from "../../../data/makers";
+import Overlay from "../../../components/Overlay/Overlay";
 import "./MeetTheMakers.css";
 
 const MeetTheMakers = ({ sellerDetails }) => {
@@ -41,7 +42,7 @@ const MeetTheMakers = ({ sellerDetails }) => {
         </div>
       </div>
       {makerOverlay &&
-        <div className="addressOverlay">
+        <Overlay closeOverlay={() => setMakerOverlay(!makerOverlay)}>
           <div className="search-heading mob-view">
             <span className="material-symbols-outlined" onClick={() => setMakerOverlay(!makerOverlay)}>arrow_back</span>
             <p>Meet the Maker</p>
@@ -51,7 +52,7 @@ const MeetTheMakers = ({ sellerDetails }) => {
             <h3>{sellerDetails.name}</h3>
             <p>{makers[randomIndex].story}</p>
           </div>
-        </div>
+      </Overlay>
       }
     </>
   )
