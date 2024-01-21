@@ -3,7 +3,6 @@ import useWindowResize from "../../hooks/useWindowResize";
 import Navbar from "../../components/Navbar/Navbar";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
-import fetchAndStore from "../../utils/fetchAndStore";
 import MyOrdersContent from "./MyOrdersContent/MyOrdersContent";
 import ManageAddressContent from "./ManageAddressContent/ManageAddressContent";
 import PaymentMethodsContent from "./PaymentMethodsContent/PaymentMethodsContent";
@@ -25,9 +24,16 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (user && Object.keys(user).length !== 0) {
-      fetchAndStore(user, "userName", fetchData, setName);
-    }
+    (async function() {
+      try {
+        if (user && Object.keys(user).length !== 0) {
+          const res = await fetchData(user);
+          setName(res.name);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   }, [user]);
 
 const renderContent = () => {
@@ -64,7 +70,7 @@ const renderContent = () => {
             <span className="material-symbols-outlined" style={{fontSize: '36px', display: 'flex', justifyContent: 'center'}}>person</span>
             </div>
             <div style={{margin: "8px 12px"}}>
-              <h4 style={{lineHeight: "1.5"}}>{name.name}</h4>
+              <h4 style={{lineHeight: "1.5"}}>{name}</h4>
               <h4 style={{fontWeight: "500"}}>{user.phoneNumber}</h4>
             </div>
           </div>

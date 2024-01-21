@@ -4,7 +4,6 @@ import { useUserAuth } from "../../../context/AuthContext";
 import Overlay from "../../../components/Overlay/Overlay";
 import MapComponent from "../../Checkout/MapComponent";
 import fetchAddress from "../../../utils/fetchAddress";
-import fetchAndStore from "../../../utils/fetchAndStore";
 
 const ManageAddressContent = () => {
   const [address, setAddress] = useState("");
@@ -26,11 +25,17 @@ const ManageAddressContent = () => {
   };
 
   useEffect(() => {
-    if (user && Object.keys(user).length !== 0) {
-      fetchAndStore(user, "address", fetchAddress, setAddress);
-      setAddress(a => a.apartmentNumber + ", " + a.apartmentName + ", " +
-                       a.streetDetails + ", " + a.address);
-    }
+    (async function() {
+      try {
+        if (user) {
+          const res = await fetchAddress(user);
+          setAddress(res.apartmentNumber + ", " + res.apartmentName + ", " +
+                  res.streetDetails + ", " + res.address);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   }, [user]);
 
   useEffect(() => {

@@ -6,7 +6,6 @@ import Login from "../Login/Login";
 import Help from "../Help/Help";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
-import fetchAndStore from "../../utils/fetchAndStore";
 import "./Navbar.css";
 
 const NavCase = styled.header`
@@ -224,9 +223,16 @@ function Navbar({showNavbar, showAddress, header}) {
   const location = useLocation();
 
   useEffect(() => {
-    if (user && Object.keys(user).length !== 0) {
-      fetchAndStore(user, "userName", fetchData, setName);
-    }
+    (async function() {
+      try {
+        if (user && Object.keys(user).length !== 0) {
+          const res = await fetchData(user);
+          setName(res.name);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   }, [user]);
 
   useEffect(() => {
@@ -333,9 +339,9 @@ function Navbar({showNavbar, showAddress, header}) {
             </NavLink>
           </Item>
           <Item>
-            <NavLink to={user ? "/profile" : ""} onClick={() => {if(!user) {toggleOverlay('login')}}}>
+            <NavLink to={name ? "/profile" : ""} onClick={() => {if(!user) {toggleOverlay('login')}}}>
               <span className="material-symbols-outlined">person</span>
-              {name ? name.name : "Sign in"}
+              {name ? name : "Sign in"}
             </NavLink>
           </Item>
           <Item open={header === "Secure Checkout"}>
@@ -345,7 +351,7 @@ function Navbar({showNavbar, showAddress, header}) {
             </NavLink>
           </Item>
         </Menu>
-        <NavLink className="mob-view" onClick={() => {if(!user) {toggleOverlay('login')}}} to={user ? "/profile" : ""}>
+        <NavLink className="mob-view" onClick={() => {if(!name) {toggleOverlay('login')}}} to={user ? "/profile" : ""}>
           <span className="material-symbols-outlined person-icon">person</span>
         </NavLink>
 
@@ -373,7 +379,7 @@ function Navbar({showNavbar, showAddress, header}) {
             Home
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Profile' ? "true" : "false"} to={user ? "/profile" : ""} onClick={() => {if(!user) {toggleOverlay('login')}}}>
+        <NavLink sc={navItem!=='Profile' ? "true" : "false"} to={name ? "/profile" : ""} onClick={() => {if(!user) {toggleOverlay('login')}}}>
           <NavItem>
             <span className="material-symbols-outlined">person</span>
             Profile
