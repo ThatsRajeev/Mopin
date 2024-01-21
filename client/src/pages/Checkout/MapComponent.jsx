@@ -93,6 +93,10 @@ function MapComponent({ setShowMap }) {
   const smallScreenStyle = {
     height: '100vh',
     width: '100vw',
+    position: 'absolute',
+    left: '50%',
+    marginTop: '16px',
+    transform: 'translateX(-50%)',
   }
   const mapStyle = {
     position: 'relative',
@@ -128,11 +132,11 @@ function MapComponent({ setShowMap }) {
           apartmentNumber: no,
           apartmentName: name,
           streetDetails: details,
-          addressType: type === "Others" ? others : type
+          addressType: type
         };
         const response = await axios.post("https://mopin-server.vercel.app/api/savepoint", data);
         setShowMap(false);
-        window.location.reload();
+        localStorage.removeItem("savedAddress");
         resolve(response.data);
       } catch (error) {
         console.error(error);
@@ -149,7 +153,6 @@ function MapComponent({ setShowMap }) {
     const [name, setName] = useState("");
     const [details, setDetails] = useState("");
     const [type, setType] = useState("");
-    const [others, setOthers] = useState("");
     const [disable, setDisable] = useState(false);
 
     useEffect(() => {

@@ -1,0 +1,70 @@
+.address-comp {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: initial;
+  gap: 24px;
+  margin: 0;
+
+  @media (width > 768px) {
+    margin-top: 114px;
+    max-width: 74%;
+  }
+}
+
+.new-address-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dotted rgb(0, 0, 0, 0.5);
+  cursor: pointer;
+
+  h3 {
+    font-weight: 100;
+  }
+}
+
+.addresses {
+  flex: 1;
+  min-width: 44%;
+  max-height: 48%;
+  margin: 0 16px;
+  padding: 20px 20px 20px 44px;
+}
+
+.address-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.saved-address {
+  position: relative;
+  text-align: left;
+  border: 1px solid rgb(0, 0, 0, 0.3);
+}
+
+.address-type-div {
+  display: flex;
+  margin-left: -32px;
+
+  p {
+    font-weight: 600;
+  }
+}
+
+.type-icon {
+  font-size: 24px;
+  color: #f16122;
+}
+
+.modify-div >button {
+  border: none;
+  background-color: inherit;
+  margin: 12px 12px 0 0;
+  cursor: pointer;
+}
+
+.modify-div > .overlay-container > .overlay-content {
+  height: unset;
+  width: unset;
+}

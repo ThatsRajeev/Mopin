@@ -140,7 +140,7 @@ const renderContent = () => {
     {windowWidth <= 768 && overlayVisible && (
       <Overlay>
         <div className="profile-head" onClick={toggleOverlay}>
-          <span className="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
+          <span className="material-symbols-outlined">arrow_back</span>
           <p> {active}</p>
         </div>
         <div className="border-separator"></div>

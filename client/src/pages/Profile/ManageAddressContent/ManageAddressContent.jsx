@@ -4,6 +4,7 @@ import { useUserAuth } from "../../../context/AuthContext";
 import Overlay from "../../../components/Overlay/Overlay";
 import MapComponent from "../../Checkout/MapComponent";
 import fetchAddress from "../../../utils/fetchAddress";
+import "./ManageAddressContent.css"
 
 const ManageAddressContent = () => {
   const [address, setAddress] = useState("");
@@ -29,8 +30,10 @@ const ManageAddressContent = () => {
       try {
         if (user) {
           const res = await fetchAddress(user);
-          setAddress(res.apartmentNumber + ", " + res.apartmentName + ", " +
-                  res.streetDetails + ", " + res.address);
+          setAddress(
+            `${res.apartmentNumber}, ${res.apartmentName}, ${res.streetDetails}, ${res.address}`
+          );
+          setAddressType(res.addressType);
         }
       } catch (e) {
         console.error(e);
@@ -39,65 +42,56 @@ const ManageAddressContent = () => {
   }, [user]);
 
   useEffect(() => {
-    if (showMap || showDelete) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [showMap, showDelete])
+    document.body.style.overflow = showMap || showDelete ? "hidden" : "auto";
+  }, [showMap, showDelete]);
 
   return (
     <div className="component address-comp">
-        <div className="new-address-div addresses" onClick={() => {setShowMap(true)}}>
-          <span className="material-symbols-outlined address-icon ">add_circle</span>
-          <h3 style={{fontWeight: "100"}}> Add New Address </h3>
-        </div>
-      {showMap &&
+      <div className="new-address-div addresses" onClick={() => {setShowMap(true)}}>
+        <span className="material-symbols-outlined address-icon ">add_circle</span>
+        <h3> Add New Address </h3>
+      </div>
+
+      {showMap && (
         <Overlay closeOverlay={() => setShowMap(false)}>
-          <div className="map-container">
-            <button className="close-button" onClick={() => setShowMap(false)} style={{right: '-28px'}}>
-              <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
-            </button>
-            <div className="mob-view">
-              <div className="profile-head" onClick={() => setShowMap(false)}>
-                <span className="material-symbols-outlined" style={{marginRight: '16px'}}>arrow_back</span>
-                <p> Edit Address </p>
-              </div>
-            </div>
-            <MapComponent setShowMap={setShowMap} />
+          <div className="profile-head mob-view" onClick={() => setShowMap(false)}>
+            <span className="material-symbols-outlined">arrow_back</span>
+            <p> Edit Address </p>
           </div>
+          <MapComponent setShowMap={setShowMap} />
         </Overlay>
-      }
-      {address !== "" &&
-    <div className="saved-address addresses">
-      <div className="address-type-div">
-        {addressType === "Home" &&<span className="material-symbols-outlined address-icon">home</span>}
-        {addressType === "Office" &&<span className="material-symbols-outlined address-icon">apartment</span>}
-        {(addressType !== "Home") && (addressType !== "Office")  &&<span className="material-symbols-outlined address-icon">person_pin_circle</span>}
-        <p style={{fontWeight: '600'}}>{addressType}</p>
-      </div>
-      <p className="addressed">{address}</p>
-      <div className="modify-div">
-        <button className="modify" onClick={() => {setShowMap(true)}}><span className="material-symbols-outlined type-icon">edit</span></button>
-        <button className="modify" onClick={() => {setShowDelete(true)}}><span className="material-symbols-outlined type-icon">delete</span></button>
-        {showDelete &&
-          <Overlay closeOverlay={() => setShowDelete(false)}>
-            <div className="delete-container">
-              <h3 className="delete-heading">Are you sure you want to delete the saved Address? </h3>
-              <div style={{display: 'flex'}}>
-                <button className="delete" onClick={deleteAddress}>Delete</button>
-                <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
-              </div>
-              <button className="close-button" onClick={() => setShowDelete(false)}>
-                <span className="material-symbols-outlined" style={{marginRight: '0'}}>close</span>
-              </button>
-            </div>
-          </Overlay>
-        }
-      </div>
-      </div>}
+      )}
+      {address !== "" && (
+        <div className="saved-address addresses">
+          <div className="address-type-div">
+            <span className="material-symbols-outlined address-icon">
+              {addressType === "Home" ? "home" :
+              addressType === "Office" ? "apartment" :
+              addressType === "Others" ? "person_pin_circle" : ""}
+            </span>
+            <p>{addressType}</p>
+          </div>
+          <p>{address}</p>
+          <div className="modify-div">
+            <button onClick={() => {setShowMap(true)}}><span className="material-symbols-outlined type-icon">edit</span></button>
+            <button onClick={() => {setShowDelete(true)}}><span className="material-symbols-outlined type-icon">delete</span></button>
+
+            {showDelete && (
+              <Overlay closeOverlay={() => setShowDelete(false)}>
+                <div className="delete-container">
+                  <h3 className="delete-heading">Are you sure you want to delete? </h3>
+                  <div>
+                    <button className="delete" onClick={deleteAddress}>Yes</button>
+                    <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
+                  </div>
+                </div>
+              </Overlay>
+            )}
+          </div>
+        </div>
+      )}
     </div>
-  )
+  );
 };
 
 export default ManageAddressContent;

@@ -402,6 +402,10 @@ hr {
   background-color: #fff;
   font-size: 16px;
   font-weight: 600;
+
+  span {
+    margin-right: 16px;
+  }
 }
 
 .default-img {
@@ -417,33 +421,6 @@ hr {
   background-color: #f16122;
   border: none;
   cursor: pointer;
-}
-
-.map-container {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
-  @media (width > 768px) {
-    top: 116px;
-  }
-}
-
-.new-address-div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px dotted rgb(0, 0, 0, 0.5);
-  cursor: pointer;
-}
-
-.addresses {
-  flex: 1;
-  min-width: 44%;
-  max-height: 48%;
-  margin: 0 16px;
-  padding: 20px 20px 20px 44px;
 }
 
 .back-button-div {
@@ -472,43 +449,6 @@ hr {
   font-size: 18px;
 }
 
-.saved-address {
-  position: relative;
-  text-align: left;
-  border: 1px solid rgb(0, 0, 0, 0.3);
-}
-
-.address-type-div {
-  display: flex;
-  margin-left: -32px;
-}
-
-.modify {
-  border: none;
-  background-color: inherit;
-  margin: 12px 12px 0 0;
-  cursor: pointer;
-}
-
-.address-comp {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: initial;
-  gap: 24px;
-  margin: 0;
-
-  @media (width > 768px) {
-    margin-top: 114px;
-    max-width: 74%;
-  }
-}
-
-.type-icon {
-  font-size: 24px;
-  color: #f16122;
-}
-
 /***************** MapComponet component *****************/
 
 .address-type {
@@ -526,11 +466,6 @@ hr {
     border-radius: 4px;
     cursor: pointer;
   }
-}
-
-.address-icon {
-  font-size: 24px;
-  margin-right: 8px;
 }
 
 .home-icon {
