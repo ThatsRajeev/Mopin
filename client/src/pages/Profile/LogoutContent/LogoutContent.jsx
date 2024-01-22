@@ -4,7 +4,7 @@ import { useUserAuth } from "../../../context/AuthContext";
 import Overlay from "../../../components/Overlay/Overlay";
 import "./LogoutContent.css";
 
-const LogoutContent = ({ setActive, setOverlayVisible }) => {
+const LogoutContent = ({ setActive, toggleOverlay }) => {
   const navigate = useNavigate();
   const { user, logOut } = useUserAuth();
 
@@ -20,7 +20,7 @@ const LogoutContent = ({ setActive, setOverlayVisible }) => {
 
   const handleCancel = () => {
     setActive("My Orders");
-    setOverlayVisible(false);
+    toggleOverlay();
   };
 
   return(
