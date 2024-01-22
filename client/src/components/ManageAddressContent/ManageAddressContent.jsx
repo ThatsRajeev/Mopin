@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useUserAuth } from "../../../context/AuthContext";
-import Overlay from "../../../components/Overlay/Overlay";
-import MapComponent from "../../Checkout/MapComponent";
-import fetchAddress from "../../../utils/fetchAddress";
+import { useUserAuth } from "../../context/AuthContext";
+import Overlay from "../Overlay/Overlay";
+import MapComponent from "../../pages/Checkout/MapComponent";
+import fetchAddress from "../../utils/fetchAddress";
 import "./ManageAddressContent.css"
 
-const ManageAddressContent = () => {
+const ManageAddressContent = ({ setAddressChoosen }) => {
   const [address, setAddress] = useState("");
   const [addressType, setAddressType] = useState("");
   const [showMap, setShowMap] = useState(false);
@@ -71,7 +71,7 @@ const ManageAddressContent = () => {
             </span>
             <p>{addressType}</p>
           </div>
-          <p>{address}</p>
+          <p onClick={() => setAddressChoosen(true)}>{address}</p>
           <div className="modify-div">
             <button onClick={() => {setShowMap(true)}}><span className="material-symbols-outlined type-icon">edit</span></button>
             <button onClick={() => {setShowDelete(true)}}><span className="material-symbols-outlined type-icon">delete</span></button>

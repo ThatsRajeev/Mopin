@@ -3,7 +3,7 @@ import useWindowResize from "../../hooks/useWindowResize";
 import Navbar from "../../components/Navbar/Navbar";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 import MyOrdersContent from "./MyOrdersContent/MyOrdersContent";
-import ManageAddressContent from "./ManageAddressContent/ManageAddressContent";
+import ManageAddressContent from "../../components/ManageAddressContent/ManageAddressContent";
 import PaymentMethodsContent from "./PaymentMethodsContent/PaymentMethodsContent";
 import SubscriptionsContent from "./SubscriptionsContent/SubscriptionsContent";
 import LogoutContent from "./LogoutContent/LogoutContent";

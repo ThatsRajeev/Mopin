@@ -494,11 +494,22 @@ hr {
   font-size: 14px;
 }
 
-.ck-address-comp {
-  flex-direction: row;
-  align-items: initial;
-  gap: 16px;
-  padding: 16px 0;
+.checkout-address-content {
+  .address-comp {
+    margin: unset;
+    max-width: unset;
+    align-items: initial;
+    gap: 16px;
+    padding: 16px 0;
+
+    @media (width > 768px) {
+      flex-direction: row;
+    }
+  }
+
+  .addresses {
+    max-width: 280px;
+  }
 }
 
 .proceed-btn {

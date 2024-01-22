@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
 import Login from "../../components/Login/Login";
-import ManageAddressContent from './ManageAddressContent';
+import ManageAddressContent from '../../components/ManageAddressContent/ManageAddressContent';
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
 import fetchAddress from "../../utils/fetchAddress";
@@ -415,8 +415,9 @@ const toggleOverlay = (overlayType) => {
                 </div>
                 <a onClick={() => setAddressChoosen(false)} className="change-details"> Change </a>
               </div> :
-              <>
-              {name &&<ManageAddressContent fromCheckout='true' setAddressChoosen={setAddressChoosen}/>}</>
+              <div className="checkout-address-content">
+                {name && <ManageAddressContent setAddressChoosen={setAddressChoosen}/> }
+            </div>
               }
             </div>
 
@@ -548,8 +549,8 @@ const toggleOverlay = (overlayType) => {
                )}
               {showAddressOverlay && (
                 <Overlay closeOverlay={() => setShowAddressOverlay(false)}>
-                  <div style={{backgroundColor: '#fff'}}>
-                    <ManageAddressContent fromCheckout='true' setAddressChoosen={setAddressChoosen} addressFlex='true'/>
+                  <div style={{backgroundColor: '#fff', margin: '24px'}} className="checkout-address-content">
+                    <ManageAddressContent setAddressChoosen={setAddressChoosen} />
                   </div>
                 </Overlay>
                )}
