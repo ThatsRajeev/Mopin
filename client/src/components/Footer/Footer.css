@@ -61,3 +61,29 @@
   border-top: 1px solid #828282;
   padding: 1.6rem 0;
 }
+
+.privacyContent {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.privacyContent h2 {
+  color: #333;
+}
+
+.privacyContent p,
+.privacyContent li {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.privacyContent ul {
+  padding-left: 20px;
+}
+
+.privacyContent li {
+  list-style-type: disc;
+}

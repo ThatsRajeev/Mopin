@@ -5,6 +5,11 @@ import SellerPage from "./pages/SellerPage/index";
 import Profile from "./pages/Profile/index";
 import Checkout from "./pages/Checkout/Checkout";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
+import ContactUs from './legal/ContactUs';
+import TermsAndConditions from './legal/TermsAndConditions';
+import PrivacyPolicy from './legal/PrivacyPolicy';
+import CancellationRefundPolicy from './legal/CancellationRefundPolicy';
+import ShippingDeliveryPolicy from './legal/ShippingDeliveryPolicy';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +23,26 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />
+  },
+  {
+    path: "/contact-us",
+    element: <ContactUs />
+  },
+  {
+    path: "/terms",
+    element: <TermsAndConditions />
+  },
+  {
+    path: "/privacy-policy",
+    element: <PrivacyPolicy />
+  },
+  {
+    path: "/cancellation-refund",
+    element: <CancellationRefundPolicy />
+  },
+  {
+    path: "/shipping-delivery",
+    element: <ShippingDeliveryPolicy />
   },
   {
     path: "/checkout",

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import insta from "../../assets/insta.png";
 import fb from "../../assets/fb.png";
 import twitter from "../../assets/twitter.png";
@@ -17,8 +18,8 @@ export default function Footer() {
             <p>Who are we</p>
             <p>Know your food</p>
             <p>FAQs</p>
-            <p>Terms and Conditions</p>
-            <p>Contact us</p>
+            <p><Link className="custom-link" to="/terms">Terms and Conditions</Link></p>
+            <p><Link className="custom-link" to="/contact-us">Contact us</Link></p>
           </div>
           <div>
             <b>For Sellers</b>
@@ -27,9 +28,10 @@ export default function Footer() {
           </div>
           <div>
             <b>Learn more</b>
-            <p>Privacy</p>
+            <p><Link className="custom-link" to="/privacy-policy">Privacy policy</Link></p>
             <p>Security</p>
-            <p>Sitemap</p>
+            <p><Link className="custom-link" to="/cancellation-refund">Refund and Cancellation Policy</Link></p>
+            <p><Link className="custom-link" to="/shipping-delivery">Ship and Delivery Policy</Link></p>
           </div>
           <div>
             <b>Social links</b>
