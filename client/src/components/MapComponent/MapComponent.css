@@ -1,0 +1,154 @@
+.map-component {
+  height: 100vh;
+  width: 100vw;
+  margin-top: 16px;
+
+  @media (width > 768px) {
+    height: 386px;
+    width: 486px;
+  }
+}
+
+.map-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  right: 16px;
+}
+
+.tooltip-container {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  padding-top: 100px;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.tooltip {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 4px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 12px;
+  width: 180px;
+}
+
+.location-button {
+  background-color: #fff;
+  color: #f16122;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.address-type {
+  list-style: none;
+  display: flex;
+  margin: 12px 0;
+
+  >li {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    border: 1px solid rgb(150,150,150, 0.6);
+    padding: 4px 8px;
+    margin: 0 8px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+.home-icon {
+  font-size: 20px;
+}
+
+.highlight-li {
+  background-color: #f16122;
+  color: #fff;
+}
+
+.leaflet-control-attribution, .leaflet-control-zoom-in, .leaflet-control-zoom-out {
+  display: none !important;
+}
+
+.leaflet-bottom {
+  position: absolute;
+  top: 50%;
+}
+
+.tooltip-arrow::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+.set-address {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  text-align: left;
+  padding: 16px;
+  width: 100vw;
+  z-index: 1000;
+
+  p {
+    font-size: 15px;
+    opacity: 0.9;
+    margin: 8px 0;
+  }
+
+  h2 {
+    font-size: 20px;
+    margin: 10px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (width > 768px) {
+    position: unset;
+    width: unset;
+  }
+}
+
+.address-editing {
+  height: 100vh;
+}
+
+.address-form-group {
+  position: relative;
+  margin: 24px 0;
+}
+
+.save-btn {
+  font-size: 16px;
+  padding: 0.72rem;
+  width: 100%;
+  margin-top: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background-color: #f16122;
+  color: #fff;
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+}
