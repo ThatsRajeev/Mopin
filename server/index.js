@@ -17,7 +17,6 @@ dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 app.use(cors({
   origin: ["https://mopin-frontend.vercel.app", "http://localhost:3000"],
   methods: ["POST", "GET"],
@@ -38,14 +37,12 @@ app.get('/proxy', async (req, res) => {
 app.post('/formspree', function(req, res) {
   var url = 'https://formspree.io/f/mknlpedg';
 
-  // Forward the request to the Formspree API
   request.post({ url: url, form: req.body }, function(err, httpResponse, body) {
     if (err) {
       console.error('Error:', err);
       return res.sendStatus(500);
     }
 
-    // Forward the response from the Formspree API to the client
     res.send(body);
   });
 });
@@ -133,9 +130,9 @@ app.post('/api/userdata', async (req, res) => {
 const addressSchema = new mongoose.Schema ({
   phoneNumber: Number,
   address: String,
-  apartmentNumber: String,
-  apartmentName: String,
-  streetDetails: String,
+  houseNo: String,
+  houseName: String,
+  landmark: String,
   addressType: String
 });
 
@@ -156,9 +153,9 @@ app.post("/api/savepoint", async (req, res) => {
         { phoneNumber },
         {
           address: req.body.address,
-          apartmentNumber: req.body.apartmentNumber,
-          apartmentName: req.body.apartmentName,
-          streetDetails: req.body.streetDetails,
+          houseNo: req.body.houseNo,
+          houseName: req.body.houseName,
+          landmark: req.body.landmark,
           addressType: req.body.addressType
         }
       );
@@ -168,9 +165,9 @@ app.post("/api/savepoint", async (req, res) => {
       const newAddress = new Address({
         phoneNumber: req.body.phoneNumber,
         address: req.body.address,
-        apartmentNumber: req.body.apartmentNumber,
-        apartmentName: req.body.apartmentName,
-        streetDetails: req.body.streetDetails,
+        houseNo: req.body.houseNo,
+        houseName: req.body.houseName,
+        landmark: req.body.landmark,
         addressType: req.body.addressType
       });
 
@@ -194,9 +191,9 @@ app.post('/api/addressdata', async (req, res) => {
     }
     res.json({
       address: foundAddress.address,
-      apartmentNumber: foundAddress.apartmentNumber,
-      apartmentName: foundAddress.apartmentName,
-      streetDetails: foundAddress.streetDetails,
+      houseNo: foundAddress.houseNo,
+      houseName: foundAddress.houseName,
+      landmark: foundAddress.landmark,
       addressType: foundAddress.addressType
     });
   } catch (err) {
