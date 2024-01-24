@@ -581,3 +581,19 @@ hr {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.contact-details > .overlay-container > .overlay-content {
+  height: unset;
+  width: unset;
+  padding: 0;
+  margin: 24px;
+}
+
+.vertical-line {
+  height: 48px;
+  width: 0;
+  position: relative;
+  left: 60px;
+  border: 1px dashed rgb(0,0,0,0.36);
+  z-index: 0;
+}

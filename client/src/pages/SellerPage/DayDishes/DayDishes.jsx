@@ -2,7 +2,7 @@ import React from "react";
 import DishCard from "../DishCard/DishCard"
 import "./DayDishes.css";
 
-function DayDishes ({ day, dishes, dishQty, handleButtonClick, handleIncrement, handleDecrement, activeCategory, spyRef, getDayOfTheWeek }) {
+function DayDishes ({ day, dishes, dishInfo, handleButtonClick, handleIncrement, handleDecrement, activeCategory, spyRef, getDayOfTheWeek }) {
   return (
     <div key={day}>
       {dishes.length > 0 && (
@@ -15,7 +15,7 @@ function DayDishes ({ day, dishes, dishQty, handleButtonClick, handleIncrement, 
               <DishCard
                 key={dishIndex}
                 dishItem={dishItem}
-                dishQty={dishQty}
+                dishInfo={dishInfo}
                 handleButtonClick={handleButtonClick}
                 handleIncrement={handleIncrement}
                 handleDecrement={handleDecrement}

@@ -1,4 +1,4 @@
-const fetchCartInfo = (cart, sellerName, setdishQty, setTotalItems, setTotalPrice) => {
+export const fetchSellerCartInfo = (cart, sellerName, setdishInfo, setTotalItems, setTotalPrice) => {
   try {
     const newdishQty = {};
     let totalItemCount = 0;
@@ -14,7 +14,7 @@ const fetchCartInfo = (cart, sellerName, setdishQty, setTotalItems, setTotalPric
       });
     }
 
-    setdishQty(newdishQty);
+    setdishInfo(newdishQty);
     setTotalItems(totalItemCount);
     setTotalPrice(totalPriceCount);
   } catch (error) {
@@ -22,4 +22,39 @@ const fetchCartInfo = (cart, sellerName, setdishQty, setTotalItems, setTotalPric
   }
 };
 
-export default fetchCartInfo;
+export const fetchFullCartInfo = async (cart, setdishInfo, setTotalItems, setTotalPrice) => {
+  try {
+    const newdishQty = [];
+    let totalItemCount = 0;
+    let totalPriceCount = 0;
+
+    cart.forEach(({ sellerName, items, subs }) => {
+      const sellerInfo = {
+        sellerName,
+        dishes: items
+          ? items.map(({ dishName, dishDesc, dishIsVeg, dishPrice, dishQuantity }) => {
+              const dishQty = parseInt(dishQuantity, 10) || 0;
+              totalItemCount += dishQty;
+              totalPriceCount += dishQty * (parseInt(dishPrice, 10) || 0);
+
+              return { dishName, dishDesc, dishIsVeg, dishPrice, dishQty };
+            })
+          : [],
+        subs: subs
+          ? subs.map(({ selectedMeals, subsDays, subsPrice }) => {
+              totalPriceCount += parseInt(subsPrice, 10) || 0;
+              return { selectedMeals, subsDays, subsPrice };
+            })
+          : [],
+      };
+
+      newdishQty.push(sellerInfo);
+    });
+
+    setdishInfo(newdishQty);
+    setTotalItems(totalItemCount);
+    setTotalPrice(totalPriceCount);
+  } catch (error) {
+    console.error(error);
+  }
+};

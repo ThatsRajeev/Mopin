@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import useWindowResize from "../../hooks/useWindowResize";
-import fetchCartInfo from "../../utils/fetchCartInfo";
+import { fetchSellerCartInfo } from "../../utils/fetchCartInfo";
 import SellerDetailsSection from "./SellerDetailsSection/SellerDetailsSection";
 import MealFilterContainer from "./MealFilterContainer/MealFilterContainer";
 import CartContainer from "./CartContainer/CartContainer";
@@ -17,12 +17,12 @@ function SellerPage() {
   const [showCheckboxes, setShowCheckboxes] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [dishQty, setdishQty] = useState({});
+  const [dishInfo, setdishInfo] = useState({});
   const windowWidth = useWindowResize();
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    fetchCartInfo(cart, sellerDetails.name, setdishQty, setTotalItems, setTotalPrice);
+    fetchSellerCartInfo(cart, sellerDetails.name, setdishInfo, setTotalItems, setTotalPrice);
   }, [sellerDetails.name]);
 
   return (
@@ -35,7 +35,7 @@ function SellerPage() {
       />
       <MealFilterContainer
         sellerDetails={sellerDetails}
-        dishQty={dishQty}
+        dishInfo={dishInfo}
         setTotalItems={setTotalItems}
         setTotalPrice={setTotalPrice}
       />

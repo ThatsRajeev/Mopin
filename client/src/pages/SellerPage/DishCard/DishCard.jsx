@@ -1,9 +1,9 @@
 import React from "react";
 import "./DishCard.css";
 
-const DishCard = ({ dishItem, dishQty, handleButtonClick, handleIncrement, handleDecrement }) => {
+const DishCard = ({ dishItem, dishInfo, handleButtonClick, handleIncrement, handleDecrement }) => {
   const isVeg = dishItem.isVeg;
-  const quantityGreaterThanZero = dishQty[dishItem.name] > 0;
+  const quantityGreaterThanZero = dishInfo[dishItem.name] > 0;
 
   return (
     <div>
@@ -37,7 +37,7 @@ const DishCard = ({ dishItem, dishQty, handleButtonClick, handleIncrement, handl
         <button className={`add-btn ${quantityGreaterThanZero ? 'hidden' : ""}`} onClick={(e) => handleButtonClick(e, dishItem, 1)}> Add</button>
         <div className={`counter ${quantityGreaterThanZero ? "" : 'hidden'}`}>
           <button className="counter-button" onClick={(e) => handleDecrement(e, dishItem)}>-</button>
-          <span className="counter-value">{quantityGreaterThanZero ? dishQty[dishItem.name] : 1}</span>
+          <span className="counter-value">{quantityGreaterThanZero ? dishInfo[dishItem.name] : 1}</span>
           <button className="counter-button" onClick={(e) => handleIncrement(e, dishItem)}> +</button>
         </div>
       </div>

@@ -29,7 +29,7 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
   useEffect(() => {
     (async function() {
       try {
-        if (user) {
+        if (user && Object.keys(user).length !== 0) {
           const res = await fetchAddress(user);
           setAddress(
             `${res.houseNo}, ${res.houseName}, ${res.landmark}, ${res.address}`

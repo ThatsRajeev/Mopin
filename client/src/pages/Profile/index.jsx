@@ -6,7 +6,7 @@ import MyOrdersContent from "./MyOrdersContent/MyOrdersContent";
 import ManageAddressContent from "../../components/ManageAddressContent/ManageAddressContent";
 import PaymentMethodsContent from "./PaymentMethodsContent/PaymentMethodsContent";
 import SubscriptionsContent from "./SubscriptionsContent/SubscriptionsContent";
-import LogoutContent from "./LogoutContent/LogoutContent";
+import LogoutContent from "../../components/LogoutContent/LogoutContent";
 import Overlay from "../../components/Overlay/Overlay";
 
 const Profile = () => {

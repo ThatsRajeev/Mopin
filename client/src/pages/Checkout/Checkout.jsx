@@ -1,54 +1,46 @@
 import react, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import useWindowResize from "../../hooks/useWindowResize";
+import { fetchFullCartInfo } from "../../utils/fetchCartInfo";
+import handleCart from "../../utils/handleCart";
 import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
 import Login from "../../components/Login/Login";
 import ManageAddressContent from '../../components/ManageAddressContent/ManageAddressContent';
+import LogoutContent from "../../components/LogoutContent/LogoutContent";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
 import fetchAddress from "../../utils/fetchAddress";
+import Overlay from "../../components/Overlay/Overlay";
 
 const Checkout = () => {
   const [name, setName] = useState("");
-  const [phoneNumber, setphoneNumber] = useState("");
   const [showLoginOverlay, setShowLoginOverlay] = useState(false);
   const [showAddressOverlay, setShowAddressOverlay] = useState(false);
   const [address, setAddress] = useState("");
   const [addressType, setAddressType] = useState("");
   const [showLogout, setShowLogout] = useState(false);
   const [addressChoosen, setAddressChoosen] = useState(false);
-  const [isLogged, setLogged] = useState(false);
+  const [dishInfo, setdishInfo] = useState({});
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const { user, logOut } = useUserAuth();
-
   const navigate = useNavigate();
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const windowWidth = useWindowResize();
 
   useEffect(() => {
     (async function() {
       try {
         if (user && Object.keys(user).length !== 0) {
-          const res = await fetchData(user);
-          setName(res.name);
-          setphoneNumber(res.phoneNumber);
+          const re = await fetchData(user);
+          setName(re.name);
 
-          const resp = await fetchAddress(user);
-          setAddress(resp.apartmentNumber + ", " + resp.apartmentName + ", " +
-                     resp.streetDetails + ", " + resp.address);
-          setAddressType(resp.addressType);
+          const res = await fetchAddress(user);
+          setAddress(
+            `${res.houseNo}, ${res.houseName}, ${res.landmark}, ${res.address}`
+          );
+          setAddressType(res.addressType);
         }
       } catch (e) {
         console.error(e);
@@ -56,191 +48,23 @@ const Checkout = () => {
     })();
   }, [user]);
 
-  const [dishInfo, setdishInfo] = useState({});
-
-  const handleLogout = async () => {
-    try {
-      logOut();
-      navigate('/');
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    if(isLogged === true) {
-      window.location.reload();
-    }
-  }, [isLogged])
-
-  const Overlay = ({ children, closeOverlay }) => {
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1000
-      }}
-      onClick={closeOverlay}
-    >
-      <div onClick={e => e.stopPropagation()}>
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const verticalLine = {
-    height: '48px',
-    width: 0,
-    position: 'relative',
-    left: '60px',
-    border: '1px dashed rgb(0,0,0,0.36)',
-    zIndex: 0
-}
-
-const toggleOverlay = (overlayType) => {
-  switch(overlayType) {
-    case 'address':
-      setShowAddressOverlay(!showAddressOverlay);
-      break;
-    case 'login':
-      setShowLoginOverlay(!showLoginOverlay);
-      break;
-    default:
-      break;
-  }
-}
-
-  const LogoutContent = () => {
-    return(
-      <div>
-      {showLogout &&
-        <Overlay closeOverlay={() => setShowLogout(false)}>
-        <div className="delete-container">
-          <h3 className="delete-heading">Are you sure you want to logout? </h3>
-          <div>
-            <button className="delete" onClick={handleLogout}>Yes</button>
-            <button className="cancel" onClick={() => {setShowLogout(false)}}>Cancel</button>
-          </div>
-          <button className="close-button" onClick={() => {setShowLogout(false)}}>
-            <span className="material-symbols-outlined" style={{margin: '0'}}>close</span>
-          </button>
-        </div>
-      </Overlay>}
-      </div>
-    )
-  };
-
-  const fetchCartInfo = async () => {
-    try {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const newdishInfo = [];
-      let totalItemCount = 0;
-      let totalPriceCount = 0;
-
-      cart.forEach(sellerGroup => {
-        const { sellerName, items, subs } = sellerGroup;
-        const sellerInfo = {
-          sellerName,
-          dishes: [],
-          subs: [],
-        };
-
-        if(items) {
-          items.forEach(item => {
-            const { dishName, dishDesc, dishIsVeg, dishPrice, dishQuantity } = item;
-            const dishQty = parseInt(dishQuantity, 10) || 0;
-
-            sellerInfo.dishes.push({
-              dishName,
-              dishDesc,
-              dishIsVeg,
-              dishPrice,
-              dishQty,
-            });
-
-            totalItemCount += dishQty;
-            totalPriceCount += dishQty * parseInt(dishPrice, 10) || 0;
-          });
-        }
-
-        if(subs) {
-          subs.forEach(sub => {
-            const { selectedMeals, subsDays, subsPrice } = sub;
-            totalPriceCount += parseInt(subsPrice, 10) || 0;
-
-            sellerInfo.subs.push({
-              selectedMeals,
-              subsDays,
-              subsPrice,
-            });
-          });
-        }
-
-        newdishInfo.push(sellerInfo);
-      });
-
-      setdishInfo(newdishInfo);
-      setTotalItems(totalItemCount);
-      setTotalPrice(totalPriceCount);
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCartInfo();
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    fetchFullCartInfo(cart, setdishInfo, setTotalItems, setTotalPrice);
   }, []);
 
-  const handleCart = (sellerName, name, price, desc, isVeg, qty) => {
-    const cartItem = {
-      dishName: name,
-      dishPrice: price,
-      dishDesc: desc,
-      dishIsVeg: isVeg,
-      dishQuantity: qty
-    };
-
-    let existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    const existingSellerIndex = existingCart.findIndex(group => group.sellerName === sellerName);
-
-    if (existingSellerIndex !== -1) {
-      const existingItemIndex = existingCart[existingSellerIndex].items.findIndex(item => item.dishName === name);
-
-      if (existingItemIndex !== -1) {
-        existingCart[existingSellerIndex].items[existingItemIndex].dishQuantity = qty;
-
-        if (qty === 0) {
-          existingCart[existingSellerIndex].items.splice(existingItemIndex, 1);
-        }
-      } else {
-        existingCart[existingSellerIndex].items.push(cartItem);
-      }
-
-      if (existingCart[existingSellerIndex].items.length === 0 && existingCart[existingSellerIndex].subs.length === 0) {
-        existingCart.splice(existingSellerIndex, 1);
-      }
-
-    } else {
-      existingCart.push({
-        sellerName: sellerName,
-        items: [cartItem],
-        subs: []
-      });
+  const toggleOverlay = (overlayType) => {
+    switch(overlayType) {
+      case 'address':
+        setShowAddressOverlay(!showAddressOverlay);
+        break;
+      case 'login':
+        setShowLoginOverlay(!showLoginOverlay);
+        break;
+      default:
+        break;
     }
-    localStorage.setItem('cart', JSON.stringify(existingCart));
-  };
+  }
 
   const handleIncrement = (event, dish, seller) => {
     const counterValue = event.target.previousElementSibling;
@@ -386,18 +210,19 @@ const toggleOverlay = (overlayType) => {
                 <div>
                   <span style={{fontWeight: "600"}}>{name}</span>
                   <span style={{margin: '0 6px'}}>|</span>
-                  {phoneNumber}
+                  {user.phoneNumber}
                 </div>
                 <a onClick={() => setShowLogout(true)} className="change-details"> Change User </a>
               </div> :
               <>
               <p className="login-insist-p">To place your order now, log in to your account </p>
-              <Login fromCheckout='true' setLogged={setLogged}/></>
+              <Login fromCheckout='true'/></>
               }
             </div>
-            <LogoutContent />
-
-            <div className="vertical-line" style={verticalLine}></div>
+            {showLogout &&
+            <LogoutContent toggleOverlay={() => setShowLogout(!showLogout)} />
+            }
+            <div className="vertical-line"></div>
 
             <div className="user-details">
               <div className="details-head">
@@ -421,7 +246,7 @@ const toggleOverlay = (overlayType) => {
               }
             </div>
 
-            <div className="vertical-line" style={verticalLine}></div>
+            <div className="vertical-line"></div>
 
             <div className="user-details">
               <div className="details-head">

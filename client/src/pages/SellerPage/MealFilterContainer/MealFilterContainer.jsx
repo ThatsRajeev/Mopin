@@ -6,7 +6,7 @@ import handleCart from "../../../utils/handleCart";
 import DayDishes from "../DayDishes/DayDishes";
 import "./MealFilterContainer.css";
 
-const MealFilterContainer = ({ sellerDetails, dishQty, setTotalItems, setTotalPrice }) => {
+const MealFilterContainer = ({ sellerDetails, dishInfo, setTotalItems, setTotalPrice }) => {
   const daysInOrder = [0, 1, 2, 3, 4, 5, 6].map(offset => getDayOfTheWeek(offset));
   const [activeCategory, setActiveCategory] = useState(getDayOfTheWeek(0));
   const [activeSwitch, setActiveSwitch] = useState("All");
@@ -179,7 +179,7 @@ const MealFilterContainer = ({ sellerDetails, dishQty, setTotalItems, setTotalPr
             key={day}
             day={day}
             dishes={dishes}
-            dishQty={dishQty}
+            dishInfo={dishInfo}
             handleButtonClick={handleButtonClick}
             handleIncrement={handleIncrement}
             handleDecrement={handleDecrement}
