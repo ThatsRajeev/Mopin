@@ -366,14 +366,10 @@ const Checkout = () => {
           {!user || !addressChoosen ? (
             <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
               <Overlay isOpen={showLoginOverlay} closeOverlay={() => setShowLoginOverlay(false)}>
-                <div style={{backgroundColor: '#fff', width: '100vw', height: '100vh'}}>
-                  <Login setShowProp={toggleOverlay}/>
-                </div>
+                <Login setShowProp={toggleOverlay}/>
               </Overlay>
-              <Overlay isOpen={showAddressOverlay} closeOverlay={() => setShowAddressOverlay(false)}>
-                <div style={{backgroundColor: '#fff', margin: '24px'}} className="checkout-address-content">
-                  <ManageAddressContent setAddressChoosen={setAddressChoosen} />
-                </div>
+              <Overlay isOpen={showAddressOverlay} closeOverlay={() => setShowAddressOverlay(false)} unsetDims="true">
+                <ManageAddressContent setAddressChoosen={setAddressChoosen} setAddressOverlay={() => setShowAddressOverlay(false)}/>
               </Overlay>
                <button className="proceed-btn" onClick={() => {!user ? setShowLoginOverlay(true) : setShowAddressOverlay(true)}}>
                 {!user ? "Login / SignUp" : "Choose Address"}

@@ -25,7 +25,7 @@ const LogoutContent = ({ active, setActive, toggleOverlay }) => {
 
   return(
     <div className="component logout">
-      <Overlay isOpen={active==="Logout"} closeOverlay={handleCancel}>
+      <Overlay isOpen={active==="Logout"} closeOverlay={handleCancel} unsetDims="true">
         <div className="delete-container">
           <h3 className="delete-heading">Are you sure you want to logout? </h3>
           <div>

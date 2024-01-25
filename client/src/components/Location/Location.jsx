@@ -53,7 +53,7 @@ const Location = ({ setShowProp }) => {
   };
 
   return (
-    <>
+    <div className="location-container">
       <div className="search-heading mob-view">
         <span className="material-symbols-outlined" onClick={() => setShowProp('address')}>arrow_back</span>
         <p> Search your delivery location</p>
@@ -111,7 +111,7 @@ const Location = ({ setShowProp }) => {
         <p className="choose-location-p1"> Choose your location! </p>
         <p className="choose-location-p2"> And enjoy delicious homemade cuisines near your location </p>
       </div>
-    </>
+    </div>
   );
 };
 

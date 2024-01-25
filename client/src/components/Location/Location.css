@@ -1,3 +1,8 @@
+.location-container {
+  position: relative;
+  padding: 16px;
+}
+
 .search-heading {
   display: flex;
   margin-top: 8px;
@@ -62,8 +67,7 @@
   z-index: 100;
   background-color: #fff;
   margin: 16px 0;
-  width: 94%;
-  height: 384px;
+  height: -webkit-fill-available;
 
   @media (width > 768px){
     overflow-y: scroll;

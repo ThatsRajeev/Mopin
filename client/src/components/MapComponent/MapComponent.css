@@ -1,10 +1,9 @@
 .map-component {
   height: 100vh;
   width: 100vw;
-  margin-top: 16px;
 
   @media (width > 768px) {
-    height: 386px;
+    height: 486px;
     width: 486px;
   }
 }
@@ -13,7 +12,6 @@
   position: relative;
   height: 100%;
   width: 100%;
-  right: 16px;
 }
 
 .tooltip-container {
@@ -99,7 +97,9 @@
 .set-address {
   position: absolute;
   right: 0;
+  left: 0;
   bottom: 0;
+  height: 164px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -107,6 +107,7 @@
   padding: 16px;
   width: 100vw;
   z-index: 1000;
+  transition: height 0.3s ease;
 
   p {
     font-size: 15px;
@@ -115,7 +116,7 @@
   }
 
   h2 {
-    font-size: 20px;
+    font-size: 18px;
     margin: 10px 0;
     white-space: nowrap;
     overflow: hidden;
@@ -123,13 +124,16 @@
   }
 
   @media (width > 768px) {
-    position: unset;
     width: unset;
   }
 }
 
 .address-editing {
-  height: 100vh;
+  height: 100%;
+
+  .profile-head {
+    padding: 0;
+  }
 }
 
 .address-form-group {

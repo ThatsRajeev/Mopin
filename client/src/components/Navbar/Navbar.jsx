@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Location from "../Location/Location";
 import Login from "../Login/Login";
 import Help from "../Help/Help";
+import Overlay from "../Overlay/Overlay";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
 import "./Navbar.css";
@@ -65,54 +66,6 @@ const Address = styled.div`
     width: 18vw;
     background-color: unset;
   }
-`;
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 50%;
-  height: 100vh;
-  width: 100vw;
-  transform: translateX(-50%);
-  background: #fff;
-  z-index: 1000;
-
-  @media (width > 768px){
-    top: 148px;
-    height: unset;
-    width: ${(props) => (props.type==='help' ? "464px" : "unset")};
-    z-index: 10;
-  }
-`;
-
-const AddressOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: -16px;
-  width: 100vw;
-  height: 100vh;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  z-index: 10;
-
-  @media (width > 768px){
-    top: 80px;
-    left: 0;
-    height: 464px;
-    width: 444px;
-    padding: 0 2%;
-  }
-`;
-const BackgroundOverlay = styled.div`
-  position: fixed;
-  top: 80px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 5;
 `;
 
 const SearchBarContainer = styled.div`
@@ -212,7 +165,6 @@ const FlexContainer = styled.div`
 
 function Navbar({showNavbar, showAddress, header}) {
   const [navItem, setNavItem] = useState('Home');
-  const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [isAddressActive, setIsAddressActive] = useState(false);
   const [isLoginActive, setIsLoginActive] = useState(false);
   const [isHelpActive, setIsHelpActive] = useState(false);
@@ -246,7 +198,6 @@ function Navbar({showNavbar, showAddress, header}) {
     }
   }, [location.pathname]);
 
-
   const toggleOverlay = (overlayType) => {
     switch(overlayType) {
       case 'address':
@@ -264,32 +215,6 @@ function Navbar({showNavbar, showAddress, header}) {
       default:
         break;
     }
-    setIsOverlayActive(!isOverlayActive);
-  }
-
-  const renderOverlay = (overlayType, contentComponent) => {
-    const isActive =
-      overlayType === 'login' ? isLoginActive :
-      overlayType === 'help' ? isHelpActive : isAddressActive;
-
-    return isActive && (
-      overlayType === 'address' ? (
-        <AddressOverlay>{contentComponent}</AddressOverlay>
-      ) : (
-        <Overlay type={overlayType}>
-          <button className="close-button" onClick={() => toggleOverlay(overlayType)}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
-          {contentComponent}
-        </Overlay>
-      )
-    );
-  };
-
-  if (isAddressActive || isLoginActive || isHelpActive) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
   }
 
   return (
@@ -337,13 +262,15 @@ function Navbar({showNavbar, showAddress, header}) {
           <span className="material-symbols-outlined person-icon">person</span>
         </NavLink>
 
-        {isOverlayActive &&
-          <BackgroundOverlay onClick={() => {toggleOverlay(isLoginActive ? 'login' :
-            isHelpActive ? 'help' : 'address')}}
-        />}
-        {renderOverlay('address', (<Location setShowProp={toggleOverlay}/>))}
-        {renderOverlay('login', (<Login setShowProp={toggleOverlay}/>))}
-        {renderOverlay('help', (<Help setShowProp={toggleOverlay}/>))}
+        <Overlay isOpen={isLoginActive} closeOverlay={() => toggleOverlay('login')}>
+          <Login setShowProp={toggleOverlay}/>
+        </Overlay>
+        <Overlay isOpen={isAddressActive} closeOverlay={() => toggleOverlay('address')}>
+          <Location setShowProp={toggleOverlay}/>
+        </Overlay>
+        <Overlay isOpen={isHelpActive} closeOverlay={() => toggleOverlay('help')}>
+          <Help setShowProp={toggleOverlay}/>
+        </Overlay>
       </GlobalNav>
 
       <FlexContainer className="mob-view">

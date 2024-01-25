@@ -11,7 +11,7 @@
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
+  transition: opacity 0.24s, visibility 0.24s;
 }
 
 .overlay-container.open {
@@ -24,11 +24,10 @@
   width: 100vw;
   height: 100vh;
   background-color: #fff;
-  padding: 16px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transform: scale(0.7);
-  transition: transform 0.3s;
+  transition: transform 0.24s;
 }
 
 .overlay-container.open .overlay-content {

@@ -6,7 +6,7 @@ import MapComponent from "../MapComponent/MapComponent";
 import fetchAddress from "../../utils/fetchAddress";
 import "./ManageAddressContent.css"
 
-const ManageAddressContent = ({ setAddressChoosen }) => {
+const ManageAddressContent = ({ setAddressChoosen, setAddressOverlay }) => {
   const [address, setAddress] = useState("");
   const [addressType, setAddressType] = useState("");
   const [showMap, setShowMap] = useState(false);
@@ -42,13 +42,9 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
     })();
   }, [user, showMap, showDelete]);
 
-  useEffect(() => {
-    document.body.style.overflow = showMap || showDelete ? "hidden" : "auto";
-  }, [showMap, showDelete]);
-
   return (
     <div className="component address-comp">
-      <div className="new-address-div addresses" onClick={() => {setShowMap(true)}}>
+      <div className="new-address-div addresses" onClick={() => {setShowMap(true); setAddressOverlay && setAddressOverlay()}}>
         <span className="material-symbols-outlined address-icon ">add_circle</span>
         <h3> Add New Address </h3>
       </div>
@@ -72,10 +68,10 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
           </div>
           <p onClick={() => setAddressChoosen && setAddressChoosen(true)}>{address}</p>
           <div className="modify-div">
-            <button onClick={() => {setShowMap(true)}}><span className="material-symbols-outlined type-icon">edit</span></button>
+            <button onClick={() => {setShowMap(true); setAddressOverlay && setAddressOverlay()}}><span className="material-symbols-outlined type-icon">edit</span></button>
             <button onClick={() => {setShowDelete(true)}}><span className="material-symbols-outlined type-icon">delete</span></button>
 
-            <Overlay isOpen={showDelete} closeOverlay={() => setShowDelete(false)}>
+            <Overlay isOpen={showDelete} closeOverlay={() => setShowDelete(false)} unsetDims="true">
               <div className="delete-container">
                 <h3 className="delete-heading">Are you sure you want to delete? </h3>
                 <div>

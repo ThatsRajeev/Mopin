@@ -2,6 +2,7 @@
   position: relative;
   width: -webkit-fill-available;
   background-color: #fff;
+  margin: 16px;
 
   div {
     display: flex;
@@ -27,9 +28,4 @@
 .cancel {
   background-color: #000;
   color: #fff
-}
-
-.logout > .overlay-container > .overlay-content {
-  height: unset;
-  width: unset;
 }

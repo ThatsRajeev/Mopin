@@ -230,6 +230,7 @@ hr {
   background-color: #fff;
   font-size: 16px;
   font-weight: 600;
+  padding: 16px;
 
   span {
     margin-right: 16px;
@@ -580,13 +581,6 @@ hr {
   background-image: url(https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/woman-kitchen-cooks-from-organic-products-recycling-vegetables-natural-products_98982-525__1_-removebg-preview.avif);
   background-repeat: no-repeat;
   background-size: contain;
-}
-
-.contact-details > .overlay-container > .overlay-content {
-  height: unset;
-  width: unset;
-  padding: 0;
-  margin: 24px;
 }
 
 .vertical-line {

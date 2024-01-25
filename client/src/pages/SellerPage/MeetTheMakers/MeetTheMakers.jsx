@@ -7,19 +7,6 @@ const MeetTheMakers = ({ sellerDetails }) => {
   const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * 7));
   const [makerOverlay, setMakerOverlay] = useState(false);
 
-  useEffect(() => {
-    if (makerOverlay) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [makerOverlay]);
-
-
   return (
     <>
       <div className="meet-maker-div">
