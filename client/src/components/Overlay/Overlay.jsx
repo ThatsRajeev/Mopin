@@ -4,12 +4,17 @@ import "./Overlay.css";
 
 const Overlay = ({ isOpen, children, closeOverlay }) => {
   useEffect(() => {
+    const handlePopstate = () => {
+      closeOverlay();
+      window.history.pushState(null, "", window.location.href);
+    };
+
     if (isOpen) {
-      window.addEventListener("popstate", closeOverlay);
+      window.addEventListener("popstate", handlePopstate);
     }
 
     return () => {
-      window.removeEventListener("popstate", closeOverlay);
+      window.removeEventListener("popstate", handlePopstate);
     };
   }, [isOpen, closeOverlay]);
 
