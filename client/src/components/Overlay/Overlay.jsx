@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "./Overlay.css";
@@ -16,15 +16,17 @@ const Overlay = ({ isOpen, children, closeOverlay, unsetDims }) => {
 
   useEffect(() => {
     if (isOpen) {
-      const blockBack = window.history.pushState(null, null, window.location.href);
-      window.onpopstate = function(event) {
-        window.history.forward();
-        closeOverlay();
-      };
-    } else {
-      window.onpopstate = null;
+      const previousHistoryState = window.history.state;
+      window.history.pushState(null, null, window.location.href);
+      window.history.replaceState(previousHistoryState, null, window.location.href);
     }
-  }, [isOpen, closeOverlay]);
+  }, [closeOverlay]);
+
+  window.addEventListener('popstate', () => {
+    if(isOpen) {
+      closeOverlay();
+    }
+  });
 
   return ReactDOM.createPortal(
     <div className={`overlay-container ${isOpen ? 'open' : ''}`} onClick={closeOverlay}>
