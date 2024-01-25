@@ -4,16 +4,12 @@ import "./Overlay.css";
 
 const Overlay = ({ isOpen, children, closeOverlay }) => {
   useEffect(() => {
-    const handleBackButton = (event) => {
-      if (isOpen && event.key === "Backspace") {
-        closeOverlay();
-      }
-    };
-
-    window.addEventListener("keydown", handleBackButton);
+    if (isOpen) {
+      window.addEventListener("popstate", closeOverlay);
+    }
 
     return () => {
-      window.removeEventListener("keydown", handleBackButton);
+      window.removeEventListener("popstate", closeOverlay);
     };
   }, [isOpen, closeOverlay]);
 
