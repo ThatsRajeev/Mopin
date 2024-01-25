@@ -53,7 +53,7 @@ const Profile = () => {
       toggleOverlay={toggleOverlay}
       renderContent={renderContent}
     />
-    {windowWidth <= 768 && overlayVisible && (
+    {windowWidth <= 768 && (
       <Overlay isOpen={overlayVisible} closeOverlay={toggleOverlay}>
         <div className="profile-head" onClick={toggleOverlay}>
           <span className="material-symbols-outlined">arrow_back</span>

@@ -365,20 +365,16 @@ const Checkout = () => {
         <div className="cart-container mob-view" style={{display: 'block'}}>
           {!user || !addressChoosen ? (
             <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
-              {showLoginOverlay && (
-                <Overlay isOpen={showLoginOverlay} closeOverlay={() => setShowLoginOverlay(false)}>
-                  <div style={{backgroundColor: '#fff', width: '100vw', height: '100vh'}}>
-                    <Login setShowProp={toggleOverlay}/>
-                  </div>
-                </Overlay>
-               )}
-              {showAddressOverlay && (
-                <Overlay isOpen={showAddressOverlay} closeOverlay={() => setShowAddressOverlay(false)}>
-                  <div style={{backgroundColor: '#fff', margin: '24px'}} className="checkout-address-content">
-                    <ManageAddressContent setAddressChoosen={setAddressChoosen} />
-                  </div>
-                </Overlay>
-               )}
+              <Overlay isOpen={showLoginOverlay} closeOverlay={() => setShowLoginOverlay(false)}>
+                <div style={{backgroundColor: '#fff', width: '100vw', height: '100vh'}}>
+                  <Login setShowProp={toggleOverlay}/>
+                </div>
+              </Overlay>
+              <Overlay isOpen={showAddressOverlay} closeOverlay={() => setShowAddressOverlay(false)}>
+                <div style={{backgroundColor: '#fff', margin: '24px'}} className="checkout-address-content">
+                  <ManageAddressContent setAddressChoosen={setAddressChoosen} />
+                </div>
+              </Overlay>
                <button className="proceed-btn" onClick={() => {!user ? setShowLoginOverlay(true) : setShowAddressOverlay(true)}}>
                 {!user ? "Login / SignUp" : "Choose Address"}
                </button>
