@@ -366,14 +366,14 @@ const Checkout = () => {
           {!user || !addressChoosen ? (
             <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
               {showLoginOverlay && (
-                <Overlay closeOverlay={() => setShowLoginOverlay(false)}>
+                <Overlay isOpen={showLoginOverlay} closeOverlay={() => setShowLoginOverlay(false)}>
                   <div style={{backgroundColor: '#fff', width: '100vw', height: '100vh'}}>
                     <Login setShowProp={toggleOverlay}/>
                   </div>
                 </Overlay>
                )}
               {showAddressOverlay && (
-                <Overlay closeOverlay={() => setShowAddressOverlay(false)}>
+                <Overlay isOpen={showAddressOverlay} closeOverlay={() => setShowAddressOverlay(false)}>
                   <div style={{backgroundColor: '#fff', margin: '24px'}} className="checkout-address-content">
                     <ManageAddressContent setAddressChoosen={setAddressChoosen} />
                   </div>
