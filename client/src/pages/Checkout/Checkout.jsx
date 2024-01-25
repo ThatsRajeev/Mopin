@@ -220,7 +220,7 @@ const Checkout = () => {
               }
             </div>
             {showLogout &&
-            <LogoutContent toggleOverlay={() => setShowLogout(!showLogout)} />
+            <LogoutContent active={showLogout} toggleOverlay={() => setShowLogout(!showLogout)} />
             }
             <div className="vertical-line"></div>
 

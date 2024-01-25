@@ -54,7 +54,7 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
       </div>
 
       {showMap && (
-        <Overlay closeOverlay={() => setShowMap(false)}>
+        <Overlay isOpen={showMap} closeOverlay={() => setShowMap(false)}>
           <div className="profile-head mob-view" onClick={() => setShowMap(false)}>
             <span className="material-symbols-outlined">arrow_back</span>
             <p> Edit Address </p>
@@ -78,7 +78,7 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
             <button onClick={() => {setShowDelete(true)}}><span className="material-symbols-outlined type-icon">delete</span></button>
 
             {showDelete && (
-              <Overlay closeOverlay={() => setShowDelete(false)}>
+              <Overlay isOpen={showDelete} closeOverlay={() => setShowDelete(false)}>
                 <div className="delete-container">
                   <h3 className="delete-heading">Are you sure you want to delete? </h3>
                   <div>

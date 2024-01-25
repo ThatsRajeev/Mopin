@@ -37,7 +37,7 @@ const Profile = () => {
       case "Subscriptions":
         return <SubscriptionsContent />;
       case "Logout":
-        return <LogoutContent setActive={setActive} toggleOverlay={toggleOverlay} />;
+        return <LogoutContent active={active} setActive={setActive} toggleOverlay={toggleOverlay} />;
       default:
         return null;
     }
@@ -54,7 +54,7 @@ const Profile = () => {
       renderContent={renderContent}
     />
     {windowWidth <= 768 && overlayVisible && (
-      <Overlay>
+      <Overlay isOpen={overlayVisible} closeOverlay={toggleOverlay}>
         <div className="profile-head" onClick={toggleOverlay}>
           <span className="material-symbols-outlined">arrow_back</span>
           <p>{active}</p>

@@ -120,7 +120,7 @@ function LocateMePrompt() {
       </div>
 
       {addressOverlay &&
-        <Overlay closeOverlay={toggleOverlay}>
+        <Overlay isOpen={addressOverlay} closeOverlay={toggleOverlay}>
           <Location setShowProp={toggleOverlay}/>
         </Overlay>
       }

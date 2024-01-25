@@ -246,13 +246,6 @@ function Navbar({showNavbar, showAddress, header}) {
     }
   }, [location.pathname]);
 
-  useEffect(() => {
-    window.addEventListener('popstate', handleBackButton);
-
-    return () => {
-      window.removeEventListener('popstate', handleBackButton);
-    };
-  }, [isAddressActive, isLoginActive, isHelpActive, isSearchActive]);
 
   const toggleOverlay = (overlayType) => {
     switch(overlayType) {
@@ -273,17 +266,6 @@ function Navbar({showNavbar, showAddress, header}) {
     }
     setIsOverlayActive(!isOverlayActive);
   }
-
-  const handleBackButton = () => {
-    if (isAddressActive || isLoginActive || isHelpActive || isSearchActive) {
-      toggleOverlay('address');
-      toggleOverlay('login');
-      toggleOverlay('help');
-      toggleOverlay('search');
-    } else {
-      window.history.back();
-    }
-  };
 
   const renderOverlay = (overlayType, contentComponent) => {
     const isActive =

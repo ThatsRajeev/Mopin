@@ -4,7 +4,7 @@ import { useUserAuth } from "../../context/AuthContext";
 import Overlay from "../Overlay/Overlay";
 import "./LogoutContent.css";
 
-const LogoutContent = ({ setActive, toggleOverlay }) => {
+const LogoutContent = ({ active, setActive, toggleOverlay }) => {
   const navigate = useNavigate();
   const { user, logOut } = useUserAuth();
 
@@ -25,7 +25,7 @@ const LogoutContent = ({ setActive, toggleOverlay }) => {
 
   return(
     <div className="component logout">
-      <Overlay closeOverlay={handleCancel}>
+      <Overlay isOpen={active==="Logout"} closeOverlay={handleCancel}>
         <div className="delete-container">
           <h3 className="delete-heading">Are you sure you want to logout? </h3>
           <div>

@@ -42,7 +42,7 @@ const MeetTheMakers = ({ sellerDetails }) => {
         </div>
       </div>
       {makerOverlay &&
-        <Overlay closeOverlay={() => setMakerOverlay(!makerOverlay)}>
+        <Overlay isOpen={makerOverlay} closeOverlay={() => setMakerOverlay(!makerOverlay)}>
           <div className="search-heading mob-view">
             <span className="material-symbols-outlined" onClick={() => setMakerOverlay(!makerOverlay)}>arrow_back</span>
             <p>Meet the Maker</p>
