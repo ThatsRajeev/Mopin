@@ -276,7 +276,7 @@ const Checkout = () => {
                   <h2>{seller.sellerName}</h2>
                   {Array.isArray(seller.subs) && seller.subs.map((subs, subsIndex) => (
                     <div className="subs-section" key={subsIndex}>
-                      <h3>{subs.subsDays} days subscription</h3>
+                      <h4>{subs.subsDays} days subscription</h4>
                       <div>
                         {subs.selectedMeals.map((meal, mealIndex) => (
                           <h2 key={mealIndex}>{meal}</h2>
@@ -284,7 +284,7 @@ const Checkout = () => {
                       </div>
                       <div style={{marginTop: '8px'}}>
                         <button onClick={() => removeSubs(seller)}>Remove</button>
-                        <h3>₹{subs.subsPrice}</h3>
+                        <h4>₹{subs.subsPrice}</h4>
                       </div>
                     </div>
                   ))}
@@ -371,9 +371,9 @@ const Checkout = () => {
                 </Overlay>
               )}
               {showAddressOverlay && (
-                <Overlay isOpen={showAddressOverlay} closeOverlay={() => setShowAddressOverlay(false)} unsetDims="true">
+                <div className="checkbox-container">
                   <ManageAddressContent setAddressChoosen={setAddressChoosen} />
-                </Overlay>
+                </div>
               )}
                <button className="proceed-btn" onClick={() => {!user ? setShowLoginOverlay(true) : setShowAddressOverlay(true)}}>
                 {!user ? "Login / SignUp" : "Choose Address"}
@@ -395,6 +395,9 @@ const Checkout = () => {
         )}
         </div>
       )}
+      {showAddressOverlay &&
+        <div className="backgroundOverlay" onClick={() => setShowAddressOverlay(!showAddressOverlay)}></div>
+      }
     </>
   )
 }
