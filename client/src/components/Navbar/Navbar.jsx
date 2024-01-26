@@ -262,15 +262,22 @@ function Navbar({showNavbar, showAddress, header}) {
           <span className="material-symbols-outlined person-icon">person</span>
         </NavLink>
 
-        <Overlay isOpen={isLoginActive} closeOverlay={() => toggleOverlay('login')}>
-          <Login setShowProp={toggleOverlay}/>
-        </Overlay>
-        <Overlay isOpen={isAddressActive} closeOverlay={() => toggleOverlay('address')}>
-          <Location setShowProp={toggleOverlay}/>
-        </Overlay>
-        <Overlay isOpen={isHelpActive} closeOverlay={() => toggleOverlay('help')}>
-          <Help setShowProp={toggleOverlay}/>
-        </Overlay>
+        {isLoginActive && (
+          <Overlay isOpen={isLoginActive} closeOverlay={() => toggleOverlay('login')}>
+            <Login setShowProp={toggleOverlay}/>
+          </Overlay>
+        )}
+        {isAddressActive && (
+          <Overlay isOpen={isAddressActive} closeOverlay={() => toggleOverlay('address')}>
+            <Location setShowProp={toggleOverlay}/>
+          </Overlay>
+        )}
+        {isHelpActive && (
+          <Overlay isOpen={isHelpActive} closeOverlay={() => toggleOverlay('help')}>
+            <Help setShowProp={toggleOverlay}/>
+          </Overlay>
+        )}
+
       </GlobalNav>
 
       <FlexContainer className="mob-view">

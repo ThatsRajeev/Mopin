@@ -118,10 +118,11 @@ function LocateMePrompt() {
           )}
         </ul>
       </div>
-
-      <Overlay isOpen={addressOverlay} closeOverlay={toggleOverlay}>
-        <Location setShowProp={toggleOverlay}/>
-      </Overlay>
+      {addressOverlay && (
+        <Overlay isOpen={addressOverlay} closeOverlay={toggleOverlay}>
+          <Location setShowProp={toggleOverlay}/>
+        </Overlay>
+      )}
 
       <div className="locateMe-img">
         <div className="head-container">

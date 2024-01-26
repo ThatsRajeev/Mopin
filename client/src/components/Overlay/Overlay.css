@@ -9,14 +9,6 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.24s, visibility 0.24s;
-}
-
-.overlay-container.open {
-  opacity: 1;
-  visibility: visible;
 }
 
 .overlay-content {
@@ -26,12 +18,6 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transform: scale(0.7);
-  transition: transform 0.24s;
-}
-
-.overlay-container.open .overlay-content {
-  transform: scale(1);
 }
 
 @media (width > 768px) {

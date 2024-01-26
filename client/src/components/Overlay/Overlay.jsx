@@ -1,35 +1,25 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import { useBlocker } from "react-router-dom";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "./Overlay.css";
 
 const Overlay = ({ isOpen, children, closeOverlay, unsetDims }) => {
   const overlayStyles = unsetDims ? { height: 'unset', width: 'unset' } : {};
+  const blocker = useBlocker(() => isOpen);
 
   useEffect(() => {
-    if(isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+    window.addEventListener('popstate', closeOverlay);
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+
+    return () => {
+      window.removeEventListener('popstate', closeOverlay);
       document.body.style.overflow = "auto";
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen) {
-      const previousHistoryState = window.history.state;
-      window.history.pushState(null, null, window.location.href);
-      window.history.replaceState(previousHistoryState, null, window.location.href);
-    }
-  }, [closeOverlay]);
-
-  window.addEventListener('popstate', () => {
-    if(isOpen) {
-      closeOverlay();
-    }
-  });
+    };
+  }, [isOpen, closeOverlay]);
 
   return ReactDOM.createPortal(
-    <div className={`overlay-container ${isOpen ? 'open' : ''}`} onClick={closeOverlay}>
+    <div className="overlay-container" onClick={closeOverlay}>
       <div className="overlay-content" style={overlayStyles} onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={closeOverlay}>
           <span className="material-symbols-outlined">close</span>

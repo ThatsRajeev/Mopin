@@ -49,13 +49,16 @@ const ManageAddressContent = ({ setAddressChoosen, setAddressOverlay }) => {
         <h3> Add New Address </h3>
       </div>
 
-      <Overlay isOpen={showMap} closeOverlay={() => setShowMap(false)}>
-        <div className="profile-head mob-view" onClick={() => setShowMap(false)}>
-          <span className="material-symbols-outlined">arrow_back</span>
-          <p> Edit Address </p>
-        </div>
-        <MapComponent setShowMap={setShowMap} />
-      </Overlay>
+      {showMap && (
+        <Overlay isOpen={showMap} closeOverlay={() => setShowMap(false)}>
+          <div className="profile-head mob-view" onClick={() => setShowMap(false)}>
+            <span className="material-symbols-outlined">arrow_back</span>
+            <p> Edit Address </p>
+          </div>
+          <MapComponent setShowMap={setShowMap} />
+        </Overlay>
+      )}
+
       {address !== "" && (
         <div className="saved-address addresses">
           <div className="address-type-div">
@@ -71,15 +74,18 @@ const ManageAddressContent = ({ setAddressChoosen, setAddressOverlay }) => {
             <button onClick={() => {setShowMap(true); setAddressOverlay && setAddressOverlay()}}><span className="material-symbols-outlined type-icon">edit</span></button>
             <button onClick={() => {setShowDelete(true)}}><span className="material-symbols-outlined type-icon">delete</span></button>
 
-            <Overlay isOpen={showDelete} closeOverlay={() => setShowDelete(false)} unsetDims="true">
-              <div className="delete-container">
-                <h3 className="delete-heading">Are you sure you want to delete? </h3>
-                <div>
-                  <button className="delete" onClick={deleteAddress}>Yes</button>
-                  <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
+            {showDelete && (
+              <Overlay isOpen={showDelete} closeOverlay={() => setShowDelete(false)} unsetDims="true">
+                <div className="delete-container">
+                  <h3 className="delete-heading">Are you sure you want to delete? </h3>
+                  <div>
+                    <button className="delete" onClick={deleteAddress}>Yes</button>
+                    <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
+                  </div>
                 </div>
-              </div>
-            </Overlay>
+              </Overlay>
+            )}
+
           </div>
         </div>
       )}

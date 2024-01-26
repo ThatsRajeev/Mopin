@@ -28,17 +28,19 @@ const MeetTheMakers = ({ sellerDetails }) => {
           </div>
         </div>
       </div>
-      <Overlay isOpen={makerOverlay} closeOverlay={() => setMakerOverlay(!makerOverlay)}>
-        <div className="search-heading mob-view">
-          <span className="material-symbols-outlined" onClick={() => setMakerOverlay(!makerOverlay)}>arrow_back</span>
-          <p>Meet the Maker</p>
-        </div>
-        <img className="makerOverlay-img" src={makers[randomIndex].imgURL} alt="makers-img" />
-        <div className="makerOverlay-div">
-          <h3>{sellerDetails.name}</h3>
-          <p>{makers[randomIndex].story}</p>
-        </div>
-    </Overlay>
+      {makerOverlay && (
+        <Overlay isOpen={makerOverlay} closeOverlay={() => setMakerOverlay(!makerOverlay)}>
+          <div className="search-heading mob-view">
+            <span className="material-symbols-outlined" onClick={() => setMakerOverlay(!makerOverlay)}>arrow_back</span>
+            <p>Meet the Maker</p>
+          </div>
+          <img className="makerOverlay-img" src={makers[randomIndex].imgURL} alt="makers-img" />
+          <div className="makerOverlay-div">
+            <h3>{sellerDetails.name}</h3>
+            <p>{makers[randomIndex].story}</p>
+          </div>
+        </Overlay>
+      )}
     </>
   )
 }
