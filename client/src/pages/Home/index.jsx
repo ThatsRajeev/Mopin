@@ -83,8 +83,13 @@ function Homepage() {
             <>
               <div className="foodCatgor">
                 {foodCatgor.map((catgor, index) => (
-                  <div key={index} className={`${active === catgor ? "active-catgor" : ""}`}
-                    onClick={() => setActive(catgor)}>{catgor}</div>
+                  <div
+                    key={index}
+                    className={`${active.trim() === catgor.trim() ? "active-catgor" : ""}`}
+                    onClick={() => setActive(catgor)}
+                  >
+                    {catgor}
+                  </div>
                 ))}
               </div>
               <FoodSlider func={filterDish} />
