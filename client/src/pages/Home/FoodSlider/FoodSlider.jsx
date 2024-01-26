@@ -15,7 +15,7 @@ import FoodCard from "../FoodCard/FoodCard";
 import homecooks from "../../../data/homecooks";
 
 // import required modules
-import { Keyboard, Navigation, Pagination } from "swiper/modules";
+import { Keyboard, Navigation, Pagination, FreeMode } from "swiper/modules";
 
 const FoodSlider = (props) => {
   const params = {
@@ -36,6 +36,7 @@ const FoodSlider = (props) => {
       className="slide-container food-slide-container"
       loop={false}
       slidesPerView={3}
+      freeMode={true}
       spaceBetween={40}
       fadeEffect={true}
       loopPreventsSliding={0}
