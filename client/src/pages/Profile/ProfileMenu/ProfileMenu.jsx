@@ -45,7 +45,7 @@ const ProfileMenu = ({ menuItems, active, setActive, toggleOverlay, renderConten
             <span className="material-symbols-outlined user-icon">person</span>
             <div>
               <h4>{name}</h4>
-              <h4>{user.phoneNumber}</h4>
+              <h4>{user && user.phoneNumber}</h4>
             </div>
           </div>
           <ul>

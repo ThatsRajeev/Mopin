@@ -11,6 +11,7 @@ const LogoutContent = ({ active, setActive, toggleOverlay }) => {
   const handleLogout = async () => {
     try {
       logOut();
+      setActive && await setActive("My Orders");
       navigate('/');
 
     } catch (error) {
@@ -22,10 +23,6 @@ const LogoutContent = ({ active, setActive, toggleOverlay }) => {
     setActive && setActive("My Orders");
     toggleOverlay();
   };
-
-  useEffect(() => {
-    console.log(active==="Logout");
-  }, [])
 
   return(
     <div className="component logout">

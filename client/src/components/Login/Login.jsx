@@ -30,6 +30,12 @@ function Login({ setShowProp, fromCheckout }) {
     }
   }, [otp]);
 
+  useEffect(() => {
+    if(showOtp) {
+      setNumber("");
+    }
+  }, [showOtp]);
+
   const sendDataToServer = async (event) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -84,7 +90,6 @@ function Login({ setShowProp, fromCheckout }) {
   const verifyOtp = async () => {
     setLoading(true);
     result.confirm(otp).then((res) => {
-      console.log(res);
       setShowProp('login');
     })
     .catch((err) => {
