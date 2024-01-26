@@ -372,7 +372,7 @@ const Checkout = () => {
               )}
               {showAddressOverlay && (
                 <Overlay isOpen={showAddressOverlay} closeOverlay={() => setShowAddressOverlay(false)} unsetDims="true">
-                  <ManageAddressContent setAddressChoosen={setAddressChoosen} setAddressOverlay={() => setShowAddressOverlay(false)}/>
+                  <ManageAddressContent setAddressChoosen={setAddressChoosen} />
                 </Overlay>
               )}
                <button className="proceed-btn" onClick={() => {!user ? setShowLoginOverlay(true) : setShowAddressOverlay(true)}}>
