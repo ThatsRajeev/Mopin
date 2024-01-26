@@ -13,6 +13,7 @@
     "leaflet": "^1.9.4",
     "mapmyindia-react": "^1.0.6",
     "react": "^18.2.0",
+    "react-beforeunload": "^2.6.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-is": "^18.2.0",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/AuthContext";
 import Overlay from "../Overlay/Overlay";
@@ -22,6 +22,10 @@ const LogoutContent = ({ active, setActive, toggleOverlay }) => {
     setActive && setActive("My Orders");
     toggleOverlay();
   };
+
+  useEffect(() => {
+    console.log(active==="Logout");
+  }, [])
 
   return(
     <div className="component logout">

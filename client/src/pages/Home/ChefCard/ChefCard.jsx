@@ -4,7 +4,7 @@ import "./ChefCard.css"
 function ChefCard(props) {
   return (
     <div className="food-container chefCard-container">
-      <img className="food-img" src={props.img} alt="food_img" />
+      <img className="food-img skeleton" src={props.img} alt="food_img" />
       <div className="food-info">
         <h2 className="food-name-price">{props.name}</h2>
         <p className="food-desc">{props.foodType}</p>

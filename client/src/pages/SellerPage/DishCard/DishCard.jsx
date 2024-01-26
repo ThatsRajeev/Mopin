@@ -31,7 +31,7 @@ const DishCard = ({ dishItem, dishInfo, handleButtonClick, handleIncrement, hand
           <p>{dishItem.description}</p>
           <h3>₹{dishItem.price}</h3>
         </div>
-        <img className="food-card-img" src={dishItem.imgURL} alt="food-img" />
+        <img className="food-card-img skeleton" src={dishItem.imgURL} alt="food-img" />
       </div>
       <div className="button-container">
         <button className={`add-btn ${quantityGreaterThanZero ? 'hidden' : ""}`} onClick={(e) => handleButtonClick(e, dishItem, 1)}> Add</button>

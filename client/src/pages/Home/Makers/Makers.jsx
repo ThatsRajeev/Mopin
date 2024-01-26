@@ -59,7 +59,7 @@ const Makers = () => {
           <div className="makers-container">
             <div className="makers-ellipse">
               <div>
-                <img className="makers-img" src={maker.imgURL} alt="makers-img" />
+                <img className="makers-img skeleton" src={maker.imgURL} alt="makers-img" />
               </div>
             </div>
             <div className="maker-div">

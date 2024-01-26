@@ -23,7 +23,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
     <div className="seller-container">
       <div className="seller-div-pc pc-view">
         <span className="top-bar"></span>
-        <img className="seller-food-img" src={sellerDetails.imgURL} alt="food-img" />
+        <img className="seller-food-img skeleton" src={sellerDetails.imgURL} alt="food-img" />
         <div className="seller-details-div">
           <div className="sellerName-div">
             <img className="avatar-img" src={woman} alt="avatar-img" />
@@ -48,7 +48,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
             <p>{parseInt(sellerDetails.noOfOrders/ 5, 10) * 5} + orders</p>
           </div>
         </div>
-        <img className="seller-food-img blurred-img" src={sellerDetails.imgURL} alt="food-img" />
+        <img className="seller-food-img blurred-img skeleton" src={sellerDetails.imgURL} alt="food-img" />
         <span className="bottom-bar"></span>
       </div>
       <div className="seller-div-mobile mob-view">
@@ -63,7 +63,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
           </div>
         </div>
         <div className="seller-details-wrapper">
-          <img src={sellerDetails.imgURL} alt="food-img" />
+          <img src={sellerDetails.imgURL} alt="food-img skeleton" />
           <div>
             <h1> {sellerDetails.name} </h1>
             <p>{sellerDetails.foodType}</p>

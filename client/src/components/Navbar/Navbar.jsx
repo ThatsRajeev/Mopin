@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
 import Location from "../Location/Location";
 import Login from "../Login/Login";
-import Help from "../Help/Help";
+import HelpAndSupport from "../../pages/Profile/HelpAndSupport/HelpAndSupport";
 import Overlay from "../Overlay/Overlay";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchData from "../../utils/fetchData";
@@ -274,10 +274,9 @@ function Navbar({showNavbar, showAddress, header}) {
         )}
         {isHelpActive && (
           <Overlay isOpen={isHelpActive} closeOverlay={() => toggleOverlay('help')}>
-            <Help setShowProp={toggleOverlay}/>
+            <HelpAndSupport setShowProp={toggleOverlay}/>
           </Overlay>
         )}
-
       </GlobalNav>
 
       <FlexContainer className="mob-view">
@@ -301,10 +300,10 @@ function Navbar({showNavbar, showAddress, header}) {
             Profile
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Help' ? "true" : "false"} onClick={() => {toggleOverlay('help')}}>
+        <NavLink sc={navItem!=='Help' ? "true" : "false"}>
           <NavItem>
-            <span className="material-symbols-outlined">support</span>
-            Help
+            <span className="material-symbols-outlined">search</span>
+            Search
           </NavItem>
         </NavLink>
         <NavLink sc={navItem!=='Checkout' ? "true" : "false"} to="/checkout">

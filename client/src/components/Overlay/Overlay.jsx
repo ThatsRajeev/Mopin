@@ -18,7 +18,7 @@ const Overlay = ({ isOpen, children, closeOverlay, unsetDims }) => {
     };
   }, [isOpen, closeOverlay]);
 
-  return ReactDOM.createPortal(
+  return (
     <div className="overlay-container" onClick={closeOverlay}>
       <div className="overlay-content" style={overlayStyles} onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={closeOverlay}>
@@ -26,8 +26,7 @@ const Overlay = ({ isOpen, children, closeOverlay, unsetDims }) => {
         </button>
         {children}
       </div>
-    </div>,
-    document.querySelector(".modal")
+    </div>
   );
 };
 

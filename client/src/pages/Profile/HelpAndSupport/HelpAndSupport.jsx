@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import PhoneInput from "react-phone-number-input";
 import axios from "axios";
-import "./Help.css";
+import "./HelpAndSupport.css";
 
-function Help({setShowProp}) {
+function HelpAndSupport({setShowProp}) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [subject, setSubject] = useState("");
@@ -38,12 +38,6 @@ function Help({setShowProp}) {
 
   return (
     <div className="help-section">
-    <div className="mob-view">
-      <div className="help-heading">
-        <span className="material-symbols-outlined" onClick={() => setShowProp('help')}>arrow_back</span>
-        <p> Help & Support </p>
-      </div>
-    </div>
       <h3 className="pc-view"> Help & Support </h3>
       {!isSubmitted ? (
         <>
@@ -97,4 +91,4 @@ function Help({setShowProp}) {
   );
 }
 
-export default Help;
+export default HelpAndSupport;

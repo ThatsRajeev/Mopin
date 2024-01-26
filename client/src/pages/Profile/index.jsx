@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 import MyOrdersContent from "./MyOrdersContent/MyOrdersContent";
 import ManageAddressContent from "../../components/ManageAddressContent/ManageAddressContent";
-import PaymentMethodsContent from "./PaymentMethodsContent/PaymentMethodsContent";
+import HelpAndSupport from "./HelpAndSupport/HelpAndSupport";
 import SubscriptionsContent from "./SubscriptionsContent/SubscriptionsContent";
 import LogoutContent from "../../components/LogoutContent/LogoutContent";
 import Overlay from "../../components/Overlay/Overlay";
@@ -21,7 +21,7 @@ const Profile = () => {
   const menuItems = [
     { label: "My Orders", icon: "local_dining" },
     { label: "Manage Address", icon: "edit_location" },
-    { label: "Payment Methods", icon: "wallet" },
+    { label: "Help & Support", icon: "support" },
     { label: "Subscriptions", icon: "card_membership" },
     { label: "Logout", icon: "logout" },
   ];
@@ -32,8 +32,8 @@ const Profile = () => {
         return <MyOrdersContent />;
       case "Manage Address":
         return <ManageAddressContent />;
-      case "Payment Methods":
-        return <PaymentMethodsContent />;
+      case "Help & Support":
+        return <HelpAndSupport />;
       case "Subscriptions":
         return <SubscriptionsContent />;
       case "Logout":
