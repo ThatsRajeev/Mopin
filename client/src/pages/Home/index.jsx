@@ -48,15 +48,15 @@ function Homepage() {
   const newly = (props) => {
     const jd = new Date(props.dateOfJoining).getTime();
     const td = new Date().getTime();
-    return { display: td - jd <= 7.884e9 ? "block" : "none" };
+    return td - jd <= 7.884e9;
   };
 
   const rated = (props) => {
-    return { display: props.rating >= 4.4 ? "block" : "none" };
+    return props.rating >= 4.4;
   };
 
   const healthy = (props) => {
-    return { display: props.healthyPick ? "block" : "none" };
+    return props.healthyPick;
   };
 
   const filterDish = (props) => {
@@ -68,7 +68,7 @@ function Homepage() {
       "Dairy-free": props.dairyFree,
     };
 
-    return { display: categoryMap[active] ? "block" : "none" };
+    return categoryMap[active];
   };
 
   return (

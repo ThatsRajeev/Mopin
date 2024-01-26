@@ -72,9 +72,11 @@ const FoodSlider = (props) => {
       }}
       modules={[Keyboard, Navigation, Pagination]}
     >
-      {homecooks.map((cook, index) => (
-          <SwiperSlide style={props.func(cook)} className="card-wrapper" key={index}>
-            <Link to ={`/sellers/${cook.name}`} style={{textDecoration: 'none'}}>
+      {homecooks
+        .filter(cook => props.func(cook))
+        .map((cook, index) => (
+          <SwiperSlide className="card-wrapper" key={index}>
+            <Link to={`/sellers/${cook.name}`} style={{ textDecoration: 'none' }}>
               <FoodCard
                 key={index}
                 id={index}
@@ -84,9 +86,9 @@ const FoodSlider = (props) => {
                 rating={cook.rating}
                 noOfOrders={cook.noOfOrders}
                 minPrice={cook.minPrice}
-                className = "card"
+                className="card"
               />
-              </Link>
+            </Link>
           </SwiperSlide>
       ))}
     </Swiper>
