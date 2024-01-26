@@ -35,7 +35,7 @@ const FoodSlider = (props) => {
       {...params}
       className="slide-container food-slide-container"
       loop={false}
-      speed={400}
+      speed={320}
       slidesPerView={3}
       freeMode={true}
       spaceBetween={40}
