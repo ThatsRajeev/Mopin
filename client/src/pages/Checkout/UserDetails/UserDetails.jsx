@@ -58,7 +58,7 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
     }
 
     const userDetailsContainerHeight = document.querySelector('.user-details-container-mob').clientHeight;
-    document.querySelector('.order-summary').style.marginBottom = `${userDetailsContainerHeight+16}px`;
+    document.querySelector('.order-summary').style.marginBottom = `${Math.max(userDetailsContainerHeight+16, 84)}px`;
 
   }, [addressChoosen])
 
