@@ -4,10 +4,7 @@ const app = express();
 const request = require('request');
 const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
 const dotenv = require("dotenv");
-const authMiddleware = require("./routes/authMiddleware");
 const paymentRoutes = require("./routes/payment");
 const path = require("path");
 const bodyParser = require('body-parser');
@@ -16,6 +13,10 @@ dotenv.config();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.resolve(__dirname, 'build')));
+
+app.use("/api/payment", paymentRoutes);
 
 app.use(cors({
   origin: ["https://mopin-frontend.vercel.app", "http://localhost:3000"],
@@ -47,18 +48,9 @@ app.post('/formspree', function(req, res) {
   });
 });
 
-app.use(express.json());
-app.use(express.static(path.resolve(__dirname, 'build')));
-app.use(cookieParser());
-
-app.use("/api/payment", paymentRoutes);
-
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
-app.get("/", (req, res) => {
-  res.json("hello");
-})
-
+// Handle User Data
 const userSchema = new mongoose.Schema ({
   phoneNumber: Number,
   name: String,
@@ -67,10 +59,6 @@ const userSchema = new mongoose.Schema ({
 });
 
 const User = new mongoose.model("User", userSchema);
-
-app.get("/api/endpoint", (req, res) => {
-  res.send("Get Request called");
-});
 
 app.post("/api/endpoint", async (req, res) => {
 
