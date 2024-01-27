@@ -3,68 +3,22 @@ import { useNavigate } from "react-router-dom";
 import useWindowResize from "../../hooks/useWindowResize";
 import { fetchFullCartInfo } from "../../utils/fetchCartInfo";
 import handleCart from "../../utils/handleCart";
-import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
-import Login from "../../components/Login/Login";
-import ManageAddressContent from '../../components/ManageAddressContent/ManageAddressContent';
-import LogoutContent from "../../components/LogoutContent/LogoutContent";
-import { useUserAuth } from "../../context/AuthContext";
-import fetchData from "../../utils/fetchData";
-import fetchAddress from "../../utils/fetchAddress";
-import Overlay from "../../components/Overlay/Overlay";
+import UserDetails from "./UserDetails/UserDetails";
 
 const Checkout = () => {
-  const [name, setName] = useState("");
-  const [showLoginOverlay, setShowLoginOverlay] = useState(false);
-  const [showAddressOverlay, setShowAddressOverlay] = useState(false);
-  const [address, setAddress] = useState("");
-  const [addressType, setAddressType] = useState("");
-  const [showLogout, setShowLogout] = useState(false);
-  const [addressChoosen, setAddressChoosen] = useState(false);
   const [dishInfo, setdishInfo] = useState({});
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { user, logOut } = useUserAuth();
   const navigate = useNavigate();
   const windowWidth = useWindowResize();
-
-  useEffect(() => {
-    (async function() {
-      try {
-        if (user && Object.keys(user).length !== 0) {
-          const re = await fetchData(user);
-          setName(re.name);
-
-          const res = await fetchAddress(user);
-          setAddress(
-            `${res.houseNo}, ${res.houseName}, ${res.landmark}, ${res.address}`
-          );
-          setAddressType(res.addressType);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, [user]);
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     fetchFullCartInfo(cart, setdishInfo, setTotalItems, setTotalPrice);
   }, []);
 
-  const toggleOverlay = (overlayType) => {
-    switch(overlayType) {
-      case 'address':
-        setShowAddressOverlay(!showAddressOverlay);
-        break;
-      case 'login':
-        setShowLoginOverlay(!showLoginOverlay);
-        break;
-      default:
-        break;
-    }
-  }
 
   const handleIncrement = (event, dish, seller) => {
     const counterValue = event.target.previousElementSibling;
@@ -145,121 +99,17 @@ const Checkout = () => {
     }
   }
 
-  const initPayment = (data)=> {
-    const options = {
-      key: "rzp_test_vEfERvWyBIr2EW",
-      amount: data.amount,
-      currency: data.currency,
-      name: "Mopin",
-      description: "Test Transaction",
-      order_id: data.id,
-      handler: async (response) => {
-        try {
-          const {data} = await axios.post('https://mopin-server.vercel.app/api/payment/verify', {
-          }, {
-            withCredentials: true
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      theme: {
-        color: "#f16122",
-      },
-    };
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
-  }
-
-  const handlePayment = async () => {
-    try {
-      const {data} = await axios.post('https://mopin-server.vercel.app/api/payment/orders', {
-        amount: totalPrice+7+4
-      }, {
-        withCredentials: true
-      });
-      initPayment(data.data);
-
-      setdishInfo({});
-      setTotalItems(0);
-      setTotalPrice(0);
-      localStorage.removeItem('cart');
-
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   return (
     <>
       <Navbar showAddress="none" header="Secure Checkout" showNavbar = {windowWidth < 768 ? "none" : ""}/>
-      {dishInfo.length ? (
+      {dishInfo.length > 0 ? (
       <div className="checkout-container">
         <div className="checkout-div">
-          <div className="delivery-details pc-view">
-            <div className="user-details">
-              <div className="details-head">
-                <div className="checkout-logo-div">
-                  <span className="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>person</span>
-                </div>
-                {name ? "Logged In" : <div className="login-insist">Login / Sign Up</div>}
-              </div>
-              {name ?
-              <div className="contact-details">
-                <div>
-                  <span style={{fontWeight: "600"}}>{name}</span>
-                  <span style={{margin: '0 6px'}}>|</span>
-                  {user.phoneNumber}
-                </div>
-                <a onClick={() => setShowLogout(true)} className="change-details"> Change User </a>
-              </div> :
-              <>
-              <p className="login-insist-p">To place your order now, log in to your account </p>
-              <Login fromCheckout='true'/></>
-              }
-            </div>
-            {showLogout &&
-            <LogoutContent active={showLogout} toggleOverlay={() => setShowLogout(!showLogout)} />
-            }
-            <div className="vertical-line"></div>
 
-            <div className="user-details">
-              <div className="details-head">
-                <div className="checkout-logo-div">
-                <span className="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>location_on</span>
-                </div>
-                {addressChoosen ? "Delivery Address" : <div className="login-insist">Choose Delivery Address</div>}
-              </div>
-              {addressChoosen ?
-              <div className="contact-details">
-                <div>
-                  <span style={{fontWeight: "600"}}>{addressType}</span>
-                  <span style={{margin: '0 6px'}}>|</span>
-                  {address.substring(0, 44) + "..."}
-                </div>
-                <a onClick={() => setAddressChoosen(false)} className="change-details"> Change </a>
-              </div> :
-              <div className="checkout-address-content">
-                {name && <ManageAddressContent setAddressChoosen={setAddressChoosen}/> }
-            </div>
-              }
-            </div>
-
-            <div className="vertical-line"></div>
-
-            <div className="user-details">
-              <div className="details-head">
-                <div className="checkout-logo-div">
-                <span className="material-symbols-outlined" style={{fontSize: '24px', margin: '0'}}>account_balance_wallet</span>
-                </div>
-                <div className="login-insist">Choose Payment Method</div>
-              </div>
-              <div className="contact-details">
-                <button className="proceed-btn" onClick={handlePayment} disabled={!addressChoosen}>Proceed to Pay</button>
-              </div>
-            </div>
-          </div>
+          <UserDetails
+            totalPrice={totalPrice}
+            setdishInfo={setdishInfo}
+          />
 
           <div className="order-summary">
             <div className="cart-div">
@@ -330,7 +180,7 @@ const Checkout = () => {
                 <span className="material-symbols-outlined" style={{margin: '0'}}>chevron_right</span>
               </div>
             </div>
-            <div className="ready-checkout" style={{marginBottom: '6rem'}}>
+            <div className="ready-checkout">
               <h4>Bill Details</h4>
               <div className="price-details">
                 <p>Item Total</p>
@@ -360,44 +210,6 @@ const Checkout = () => {
         <button className="explore-btn" onClick={() => navigate("/")}>Explore Food</button>
       </div>
       )}
-
-      {dishInfo.length>0 && (
-        <div className="cart-container mob-view" style={{display: 'block'}}>
-          {!user || !addressChoosen ? (
-            <div className="contact-details" style={{margin: '0', flexDirection: 'column'}}>
-              {showLoginOverlay && (
-                <Overlay isOpen={showLoginOverlay} closeOverlay={() => setShowLoginOverlay(false)}>
-                  <Login setShowProp={toggleOverlay}/>
-                </Overlay>
-              )}
-              {showAddressOverlay && (
-                <div className="checkbox-container">
-                  <ManageAddressContent setAddressChoosen={setAddressChoosen} />
-                </div>
-              )}
-               <button className="proceed-btn" onClick={() => {!user ? setShowLoginOverlay(true) : setShowAddressOverlay(true)}}>
-                {!user ? "Login / SignUp" : "Choose Address"}
-               </button>
-            </div>
-            ) : (
-            <div className="contact-details" style={{margin: '8px 0', flexDirection: 'column'}}>
-              <div className="contact-details" style={{flexDirection: 'column', margin: '0 0 14px'}}>
-                <div className="checkout-dishinfo">
-                  <h3>Deliver to</h3>
-                  <a onClick={() => setAddressChoosen(false)} className="change-details" style={{color: "#f16122"}}> Change </a>
-                </div>
-                <div className="bottom-container-address">
-                  {address}
-                </div>
-              </div>
-              <button className="proceed-btn" onClick={handlePayment}><h4>Proceed to Pay (₹{totalPrice+7+4})</h4></button>
-          </div>
-        )}
-        </div>
-      )}
-      {showAddressOverlay &&
-        <div className="backgroundOverlay" onClick={() => setShowAddressOverlay(!showAddressOverlay)}></div>
-      }
     </>
   )
 }

@@ -5,7 +5,6 @@ require("dotenv").config();
 // create noOfOrders
 router.post("/orders", async (req, res) => {
   try {
-    console.log(req);
     const instance = new Razorpay({
       key_id: process.env.RAZORPAY_API_KEY,
       key_secret: process.env.RAZORPAY_SECRET,

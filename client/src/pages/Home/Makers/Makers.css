@@ -105,15 +105,27 @@
   display: inline-block;
   position: relative;
   transition: 0.5s;
+  padding-right: 16px;
+
+  @media (width > 768px){
+    padding: unset;
+  }
 }
 
 .read-btn span:after {
   content: "\00bb";
   position: absolute;
-  opacity: 0;
+  opacity: 1;
   top: 0;
-  right: -20px;
+  right: 0;
   transition: 0.5s;
+}
+
+@media (width > 768px) {
+  .read-btn span:after {
+    right: -20px;
+    opacity: 0;
+  }
 }
 
 .read-btn:hover span {

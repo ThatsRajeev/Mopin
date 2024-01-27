@@ -8,7 +8,7 @@ import loader from "../../assets/loader.svg";
 import { useUserAuth } from "../../context/AuthContext";
 import "./Login.css";
 
-function Login({ setShowProp, fromCheckout }) {
+function Login({ setShowProp }) {
   const [isSignUp, setSignUp] = useState(false);
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
@@ -31,7 +31,7 @@ function Login({ setShowProp, fromCheckout }) {
   }, [otp]);
 
   useEffect(() => {
-    if(showOtp) {
+    if(!showOtp) {
       setNumber("");
     }
   }, [showOtp]);
@@ -110,11 +110,11 @@ function Login({ setShowProp, fromCheckout }) {
           onClick={() => setShowProp('login')}>arrow_back_ios</span>
         </button>
       </div>
-      <div className={fromCheckout ? "ck-login-img" : "login-img"}></div>
-      <div className={fromCheckout ? "ck-login-div" : "login-div"}>
+      <div className="login-img"></div>
+      <div className="login-div">
         {showOtp ? (
           <p>
-            <div className={fromCheckout ? "ck-active-text" : "active-text"}>
+            <div className="active-text">
               <span className="material-symbols-outlined clear-otp-icon"
               onClick={(event) => setShowOtp(false)}>arrow_back_ios</span>
               Enter OTP
@@ -122,7 +122,7 @@ function Login({ setShowProp, fromCheckout }) {
             We've sent an OTP to your phone number.
           </p>
         ) : (
-          <p style={{display: fromCheckout ? "none":"block"}}>
+          <p>
             <span className="active-text">{isSignUp ? "Signup" : "Login"}</span> or
             <span className="inactive-text" onClick={() => setSignUp(!isSignUp)}>{isSignUp ? " Login" : " Signup"}</span>
           </p>
@@ -170,7 +170,7 @@ function Login({ setShowProp, fromCheckout }) {
              {loading && <img className="loader-img" src={loader} alt="load-img" />}
           </button>
         </form>
-        <p className="login-tc" style={{display: fromCheckout ? 'none':'block'}}>By {isSignUp ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
+        <p className="login-tc" >By {isSignUp ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
       </div>
     </div>
   );
