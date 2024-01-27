@@ -153,7 +153,7 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
           </div>
           ) : (
           <div className="contact-details mobile-details">
-            <div className="contact-details">
+            <div className="contact-details" style={{flexDirection: "column"}}>
               <div className="checkout-dishinfo">
                 <h3>Deliver to</h3>
                 <a onClick={() => setAddressChoosen(false)} className="change-details"> Change </a>
