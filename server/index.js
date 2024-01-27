@@ -16,13 +16,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'build')));
 
-app.use("/api/payment", paymentRoutes);
-
 app.use(cors({
   origin: ["https://mopin-frontend.vercel.app", "http://localhost:3000"],
   methods: ["POST", "GET"],
   credentials: true,
 }));
+
+app.use("/api/payment", paymentRoutes);
 
 app.get('/proxy', async (req, res) => {
   try {
