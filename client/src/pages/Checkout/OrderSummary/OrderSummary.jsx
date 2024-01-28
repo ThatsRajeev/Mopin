@@ -107,10 +107,12 @@ const OrderSummary = ({ dishInfo, setdishInfo }) => {
         <span className="material-symbols-outlined" onClick={() => navigate(-1)}>arrow_back_ios</span>
         Cart
       </div>
+
       {Array.isArray(dishInfo) && dishInfo.map((seller, index) => (
         (seller.dishes.length > 0 || seller.subs.length > 0) && (
           <div key={index} className={`seller-section ${index === 0 ? 'first-seller' : ''}`}>
             <h2>{seller.sellerName}</h2>
+
             {Array.isArray(seller.subs) && seller.subs.map((subs, subsIndex) => (
               <div className="subs-section" key={subsIndex}>
                 <h4>{subs.subsDays} days subscription</h4>
@@ -125,6 +127,7 @@ const OrderSummary = ({ dishInfo, setdishInfo }) => {
                 </div>
               </div>
             ))}
+
             {Array.isArray(seller.dishes) && seller.dishes.map((dish, dishIndex) => (
               <div key={dishIndex} className="ready-checkout">
                 <div className="checkout-dishinfo">

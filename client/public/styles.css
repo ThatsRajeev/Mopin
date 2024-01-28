@@ -237,6 +237,47 @@ hr {
   }
 }
 
+.checkout-container {
+  @media (width > 768px) {
+    background-color: #D9D9D9;
+    min-height: 100vh;
+  }
+}
+
+.checkout-div {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  >p {
+    color: rgb(0, 0, 0, 0.64);
+    margin: 8px 16px 24px;
+  }
+
+  >button {
+    margin: 0;
+  }
+}
+
+.empty-cart-img {
+  height: 256px;
+  width: 350px;
+  background-image: url(https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/woman-kitchen-cooks-from-organic-products-recycling-vegetables-natural-products_98982-525__1_-removebg-preview.avif);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .pc-view {
   display: none !important;;
 
@@ -264,86 +305,4 @@ hr {
   100% {
     background-color: hsl(200, 20%, 95%);
   }
-}
-
-/***************** Hero component *****************/
-
-
-/***************** FoodCard component *****************/
-
-
-/***************** FoodSlider component *****************/
-
-
-/***************** Fooder component *****************/
-
-
-/***************** Features component *****************/
-
-
-/***************** Makers component *****************/
-
-
-/***************** Testimonials component *****************/
-
-
-/***************** Footer component *****************/
-
-
-/***************** Location component *****************/
-
-
-/***************** Login component *****************/
-
-
-/***************** Profile component *****************/
-
-
-/***************** MapComponet component *****************/
-
-
-/***************** SellerDetails component *****************/
-
-
-/***************** Checkout component *****************/
-
-.checkout-container {
-  @media (width > 768px) {
-    background-color: #D9D9D9;
-    min-height: 100vh;
-  }
-}
-
-.checkout-div {
-  display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.empty-cart {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-
-  >p {
-    color: rgb(0, 0, 0, 0.64);
-    margin: 8px 0 24px;
-  }
-
-  >button {
-    margin: 0;
-  }
-}
-
-.empty-cart-img {
-  height: 256px;
-  width: 350px;
-  background-image: url(https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/woman-kitchen-cooks-from-organic-products-recycling-vegetables-natural-products_98982-525__1_-removebg-preview.avif);
-  background-repeat: no-repeat;
-  background-size: contain;
 }

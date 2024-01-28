@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Homepage from "./pages/Home/index";
 import SellerPage from "./pages/SellerPage/index";
 import Profile from "./pages/Profile/index";
-import Checkout from "./pages/Checkout/Checkout";
+import Checkout from "./pages/Checkout/index";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import AboutUs from './legal/AboutUs';
 import ContactUs from './legal/ContactUs';
