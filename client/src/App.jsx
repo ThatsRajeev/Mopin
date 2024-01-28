@@ -5,7 +5,9 @@ import SellerPage from "./pages/SellerPage/index";
 import Profile from "./pages/Profile/index";
 import Checkout from "./pages/Checkout/Checkout";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
+import AboutUs from './legal/AboutUs';
 import ContactUs from './legal/ContactUs';
+import FAQPage from './legal/FAQPage';
 import TermsAndConditions from './legal/TermsAndConditions';
 import PrivacyPolicy from './legal/PrivacyPolicy';
 import CancellationRefundPolicy from './legal/CancellationRefundPolicy';
@@ -25,8 +27,16 @@ const router = createBrowserRouter([
     element: <Profile />
   },
   {
+    path: "/about-us",
+    element: <AboutUs />
+  },
+  {
     path: "/contact-us",
     element: <ContactUs />
+  },
+  {
+    path: "/faq",
+    element: <FAQPage />
   },
   {
     path: "/terms",

@@ -175,3 +175,10 @@
     flex-direction: column;
   }
 }
+
+.bottom-container-address {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 
 const TermsAndConditions = () => {
   return (
-    <div className="privacyContent">
+    <div className="legalContent">
       <h2>Terms & Conditions</h2>
       <p>
         These Terms and Conditions, along with the Privacy Policy or other terms (“Terms”), constitute a binding

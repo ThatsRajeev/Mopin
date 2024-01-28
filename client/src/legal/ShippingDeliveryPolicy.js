@@ -2,7 +2,7 @@ import React from 'react';
 
 const ShippingDeliveryPolicy = () => {
   return (
-    <div className="privacyContent">
+    <div className="legalContent">
       <h2>Shipping & Delivery Policy</h2>
       <p>
         For International buyers, orders are shipped and delivered through registered international courier

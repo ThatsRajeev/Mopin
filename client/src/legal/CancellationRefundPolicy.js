@@ -2,7 +2,7 @@ import React from 'react';
 
 const CancellationRefundPolicy = () => {
   return (
-    <div className="privacyContent">
+    <div className="legalContent">
       <h2>Cancellation & Refund Policy</h2>
       <p>
         RAJEEV RANJAN PRADHAN believes in helping its customers as far as possible and has, therefore, a

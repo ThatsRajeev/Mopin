@@ -15,9 +15,8 @@ export default function Footer() {
         <div className="footer-container">
           <div>
             <b>Our Story</b>
-            <p>Who are we</p>
-            <p>Know your food</p>
-            <p>FAQs</p>
+            <p><Link className="custom-link" to="/about-us">About Mopin</Link></p>
+            <p><Link className="custom-link" to="/faq">FAQs</Link></p>
             <p><Link className="custom-link" to="/terms">Terms and Conditions</Link></p>
             <p><Link className="custom-link" to="/contact-us">Contact us</Link></p>
           </div>
@@ -29,8 +28,7 @@ export default function Footer() {
           <div>
             <b>Learn more</b>
             <p><Link className="custom-link" to="/privacy-policy">Privacy policy</Link></p>
-            <p>Security</p>
-            <p><Link className="custom-link" to="/cancellation-refund">Refund and Cancellation Policy</Link></p>
+            <p><Link className="custom-link" to="/cancellation-refund">Cancellation and Refund Policy</Link></p>
             <p><Link className="custom-link" to="/shipping-delivery">Ship and Delivery Policy</Link></p>
           </div>
           <div>

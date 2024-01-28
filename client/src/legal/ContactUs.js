@@ -2,7 +2,7 @@ import React from 'react';
 
 const ContactUs = () => {
   return (
-    <div className="privacyContent">
+    <div className="legalContent">
       <h2>Contact Us</h2>
       <p>
         You may contact us using the information below:

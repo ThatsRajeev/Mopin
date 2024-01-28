@@ -2,7 +2,7 @@ import React from 'react';
 
 const PrivacyPolicy = () => {
   return (
-    <div className="privacyContent">
+    <div className="legalContent">
       <h2>Privacy Policy</h2>
       <p>
         This privacy policy (“Policy”) relates to the manner RAJEEV RANJAN PRADHAN (“we”, “us”, “our”)
