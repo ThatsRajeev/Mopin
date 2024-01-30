@@ -77,7 +77,7 @@
 .rating-div {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3.2px;
 
   >svg {
     width: 0.72rem;
