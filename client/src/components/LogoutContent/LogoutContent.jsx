@@ -12,7 +12,8 @@ const LogoutContent = ({ active, setActive, toggleOverlay }) => {
     try {
       logOut();
       setActive && await setActive("My Orders");
-      navigate('/');
+      toggleOverlay();
+      navigate('/')
 
     } catch (error) {
       console.error(error);

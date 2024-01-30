@@ -18,6 +18,10 @@
     width: 12.4rem;
     margin: unset;
   }
+
+  .food-name-price {
+    line-height: 1.6rem;
+  }
 }
 
 .chef-info {
