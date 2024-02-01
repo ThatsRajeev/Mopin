@@ -44,8 +44,8 @@ function Login({ setShowProp }) {
           name: name,
           email: email,
         };
-        const response = await axios.post("https://mopin-server.vercel.app/api/endpoint", data);
-        resolve(response.data);
+        const res = await axios.post("https://mopin-server.vercel.app/api/endpoint", data);
+        resolve(res.data);
       } catch (error) {
         toast.error(error.message);
         reject(error);
@@ -62,12 +62,12 @@ function Login({ setShowProp }) {
 
     try {
       setLoading(true);
-      const response = await sendDataToServer();
+      const res = await sendDataToServer();
 
-      if(response === "Create an Account") {
+      if(res.message === "Create an Account") {
         setSignUp(true);
 
-      } else if(response === "User Details Saved" || response === "User Found") {
+      } else if(res.message === "User Details Saved" || res.message === "User Found") {
         const confirmationResult = await setUpRecaptha(number);
         toast.success("OTP sent successfully!");
         setResult(confirmationResult);
@@ -75,7 +75,7 @@ function Login({ setShowProp }) {
         setShowOtp(true);
 
       } else {
-        toast.error(response);
+        toast.error(res.message);
       }
 
     } catch(err) {

@@ -12,59 +12,50 @@ const OrderSummary = ({ dishInfo, setdishInfo }) => {
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     fetchFullCartInfo(cart, setdishInfo, setTotalItems, setTotalPrice);
+    console.log(cart);
   }, []);
 
-  const updateCartAndTotal = (newValue, dish, seller) => {
-    handleCart(
-      seller.sellerName,
-      dish.dishName,
-      dish.dishPrice,
-      dish.dishDesc,
-      dish.dishIsVeg,
-      newValue
-    );
+  const updateCartAndTotal = (changeValue, dish, seller) => {
+    handleCart(seller.sellerName, dish, changeValue);
 
-    setTotalItems(prev => prev + (newValue > 0 ? 1 : -1));
-    setTotalPrice(prev => prev + (newValue > 0 ? parseInt(dish.dishPrice) : -parseInt(dish.dishPrice)));
+    setTotalItems(prev => prev + changeValue);
+    setTotalPrice(prev => prev + changeValue*parseInt(dish.price));
   };
 
   const handleIncrement = (event, dish, seller) => {
     const counterValue = event.target.previousElementSibling;
     counterValue.textContent = parseInt(counterValue.textContent) + 1;
-    updateCartAndTotal(parseInt(counterValue.textContent), dish, seller);
+    updateCartAndTotal(1, dish, seller);
   };
 
   const handleDecrement = (event, dish, seller) => {
     const counterValue = event.target.nextElementSibling;
     const newValue = parseInt(counterValue.textContent) - 1;
+    updateCartAndTotal(-1, dish, seller);
 
-    if (newValue >= 0) {
-      updateCartAndTotal(newValue, dish, seller);
+    if (newValue === 0) {
+      setdishInfo((prevDishInfo) => {
+        const updatedDishInfo = [...prevDishInfo];
+        const sellerIndex = updatedDishInfo.findIndex((sell) => sell.sellerName === seller.sellerName);
 
-      if (newValue === 0) {
-        setdishInfo((prevDishInfo) => {
-          const updatedDishInfo = [...prevDishInfo];
-          const sellerIndex = updatedDishInfo.findIndex((sell) => sell.sellerName === seller.sellerName);
+        if (sellerIndex !== -1) {
+          const dishIndex = updatedDishInfo[sellerIndex].dishes.findIndex(
+            currentDish => currentDish.name === dish.name
+          );
 
-          if (sellerIndex !== -1) {
-            const dishIndex = updatedDishInfo[sellerIndex].dishes.findIndex(
-              currentDish => currentDish.dishName === dish.dishName
-            );
-
-            if (dishIndex !== -1) {
-              updatedDishInfo[sellerIndex].dishes.splice(dishIndex, 1);
-            }
-
-            if (updatedDishInfo[sellerIndex].dishes.length === 0 && updatedDishInfo[sellerIndex].subs.length === 0) {
-              return updatedDishInfo.filter(sellerInfo => sellerInfo.sellerName !== seller.sellerName);
-            }
+          if (dishIndex !== -1) {
+            updatedDishInfo[sellerIndex].dishes.splice(dishIndex, 1);
           }
 
-          return updatedDishInfo;
-        });
-      } else {
-        counterValue.textContent = newValue;
-      }
+          if (updatedDishInfo[sellerIndex].dishes.length === 0 && updatedDishInfo[sellerIndex].subs.length === 0) {
+            return updatedDishInfo.filter(sellerInfo => sellerInfo.sellerName !== seller.sellerName);
+          }
+        }
+
+        return updatedDishInfo;
+      });
+    } else {
+      counterValue.textContent = newValue;
     }
   };
 
@@ -134,7 +125,7 @@ const OrderSummary = ({ dishInfo, setdishInfo }) => {
                   <div className="svg-container checkout-svg">
                     <div className="veg-nonveg-svg">
                       <svg width="16" height="16" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      {dish.dishIsVeg ?
+                      {dish.isVeg ?
                         <>
                           <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#43B500"></path>
                           <circle cx="5" cy="5" r="2" fill="#43B500"></circle>
@@ -145,15 +136,15 @@ const OrderSummary = ({ dishInfo, setdishInfo }) => {
                         </>}
                       </svg>
                     </div>
-                    <div className="checkout-dishname">{dish.dishName}</div>
+                    <div className="checkout-dishname">{dish.name}</div>
                   </div>
-                  <h3>₹{dish.dishPrice}</h3>
+                  <h3>₹{dish.price}</h3>
                 </div>
                 <div className="checkout-dishinfo">
-                  <p>{dish.dishDesc}</p>
+                  <p>{dish.description}</p>
                   <div className="counter checkout-counter">
                     <button className="counter-button" onClick={(e) => handleDecrement(e, dish, seller)}>-</button>
-                    <span className="counter-value">{dish.dishQty}</span>
+                    <span className="counter-value">{dish.qty}</span>
                     <button className="counter-button" onClick={(e) => handleIncrement(e, dish, seller)} > +</button>
                   </div>
                 </div>

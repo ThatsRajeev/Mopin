@@ -8,9 +8,9 @@ export const fetchSellerCartInfo = (cart, sellerName, setdishInfo, setTotalItems
 
     if (currentSellerCart) {
       currentSellerCart.items.forEach(item => {
-        newdishQty[item.dishName] = parseInt(item.dishQuantity, 10);
-        totalItemCount += parseInt(item.dishQuantity, 10) || 0;
-        totalPriceCount += parseInt(item.dishQuantity, 10) * parseInt(item.dishPrice, 10) || 0;
+        newdishQty[item.name] = parseInt(item.qty, 10);
+        totalItemCount += parseInt(item.qty, 10) || 0;
+        totalPriceCount += parseInt(item.qty, 10) * parseInt(item.price, 10) || 0;
       });
     }
 
@@ -32,12 +32,12 @@ export const fetchFullCartInfo = async (cart, setdishInfo, setTotalItems, setTot
       const sellerInfo = {
         sellerName,
         dishes: items
-          ? items.map(({ dishName, dishDesc, dishIsVeg, dishPrice, dishQuantity }) => {
-              const dishQty = parseInt(dishQuantity, 10) || 0;
+          ? items.map(({ name, description, isVeg, price, qty, availability }) => {
+              const dishQty = parseInt(qty, 10) || 0;
               totalItemCount += dishQty;
-              totalPriceCount += dishQty * (parseInt(dishPrice, 10) || 0);
+              totalPriceCount += dishQty * (parseInt(price, 10) || 0);
 
-              return { dishName, dishDesc, dishIsVeg, dishPrice, dishQty };
+              return { name, description, isVeg, price, qty, availability };
             })
           : [],
         subs: subs

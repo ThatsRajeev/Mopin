@@ -1,10 +1,11 @@
-const handleCart = (sellerName, name, price, desc, isVeg, qty) => {
+const handleCart = (sellerName, dish, qty) => {
   const cartItem = {
-    dishName: name,
-    dishPrice: price,
-    dishDesc: desc,
-    dishIsVeg: isVeg,
-    dishQuantity: qty
+    name: dish.name,
+    price: dish.price,
+    description: dish.description,
+    isVeg: dish.isVeg,
+    qty: qty,
+    availability: dish.availability,
   };
 
   let existingCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -12,13 +13,13 @@ const handleCart = (sellerName, name, price, desc, isVeg, qty) => {
   const existingSellerIndex = existingCart.findIndex(group => group.sellerName === sellerName);
 
   if (existingSellerIndex !== -1) {
-    const existingItemIndex = existingCart[existingSellerIndex].items.findIndex(item => item.dishName === name);
+    const existingItem = existingCart[existingSellerIndex].items.find(item => item.name === dish.name);
 
-    if (existingItemIndex !== -1) {
-      existingCart[existingSellerIndex].items[existingItemIndex].dishQuantity = qty;
+    if (existingItem) {
+      existingItem.qty += qty;
 
-      if (qty === 0) {
-        existingCart[existingSellerIndex].items.splice(existingItemIndex, 1);
+      if (existingItem.qty === 0) {
+        existingCart[existingSellerIndex].items = existingCart[existingSellerIndex].items.filter(item => item.name !== dish.name);
       }
     } else {
       existingCart[existingSellerIndex].items.push(cartItem);

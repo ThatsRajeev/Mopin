@@ -19,15 +19,18 @@ const MealFilterContainer = ({ sellerDetails, dishInfo, setTotalItems, setTotalP
   const spyDivRef = useRef(null);
   let categoryOffsetTop=9999;
 
+  const updateCartAndTotal = (changeValue, dish, sellerName) => {
+    handleCart(sellerName, dish, changeValue);
+
+    setTotalItems(prev => prev + changeValue);
+    setTotalPrice(prev => prev + changeValue*parseInt(dish.price));
+  };
+
   const handleButtonClick = (event, dish, qty) => {
     const button = event.target;
     const counter = button.nextElementSibling;
     button.classList.add('hidden');
-
-    setTotalItems(prev => prev + qty);
-    setTotalPrice(prev => prev + qty*parseInt(dish.price));
-
-    handleCart(sellerDetails.name, dish.name, dish.price, dish.description, dish.isVeg, qty);
+    updateCartAndTotal(1, dish, sellerDetails.name);
 
     setTimeout(() => {
       button.style.display = 'none';
@@ -39,21 +42,14 @@ const MealFilterContainer = ({ sellerDetails, dishInfo, setTotalItems, setTotalP
   const handleIncrement = (event, dish) => {
     const counterValue = event.target.previousElementSibling;
     counterValue.textContent = parseInt(counterValue.textContent) + 1;
-    setTotalItems(prev => prev + 1);
-    setTotalPrice(prev => prev + parseInt(dish.price));
-
-    handleCart(sellerDetails.name, dish.name, dish.price, dish.description, dish.isVeg, counterValue.textContent);
+    updateCartAndTotal(1, dish, sellerDetails.name);
   };
 
   const handleDecrement = (event, dish) => {
     const counterValue = event.target.nextElementSibling;
     const newValue = parseInt(counterValue.textContent) - 1;
-    if (newValue >= 0) {
-      setTotalItems(prev => prev - 1);
-      setTotalPrice(prev => prev - parseInt(dish.price));
+    updateCartAndTotal(-1, dish, sellerDetails.name);
 
-      handleCart(sellerDetails.name, dish.name, dish.price, dish.description, dish.isVeg, newValue);
-    }
     if(newValue === 0) {
       const counter = event.target.parentElement;
       const addButton = counter.previousElementSibling;
