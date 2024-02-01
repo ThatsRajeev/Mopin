@@ -183,6 +183,29 @@ app.post('/api/deletedata', async (req, res) => {
   }
 });
 
+// Order routes
+const orderSchema = new mongoose.Schema({
+  orderId: { type: String, required: true, unique: true },
+  phoneNumber: { type: String, required: true },
+  items: [
+    {
+      dishName: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+      quantity: { type: Number, required: true },
+      price: { type: Number, required: true },
+    },
+  ],
+  totalAmount: { type: Number, required: true },
+  status: { type: String, enum: ['Pending', 'Confirmed', 'Shipped', 'Delivered'], default: 'Pending' },
+  mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner'], required: true },
+  deliveryDate: { type: Date, required: true },
+  address: {type: String, required: true},
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date },
+});
+
+const Order = mongoose.model("Order", orderSchema);
+
+
 // Server Start
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
