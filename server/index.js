@@ -194,12 +194,12 @@ const orderSchema = new mongoose.Schema({
       dishName: String,
       quantity: Number,
       mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner']},
+      deliveryDate: Date,
       price: Number,
     },
   ],
   totalAmount: Number,
   status: { type: String, enum: ['Pending', 'Confirmed', 'Delivered'], default: 'Pending' },
-  deliveryDate: Date,
   address: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: Date,
@@ -229,13 +229,11 @@ app.post("/api/order", async (req, res) => {
         dishName: dish.name,
         quantity: dish.qty,
         mealTime: dish.availability[0].meal,
+        deliveryDate: getDateFromDay(dish.availability[0].day),
         price: parseInt(dish.price),
       }));
 
       const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
-
-      const targetDay = item.items[0].availability[0].day;
-      const deliveryDate = getDateFromDay(targetDay);
 
       const newOrder = new Order({
         orderId: uuidv4(),
@@ -245,7 +243,6 @@ app.post("/api/order", async (req, res) => {
         items: orderItems,
         totalAmount,
         status: "Pending",
-        deliveryDate,
         address,
         createdAt: new Date(),
         updatedAt: null,
