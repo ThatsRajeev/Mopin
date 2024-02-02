@@ -131,8 +131,8 @@ function Login({ setShowProp }) {
         <form>
           {showOtp ? (
             <div className="form-group">
-              <OtpInput numInputs={6} inputType="number" value={otp} onChange={setOtp}
-               shouldAutoFocus={true} renderInput={(props) => <input {...props} keyboardType="numeric"/>}
+              <OtpInput numInputs={6} isInputNum={true} value={otp} onChange={setOtp}
+               shouldAutoFocus={otp.length === 0} renderInput={(props) => <input {...props} keyboardType="numeric"/>}
                inputStyle={{
                   border: "1px solid rgb(204, 204, 204)",
                   borderRadius: "8px",
@@ -141,6 +141,10 @@ function Login({ setShowProp }) {
                   fontSize: "24px",
                   margin: "0 6px 18px 0",
                   boxShadow: "rgba(0, 0, 0, 0.04) 0px 4px 4px 0px"
+                }}
+                focusStyle={{
+                  border: "1px solid #CFD3DB",
+                  outline: "none"
                 }}
               />
             </div>

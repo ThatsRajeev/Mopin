@@ -162,7 +162,7 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
                 {address}
               </div>
             </div>
-            <button className="proceed-btn" onClick={() => {handlePayment(totalPrice, setdishInfo)}}><h4>Proceed to Pay (₹{totalPrice+7+4})</h4></button>
+            <button className="proceed-btn" onClick={() => {handlePayment(totalPrice, setdishInfo, name, user.phoneNumber, address)}}><h4>Proceed to Pay (₹{totalPrice+7+4})</h4></button>
         </div>
       )}
       </div>

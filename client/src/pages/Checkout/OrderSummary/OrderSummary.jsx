@@ -12,7 +12,6 @@ const OrderSummary = ({ dishInfo, setdishInfo }) => {
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     fetchFullCartInfo(cart, setdishInfo, setTotalItems, setTotalPrice);
-    console.log(cart);
   }, []);
 
   const updateCartAndTotal = (changeValue, dish, seller) => {

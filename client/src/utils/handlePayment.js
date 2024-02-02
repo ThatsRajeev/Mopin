@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getDateFromDay } from "./getFilteredDishes";
 
 const initPayment = (data)=> {
   const options = {
@@ -26,21 +27,32 @@ const initPayment = (data)=> {
   rzp1.open();
 }
 
-const handlePayment = async ( totalPrice, setdishInfo ) => {
+const handlePayment = async (totalPrice, setdishInfo, name, number, address) => {
   try {
-    console.log(totalPrice);
-    const {data} = await axios.post('https://mopin-server.vercel.app/api/payment/orders', {
-      amount: parseInt(totalPrice+7+4)
-    }, {
-      withCredentials: true
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const orderData = {
+      amount: parseInt(totalPrice + 7 + 4),
+      name,
+      number,
+      address,
+      cart: cart,
+      getDateFromDay,
+    };
+
+    const { data } = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {
+      withCredentials: true,
     });
+
     initPayment(data.data);
 
     setdishInfo({});
-    localStorage.removeItem('cart');
+    await axios.post('https://mopin-server.vercel.app/api/order', orderData, {
+      withCredentials: true,
+    });
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 export default handlePayment;

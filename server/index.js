@@ -185,26 +185,71 @@ app.post('/api/deletedata', async (req, res) => {
 
 // Order routes
 const orderSchema = new mongoose.Schema({
-  orderId: { type: String, required: true, unique: true },
-  phoneNumber: { type: String, required: true },
+  orderId: { type: String, unique: true },
+  name: String,
+  phoneNumber: String,
+  sellerName: String,
   items: [
     {
-      dishName: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
-      quantity: { type: Number, required: true },
-      price: { type: Number, required: true },
+      dishName: String,
+      quantity: Number,
+      mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner']},
+      price: Number,
     },
   ],
-  totalAmount: { type: Number, required: true },
-  status: { type: String, enum: ['Pending', 'Confirmed', 'Shipped', 'Delivered'], default: 'Pending' },
-  mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner'], required: true },
-  deliveryDate: { type: Date, required: true },
-  address: {type: String, required: true},
+  totalAmount: Number,
+  status: { type: String, enum: ['Pending', 'Confirmed', 'Delivered'], default: 'Pending' },
+  deliveryDate: Date,
+  address: String,
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date },
+  updatedAt: Date,
 });
 
 const Order = mongoose.model("Order", orderSchema);
 
+app.post("/api/order", async (req, res) => {
+  try {
+    const { name, number, address, cart, getDateFromDay } = req.body;
+
+    const orderPromises = [];
+
+    cart.forEach((item) => {
+      const orderItems = item.items.map((dish) => ({
+        dishName: dish.name,
+        quantity: dish.qty,
+        mealTime: dish.availability[0].meal,
+        price: parseInt(dish.price),
+      }));
+
+      const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
+
+      const targetDay = item.items[0].availability[0].day;
+      const deliveryDate = getDateFromDay(targetDay);
+
+      const newOrder = new Order({
+        orderId: uuidv4(),
+        name: name,
+        phoneNumber: number,
+        sellerName: item.sellerName,
+        items: orderItems,
+        totalAmount,
+        status: "Pending",
+        deliveryDate,
+        address,
+        createdAt: new Date(),
+        updatedAt: null,
+      });
+
+      orderPromises.push(newOrder.save());
+    });
+
+    await Promise.all(orderPromises);
+
+    res.status(200).json({ message: "Orders placed successfully!" });
+  } catch (err) {
+    handleErrors(res, err);
+  }
+});
 
 // Server Start
 app.listen(process.env.PORT, () => {

@@ -10,10 +10,12 @@ const LogoutContent = ({ active, setActive, toggleOverlay }) => {
 
   const handleLogout = async () => {
     try {
-      logOut();
-      setActive && await setActive("My Orders");
+      await logOut();
       toggleOverlay();
-      navigate('/')
+
+      const timerId = setTimeout(() => {
+        navigate('/');
+      }, 400);
 
     } catch (error) {
       console.error(error);
