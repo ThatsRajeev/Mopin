@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getDateFromDay } from "./getFilteredDishes";
 
 const initPayment = (data)=> {
   const options = {
@@ -37,7 +36,6 @@ const handlePayment = async (totalPrice, setdishInfo, name, number, address) => 
       number,
       address,
       cart: cart,
-      getDateFromDay: getDateFromDay,
     };
 
     const { data } = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {

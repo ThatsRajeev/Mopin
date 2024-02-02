@@ -205,12 +205,23 @@ const orderSchema = new mongoose.Schema({
   updatedAt: Date,
 });
 
+function getDateFromDay(targetDay) {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const today = new Date();
+  const currentDay = days[today.getDay()];
+
+  const targetDate = (currentDay === targetDay) ? today : new Date(today.getTime() + ((days.indexOf(targetDay) - days.indexOf(currentDay) + 7) % 7) * 24 * 60 * 60 * 1000);
+  const formattedDate = targetDate.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata' });
+
+  return formattedDate;
+}
+
 const Order = mongoose.model("Order", orderSchema);
 
 app.post("/api/order", async (req, res) => {
   try {
-    const { name, number, address, cart, getDateFromDay } = req.body;
-console.log(getDateFromDay);
+    const { name, number, address, cart } = req.body;
+
     const orderPromises = [];
 
     cart.forEach((item) => {
