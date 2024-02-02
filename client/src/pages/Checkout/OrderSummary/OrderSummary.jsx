@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getDayOfTheWeek } from "../../../utils/getFilteredDishes";
 import { fetchFullCartInfo } from "../../../utils/fetchCartInfo";
 import handleCart from "../../../utils/handleCart";
 import "./OrderSummary.css"
@@ -138,6 +139,12 @@ const OrderSummary = ({ dishInfo, setdishInfo }) => {
                     <div className="checkout-dishname">{dish.name}</div>
                   </div>
                   <h3>₹{dish.price}</h3>
+                </div>
+                <div className="checkout-dishinfo mealtime-info">
+                  <p>{dish.availability[0].meal}</p>
+                  <p>
+                    {dish.availability[0].day === getDayOfTheWeek(0) ? 'Today' : dish.availability[0].day === getDayOfTheWeek(1) ? 'Tommorrow' : dish.availability[0].day}
+                  </p>
                 </div>
                 <div className="checkout-dishinfo">
                   <p>{dish.description}</p>

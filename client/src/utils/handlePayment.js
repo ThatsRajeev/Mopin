@@ -37,7 +37,7 @@ const handlePayment = async (totalPrice, setdishInfo, name, number, address) => 
       number,
       address,
       cart: cart,
-      getDateFromDay,
+      getDateFromDay: getDateFromDay,
     };
 
     const { data } = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {
@@ -46,10 +46,11 @@ const handlePayment = async (totalPrice, setdishInfo, name, number, address) => 
 
     initPayment(data.data);
 
-    setdishInfo({});
     await axios.post('https://mopin-server.vercel.app/api/order', orderData, {
       withCredentials: true,
     });
+    // setdishInfo({});
+    // localStorage.removeItem('cart');
   } catch (error) {
     console.error(error);
   }

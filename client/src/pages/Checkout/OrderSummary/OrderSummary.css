@@ -104,6 +104,7 @@
 .checkout-svg {
   display: flex;
   align-items: center;
+  min-height: 24px;
 }
 
 .checkout-dishinfo {
@@ -127,6 +128,14 @@
   >h3 {
     font-size: 16px;
     font-weight: 600;
+  }
+}
+
+.mealtime-info {
+  font-weight: 600;
+
+  >p {
+    margin: unset;
   }
 }
 

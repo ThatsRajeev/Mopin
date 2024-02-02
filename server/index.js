@@ -210,7 +210,7 @@ const Order = mongoose.model("Order", orderSchema);
 app.post("/api/order", async (req, res) => {
   try {
     const { name, number, address, cart, getDateFromDay } = req.body;
-
+console.log(getDateFromDay);
     const orderPromises = [];
 
     cart.forEach((item) => {
