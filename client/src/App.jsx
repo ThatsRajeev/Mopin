@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Homepage from "./pages/Home/index";
+import AdminOrdersPage from "./pages/Admin/AdminOrdersPage/AdminOrdersPage";
 import SellerPage from "./pages/SellerPage/index";
 import Profile from "./pages/Profile/index";
 import Checkout from "./pages/Checkout/index";
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path:"/",
     element: <Homepage />,
+  },
+  {
+    path:"/admin",
+    element: <AdminOrdersPage />,
   },
   {
     path: "sellers/:sellerId",

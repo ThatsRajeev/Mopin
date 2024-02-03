@@ -188,6 +188,7 @@ const orderSchema = new mongoose.Schema({
   orderId: { type: String, unique: true },
   name: String,
   phoneNumber: String,
+  address: String,
   sellerName: String,
   items: [
     {
@@ -196,11 +197,11 @@ const orderSchema = new mongoose.Schema({
       mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner']},
       deliveryDate: Date,
       price: Number,
+      status: { type: String, enum: ['Pending', 'Confirmed', 'Delivered'], default: 'Pending' },
     },
   ],
   totalAmount: Number,
-  status: { type: String, enum: ['Pending', 'Confirmed', 'Delivered'], default: 'Pending' },
-  address: String,
+  fullStatus: { type: String, enum: ['Pending', 'Confirmed', 'Delivered'], default: 'Pending' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: Date,
 });
@@ -231,6 +232,7 @@ app.post("/api/order", async (req, res) => {
         mealTime: dish.availability[0].meal,
         deliveryDate: getDateFromDay(dish.availability[0].day),
         price: parseInt(dish.price),
+        status: "Pending",
       }));
 
       const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
@@ -239,11 +241,10 @@ app.post("/api/order", async (req, res) => {
         orderId: uuidv4(),
         name: name,
         phoneNumber: number,
+        address,
         sellerName: item.sellerName,
         items: orderItems,
         totalAmount,
-        status: "Pending",
-        address,
         createdAt: new Date(),
         updatedAt: null,
       });
@@ -258,6 +259,45 @@ app.post("/api/order", async (req, res) => {
     handleErrors(res, err);
   }
 });
+
+app.post('/api/ordersdata', async (req, res) => {
+  try {
+    const orders = await Order.find({ fullStatus: { $ne: "Delivered" } });
+    const categorizedOrders = {};
+
+    orders.forEach(order => {
+      const { name, phoneNumber, address, sellerName, items } = order;
+
+      items.forEach(item => {
+        const { dishName, quantity, price, mealTime, deliveryDate, status } = item;
+
+        if (status !== "Delivered") {
+          const dateObj = categorizedOrders[deliveryDate] || {};
+          const mealTimeObj = dateObj[mealTime] || {};
+          const sellerNameObj = mealTimeObj[sellerName] || [];
+
+          sellerNameObj.push({
+            dishName,
+            price,
+            quantity,
+            name,
+            phoneNumber,
+            address,
+          });
+
+          dateObj[mealTime] = mealTimeObj;
+          categorizedOrders[deliveryDate] = dateObj;
+        }
+      });
+    });
+
+    res.json(categorizedOrders); 
+
+  } catch (err) {
+    handleErrors(res, err);
+  }
+});
+
 
 // Server Start
 app.listen(process.env.PORT, () => {
