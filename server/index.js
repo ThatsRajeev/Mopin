@@ -274,7 +274,7 @@ app.get('/api/ordersdata', async (req, res) => {
         if (status !== "Delivered") {
           const dateObj = categorizedOrders[deliveryDate] || {};
           const mealTimeObj = dateObj[mealTime] || {};
-          const sellerNameObj = mealTimeObj[sellerName] || { dish: {}, customers: [] };
+          const sellerNameObj = mealTimeObj[sellerName] || { dish: [], customers: [] };
 
           sellerNameObj.dish.push({
             dishName,
