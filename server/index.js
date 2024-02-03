@@ -275,7 +275,7 @@ app.get('/api/ordersdata', async (req, res) => {
           const dateObj = categorizedOrders[deliveryDate] || {};
           const mealTimeObj = dateObj[mealTime] || {};
           const sellerNameObj = mealTimeObj[sellerName] || [];
-console.log("Before push: " + sellerNameObj);
+
           sellerNameObj.push({
             dishName,
             price,
@@ -284,8 +284,8 @@ console.log("Before push: " + sellerNameObj);
             phoneNumber,
             address,
           });
-          console.log("After push: " + sellerNameObj);
 
+          mealTimeObj[sellerName] = sellerNameObj;
           dateObj[mealTime] = mealTimeObj;
           categorizedOrders[deliveryDate] = dateObj;
         }
