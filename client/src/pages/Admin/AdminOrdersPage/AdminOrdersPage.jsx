@@ -7,7 +7,7 @@ const AdminOrdersPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('https://mopin-server.vercel.app/api/addressdata/ordersdata');
+        const response = await axios.get('https://mopin-server.vercel.app/api/ordersdata');
         console.log(response.data);
         setOrders(response.data);
       } catch (error) {

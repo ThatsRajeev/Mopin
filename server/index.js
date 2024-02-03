@@ -260,7 +260,7 @@ app.post("/api/order", async (req, res) => {
   }
 });
 
-app.post('/api/ordersdata', async (req, res) => {
+app.get('/api/ordersdata', async (req, res) => {
   try {
     const orders = await Order.find({ fullStatus: { $ne: "Delivered" } });
     const categorizedOrders = {};
@@ -291,7 +291,7 @@ app.post('/api/ordersdata', async (req, res) => {
       });
     });
 
-    res.json(categorizedOrders); 
+    res.json(categorizedOrders);
 
   } catch (err) {
     handleErrors(res, err);
