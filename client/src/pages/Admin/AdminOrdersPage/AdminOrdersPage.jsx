@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./AdminOrdersPage.css"
 
 const AdminOrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -22,13 +23,13 @@ const AdminOrdersPage = () => {
     <div>
       <h2>Admin Orders Page</h2>
       <div>
-        <h3>Past Orders</h3>
+        <h3>Upcoming Orders</h3>
         <ul>
 
         </ul>
       </div>
       <div>
-        <h3>Upcoming Orders</h3>
+        <h3>Past Orders</h3>
         <ul>
 
         </ul>
