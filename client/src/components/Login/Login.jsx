@@ -103,9 +103,23 @@ function Login({ setShowProp }) {
 
         } else {
           const confirmationResult = await setUpRecaptha(number);
-          toast.success("OTP sent successfully!");
           setResult(confirmationResult);
+          toast.success("OTP sent successfully!");
           setSignUp(false); setShowOtp(true); setResendTimer(30);
+
+          const storedResendData = localStorage.getItem("resendData");
+          if (storedResendData) {
+            const { count } = JSON.parse(storedResendData);
+
+            if (count + 1 > 3) {
+              setResendDisabled(true);
+            }
+            const resendData = {
+              count: count + 1,
+              timestamp: new Date().getTime(),
+            };
+            localStorage.setItem("resendData", JSON.stringify(resendData));
+          }
         }
 
       } else {
@@ -126,19 +140,6 @@ function Login({ setShowProp }) {
     result.confirm(otp)
       .then((res) => {
         setShowProp('login');
-        const storedResendData = localStorage.getItem("resendData");
-        if (storedResendData) {
-          const { count } = JSON.parse(storedResendData);
-
-          if (count + 1 > 3) {
-            setResendDisabled(true);
-          }
-          const resendData = {
-            count: count + 1,
-            timestamp: new Date().getTime(),
-          };
-          localStorage.setItem("resendData", JSON.stringify(resendData));
-        }
       })
       .catch((err) => {
         console.error("Error during OTP verification:", err);
@@ -180,8 +181,8 @@ function Login({ setShowProp }) {
           {showOtp ? (
             <>
               <div className="form-group">
-                <OtpInput numInputs={6} isInputNum={true} value={otp} onChange={setOtp}
-                 shouldAutoFocus={otp.length === 0} renderInput={(props) => <input {...props} keyboardType="numeric"/>}
+                <OtpInput numInputs={6} inputType="number" value={otp} onChange={setOtp}
+                 shouldAutoFocus={otp.length === 0} renderInput={(props) => <input {...props} />}
                  inputStyle={{
                     border: "1px solid rgb(204, 204, 204)",
                     borderRadius: "8px",
