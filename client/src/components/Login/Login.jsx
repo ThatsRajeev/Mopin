@@ -17,6 +17,8 @@ function Login({ setShowProp }) {
   const [showOtp, setShowOtp] = useState(false);
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendTimer, setResendTimer] = useState(30);
+  const [resendDisabled, setResendDisabled] = useState(true);
 
   const { setUpRecaptha } = useUserAuth();
 
@@ -31,10 +33,36 @@ function Login({ setShowProp }) {
   }, [otp]);
 
   useEffect(() => {
-    if(!showOtp) {
-      setNumber("");
+    const storedResendData = localStorage.getItem("resendData");
+    if (storedResendData) {
+      const { count, timestamp } = JSON.parse(storedResendData);
+      const currentTime = new Date().getTime();
+
+      const elapsedTime = currentTime - timestamp;
+
+      if (count < 3 && elapsedTime > 30000) {
+        setResendDisabled(false);
+      }
+      else if(count >= 3 && elapsedTime > 3.6e+6) {
+        localStorage.removeItem("resendData");
+        setResendDisabled(false);
+      }
     }
-  }, [showOtp]);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if(resendTimer > 0) {
+        setResendTimer(prev => prev-1);
+      } else {
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    }
+  }, [resendTimer]);
 
   const sendDataToServer = async (event) => {
     return new Promise(async (resolve, reject) => {
@@ -68,11 +96,15 @@ function Login({ setShowProp }) {
         setSignUp(true);
 
       } else if(res.message === "User Details Saved" || res.message === "User Found") {
-        const confirmationResult = await setUpRecaptha(number);
-        toast.success("OTP sent successfully!");
-        setResult(confirmationResult);
-        setSignUp(false);
-        setShowOtp(true);
+        if (resendDisabled) {
+          return toast.error("You have reached the maximum resend attempts. Please try again after some time.");
+
+        } else {
+          const confirmationResult = await setUpRecaptha(number);
+          toast.success("OTP sent successfully!");
+          setResult(confirmationResult);
+          setSignUp(false); setShowOtp(true); setResendTimer(30);
+        }
 
       } else {
         toast.error(res.message);
@@ -89,14 +121,28 @@ function Login({ setShowProp }) {
 
   const verifyOtp = async () => {
     setLoading(true);
-    result.confirm(otp).then((res) => {
-      setShowProp('login');
-    })
-    .catch((err) => {
-      console.error("Error during OTP verification:", err);
-      toast.error("Invalid OTP - Please try again");
-      setLoading(false);
-    });
+    result.confirm(otp)
+      .then((res) => {
+        setShowProp('login');
+        const storedResendData = localStorage.getItem("resendData");
+        if (storedResendData) {
+          const { count } = JSON.parse(storedResendData);
+
+          if (count + 1 > 3) {
+            setResendDisabled(true);
+          }
+          const resendData = {
+            count: count + 1,
+            timestamp: new Date().getTime(),
+          };
+          localStorage.setItem("resendData", JSON.stringify(resendData));
+        }
+      })
+      .catch((err) => {
+        console.error("Error during OTP verification:", err);
+        toast.error("Invalid OTP - Please try again");
+        setLoading(false);
+      });
   };
 
   return(
@@ -113,7 +159,7 @@ function Login({ setShowProp }) {
       <div className="login-img"></div>
       <div className="login-div">
         {showOtp ? (
-          <p>
+          <p className="otp-text">
             <div className="active-text">
               <span className="material-symbols-outlined clear-otp-icon"
               onClick={(event) => setShowOtp(false)}>arrow_back_ios</span>
@@ -130,24 +176,35 @@ function Login({ setShowProp }) {
 
         <form>
           {showOtp ? (
-            <div className="form-group">
-              <OtpInput numInputs={6} isInputNum={true} value={otp} onChange={setOtp}
-               shouldAutoFocus={otp.length === 0} renderInput={(props) => <input {...props} keyboardType="numeric"/>}
-               inputStyle={{
-                  border: "1px solid rgb(204, 204, 204)",
-                  borderRadius: "8px",
-                  width: "44px",
-                  height: "44px",
-                  fontSize: "24px",
-                  margin: "0 6px 18px 0",
-                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 4px 4px 0px"
-                }}
-                focusStyle={{
-                  border: "1px solid #CFD3DB",
-                  outline: "none"
-                }}
-              />
-            </div>
+            <>
+              <div className="form-group">
+                <OtpInput numInputs={6} isInputNum={true} value={otp} onChange={setOtp}
+                 shouldAutoFocus={otp.length === 0} renderInput={(props) => <input {...props} keyboardType="numeric"/>}
+                 inputStyle={{
+                    border: "1px solid rgb(204, 204, 204)",
+                    borderRadius: "8px",
+                    width: "44px",
+                    height: "44px",
+                    fontSize: "24px",
+                    margin: "0 6px 18px 0",
+                    boxShadow: "rgba(0, 0, 0, 0.04) 0px 4px 4px 0px"
+                  }}
+                  focusStyle={{
+                    border: "1px solid #CFD3DB",
+                    outline: "none"
+                  }}
+                />
+              </div>
+              {resendTimer > 0 ? (
+                <p className="resend-p">Didn't recieve code? Resend OTP after {resendTimer} seconds</p>
+              ) : (
+                resendDisabled ? (
+                  <p className="resend-p">Maximum resend attempts reached</p>
+                ) : (
+                  <button className="resend-btn" onClick={handleSubmit}>Resend OTP on SMS</button>
+                )
+              )}
+            </>
           ) : (
             <div className="form-group">
               <PhoneInput defaultCountry="IN" placeholder="Phone number" className="form-control"
@@ -169,7 +226,7 @@ function Login({ setShowProp }) {
           )}
 
           <button name="submit" className="submit-btn" id="sign-in-button"
-           onClick={showOtp ? "" : handleSubmit} disabled={loading}>
+           onClick={showOtp ? "" : handleSubmit} disabled={showOtp && otp.length != 6}>
              {isSignUp ? "Sign Me Up" : "Login With OTP"}
              {loading && <img className="loader-img" src={loader} alt="load-img" />}
           </button>

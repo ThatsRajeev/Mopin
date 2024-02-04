@@ -52,6 +52,10 @@
   cursor: pointer;
 }
 
+.otp-text {
+  margin-bottom: 16px;
+}
+
 .clear-otp-icon {
   margin-right: 8px;
   cursor: pointer;
@@ -109,10 +113,35 @@
   }
 }
 
+.submit-btn:disabled {
+  background-color: #c0c0c9;
+  cursor: default;
+}
+
 .login-tc {
   margin-top: 14px;
   font-size: 12px;
   width: 100%;
+}
+
+.resend-p {
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: rgb(102, 102, 102);
+}
+
+.resend-btn {
+  text-align: justify;
+  margin-bottom: 16px;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #f16122;
+  font-size: 16px;
+  border: 1px solid #f16122;
+  font-weight: 400;
 }
 
 .close-button {
