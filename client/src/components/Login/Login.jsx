@@ -47,6 +47,8 @@ function Login({ setShowProp }) {
         localStorage.removeItem("resendData");
         setResendDisabled(false);
       }
+    } else {
+      setResendDisabled(false);
     }
   }, []);
 
