@@ -226,7 +226,7 @@ function Login({ setShowProp }) {
           )}
 
           <button name="submit" className="submit-btn" id="sign-in-button"
-           onClick={showOtp ? "" : handleSubmit} disabled={showOtp && otp.length != 6}>
+           onClick={showOtp ? "" : handleSubmit} disabled={showOtp && otp.length !== 6}>
              {isSignUp ? "Sign Me Up" : "Login With OTP"}
              {loading && <img className="loader-img" src={loader} alt="load-img" />}
           </button>
