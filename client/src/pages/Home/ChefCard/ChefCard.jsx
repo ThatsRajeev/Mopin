@@ -20,6 +20,7 @@ function ChefCard(props) {
           <span className="span">•</span>
           <p>{parseInt(props.noOfOrders / 5, 10) * 5}+ orders</p>
         </div>
+        <div className="line"></div>
         <h3 className="food-name-price">₹ {props.minPrice} / meal </h3>
       </div>
     </div>

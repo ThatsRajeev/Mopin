@@ -4,9 +4,14 @@
   height: unset;
   padding: 1.6%;
   margin: 32px 16px;
+  margin: 32px 16px 32px 64px;
+  height: 9.4rem;
+  align-items: center;
+  border-radius: 32px 8px 8px 32px;
 
   >img {
-    width: 44%;
+    width: 64%;
+    transform: translateX(-42%);
     position: unset;
   }
 
@@ -17,13 +22,10 @@
     justify-content: center;
     width: 12.4rem;
     margin: unset;
+    margin-left: -24%;
   }
 
   .food-name-price {
     line-height: 1.6rem;
   }
-}
-
-.chef-info {
-  padding: 0.24rem 0;
 }
