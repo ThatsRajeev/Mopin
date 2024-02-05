@@ -99,8 +99,7 @@ function Login({ setShowProp }) {
 
       } else if(res.message === "User Details Saved" || res.message === "User Found") {
         if (resendDisabled) {
-          return toast.error("You have reached the maximum resend attempts. Please try again after some time.");
-
+          toast.error("You have reached the maximum resend attempts. Please try again after some time.");
         } else {
           const confirmationResult = await setUpRecaptha(number);
           setResult(confirmationResult);
@@ -108,18 +107,16 @@ function Login({ setShowProp }) {
           setSignUp(false); setShowOtp(true); setResendTimer(30);
 
           const storedResendData = localStorage.getItem("resendData");
-          if (storedResendData) {
-            const { count } = JSON.parse(storedResendData);
-
-            if (count + 1 > 3) {
-              setResendDisabled(true);
-            }
-            const resendData = {
-              count: count + 1,
-              timestamp: new Date().getTime(),
-            };
-            localStorage.setItem("resendData", JSON.stringify(resendData));
+          const { count = 0 } = storedResendData ? JSON.parse(storedResendData) : {};
+          if (count + 1 > 3) {
+            setResendDisabled(true);
           }
+
+          const resendData = {
+            count: count + 1,
+            timestamp: new Date().getTime(),
+          };
+          localStorage.setItem("resendData", JSON.stringify(resendData));
         }
 
       } else {
@@ -199,7 +196,7 @@ function Login({ setShowProp }) {
                 />
               </div>
               {resendTimer > 0 ? (
-                <p className="resend-p">Didn't recieve code? Resend OTP after {resendTimer} seconds</p>
+                <p className="resend-p">Didn't recieve code? Resend OTP after <b>{resendTimer} seconds</b></p>
               ) : (
                 resendDisabled ? (
                   <p className="resend-p">Maximum resend attempts reached</p>

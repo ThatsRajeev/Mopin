@@ -19,11 +19,16 @@ export const UserAuthContextProvider = ({ children }) => {
   function setUpRecaptha(number) {
     return new Promise(async (resolve, reject) => {
       try {
-        const recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
-          "size": "invisible"
-        });
-        recaptchaVerifier.render();
-        const confirmationResult = await signInWithPhoneNumber(auth, number, recaptchaVerifier);
+        if (window.recaptchaVerifier) {
+        window.recaptchaVerifier.recaptcha.reset(window.recaptchaWidgetId);
+      } else {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
+            size: 'invisible',
+          });
+        window.recaptchaWidgetId = await window.recaptchaVerifier.render();
+      }
+
+        const confirmationResult = await signInWithPhoneNumber(auth, number, window.recaptchaVerifier);
         resolve(confirmationResult);
       } catch (error) {
         reject(error);
