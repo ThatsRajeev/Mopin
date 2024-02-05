@@ -1,18 +1,19 @@
 .chefCard-container {
   aspect-ratio: auto;
+  justify-content: space-around;
   flex-direction: row;
-  height: unset;
-  padding: 1.6%;
+  padding: 2.4%;
   margin: 32px 16px;
   margin: 32px 16px 32px 64px;
-  height: 9.4rem;
+  min-height: 9.4rem;
+  max-height: 9.8rem;
   align-items: center;
   border-radius: 32px 8px 8px 32px;
 
   >img {
-    width: 64%;
-    transform: translateX(-42%);
-    position: unset;
+    max-width: 10.6rem;
+    transform: translateX(-38%);
+    position: relative;
   }
 
   >div {
@@ -20,8 +21,8 @@
     flex-direction: column;
     text-align: left;
     justify-content: center;
-    width: 12.4rem;
-    margin: unset;
+    min-width: 64%;
+    margin: initial;
     margin-left: -24%;
   }
 
