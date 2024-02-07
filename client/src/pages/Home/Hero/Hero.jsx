@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import debounce from "../../../utils/debounce";
-import hero from "../../../assets/hero.webp";
+import React from "react";
 import "./Hero.css"
 
 function Hero() {
@@ -10,21 +8,6 @@ function Hero() {
       behavior: 'smooth'
     })
   }
-
-  const debouncedScroll = debounce(scroll, 300);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      debouncedScroll();
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [debouncedScroll]);
-
   return (
     <>
       <div className="hero-bigScreen-div">
@@ -44,7 +27,7 @@ function Hero() {
         </div>
       </div>
       <div className="hero-smallScreen-div" onClick={scroll}>
-        <img fetchpriority="high" className="hero-smallScreen skeleton mob-view" src={hero} alt="food_img" />
+        <img fetchpriority="high" className="hero-smallScreen skeleton mob-view" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/Group+181+(1).webp" alt="food_img" />
       </div>
     </>
   );
