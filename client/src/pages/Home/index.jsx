@@ -3,7 +3,7 @@ import { toast, Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import SkeletonCard from "./skeleton.jsx"
 import LocateMePrompt from "../../components/LocateMePrompt/LocateMePrompt";
-import Hero from "../../components/Hero/Hero";
+import Hero from "./Hero/Hero";
 import homecooks from "../../data/homecooks";
 import "leaflet/dist/leaflet.css";
 
