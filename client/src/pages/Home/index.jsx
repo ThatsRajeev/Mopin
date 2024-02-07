@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast, Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import LocateMePrompt from "../../components/LocateMePrompt/LocateMePrompt";
@@ -21,6 +22,12 @@ function Homepage() {
   const foodCatgor = ['All', 'Spicy', 'Veg', 'Non-veg', 'Dairy-free'];
 
   useEffect(() => {
+    toast("This app currently only serves test data. We will be live soon!", {
+      duration: 4000,
+      id: 'soon',
+      icon: '👨‍💻'
+    });
+
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -78,6 +85,9 @@ function Homepage() {
       ) : (
         <>
           <Navbar />
+          <Toaster
+            position="bottom-center"
+          />
           <Hero />
           {windowWidth < 768 ? (
             <>
