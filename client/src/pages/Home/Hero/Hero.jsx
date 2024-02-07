@@ -27,7 +27,7 @@ function Hero() {
         </div>
       </div>
       <div className="hero-smallScreen-div" onClick={scroll}>
-        <img className="hero-smallScreen skeleton mob-view" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/Group+181.webp" alt="food_img" />
+        <img fetchpriority="high" loading="lazy" className="hero-smallScreen skeleton mob-view" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/Group+181.webp" alt="food_img" />
       </div>
     </>
   );
