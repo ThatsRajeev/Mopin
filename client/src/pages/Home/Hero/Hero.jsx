@@ -1,4 +1,5 @@
 import React from "react";
+import debounce from "../../../utils/debounce";
 import "./Hero.css"
 
 function Hero() {
@@ -8,6 +9,21 @@ function Hero() {
       behavior: 'smooth'
     })
   }
+
+  const debouncedScroll = debounce(scroll, 300);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      debouncedScroll();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [debouncedScroll]);
+
   return (
     <>
       <div className="hero-bigScreen-div">
