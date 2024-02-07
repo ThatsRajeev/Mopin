@@ -3,11 +3,11 @@ import { toast, Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import SkeletonCard from "./skeleton.jsx"
 import LocateMePrompt from "../../components/LocateMePrompt/LocateMePrompt";
+import Hero from "../../components/Hero/Hero";
 import homecooks from "../../data/homecooks";
 import "leaflet/dist/leaflet.css";
 
 const Navbar = lazy(() => import("../../components/Navbar/Navbar"));
-const Hero = lazy(() => import("./Hero/Hero"));
 const FoodSlider = lazy(() => import("./FoodSlider/FoodSlider"));
 const ChefCard = lazy(() => import("./ChefCard/ChefCard"));
 const Features = lazy(() => import("./Features/Features"));
