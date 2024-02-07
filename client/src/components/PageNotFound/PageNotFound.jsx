@@ -9,7 +9,7 @@ const PageNotFound = () => {
   return (
     <>
       <Navbar />
-      <div className="PImg skeleton">
+      <div className="PImg">
         <img
           src="https://b.zmtcdn.com/404_web787058f236e16cef33bf733ade2e08ba1574663725.png?output-format=webp"
           alt=""

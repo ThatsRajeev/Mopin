@@ -68,7 +68,7 @@ const Fooder = () => {
         <SwiperSlide className="card-wrapper" key={index}>
           <div className="fooder-div">
             <img
-              className="regional-food-img skeleton"
+              className="regional-food-img"
               src={foodItem.imgURL}
               alt="food-img"
             />

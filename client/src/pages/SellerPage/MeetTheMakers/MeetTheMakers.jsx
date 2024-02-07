@@ -14,7 +14,7 @@ const MeetTheMakers = ({ sellerDetails }) => {
         <div className="makers-container">
           <div className="makers-ellipse">
             <div>
-              <img className="makers-img skeleton" src={makers[randomIndex].imgURL} alt="makers-img" />
+              <img className="makers-img" src={makers[randomIndex].imgURL} alt="makers-img" />
             </div>
           </div>
           <div className="maker-div">
@@ -35,7 +35,7 @@ const MeetTheMakers = ({ sellerDetails }) => {
               <span className="material-symbols-outlined" onClick={() => setMakerOverlay(!makerOverlay)}>arrow_back</span>
               <p>Meet the Maker</p>
             </div>
-            <img className="makerOverlay-img skeleton" src={makers[randomIndex].imgURL} alt="makers-img" />
+            <img className="makerOverlay-img" src={makers[randomIndex].imgURL} alt="makers-img" />
             <div className="makerOverlay-div">
               <h3>{sellerDetails.name}</h3>
               <p>{makers[randomIndex].story}</p>

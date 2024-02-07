@@ -6,7 +6,7 @@ function Features() {
     <div className="feature-container">
       <div className="feature-div">
         <img
-          className="feature-img skeleton"
+          className="feature-img"
           src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/homemade_5044740.avif"
           alt=""
         />
@@ -15,7 +15,7 @@ function Features() {
       </div>
       <div className="feature-div" style={{margin: '4.8% 2.4% 0'}}>
         <img
-          className="feature-img skeleton"
+          className="feature-img"
           src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/food-tray_1922417.avif"
           alt=""
         />
@@ -24,7 +24,7 @@ function Features() {
       </div>
       <div className="feature-div">
         <img
-          className="feature-img skeleton"
+          className="feature-img"
           src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/teppanyaki_1659420.avif"
           alt=""
         />

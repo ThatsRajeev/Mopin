@@ -36,7 +36,7 @@ const Checkout = () => {
         </div>
       </div> ) : (
       <div className="empty-cart">
-        <div className="empty-cart-img skeleton"></div>
+        <div className="empty-cart-img"></div>
         <h3>Your cart is empty</h3>
         <p>You can go back back to homepage to view homechefs</p>
         <button className="explore-btn" onClick={() => navigate("/")}>Explore Food</button>

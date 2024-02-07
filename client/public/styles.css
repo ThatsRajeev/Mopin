@@ -278,6 +278,33 @@ hr {
   background-size: contain;
 }
 
+.skeleton-section {
+  padding: 16px;
+}
+
+.skeleton-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  margin-top: 16px;
+}
+
+.skeletion-card {
+  display: flex;
+  justify-content: space-between;
+
+  .react-loading-skeleton {
+    border-radius: 8px 32px;
+  }
+}
+
+.skeleton-list {
+  margin-top: 16px;
+}
+
 .pc-view {
   display: none !important;;
 
@@ -289,20 +316,5 @@ hr {
 .mob-view {
   @media (width > 768px) {
     display: none !important;
-  }
-}
-
-.skeleton {
-  opacity: 0.7
-  animation: skeleton-loading 1s linear infinite alternate;
-}
-
-@keyframes skeleton-loading {
-  0% {
-    background-color: hsl(200, 20%, 70%);
-  }
-
-  100% {
-    background-color: hsl(200, 20%, 95%);
   }
 }
