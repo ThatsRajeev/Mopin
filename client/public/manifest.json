@@ -1,6 +1,6 @@
 {
   "name": " ",
-  "start_url" : "/?home=true",
+  "start_url" : "/splash.html",
   "icons" : [
     {
       "src": "icons/manifest-icon-192.maskable.png",
