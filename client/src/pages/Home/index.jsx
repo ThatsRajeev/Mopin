@@ -123,7 +123,7 @@ function Homepage() {
               </div>
               <Fooder />
 
-              <div className="feature-bcg pc-view">
+              <div className="feature-bcg">
                 <div className="header-container">
                   <h1 className="cardHeader">
                     Grab your <span style={{ color: "#f16122" }}>ORDER NOW!</span>
@@ -163,7 +163,7 @@ function Homepage() {
               </div>
               <Makers />
 
-              <div className="header-container pc-view">
+              <div className="header-container">
                 <h1 className="cardHeader">What do our Customers have to say</h1>
               </div>
               <Testimonials />
