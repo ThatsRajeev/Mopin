@@ -104,7 +104,7 @@ function Homepage() {
               <img className="hero-smallScreen" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/Group-182.avif" alt="footer_img" />
             </div>
 
-            <div className="pc-view">
+            <div className="pc-view" style={{flexDirection: 'column'}}>
               <div className="header-container">
                 <h1 className="cardHeader">Added Afresh</h1>
                 <button className="see-all-btn">
@@ -125,7 +125,7 @@ function Homepage() {
 
               <div className="feature-bcg">
                 <div className="header-container">
-                  <h1 className="cardHeader">
+                  <h1 className="cardHeader" style={{margin: '0 auto'}}>
                     Grab your <span style={{ color: "#f16122" }}>ORDER NOW!</span>
                   </h1>
                 </div>
