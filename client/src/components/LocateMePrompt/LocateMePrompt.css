@@ -96,6 +96,7 @@
   @media (width > 768px){
     width: 51%;
     height: 100vh;
+    background-image: url("https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/top-view-food-frame-with-copy-space_1_1_1_50.webp");
     background-position: unset;
     order: unset;
     align-items: unset;
