@@ -2,6 +2,7 @@
   display: none;
   color: #fff;
   min-height: 665px;
+  padding: 0 14px;
   align-items: center;
   background-color: #222222;
   background-image: none;
@@ -24,7 +25,6 @@
   background-position: -6vw -5vw;
   background-size: 40vw;
   max-width: 1200px;
-  margin: 0 14px;
 
   @media (width > 768px){
     margin: 0 auto;
@@ -52,7 +52,7 @@
     font-family: "Poppins"
   }
 
-  @media (width > 768px){
+  @media (width > 1240px){
     width: 56%;
   }
 }
@@ -64,7 +64,7 @@
   width: 100%;
   line-height: 2rem;
 
-  @media (width > 1140px){
+  @media (width > 1240px){
     width: 51%;
   }
 }

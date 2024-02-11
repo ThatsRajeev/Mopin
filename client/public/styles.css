@@ -3,7 +3,6 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
-  font-display: swap;
 }
 
 body {
@@ -117,7 +116,6 @@ hr {
   align-items: center;
   margin: 4.2vw 16px 0;
   max-width: 1200px;
-  width: 100%;
   justify-content: space-between;
 
   @media (width > 768px) {
@@ -125,6 +123,7 @@ hr {
   }
 
   @media (width > 1240px) {
+    width: 100%;
     margin: 3.2vw auto 2.4vw;
   }
 }
