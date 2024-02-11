@@ -6,7 +6,7 @@ import SellerPage from "./pages/SellerPage/index";
 import Profile from "./pages/Profile/index";
 import Checkout from "./pages/Checkout/index";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
-import HelpAndSupport from "./pages/Profile/HelpAndSupport/HelpAndSupport";
+import DataDeletion from "./components/DataDeletion/DataDeletion";
 import AboutUs from './legal/AboutUs';
 import ContactUs from './legal/ContactUs';
 import FAQPage from './legal/FAQPage';
@@ -33,8 +33,8 @@ const router = createBrowserRouter([
     element: <Profile />
   },
   {
-    path: "/help",
-    element: <HelpAndSupport />
+    path: "/data-deletion",
+    element: <DataDeletion />
   },
   {
     path: "/about-us",

@@ -1,0 +1,45 @@
+/* Styling for the container */
+.data-deletion-container {
+  width: 500px; /* Adjust as needed */
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: sans-serif;
+}
+
+/* Styling for the header */
+.data-deletion-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Styling for form elements */
+.data-deletion-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.data-deletion-container input[type='email'] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.data-deletion-container button[type='submit'] {
+  background-color: #f16122;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-tc {
+  font-size: 14px;
+  color: rgb(140, 140, 140);
+  margin-top: 14px;
+  width: 100%;
+}
