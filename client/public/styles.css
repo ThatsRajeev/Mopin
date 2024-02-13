@@ -169,18 +169,19 @@ hr {
   display: flex;
   border-radius: 50%;
   border: none;
-  padding: 6px;
+  padding: 8px;
   background-color: #fff;
   position: absolute;
   z-index: 2000;
   top: 4px;
   left: 4px;
   cursor: pointer;
+  border: 0.125rem solid rgb(229, 231, 236);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 4px 0px;
 }
 
 .back-button-icon {
-  margin: 0;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .foodCatgor {
