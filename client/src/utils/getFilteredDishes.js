@@ -1,4 +1,4 @@
-export function getFilteredDishes(activeSwitch, setActiveCategory, daysInOrder, homecooks) {
+export function getFilteredDishes(activeSwitch, setActiveCategory, daysInOrder, sellerDetails) {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   const getDayOfTheWeek = (offset) => {
@@ -9,7 +9,7 @@ export function getFilteredDishes(activeSwitch, setActiveCategory, daysInOrder, 
 
   const getSortOrder = (dish) => [...Array(7).keys()].find(i => dish.availability.some(avail => avail.day === getDayOfTheWeek(i)));
 
-  const sortedDishes = Object.values(homecooks[0].dishes).flat().sort((dishA, dishB) => getSortOrder(dishA) - getSortOrder(dishB));
+  const sortedDishes = Object.values(sellerDetails.dishes).flat().sort((dishA, dishB) => getSortOrder(dishA) - getSortOrder(dishB));
 
   const sortedAndGroupedDishes = daysInOrder.map(day => ({
     day,

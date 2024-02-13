@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import debounce from "../../../utils/debounce";
 import { getFilteredDishes, getDayOfTheWeek } from "../../../utils/getFilteredDishes";
-import homecooks from "../../../data/homecooks";
 import handleCart from "../../../utils/handleCart";
 import DayDishes from "../DayDishes/DayDishes";
 import "./MealFilterContainer.css";
@@ -170,7 +169,7 @@ const MealFilterContainer = ({ sellerDetails, dishInfo, setTotalItems, setTotalP
             </div>
           </div>
         </div>
-        {getFilteredDishes(activeSwitch, setActiveCategory, daysInOrder, homecooks).map(({day, dishes}) => (
+        {getFilteredDishes(activeSwitch, setActiveCategory, daysInOrder, sellerDetails).map(({day, dishes}) => (
           <DayDishes
             key={day}
             day={day}
