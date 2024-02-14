@@ -68,9 +68,10 @@ const Address = styled.div`
   }
 `;
 
-const SearchBarContainer = styled.div`
+const SearchBarContainer = styled(Link)`
   display: flex;
   align-items: center;
+  text-decoration: none;
   background-color: #fff;
   border-radius: 24px;
   padding: 8px;
@@ -124,7 +125,7 @@ const NavLink = styled(Link)`
   font-size: 0.8rem;
   font-weight: bold;
   letter-spacing: 1.6px;
-  color: ${(props) => (props.sc=="true" ? "#9C9C9C" : "#222222")};
+  color: ${(props) => (props.sc==="true" ? "#9C9C9C" : "#222222")};
 
   .material-symbols-outlined {
     margin-right: 8px;
@@ -153,7 +154,7 @@ const MobNav = styled.nav`
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
-  width: ${(props) => (props.adr=="true" ? "unset" : "100%")};
+  width: ${(props) => (props.adr==="true" ? "unset" : "100%")};
   justify-content: space-between;
 
   input {
@@ -168,7 +169,6 @@ function Navbar({showNavbar, showAddress, header}) {
   const [isAddressActive, setIsAddressActive] = useState(false);
   const [isLoginActive, setIsLoginActive] = useState(false);
   const [isHelpActive, setIsHelpActive] = useState(false);
-  const [isSearchActive, setIsSearchActive] = useState(false);
   const [name, setName] = useState("");
 
   const { user } = useUserAuth();
@@ -191,6 +191,8 @@ function Navbar({showNavbar, showAddress, header}) {
     const pathname = location.pathname;
     if (pathname === '/profile') {
       setNavItem('Profile');
+    } else if (pathname === '/search') {
+      setNavItem('Search');
     } else if (pathname === '/checkout') {
       setNavItem('Checkout');
     } else {
@@ -205,9 +207,6 @@ function Navbar({showNavbar, showAddress, header}) {
         break;
       case 'login':
         setIsLoginActive(!isLoginActive);
-        break;
-      case 'search':
-        setIsSearchActive(!isSearchActive);
         break;
       case 'help':
         setIsHelpActive(!isHelpActive);
@@ -234,7 +233,7 @@ function Navbar({showNavbar, showAddress, header}) {
 
         <Menu open={header === "Secure Checkout"}>
           <Item open={header === "Secure Checkout"}>
-            <NavLink>
+            <NavLink to="/search">
               <span className="material-symbols-outlined">search</span>
               Search
             </NavLink>
@@ -280,7 +279,7 @@ function Navbar({showNavbar, showAddress, header}) {
       </GlobalNav>
 
       <FlexContainer className="mob-view">
-        <SearchBarContainer>
+        <SearchBarContainer to="/search">
           <span className="material-symbols-outlined search-icon">search</span>
           <input type="text" placeholder="Search your favourite food..." />
         </SearchBarContainer>
@@ -300,7 +299,7 @@ function Navbar({showNavbar, showAddress, header}) {
             Profile
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Help' ? "true" : "false"}>
+        <NavLink sc={navItem!=='Search' ? "true" : "false"} to="/search">
           <NavItem>
             <span className="material-symbols-outlined">search</span>
             Search

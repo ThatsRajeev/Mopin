@@ -1,11 +1,11 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Homepage from "./pages/Home/index";
-import AdminOrdersPage from "./pages/Admin/AdminOrdersPage/AdminOrdersPage";
+import Search from "./components/Search/Search";
 import SellerPage from "./pages/SellerPage/index";
 import Profile from "./pages/Profile/index";
 import Checkout from "./pages/Checkout/index";
-import PageNotFound from "./components/PageNotFound/PageNotFound";
+import AdminOrdersPage from "./pages/Admin/AdminOrdersPage/AdminOrdersPage";
 import DataDeletion from "./components/DataDeletion/DataDeletion";
 import AboutUs from './legal/AboutUs';
 import ContactUs from './legal/ContactUs';
@@ -14,6 +14,7 @@ import TermsAndConditions from './legal/TermsAndConditions';
 import PrivacyPolicy from './legal/PrivacyPolicy';
 import CancellationRefundPolicy from './legal/CancellationRefundPolicy';
 import ShippingDeliveryPolicy from './legal/ShippingDeliveryPolicy';
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 const router = createBrowserRouter([
   {
@@ -21,8 +22,8 @@ const router = createBrowserRouter([
     element: <Homepage />,
   },
   {
-    path:"/admin",
-    element: <AdminOrdersPage />,
+    path: "/search",
+    element: <Search />
   },
   {
     path: "sellers/:sellerId",
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />
+  },
+  {
+    path:"/admin",
+    element: <AdminOrdersPage />,
   },
   {
     path: "/data-deletion",
@@ -63,10 +72,6 @@ const router = createBrowserRouter([
   {
     path: "/shipping-delivery",
     element: <ShippingDeliveryPolicy />
-  },
-  {
-    path: "/checkout",
-    element: <Checkout />
   },
   {
     path: "*",

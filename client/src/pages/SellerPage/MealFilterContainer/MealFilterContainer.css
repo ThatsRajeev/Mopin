@@ -100,3 +100,19 @@
   color: #fff;
   transition: background-color 0.8s ease 0s;
 }
+
+.weekday {
+  font-size: 20px;
+  margin: 8px 0;
+
+  @media (width > 768px) {
+    margin: 16px 0;
+    font-size: initial;
+  }
+}
+
+.food-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

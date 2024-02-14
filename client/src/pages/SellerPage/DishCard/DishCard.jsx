@@ -1,9 +1,55 @@
 import React from "react";
+import handleCart from "../../../utils/handleCart";
 import "./DishCard.css";
 
-const DishCard = ({ dishItem, dishInfo, handleButtonClick, handleIncrement, handleDecrement }) => {
+const DishCard = ({ sellerName, dishItem, dishInfo, setTotalItems, setTotalPrice }) => {
   const isVeg = dishItem.isVeg;
   const quantityGreaterThanZero = dishInfo[dishItem.name] > 0;
+
+  const updateCartAndTotal = (changeValue, dish) => {
+    handleCart(sellerName, dish, changeValue);
+
+    setTotalItems(prev => prev + changeValue);
+    setTotalPrice(prev => prev + changeValue*parseInt(dish.price));
+  };
+
+  const handleButtonClick = (event, dish, qty) => {
+    const button = event.target;
+    const counter = button.nextElementSibling;
+    button.classList.add('hidden');
+    updateCartAndTotal(1, dish);
+
+    setTimeout(() => {
+      button.style.display = 'none';
+      counter.style.display = 'flex';
+      counter.classList.remove('hidden');
+    }, 300);
+  };
+
+  const handleIncrement = (event, dish) => {
+    const counterValue = event.target.previousElementSibling;
+    counterValue.textContent = parseInt(counterValue.textContent) + 1;
+    updateCartAndTotal(1, dish);
+  };
+
+  const handleDecrement = (event, dish) => {
+    const counterValue = event.target.nextElementSibling;
+    const newValue = parseInt(counterValue.textContent) - 1;
+    updateCartAndTotal(-1, dish);
+
+    if(newValue === 0) {
+      const counter = event.target.parentElement;
+      const addButton = counter.previousElementSibling;
+      counter.classList.add('hidden');
+      setTimeout(() => {
+        addButton.style.display = 'flex';
+        counter.style.display = 'none';
+        addButton.classList.remove('hidden');
+      }, 300);
+    } else {
+      counterValue.textContent = newValue;
+    }
+  };
 
   return (
     <div>

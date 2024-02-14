@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import debounce from "../../../utils/debounce";
 import { getFilteredDishes, getDayOfTheWeek } from "../../../utils/getFilteredDishes";
-import handleCart from "../../../utils/handleCart";
-import DayDishes from "../DayDishes/DayDishes";
+import DishCard from "../DishCard/DishCard";
 import "./MealFilterContainer.css";
 
 const MealFilterContainer = ({ sellerDetails, dishInfo, setTotalItems, setTotalPrice }) => {
@@ -17,51 +16,6 @@ const MealFilterContainer = ({ sellerDetails, dishInfo, setTotalItems, setTotalP
   const spyRef = useRef(null);
   const spyDivRef = useRef(null);
   let categoryOffsetTop=9999;
-
-  const updateCartAndTotal = (changeValue, dish, sellerName) => {
-    handleCart(sellerName, dish, changeValue);
-
-    setTotalItems(prev => prev + changeValue);
-    setTotalPrice(prev => prev + changeValue*parseInt(dish.price));
-  };
-
-  const handleButtonClick = (event, dish, qty) => {
-    const button = event.target;
-    const counter = button.nextElementSibling;
-    button.classList.add('hidden');
-    updateCartAndTotal(1, dish, sellerDetails.name);
-
-    setTimeout(() => {
-      button.style.display = 'none';
-      counter.style.display = 'flex';
-      counter.classList.remove('hidden');
-    }, 300);
-  };
-
-  const handleIncrement = (event, dish) => {
-    const counterValue = event.target.previousElementSibling;
-    counterValue.textContent = parseInt(counterValue.textContent) + 1;
-    updateCartAndTotal(1, dish, sellerDetails.name);
-  };
-
-  const handleDecrement = (event, dish) => {
-    const counterValue = event.target.nextElementSibling;
-    const newValue = parseInt(counterValue.textContent) - 1;
-    updateCartAndTotal(-1, dish, sellerDetails.name);
-
-    if(newValue === 0) {
-      const counter = event.target.parentElement;
-      const addButton = counter.previousElementSibling;
-      counter.classList.add('hidden');
-      setTimeout(() => {
-        addButton.style.display = 'flex';
-        counter.style.display = 'none';
-        addButton.classList.remove('hidden');
-      }, 300);
-    } else {
-      counterValue.textContent = newValue;
-    }
-  };
 
   function handleIntersection(entries, observer) {
     if (isUserClick.current) return;
@@ -170,18 +124,27 @@ const MealFilterContainer = ({ sellerDetails, dishInfo, setTotalItems, setTotalP
           </div>
         </div>
         {getFilteredDishes(activeSwitch, setActiveCategory, daysInOrder, sellerDetails).map(({day, dishes}) => (
-          <DayDishes
-            key={day}
-            day={day}
-            dishes={dishes}
-            dishInfo={dishInfo}
-            handleButtonClick={handleButtonClick}
-            handleIncrement={handleIncrement}
-            handleDecrement={handleDecrement}
-            activeCategory={activeCategory}
-            spyRef={spyRef}
-            getDayOfTheWeek={getDayOfTheWeek}
-          />
+          <div key={day}>
+            {dishes.length > 0 && (
+              <>
+                <h2 id={day} data-category={day} ref ={activeCategory === day ? spyRef: null} className="weekday">
+                  {day === getDayOfTheWeek(0) ? 'Today' : day === getDayOfTheWeek(1) ? 'Tommorrow' : day}
+                </h2>
+                <div className="food-cards-container">
+                  {dishes.map((dishItem, dishIndex) => (
+                    <DishCard
+                      key={dishIndex}
+                      sellerName={sellerDetails.name}
+                      dishItem={dishItem}
+                      dishInfo={dishInfo}
+                      setTotalItems={setTotalItems}
+                      setTotalPrice={setTotalPrice}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         ))}
         </div>
       </div>
