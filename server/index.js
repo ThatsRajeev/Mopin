@@ -47,7 +47,10 @@ app.use("/api/payment", paymentRoutes);
 // Proxy Route
 app.get('/proxy', async (req, res) => {
   try {
-    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${req.url.slice(1)}&format=json`);
+    const urlSearchParams = new URLSearchParams(req.url.slice(1));
+    const query = urlSearchParams.get('q');
+
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&countrycodes=in`);
     const data = await response.json();
     res.json(data);
   } catch (error) {
