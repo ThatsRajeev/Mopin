@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import handleGPS from "../../utils/handleGPS";
+import handleGeolocation from "../../utils/handleGeolocation";
+import handlePlaceSearch from "../../utils/handlePlaceSearch";
 import loader from "../../assets/loader2.svg";
 import "./Location.css";
 
@@ -13,7 +14,7 @@ const Location = ({ setShowProp }) => {
     try {
       if (navigator.geolocation) {
         setLoading(true);
-        const res = await handleGPS();
+        const res = await handleGeolocation();
         localStorage.setItem("userLocation", res.display_name);
         setShowProp('address');
       }
@@ -28,11 +29,8 @@ const Location = ({ setShowProp }) => {
 
     if (inputValue.length > 2) {
       try {
-        const response = await axios.get(
-          `https://mopin-server.vercel.app/proxy/?q=${inputValue}&format=json&addressdetails=1&countrycodes=in`,
-          { withCredentials: false }
-        );
-        setSuggestions(response.data);
+        const res = await handlePlaceSearch(inputValue);
+        setSuggestions(res);
       } catch (error) {
         console.error(error);
       }

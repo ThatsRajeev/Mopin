@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import handleGPS from "../../utils/handleGPS";
+import handleGeolocation from "../../utils/handleGeolocation";
 import Overlay from "../Overlay/Overlay"
 import Location from "../Location/Location";
 import Check from "../../assets/check.svg";
@@ -14,7 +14,7 @@ function LocateMePrompt() {
   const getCurrentLocation = async () => {
     try {
       if (navigator.geolocation) {
-        const res = await handleGPS();
+        const res = await handleGeolocation();
         localStorage.setItem("userLocation", res.display_name);
         window.location.reload();
       }
@@ -30,7 +30,7 @@ function LocateMePrompt() {
     if (inputValue.length > 2) {
       try {
         const response = await axios.get(
-          `https://mopin-server.vercel.app/proxy/?q=${inputValue}&format=json&addressdetails=1&countrycodes=in`,
+          `https://mopin-server.vercel.app/proxy/?q=${inputValue}`,
           { withCredentials: false }
         );
         setSuggestions(response.data);

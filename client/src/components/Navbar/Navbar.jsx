@@ -6,7 +6,7 @@ import Login from "../Login/Login";
 import HelpAndSupport from "../../pages/Profile/HelpAndSupport/HelpAndSupport";
 import Overlay from "../Overlay/Overlay";
 import { useUserAuth } from "../../context/AuthContext";
-import fetchData from "../../utils/fetchData";
+import fetchUserData from "../../utils/fetchUserData";
 import "./Navbar.css";
 
 const NavCase = styled.header`
@@ -55,7 +55,7 @@ const Address = styled.div`
   font-weight: 600;
   letter-spacing: 0;
   white-space: nowrap;
-  width: 64vw;
+  max-width: 64vw;
   margin: 0;
   background-color: #f2f2f2;
   overflow: hidden;
@@ -63,8 +63,12 @@ const Address = styled.div`
 
   @media (width > 768px){
     margin: unset;
-    width: 18vw;
+    max-width: 28vw;
     background-color: unset;
+  }
+
+  @media (width > 1442px){
+    max-width: 18vw;
   }
 `;
 
@@ -73,7 +77,8 @@ const SearchBarContainer = styled(Link)`
   align-items: center;
   text-decoration: none;
   background-color: #fff;
-  border-radius: 24px;
+  border-radius: 18px;
+  border: 1px solid rgb(239, 239, 239);
   padding: 8px;
   width: 100%;
   height: 48px;
@@ -87,7 +92,7 @@ const SearchBarContainer = styled(Link)`
 
 const Menu = styled.ul`
   display: none;
-  width: ${(props) => (props.open ? "18%" : "42%")};
+  width: ${(props) => (props.open ? "18%" : "46%")};
   justify-content: space-between;
 
 
@@ -178,7 +183,7 @@ function Navbar({showNavbar, showAddress, header}) {
     (async function() {
       try {
         if (user && Object.keys(user).length !== 0) {
-          const res = await fetchData(user);
+          const res = await fetchUserData(user);
           setName(res.name);
         }
       } catch (e) {

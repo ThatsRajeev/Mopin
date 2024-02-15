@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import fetchData from "../../../utils/fetchData";
+import fetchUserData from "../../../utils/fetchUserData";
 import { useUserAuth } from "../../../context/AuthContext";
 import useWindowResize from "../../../hooks/useWindowResize";
 import "./ProfileMenu.css"
@@ -13,7 +13,7 @@ const ProfileMenu = ({ menuItems, active, setActive, toggleOverlay, renderConten
     (async function() {
       try {
         if (user && Object.keys(user).length !== 0) {
-          const res = await fetchData(user);
+          const res = await fetchUserData(user);
           setName(res.name);
         }
       } catch (e) {

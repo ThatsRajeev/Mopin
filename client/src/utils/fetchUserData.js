@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const fetchData = async (user) => {
+const fetchUserData = async (user) => {
   const storedData = localStorage.getItem("userData");
   if(storedData) {
     return JSON.parse(storedData)
@@ -15,4 +15,4 @@ const fetchData = async (user) => {
   }
 };
 
-export default fetchData;
+export default fetchUserData;

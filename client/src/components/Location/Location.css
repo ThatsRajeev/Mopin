@@ -19,7 +19,7 @@
   border: 1px solid rgb(239, 239, 239);
   margin-top: 4%;
   padding-left: 4%;
-  border-radius: 4px;
+  border-radius: 18px;
   height: 48px;
 }
 
@@ -67,6 +67,7 @@
   z-index: 100;
   background-color: #fff;
   margin: 16px 0;
+  width: -webkit-fill-available;
   height: -webkit-fill-available;
 
   @media (width > 768px){

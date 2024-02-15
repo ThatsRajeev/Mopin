@@ -44,20 +44,6 @@ function handleErrors(res, error, message = 'Error processing request') {
 // Payment Routes
 app.use("/api/payment", paymentRoutes);
 
-// Proxy Route
-app.get('/proxy', async (req, res) => {
-  try {
-    const urlSearchParams = new URLSearchParams(req.url.slice(1));
-    const query = urlSearchParams.get('q');
-console.log(urlSearchParams);
-    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&countrycodes=in`);
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    handleErrors(res, error, 'Internal Server Error');
-  }
-});
-
 // Formspree Route
 app.post('/formspree', (req, res) => {
   const url = 'https://formspree.io/f/mknlpedg';

@@ -5,8 +5,7 @@ import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
 import locationIcon from "../../assets/location-icon.png";
 import { useUserAuth } from "../../context/AuthContext";
-import handleGPS from "../../utils/handleGPS";
-import handleGeocoding from "../../utils/handleGeocoding";
+import handleGeolocation from "../../utils/handleGeolocation";
 import "./MapComponent.css"
 
 function DraggableMarker({ setAddressInfo, setCurrentLocation, setLoading }) {
@@ -19,7 +18,7 @@ function DraggableMarker({ setAddressInfo, setCurrentLocation, setLoading }) {
       const newPosition = map.getCenter();
       setCurrentLocation(newPosition);
 
-      const res = await handleGeocoding(newPosition);
+      const res = await handleGeolocation(newPosition);
       setAddressInfo(prev => ({ ...prev, address: res.display_name }));
     } catch (error) {
       console.error(error);
@@ -93,7 +92,7 @@ const MapComponent = ({ setShowMap }) => {
       const coords = position.coords;
       setCurrentLocation({ lat: coords.latitude, lng: coords.longitude });
 
-      const res = await handleGPS();
+      const res = await handleGeolocation();
       setAddressInfo((prev) => ({ ...prev, address: res.display_name }));
     } catch (error) {
       console.error(error);

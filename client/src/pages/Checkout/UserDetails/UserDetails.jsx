@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useUserAuth } from "../../../context/AuthContext";
-import fetchData from "../../../utils/fetchData";
+import fetchUserData from "../../../utils/fetchUserData";
 import fetchAddress from "../../../utils/fetchAddress";
 import handlePayment from "../../../utils/handlePayment";
 import Overlay from "../../../components/Overlay/Overlay";
@@ -37,7 +37,7 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
     const fetchUserData = async () => {
       try {
         if (user && Object.keys(user).length !== 0) {
-          const userData = await fetchData(user);
+          const userData = await fetchUserData(user);
           setName(userData.name);
 
           const addressData = await fetchAddress(user);
