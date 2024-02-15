@@ -47,7 +47,7 @@ app.use("/api/payment", paymentRoutes);
 // Proxy Route
 app.get('/proxy', async (req, res) => {
   try {
-    const response = await fetch(`https://nominatim.openstreetmap.org/search?${req.url.slice(1)}`);
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${req.url.slice(1)}&format=json`);
     const data = await response.json();
     res.json(data);
   } catch (error) {
