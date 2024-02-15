@@ -13,6 +13,7 @@ body {
 }
 
 ul li {
+  list-style: none;
   font-size: 20px;
 }
 
@@ -76,7 +77,14 @@ hr {
 
 /* width */
 ::-webkit-scrollbar {
+  display: none;
+}
+
+@media (width > 768px) {
+  ::-webkit-scrollbar {
+    display: block;
     width: 8px;
+  }
 }
 
 /* Track */

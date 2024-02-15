@@ -103,7 +103,7 @@
 
 .weekday {
   font-size: 20px;
-  margin: 8px 0;
+  line-height: 2rem;
 
   @media (width > 768px) {
     margin: 16px 0;

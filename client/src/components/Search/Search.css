@@ -16,7 +16,7 @@
 
   @media (width > 768px){
     position: relative;
-    padding: 48px 16px;
+    padding: 0 16px;
     align-items: center;
   }
 }
@@ -45,13 +45,33 @@
   }
 
   @media (width > 768px){
-    background-color: unset;
+    position: unset;
+    background-color: #f2f2f2;
   }
 }
 
 .search-results {
   flex-direction: column;
-  margin-top: 28%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  margin-top: 100px;
+  padding-bottom: 8rem;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+
+  @media (width > 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-basis: 50%;
+    gap: 16px;
+    padding: 12px;
+  }
+}
+
+.search-results::-webkit-scrollbar {
+  display: none;
 }
 
 .search-link {
@@ -70,29 +90,63 @@
 .result-item {
   margin: 12px 0;
   box-shadow: 0 5px 15px 0 #00000026;
-  background-color: #fff;
   border-radius: 24px;
-  padding: 12px;
+  padding: 22px 16px 8px;
+
+  .meal-time {
+    display: none;
+  }
+
+  @media (width > 768px) {
+    width: calc(50% - 10px);
+  }
 }
 
-.result-item h3 {
-  margin-bottom: 10px;
-}
-
-.result-item ul {
-  list-style: none;
-  padding: 0;
-}
-
-.result-item li {
+.homecook-info {
   display: flex;
-  flex-direction: column;
+  opacity: 0.88;
   align-items: center;
-  margin-top: 20px;
+  justify-content: space-between;
+
+  h3 {
+    font-size: 1rem;
+    color: rgba(0,0,0,0.74);
+  }
+
+  .sub-info-mobile {
+    padding: 0;
+    justify-content: space-between;
+    max-width: fit-content;
+    gap: 8px;
+    color: rgba(0,0,0,0.64);
+    font-size: 1rem;
+  }
+
+  .rating-svg {
+    gap: 8px;
+  }
 }
 
-.result-item img {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 10px;
+.to-homechef {
+  font-size: 24px;
+  color: rgba(0,0,0,0.64);
+}
+
+.dish-time {
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 16px;
+    line-height: 2.8rem;
+    color: rgba(0, 0, 0, 0.72);
+  }
+}
+
+.loading-skeleton {
+  margin: 8rem auto 0;
+
+  div {
+    margin: 16px 0;
+  }
 }

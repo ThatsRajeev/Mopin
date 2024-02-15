@@ -110,7 +110,7 @@
   }
 
   >div>p {
-    font-size: 14px;
+    font-size: 15px;
     color: #666666;
   }
 }
@@ -184,7 +184,8 @@
 
 .seller-food-img {
   display: none;
-  max-height: 316px;
+  max-height: 284px;
+  margin-right: 24px;
 
   @media (width > 900px) {
     display: block;
@@ -202,8 +203,8 @@
 }
 
 .avatar-img {
-  height: 56px;
-  width: 56px;
+  height: 48px;
+  width: 48px;
   object-fit: cover;
   margin: 4px 8px;
   border-radius: 50%;
@@ -211,7 +212,7 @@
 }
 
 .sellerName {
-  font-size: 36px;
+  font-size: 32px;
   padding-right: 8px;
   color: #f2f2f2;
 }
@@ -244,7 +245,7 @@
 
 .tag {
   color: #f2f2f2;
-  font-size: 28px;
+  font-size: 26px;
   opacity: 64%;
   margin-left: 16px;
 }
@@ -252,7 +253,6 @@
 .seller-sub-info {
   color: #686b78;
   display: flex;
-  font-size: .8rem;
   justify-content: space-between;
   padding-top: 0.24rem;
   margin: 16px 0 0 16px;
@@ -273,7 +273,7 @@
   display: block;
   opacity: 0.36;
   filter: blur(0.36px);
-  transform: rotate(-180deg);
   position: absolute;
-  right: -148px;
+  right: 0;
+  transform: translateX(50%) rotate(-180deg)
 }
