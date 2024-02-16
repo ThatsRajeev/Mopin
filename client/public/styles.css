@@ -139,11 +139,11 @@ hr {
 .cardHeader {
   color: #222222;
   font-size: 1.1rem;
-  line-height: 1.8rem;
-  letter-spacing: 1px;
 
   @media (width > 768px) {
     font-size: 1.6rem;
+    line-height: 1.8rem;
+    letter-spacing: 1px;
   }
 }
 
