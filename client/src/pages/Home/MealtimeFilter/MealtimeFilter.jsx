@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import homecooks from "../../../data/homecooks";
 import "./MealtimeFilter.css";
 
-import breakfast from "../../../assets/breakfast.png";
-import lunch from "../../../assets/lunch.png";
-import dinner from "../../../assets/dinner.png";
+import breakfast from "../../../assets/breakfast.svg";
+import lunch from "../../../assets/lunch.svg";
+import dinner from "../../../assets/dinner.svg";
 
 const MealtimeFilter = () => {
   const [filter, setFilter] = useState("");
