@@ -202,6 +202,7 @@ hr {
     font-size: 16px;
     font-weight: 600;
     padding: 8px 14px;
+    background-color: #fff;
     border: 2px solid #f16122;
     border-radius: 20px;
     white-space: nowrap;
@@ -215,7 +216,7 @@ hr {
 }
 
 .active-catgor {
-  background-color: #f16122;
+  background-color: #f16122 !important;
   color: #fff;
   opacity: 1 !important;
 }
