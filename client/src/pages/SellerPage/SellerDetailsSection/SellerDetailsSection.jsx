@@ -35,7 +35,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
             <p className="tag">{sellerDetails.quote}</p>
             <span className="tag-line"></span>
           </div>
-          <div className="sub-info seller-sub-info">
+          <div className="seller-sub-info sub-info">
             <p>serves 1</p>
             <span className="span">•</span>
             <div className="rating-svg">
