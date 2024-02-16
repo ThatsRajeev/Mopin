@@ -1,0 +1,11 @@
+
+.meal-by-time {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 6px;
+
+  img {
+    width: -webkit-fill-available;
+    aspect-ratio: 0.84;
+  }
+}

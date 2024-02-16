@@ -9,7 +9,8 @@ import "leaflet/dist/leaflet.css";
 
 const Navbar = lazy(() => import("../../components/Navbar/Navbar"));
 const FoodSlider = lazy(() => import("./FoodSlider/FoodSlider"));
-const ChefCard = lazy(() => import("./ChefCard/ChefCard"));
+const FoodItemCard = lazy(() => import("./FoodItemCard/FoodItemCard"));
+const MealtimeFilter = lazy(() => import("./MealtimeFilter/MealtimeFilter"));
 const Features = lazy(() => import("./Features/Features"));
 const Fooder = lazy(() => import("./Fooder/Fooder"));
 const Makers = lazy(() => import("./Makers/Makers"));
@@ -82,14 +83,16 @@ function Homepage() {
               <FoodSlider func={filterDish} />
               <hr />
 
+              <MealtimeFilter />
+
               <div className="header-container">
                 <h1 className="cardHeader">All Homechefs Nearby</h1>
               </div>
               {homecooks.map((cook, index) => (
                 <Link to ={`/sellers/${cook.name}`} style={{textDecoration: 'none'}}>
-                  <ChefCard
+                  <FoodItemCard
                     key={index}
-                    id={index}
+                    cardType={"chef"}
                     name={cook.name}
                     img={cook.imgURL}
                     foodType={cook.foodType}
@@ -97,7 +100,6 @@ function Homepage() {
                     feeds={cook.feeds}
                     noOfOrders={cook.noOfOrders}
                     minPrice={cook.minPrice}
-                    className = "card"
                   />
                   </Link>
               ))}

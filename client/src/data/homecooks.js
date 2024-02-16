@@ -1986,7 +1986,7 @@ const homecooks = [{
     id: "9",
     name: "Nisha Choudhary",
     imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/indian-heart-homemade-sweet-with-plate-photo-removebg-preview.avif",
-    foodType: "North indian, Rajasthani",
+    foodType: "Rajasthani",
     quote: "Indulge in the authentic taste of Marwari cuisine",
     rating: "4.2",
     feeds: "10",

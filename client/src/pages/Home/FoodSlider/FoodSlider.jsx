@@ -11,7 +11,7 @@ import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import FoodCard from "../FoodCard/FoodCard";
+import FoodItemCard from "../FoodItemCard/FoodItemCard";
 import homecooks from "../../../data/homecooks";
 
 // import required modules
@@ -77,9 +77,9 @@ const FoodSlider = (props) => {
         .map((cook, index) => (
           <SwiperSlide className="card-wrapper" key={index}>
             <Link to={`/sellers/${cook.name}`} style={{ textDecoration: 'none' }}>
-              <FoodCard
+              <FoodItemCard
                 key={index}
-                id={index}
+                cardType={"food"}
                 name={cook.name}
                 img={cook.imgURL}
                 foodType={cook.foodType}
@@ -87,7 +87,6 @@ const FoodSlider = (props) => {
                 feeds={cook.feeds}
                 noOfOrders={cook.noOfOrders}
                 minPrice={cook.minPrice}
-                className="card"
               />
             </Link>
           </SwiperSlide>

@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
-import { useBlocker } from "react-router-dom";
+import React, { useEffect, useState, useCallback } from "react";
+import { useBlocker, useSearchParams } from "react-router-dom";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "./Overlay.css";
 
 const Overlay = ({ isOpen, children, closeOverlay, unsetDims }) => {
   const overlayStyles = unsetDims ? { height: 'unset', width: 'unset' } : {};
+  const [overlayParams, setOverlayParams] = useSearchParams({
+    overlayType: "",
+  });
+
   const blocker = useBlocker(() => isOpen);
 
   useEffect(() => {
@@ -17,6 +21,24 @@ const Overlay = ({ isOpen, children, closeOverlay, unsetDims }) => {
       document.body.style.overflow = "auto";
     };
   }, [isOpen, closeOverlay]);
+
+  // useEffect(() => {
+  //   setOverlayParams(prev => {
+  //     prev.set("overlayType", "overlay");
+  //     return prev;
+  //   });
+  // }, []);
+  //
+  //
+  // useEffect(() => {
+  //   window.addEventListener('popstate', () => {
+  //     closeOverlay();
+  //     setOverlayParams((prev) => {
+  //       prev.delete("overlayType");
+  //       return prev;
+  //     }, {replace: true});
+  //   });
+  // }, [closeOverlay])
 
   return (
     <div className="overlay-container" onClick={closeOverlay}>
