@@ -33,3 +33,8 @@
     line-height: 1.6rem;
   }
 }
+
+.chef-info {
+  justify-content: unset !important;
+  gap: 6px;
+}

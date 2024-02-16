@@ -9,7 +9,7 @@ function FoodCard(props) {
         <h2 className="food-name-price">{props.name}</h2>
         <p className="food-desc">{props.foodType}</p>
         <div className="sub-info">
-          <p>serves 1</p>
+          <p>Feeds: {props.feeds}</p>
           <span className="span">|</span>
           <div className="rating-div">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#349E46">

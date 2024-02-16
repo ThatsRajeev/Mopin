@@ -84,6 +84,7 @@ const FoodSlider = (props) => {
                 img={cook.imgURL}
                 foodType={cook.foodType}
                 rating={cook.rating}
+                feeds={cook.feeds}
                 noOfOrders={cook.noOfOrders}
                 minPrice={cook.minPrice}
                 className="card"

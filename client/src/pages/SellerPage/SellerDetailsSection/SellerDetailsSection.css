@@ -130,10 +130,6 @@
   align-items: center;
   gap: 8px;
 
-  span {
-    color: #349E46;
-  }
-
   @media (width > 768px) {
     gap: 16px;
   }

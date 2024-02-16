@@ -83,10 +83,6 @@
     width: 0.72rem;
   }
 
-  >span {
-    color: #349E46;
-  }
-
   @media (width > 768px){
     gap: 8px;
 

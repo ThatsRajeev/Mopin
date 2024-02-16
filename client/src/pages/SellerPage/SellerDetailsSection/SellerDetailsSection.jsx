@@ -35,8 +35,8 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
             <p className="tag">{sellerDetails.quote}</p>
             <span className="tag-line"></span>
           </div>
-          <div className="seller-sub-info sub-info">
-            <p>serves 1</p>
+          <div className="seller-sub-info">
+            <p>Feeds: {sellerDetails.feeds}</p>
             <span className="span">•</span>
             <div className="rating-svg">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#349E46" style={{width: '1.2rem'}}>
@@ -72,7 +72,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
             </button>
           </div>
           <div className="sub-info-mobile">
-            <p>serves 1</p>
+            <p>Feeds: {sellerDetails.feeds}</p>
             <span className="span">•</span>
             <div className="rating-svg">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#349E46" style={{width: '0.96rem'}}>
