@@ -254,7 +254,7 @@ app.get("/api/orders/:phoneNumber", async (req, res) => {
     if (user && Object.keys(user).length !== 0) {
       const phoneNumber = req.params.phoneNumber;
 
-      const orders = await Order.find({ user.phoneNumber });
+      const orders = await Order.find({ phoneNumber: user.phoneNumber });
     }
 
     res.status(200).json({ orders });

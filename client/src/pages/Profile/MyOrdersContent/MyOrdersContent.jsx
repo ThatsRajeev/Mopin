@@ -13,6 +13,7 @@ const MyOrdersContent = () => {
         if (user && Object.keys(user).length !== 0) {
           const response = await axios.get(`https://mopin-server.vercel.app/api/orders/${user.phoneNumber}`);
           setOrders(response.data.orders);
+          console.log(response.data);
         }
       } catch (error) {
         console.error('Error fetching orders:', error);
