@@ -249,6 +249,19 @@ app.post("/api/order", async (req, res) => {
   }
 });
 
+app.get("/api/orders/:phoneNumber", async (req, res) => {
+  try {
+    const phoneNumber = req.params.phoneNumber;
+
+    const orders = await Order.find({ phoneNumber }).exec();
+
+    res.status(200).json({ orders });
+  } catch (err) {
+    handleErrors(res, err);
+  }
+});
+
+
 app.get('/api/ordersdata', async (req, res) => {
   try {
     const orders = await Order.find({ fullStatus: { $ne: "Delivered" } });
