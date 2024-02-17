@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import Overlay from "../../../components/Overlay/Overlay";
 import fetchUserData from "../../../utils/fetchUserData";
 import { useUserAuth } from "../../../context/AuthContext";
 import useWindowResize from "../../../hooks/useWindowResize";
 import "./ProfileMenu.css"
 
-const ProfileMenu = ({ menuItems, active, setActive, toggleOverlay, renderContent }) => {
+const ProfileMenu = ({ menuItems, active, setActive, renderContent }) => {
   const [name, setName] = useState("");
   const windowWidth = useWindowResize();
   const { user } = useUserAuth();
@@ -22,8 +23,15 @@ const ProfileMenu = ({ menuItems, active, setActive, toggleOverlay, renderConten
     })();
   }, [user]);
 
+  const closeOverlay = () => {
+   setActive((prev) => {
+     prev.delete("p");
+     return prev;
+   });
+ };
+
   const RenderMenuItem = ({ menuItem }) => (
-    <div className={`li-div`} onClick={() => { setActive(menuItem.label); toggleOverlay() }}>
+    <div className={`li-div`} onClick={() => {if(active !== menuItem.label) { setActive({p: menuItem.label} )}}}>
       <div className={`li-subdiv ${active === menuItem.label ? "active-nav" : ""}`}>
         <div className={`line-style ${active === menuItem.label ? "active-div" : ""}`}></div>
         <div className={`userInfo-icon ${active === menuItem.label ? "active-icon-div" : ""}`}>
@@ -57,7 +65,19 @@ const ProfileMenu = ({ menuItems, active, setActive, toggleOverlay, renderConten
             ))}
           </ul>
         </div>
-        {windowWidth > 768 ? renderContent() : null}
+        {windowWidth <= 768 ? (
+          active && (
+            <Overlay closeOverlay={closeOverlay}>
+              <div className="profile-head" onClick={closeOverlay}>
+                <span className="material-symbols-outlined">arrow_back</span>
+                <p>{active}</p>
+              </div>
+              {renderContent()}
+            </Overlay>
+          )
+        ) : (
+          renderContent()
+        )}
       </div>
     </div>
   );

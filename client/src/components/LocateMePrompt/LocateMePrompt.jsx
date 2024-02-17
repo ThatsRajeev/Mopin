@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import handleGeolocation from "../../utils/handleGeolocation";
 import Overlay from "../Overlay/Overlay"
@@ -7,9 +8,9 @@ import Check from "../../assets/check.svg";
 import "./LocateMePrompt.css";
 
 function LocateMePrompt() {
-  const [addressOverlay, setAddessOverlay] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [overlayParams, setOverlayParams] = useSearchParams();
 
   const getCurrentLocation = async () => {
     try {
@@ -53,8 +54,16 @@ function LocateMePrompt() {
   };
 
   const toggleOverlay = () => {
-    setAddessOverlay(!addressOverlay);
-  }
+   setOverlayParams((prev) => {
+     const isOpen = prev.get("address") === "true";
+     if (isOpen) {
+       prev.delete("address");
+     } else {
+       prev.set("address", "true");
+     }
+     return prev;
+   });
+ };
 
   useEffect(() => {
     if(localStorage.getItem('userLocation')) {
@@ -118,8 +127,8 @@ function LocateMePrompt() {
           )}
         </ul>
       </div>
-      {addressOverlay && (
-        <Overlay isOpen={addressOverlay} closeOverlay={toggleOverlay}>
+      {overlayParams.get("address") && (
+        <Overlay closeOverlay={toggleOverlay}>
           <Location setShowProp={toggleOverlay}/>
         </Overlay>
       )}

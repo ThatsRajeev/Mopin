@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { useUserAuth } from "../../context/AuthContext";
 import Overlay from "../Overlay/Overlay";
@@ -9,22 +10,8 @@ import "./ManageAddressContent.css"
 const ManageAddressContent = ({ setAddressChoosen }) => {
   const [address, setAddress] = useState("");
   const [addressType, setAddressType] = useState("");
-  const [showMap, setShowMap] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
   const { user, logOut } = useUserAuth();
-
-  const deleteAddress = async () => {
-    try {
-      const response = await axios.post('https://mopin-server.vercel.app/api/deletedata', {
-        withCredentials: true
-      });
-      localStorage.removeItem("savedAddress");
-      setShowDelete(false);
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [overlayParams, setOverlayParams] = useSearchParams();
 
   useEffect(() => {
     (async function() {
@@ -40,22 +27,47 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
         console.error(e);
       }
     })();
-  }, [user, showMap, showDelete]);
+  }, [user, overlayParams]);
+
+  const deleteAddress = async () => {
+    try {
+      const response = await axios.post('https://mopin-server.vercel.app/api/deletedata', {
+        withCredentials: true
+      });
+      localStorage.removeItem("savedAddress");
+      toggleOverlay('delete');
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const toggleOverlay = (overlayType) => {
+   setOverlayParams((prev) => {
+     const isOpen = prev.get(overlayType) === "true";
+     if (isOpen) {
+       prev.delete(overlayType);
+     } else {
+       prev.set(overlayType, "true");
+     }
+     return prev;
+   });
+ };
 
   return (
     <div className="component address-comp">
-      <div className="new-address-div addresses" onClick={() => {setShowMap(true)}}>
+      <div className="new-address-div addresses" onClick={() => {toggleOverlay('map')}}>
         <span className="material-symbols-outlined address-icon ">add_circle</span>
         <h3> Add New Address </h3>
       </div>
 
-      {showMap && (
-        <Overlay isOpen={showMap} closeOverlay={() => setShowMap(false)}>
-          <div className="profile-head mob-view" onClick={() => setShowMap(false)}>
+      {overlayParams.get("map") && (
+        <Overlay closeOverlay={() => toggleOverlay('map')}>
+          <div className="profile-head mob-view" onClick={() => toggleOverlay('map')}>
             <span className="material-symbols-outlined">arrow_back</span>
             <p> Edit Address </p>
           </div>
-          <MapComponent setShowMap={setShowMap} />
+          <MapComponent setShowMap={() => {toggleOverlay('map')}} />
         </Overlay>
       )}
 
@@ -71,21 +83,20 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
           </div>
           <p onClick={() => setAddressChoosen && setAddressChoosen(true)}>{address}</p>
           <div className="modify-div">
-            <button onClick={() => {setShowMap(true)}}><span className="material-symbols-outlined type-icon">edit</span></button>
-            <button onClick={() => {setShowDelete(true)}}><span className="material-symbols-outlined type-icon">delete</span></button>
+            <button onClick={() => {toggleOverlay('map')}}><span className="material-symbols-outlined type-icon">edit</span></button>
+            <button onClick={() => {toggleOverlay('delete')}}><span className="material-symbols-outlined type-icon">delete</span></button>
 
-            {showDelete && (
-              <Overlay isOpen={showDelete} closeOverlay={() => setShowDelete(false)} unsetDims="true">
+            {overlayParams.get("delete") && (
+              <Overlay closeOverlay={() => toggleOverlay('delete')} unsetDims="true">
                 <div className="delete-container">
                   <h3 className="delete-heading">Are you sure you want to delete? </h3>
                   <div>
                     <button className="delete" onClick={deleteAddress}>Yes</button>
-                    <button className="cancel" onClick={() => setShowDelete(false)}>Cancel</button>
+                    <button className="cancel" onClick={() => toggleOverlay('delete')}>Cancel</button>
                   </div>
                 </div>
               </Overlay>
             )}
-
           </div>
         </div>
       )}

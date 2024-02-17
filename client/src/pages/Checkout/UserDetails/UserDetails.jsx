@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useUserAuth } from "../../../context/AuthContext";
 import fetchUserData from "../../../utils/fetchUserData";
 import fetchAddress from "../../../utils/fetchAddress";
@@ -15,30 +16,28 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
   const [addressType, setAddressType] = useState("");
   const [showLogout, setShowLogout] = useState(false);
   const [addressChoosen, setAddressChoosen] = useState(false);
-  const [showLoginOverlay, setShowLoginOverlay] = useState(false);
-  const [showAddressOverlay, setShowAddressOverlay] = useState(false);
 
   const { user } = useUserAuth();
+  const [overlayParams, setOverlayParams] = useSearchParams();
 
   const toggleOverlay = (overlayType) => {
-    switch(overlayType) {
-      case 'address':
-        setShowAddressOverlay(!showAddressOverlay);
-        break;
-      case 'login':
-        setShowLoginOverlay(!showLoginOverlay);
-        break;
-      default:
-        break;
-    }
-  }
+   setOverlayParams((prev) => {
+     const isOpen = prev.get(overlayType) === "true";
+     if (isOpen) {
+       prev.delete(overlayType);
+     } else {
+       prev.set(overlayType, "true");
+     }
+     return prev;
+   });
+ };
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    (async function() {
       try {
         if (user && Object.keys(user).length !== 0) {
-          const userData = await fetchUserData(user);
-          setName(userData.name);
+          const res = await fetchUserData(user);
+          setName(res.name);
 
           const addressData = await fetchAddress(user);
           setAddress(`${addressData.houseNo}, ${addressData.houseName}, ${addressData.landmark}, ${addressData.address}`);
@@ -47,20 +46,23 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
       } catch (e) {
         console.error(e);
       }
-    };
-
-    fetchUserData();
+    })();
   }, [user]);
 
   useEffect(() => {
     if(addressChoosen) {
-      setShowAddressOverlay(false);
+      toggleOverlay('address')
     }
-
     const userDetailsContainerHeight = document.querySelector('.user-details-container-mob').clientHeight;
     document.querySelector('.order-summary').style.marginBottom = `${Math.max(userDetailsContainerHeight+16, 84)}px`;
 
-  }, [addressChoosen])
+  }, [addressChoosen]);
+
+  useEffect(() => {
+    if(overlayParams.get('address')) {
+      setAddressChoosen(false);
+    }
+  }, [overlayParams])
 
   return (
     <>
@@ -137,17 +139,17 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
       <div className="user-details-container-mob mob-view">
         {!user || !addressChoosen ? (
           <div className="login-address-overlay">
-            {showLoginOverlay && (
-              <Overlay isOpen={showLoginOverlay} closeOverlay={() => setShowLoginOverlay(false)}>
-                <Login setShowProp={toggleOverlay}/>
+            {overlayParams.get("login") && (
+              <Overlay closeOverlay={() => toggleOverlay('login')}>
+                <Login setShowProp={() => toggleOverlay('login')}/>
               </Overlay>
             )}
-            {showAddressOverlay && (
+            {overlayParams.get("address") && (
               <div className="checkbox-container">
                 <ManageAddressContent setAddressChoosen={setAddressChoosen} />
               </div>
             )}
-             <button className="proceed-btn" onClick={() => {!user ? setShowLoginOverlay(true) : setShowAddressOverlay(true)}}>
+             <button className="proceed-btn" onClick={() => {!user ? toggleOverlay('login') : toggleOverlay('address')}}>
               {!user ? "Login / SignUp" : "Choose Address"}
              </button>
           </div>
@@ -166,8 +168,8 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
         </div>
       )}
       </div>
-      {showAddressOverlay && (
-        <div className="backgroundOverlay" onClick={() => setShowAddressOverlay(!showAddressOverlay)}></div>
+      {overlayParams.get("address") && (
+        <div className="backgroundOverlay" onClick={() => toggleOverlay('address')}></div>
       )}
     </>
   );

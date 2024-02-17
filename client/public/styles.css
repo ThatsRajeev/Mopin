@@ -166,7 +166,7 @@ hr {
 }
 
 .back-button-div {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   top: 3%;
   left: 2%;
@@ -179,7 +179,7 @@ hr {
   border: none;
   padding: 8px;
   background-color: #fff;
-  position: absolute;
+  position: fixed;
   z-index: 2000;
   top: 4px;
   left: 4px;

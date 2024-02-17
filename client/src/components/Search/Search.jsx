@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import Navbar from "../Navbar/Navbar";
 import DishCard from "../../pages/SellerPage/DishCard/DishCard";
@@ -9,7 +9,7 @@ import homecooks from "../../data/homecooks";
 import "./Search.css";
 
 const Search = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchResults, setSearchResults] = useState([]);
   const [sortType, setSortType] = useState('price');
   const [sortDirection, setSortDirection] = useState('asc');
@@ -19,11 +19,18 @@ const Search = () => {
   const [dishInfo, setdishInfo] = useState({});
 
   useEffect(() => {
+    const query = searchParams.get("q");
+
     const handleSearch = async () => {
+      if (!query || query.length < 3) {
+        setSearchResults([]);
+        return;
+      }
+
       setLoading(true);
       const results = homecooks.reduce((acc, homecook) => {
         const filteredDishes = homecook.dishes.filter((dish) =>
-          dish.name.toLowerCase().includes(searchTerm.toLowerCase())
+          dish.name.toLowerCase().includes(query.toLowerCase())
         );
 
         if (filteredDishes.length > 0) {
@@ -43,12 +50,8 @@ const Search = () => {
       setLoading(false);
     };
 
-    if(searchTerm.length >= 3) {
-      handleSearch();
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchTerm]);
+    handleSearch();
+  }, [searchParams])
 
   const sortResults = (results, type, direction) => {
       return results.slice().sort((a, b) => {
@@ -79,8 +82,13 @@ const Search = () => {
     }
   }
 
+  const handleSearchInput = (e) => {
+    const q = e.target.value;
+    setSearchParams({ q }, {replace: true});
+  }
+
   const handleClearInput = () => {
-    setSearchTerm("");
+    setSearchParams({});
     setSearchResults([]);
   };
 
@@ -92,8 +100,8 @@ const Search = () => {
           <div className="search-link">
             <span className="material-symbols-outlined search-icon">search</span>
             <input type="text" placeholder="Search your favourite food..." autoFocus
-              value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
-            {searchTerm && (
+            value={searchParams.get("q") || ""} onChange={handleSearchInput}/>
+            {searchParams.get("q") && (
               <button className="clear-button" onClick={handleClearInput}>
                 <span className="material-symbols-outlined">close</span>
               </button>

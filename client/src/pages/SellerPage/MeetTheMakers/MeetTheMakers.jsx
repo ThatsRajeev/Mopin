@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import makers from "../../../data/makers";
 import Overlay from "../../../components/Overlay/Overlay";
 import "./MeetTheMakers.css";
 
 const MeetTheMakers = ({ sellerDetails }) => {
   const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * 7));
-  const [makerOverlay, setMakerOverlay] = useState(false);
+  const [overlayParams, setOverlayParams] = useSearchParams();
+
+  const toggleOverlay = () => {
+   setOverlayParams((prev) => {
+     const isOpen = prev.get("maker") === "true";
+     if (isOpen) {
+       prev.delete("maker");
+     } else {
+       prev.set("maker", "true");
+     }
+     return prev;
+   });
+ };
 
   return (
     <>
@@ -21,18 +34,18 @@ const MeetTheMakers = ({ sellerDetails }) => {
             <h3>{sellerDetails.name}</h3>
             <p>{makers[randomIndex].story}</p>
             <div>
-              <button onClick={() => setMakerOverlay(!makerOverlay)} className="read-btn">
+              <button onClick={toggleOverlay} className="read-btn">
                 <span>Read her story</span>
               </button>
             </div>
           </div>
         </div>
       </div>
-      {makerOverlay && (
-        <Overlay isOpen={makerOverlay} closeOverlay={() => setMakerOverlay(!makerOverlay)}>
+      {overlayParams.get("maker") && (
+        <Overlay closeOverlay={toggleOverlay}>
           <div className="makerOverlay-container">
             <div className="search-heading mob-view">
-              <span className="material-symbols-outlined" onClick={() => setMakerOverlay(!makerOverlay)}>arrow_back</span>
+              <span className="material-symbols-outlined" onClick={toggleOverlay}>arrow_back</span>
               <p>Meet the Maker</p>
             </div>
             <img className="makerOverlay-img" src={makers[randomIndex].imgURL} alt="makers-img" />

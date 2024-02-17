@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import useWindowResize from "../../hooks/useWindowResize";
 import Navbar from "../../components/Navbar/Navbar";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
@@ -7,16 +8,10 @@ import ManageAddressContent from "../../components/ManageAddressContent/ManageAd
 import HelpAndSupport from "./HelpAndSupport/HelpAndSupport";
 import SubscriptionsContent from "./SubscriptionsContent/SubscriptionsContent";
 import LogoutContent from "../../components/LogoutContent/LogoutContent";
-import Overlay from "../../components/Overlay/Overlay";
 
 const Profile = () => {
-  const [overlayVisible, setOverlayVisible] = useState(false);
-  const [active, setActive] = useState("My Orders");
+  const [overlayParams, setOverlayParams] = useSearchParams();
   const windowWidth = useWindowResize();
-
-  const toggleOverlay = () => {
-    setOverlayVisible(!overlayVisible);
-  };
 
   const menuItems = [
     { label: "My Orders", icon: "local_dining" },
@@ -27,7 +22,7 @@ const Profile = () => {
   ];
 
   const renderContent = () => {
-    switch (active) {
+    switch (overlayParams.get("p")) {
       case "My Orders":
         return <MyOrdersContent />;
       case "Manage Address":
@@ -37,31 +32,26 @@ const Profile = () => {
       case "Subscriptions":
         return <SubscriptionsContent />;
       case "Logout":
-        return <LogoutContent active={active} setActive={setActive} toggleOverlay={toggleOverlay} />;
+        return <LogoutContent active={overlayParams.get("p")} setActive={setOverlayParams} />;
       default:
         return null;
     }
   };
 
+  useEffect(() => {
+    if(windowWidth > 768)
+      {setOverlayParams({p: "My Orders"}, {replace: true})};
+  }, []);
+
   return (
     <>
-    <Navbar showAddress="none"/>
-    <ProfileMenu
-      menuItems={menuItems}
-      active={active}
-      setActive={setActive}
-      toggleOverlay={toggleOverlay}
-      renderContent={renderContent}
-    />
-    {windowWidth <= 768 && overlayVisible && (
-      <Overlay isOpen={overlayVisible} closeOverlay={toggleOverlay}>
-        <div className="profile-head" onClick={toggleOverlay}>
-          <span className="material-symbols-outlined">arrow_back</span>
-          <p>{active}</p>
-        </div>
-        {renderContent()}
-      </Overlay>
-    )}
+      <Navbar showAddress="none"/>
+      <ProfileMenu
+        menuItems={menuItems}
+        active={overlayParams.get("p")}
+        setActive={setOverlayParams}
+        renderContent={renderContent}
+      />
     </>
   )
 }

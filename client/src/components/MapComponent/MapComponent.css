@@ -95,7 +95,7 @@
 }
 
 .set-address {
-  position: absolute;
+  position: fixed;
   right: 0;
   left: 0;
   bottom: 0;
@@ -125,6 +125,7 @@
 
   @media (width > 768px) {
     width: unset;
+    position: absolute;
   }
 }
 

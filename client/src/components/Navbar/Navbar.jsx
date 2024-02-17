@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useSearchParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import Location from "../Location/Location";
 import Login from "../Login/Login";
@@ -171,13 +171,11 @@ const FlexContainer = styled.div`
 
 function Navbar({showNavbar, showAddress, header}) {
   const [navItem, setNavItem] = useState('Home');
-  const [isAddressActive, setIsAddressActive] = useState(false);
-  const [isLoginActive, setIsLoginActive] = useState(false);
-  const [isHelpActive, setIsHelpActive] = useState(false);
   const [name, setName] = useState("");
 
   const { user } = useUserAuth();
   const location = useLocation();
+  const [overlayParams, setOverlayParams] = useSearchParams();
 
   useEffect(() => {
     (async function() {
@@ -194,32 +192,28 @@ function Navbar({showNavbar, showAddress, header}) {
 
   useEffect(() => {
     const pathname = location.pathname;
-    if (pathname === '/profile') {
-      setNavItem('Profile');
-    } else if (pathname === '/search') {
-      setNavItem('Search');
-    } else if (pathname === '/checkout') {
-      setNavItem('Checkout');
-    } else {
-      setNavItem('Home');
-    }
+    const updatedNavItem =
+      pathname === "/profile"
+        ? "Profile"
+        : pathname === "/search"
+        ? "Search"
+        : pathname === "/checkout"
+        ? "Checkout"
+        : "Home";
+    setNavItem(updatedNavItem);
   }, [location.pathname]);
 
   const toggleOverlay = (overlayType) => {
-    switch(overlayType) {
-      case 'address':
-        setIsAddressActive(!isAddressActive);
-        break;
-      case 'login':
-        setIsLoginActive(!isLoginActive);
-        break;
-      case 'help':
-        setIsHelpActive(!isHelpActive);
-        break;
-      default:
-        break;
-    }
-  }
+   setOverlayParams((prev) => {
+     const isOpen = prev.get(overlayType) === "true";
+     if (isOpen) {
+       prev.delete(overlayType);
+     } else {
+       prev.set(overlayType, "true");
+     }
+     return prev;
+   });
+ };
 
   return (
     <NavCase open={showNavbar}>
@@ -266,18 +260,18 @@ function Navbar({showNavbar, showAddress, header}) {
           <span className="material-symbols-outlined person-icon">person</span>
         </NavLink>
 
-        {isLoginActive && (
-          <Overlay isOpen={isLoginActive} closeOverlay={() => toggleOverlay('login')}>
+        {overlayParams.get("login") && (
+          <Overlay closeOverlay={() => toggleOverlay('login')}>
             <Login setShowProp={toggleOverlay}/>
           </Overlay>
         )}
-        {isAddressActive && (
-          <Overlay isOpen={isAddressActive} closeOverlay={() => toggleOverlay('address')}>
+        {overlayParams.get("address") && (
+          <Overlay closeOverlay={() => toggleOverlay('address')}>
             <Location setShowProp={toggleOverlay}/>
           </Overlay>
         )}
-        {isHelpActive && (
-          <Overlay isOpen={isHelpActive} closeOverlay={() => toggleOverlay('help')}>
+        {overlayParams.get("help") && (
+          <Overlay closeOverlay={() => toggleOverlay('help')}>
             <HelpAndSupport setShowProp={toggleOverlay}/>
           </Overlay>
         )}
