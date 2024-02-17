@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Overlay from "../../../components/Overlay/Overlay";
+import { SearchResult } from "../../../components/Search/Search";
+import { getDayOfTheWeek } from "../../../utils/getFilteredDishes";
 import homecooks from "../../../data/homecooks";
 import "./MealtimeFilter.css";
 
@@ -8,53 +11,151 @@ import lunch from "../../../assets/lunch.svg";
 import dinner from "../../../assets/dinner.svg";
 
 const MealtimeFilter = () => {
-  const [filter, setFilter] = useState("");
-  const [filterResults, setFilterResults] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [results, setResults] = useState({ breakfast: [], lunch: [], dinner: [] });
   const [loading, setLoading] = useState(false);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [dishInfo, setdishInfo] = useState({});
+  const today = new Date();
+  const todaysDay = today.getDay();
+
+  const getDayLabel = (dish) => {
+    const todayIndex = getDayOfTheWeek(0);
+    const tomorrowIndex = getDayOfTheWeek(1);
+
+    if (dish.availability[0].day === todayIndex) {
+      return 'Today';
+    } else if (dish.availability[0].day === tomorrowIndex) {
+      return 'Tomorrow';
+    } else {
+      return dish.availability[0].day;
+    }
+  }
+
+  const getDayOffset = (day) => {
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayIndex = daysOfWeek.indexOf(day);
+    const offset = dayIndex - todaysDay;
+    return offset >= 0 ? offset : offset + 7;
+  };
+
+  const sortDays = (resultsByDay) => {
+     const sortedDays = Object.entries(resultsByDay).sort(([, dishesA], [, dishesB]) =>
+          dishesA[0].availability[0].dayOffset - dishesB[0].availability[0].dayOffset
+      );
+     return Object.fromEntries(sortedDays);
+  }
+
+  const handleFilter = async (filter) => {
+    setLoading(true);
+    const resultsByDay = {};
+
+     homecooks.forEach((homecook) => {
+       homecook.dishes.forEach((dish) => {
+         const dayLabel = getDayLabel(dish);
+         if (!resultsByDay[dayLabel]) {
+           resultsByDay[dayLabel] = [];
+         }
+        if (dish.availability[0].meal.toLowerCase() === filter) {
+          resultsByDay[dayLabel].push({
+           ...dish,
+           homecookName: homecook.name,
+           homecookRating: homecook.rating,
+           homecookOrders: homecook.noOfOrders});
+        }
+       });
+     });
+
+    for (const day in resultsByDay) {
+      resultsByDay[day].forEach(dish => {
+        dish.availability[0].dayOffset = getDayOffset(dish.availability[0].day);
+      });
+    }
+
+   const sortedResults = sortDays(resultsByDay);
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    setResults((prev) => ({ ...prev, [filter]: sortedResults }));
+    setLoading(false);
+  };
+
+  const toggleOverlay = async (overlayType) => {
+     setSearchParams((prev) => {
+       const isOpen = prev.get(overlayType) === "true";
+       if (isOpen) {
+         prev.delete(overlayType);
+       } else {
+         handleFilter(overlayType);
+         prev.set(overlayType, "true");
+       }
+       return prev;
+     });
+   };
 
   useEffect(() => {
-    const handleFilter = async () => {
-      setLoading(true);
-      const results = homecooks.reduce((acc, homecook) => {
-        const filteredDishes = homecook.dishes.filter((dish) =>
-          dish.availability[0].meal === filter
-        );
-
-        if (filteredDishes.length > 0) {
-          acc.push({
-            homecookName: homecook.name,
-            homecookRating: homecook.rating,
-            homecookOrders: homecook.noOfOrders,
-            matchingDishes: filteredDishes,
-          });
-        }
-
-        return acc;
-      }, []);
-
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setFilterResults(results);
-      console.log(results);
-      setLoading(false);
-    };
-
-    if(filter) {
-      handleFilter();
-    }
-  }, [filter]);
+    searchParams.get('breakfast') && handleFilter('breakfast');
+    searchParams.get('lunch') && handleFilter('lunch');
+    searchParams.get('dinner') && handleFilter('dinner');
+  }, []);
 
   return (
-    <div>
+    <div className="mealtimeFilter-container">
       <div className="header-container">
         <h1 className="cardHeader">Quick Search</h1>
       </div>
       <div className="meal-by-time">
-        <img src={breakfast} onClick={() => {setFilter("Breakfast")}} alt="breakfast-img" />
-        <img src={lunch} onClick={() => {setFilter("Lunch")}} alt="lunch-img" />
-        <img src={dinner} onClick={() => {setFilter("Dinner")}} alt="dinner-img" />
+        <img src={breakfast} onClick={() => {toggleOverlay("breakfast")}} alt="breakfast-img" />
+        <img src={lunch} onClick={() => {toggleOverlay("lunch")}} alt="lunch-img" />
+        <img src={dinner} onClick={() => {toggleOverlay("dinner")}} alt="dinner-img" />
       </div>
-    </div>
 
+      {searchParams.get('breakfast') && (
+        <Overlay closeOverlay={() => toggleOverlay('breakfast')}>
+          <div className="profile-head" onClick={() => toggleOverlay('breakfast')}>
+            <span className="material-symbols-outlined">arrow_back</span>
+            <p>Breakfast</p>
+          </div>
+          <SearchResult
+            result={results.breakfast}
+            loading={loading}
+            dishInfo={dishInfo}
+            setTotalItems={setTotalItems}
+            setTotalPrice={setTotalPrice}
+          />
+        </Overlay>
+      )}
+      {searchParams.get('lunch') && (
+        <Overlay closeOverlay={() => toggleOverlay('lunch')}>
+          <div className="profile-head" onClick={() => toggleOverlay('lunch')}>
+            <span className="material-symbols-outlined">arrow_back</span>
+            <p>Lunch</p>
+          </div>
+          <SearchResult
+            result={results.lunch}
+            loading={loading}
+            dishInfo={dishInfo}
+            setTotalItems={setTotalItems}
+            setTotalPrice={setTotalPrice}
+          />
+        </Overlay>
+      )}
+      {searchParams.get('dinner') && (
+        <Overlay closeOverlay={() => toggleOverlay('dinner')}>
+          <div className="profile-head" onClick={() => toggleOverlay('dinner')}>
+            <span className="material-symbols-outlined">arrow_back</span>
+            <p>Dinner</p>
+          </div>
+          <SearchResult
+            result={results.dinner}
+            loading={loading}
+            dishInfo={dishInfo}
+            setTotalItems={setTotalItems}
+            setTotalPrice={setTotalPrice}
+          />
+        </Overlay>
+      )}
+    </div>
   )
 }
 

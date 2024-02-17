@@ -102,6 +102,18 @@
   }
 }
 
+.day-label-div {
+  display: flex;
+  text-align: left;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 16px;
+
+  h1 {
+    font-size: 20px;
+  }
+}
+
 .homecook-info {
   display: flex;
   opacity: 0.88;

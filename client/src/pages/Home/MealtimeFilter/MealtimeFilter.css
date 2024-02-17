@@ -9,3 +9,22 @@
     aspect-ratio: 0.84;
   }
 }
+
+.mealtimeFilter-container {
+  .search-results {
+    background-color: #f2f2f2;
+    margin: 0 auto;
+  }
+
+  .loading-skeleton {
+    margin: 16px;
+  }
+
+  .dish-time {
+    display: none;
+  }
+
+  .day-label-div {
+    display: flex;
+  }
+}
