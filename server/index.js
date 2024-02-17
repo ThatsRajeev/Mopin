@@ -251,11 +251,8 @@ app.post("/api/order", async (req, res) => {
 
 app.get("/api/orders/:phoneNumber", async (req, res) => {
   try {
-    if (user && Object.keys(user).length !== 0) {
-      const phoneNumber = req.params.phoneNumber;
-
-      const orders = await Order.find({ phoneNumber: phoneNumber });
-    }
+    const phoneNumber = req.params.phoneNumber;
+    const orders = await Order.find({ phoneNumber: phoneNumber });
 
     res.status(200).json({ orders });
   } catch (err) {
