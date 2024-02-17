@@ -79,4 +79,5 @@
 
 .react-loading-skeleton {
   margin: 8px 0;
+  border-radius: 16px;
 }

@@ -308,7 +308,7 @@ hr {
   justify-content: space-between;
 
   .react-loading-skeleton {
-    border-radius: 8px 32px;
+    border-radius: 28px 12px;
   }
 }
 
