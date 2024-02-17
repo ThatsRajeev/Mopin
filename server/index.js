@@ -260,7 +260,6 @@ app.get("/api/orders/:phoneNumber", async (req, res) => {
   }
 });
 
-
 app.get('/api/ordersdata', async (req, res) => {
   try {
     const orders = await Order.find({ fullStatus: { $ne: "Delivered" } });

@@ -52,7 +52,7 @@ export const SearchResult = ({ fetchData, result, loading, dishInfo, setTotalIte
                       <h2>{dayLabel}</h2>
                     </div>
                       <DishCard
-                        sellerName={result.homecookName}
+                        sellerName={dish.homecookName}
                         dishItem={dish}
                         dishInfo={dishInfo}
                         setTotalItems={setTotalItems}
