@@ -8,6 +8,7 @@ import Overlay from "../../../components/Overlay/Overlay";
 import Login from "../../../components/Login/Login";
 import ManageAddressContent from '../../../components/ManageAddressContent/ManageAddressContent';
 import LogoutContent from "../../../components/LogoutContent/LogoutContent";
+import loader from "../../../assets/loader.svg";
 import "./UserDetails.css";
 
 const UserDetails = ({ totalPrice, setdishInfo }) => {
@@ -16,6 +17,7 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
   const [addressType, setAddressType] = useState("");
   const [showLogout, setShowLogout] = useState(false);
   const [addressChoosen, setAddressChoosen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { user } = useUserAuth();
   const [overlayParams, setOverlayParams] = useSearchParams();
@@ -164,7 +166,10 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
                 {address}
               </div>
             </div>
-            <button className="proceed-btn" onClick={() => {handlePayment(totalPrice, setdishInfo, name, user.phoneNumber, address)}}><h4>Proceed to Pay (₹{totalPrice+7+4})</h4></button>
+            <button className="proceed-btn" onClick={() => {setLoading(true); handlePayment(totalPrice, setdishInfo, name, user.phoneNumber, address)}}>
+              <h4>Proceed to Pay (₹{totalPrice+7+4})</h4>
+              {loading && <img className="loader-img" src={loader} alt="load-img" />}
+          </button>
         </div>
       )}
       </div>
