@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useSearchParams, Link } from "react-router-dom";
+import { useLocation, useSearchParams, useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import Location from "../Location/Location";
 import Login from "../Login/Login";
@@ -175,6 +175,7 @@ function Navbar({showNavbar, showAddress, header}) {
 
   const { user } = useUserAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const [overlayParams, setOverlayParams] = useSearchParams();
 
   useEffect(() => {
@@ -215,6 +216,14 @@ function Navbar({showNavbar, showAddress, header}) {
    });
  };
 
+const handleProfileClick = () => {
+  if (!user) {
+    toggleOverlay('login');
+  } else {
+    navigate("/profile");
+  }
+};
+
   return (
     <NavCase open={showNavbar}>
       <GlobalNav>
@@ -244,7 +253,7 @@ function Navbar({showNavbar, showAddress, header}) {
             </NavLink>
           </Item>
           <Item>
-            <NavLink to={name ? "/profile" : ""} onClick={() => {if(!user) {toggleOverlay('login')}}}>
+            <NavLink onClick={handleProfileClick}>
               <span className="material-symbols-outlined">person</span>
               {name ? name : "Sign in"}
             </NavLink>
@@ -256,7 +265,8 @@ function Navbar({showNavbar, showAddress, header}) {
             </NavLink>
           </Item>
         </Menu>
-        <NavLink className="mob-view" onClick={() => {if(!name) {toggleOverlay('login')}}} to={user ? "/profile" : ""}>
+
+        <NavLink className="mob-view" onClick={handleProfileClick}>
           <span className="material-symbols-outlined person-icon">person</span>
         </NavLink>
 
@@ -292,7 +302,7 @@ function Navbar({showNavbar, showAddress, header}) {
             Home
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Profile' ? "true" : "false"} to={name ? "/profile" : ""} onClick={() => {if(!user) {toggleOverlay('login')}}}>
+        <NavLink sc={navItem!=='Profile' ? "true" : "false"} onClick={handleProfileClick}>
           <NavItem>
             <span className="material-symbols-outlined">person</span>
             Profile

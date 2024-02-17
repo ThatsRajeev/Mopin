@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "./Overlay.css";
 
@@ -19,7 +18,6 @@ const Overlay = ({ children, closeOverlay, unsetDims }) => {
 };
 
 Overlay.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   closeOverlay: PropTypes.func.isRequired,
 };
