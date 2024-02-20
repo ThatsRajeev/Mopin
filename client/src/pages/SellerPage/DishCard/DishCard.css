@@ -60,6 +60,7 @@
 .button-container {
   display: flex;
   justify-content: center;
+  min-height: 2.6rem;
   z-index: 1000;
 }
 
@@ -105,5 +106,5 @@
 .hidden {
   display: none;
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-24px);
 }

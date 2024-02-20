@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProducts } from "../../../store/productsSlice";
 import { Link } from "react-router-dom";
 import "./FoodSlider.css"
 
@@ -18,6 +20,14 @@ import homecooks from "../../../data/homecooks";
 import { Keyboard, Navigation, Pagination, FreeMode } from "swiper/modules";
 
 const FoodSlider = (props) => {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.items);
+  const productsStatus = useSelector((state) => state.products.status);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
   const params = {
     navigation: {
       nextEl: ".swiper-button-next",
