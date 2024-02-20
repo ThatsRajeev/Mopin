@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useUserAuth } from '../../context/AuthContext';
+import { useSearchParams, useNavigate } from "react-router-dom";
 import useWindowResize from "../../hooks/useWindowResize";
+import Login from "../../components/Login/Login";
+import Overlay from "../../components/Overlay/Overlay";
 import Navbar from "../../components/Navbar/Navbar";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 import MyOrdersContent from "./MyOrdersContent/MyOrdersContent";
@@ -10,8 +13,10 @@ import SubscriptionsContent from "./SubscriptionsContent/SubscriptionsContent";
 import LogoutContent from "../../components/LogoutContent/LogoutContent";
 
 const Profile = () => {
+  const { user } = useUserAuth();
   const [overlayParams, setOverlayParams] = useSearchParams();
   const windowWidth = useWindowResize();
+  const navigate = useNavigate();
 
   const menuItems = [
     { label: "My Orders", icon: "local_dining" },
@@ -44,16 +49,22 @@ const Profile = () => {
   }, []);
 
   return (
-    <>
-      <Navbar showAddress="none"/>
-      <ProfileMenu
-        menuItems={menuItems}
-        active={overlayParams.get("p")}
-        setActive={setOverlayParams}
-        renderContent={renderContent}
-      />
-    </>
+    user && Object.keys(user).length !== 0 ? (
+      <>
+        <Navbar showAddress="none"/>
+        <ProfileMenu
+          menuItems={menuItems}
+          active={overlayParams.get("p")}
+          setActive={setOverlayParams}
+          renderContent={renderContent}
+        />
+      </>
+    ) : (
+      <Overlay closeOverlay={() => navigate(-1)}>
+        <Login setShowProp={() => navigate(-1)}/>
+      </Overlay>
+    )
   )
 }
 
-export default Profile;
+export default (Profile);

@@ -181,8 +181,8 @@ hr {
   background-color: #fff;
   position: fixed;
   z-index: 2000;
-  top: 4px;
-  left: 4px;
+  top: 8px;
+  left: 8px;
   cursor: pointer;
   border: 0.125rem solid rgb(229, 231, 236);
   box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 4px 0px;
