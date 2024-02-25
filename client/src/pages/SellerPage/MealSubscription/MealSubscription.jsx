@@ -41,7 +41,7 @@ const MealSubscription = ({ sellerDetails, showCheckboxes, setShowCheckboxes }) 
       selectedMeals: selectedMeals,
       subsDays: subsDays,
       startDate: startDate.getTime(),
-      subsPrice: totalCost,
+      subsPrice: parseInt(totalCost),
     };
 
     if(totalCost>0) {

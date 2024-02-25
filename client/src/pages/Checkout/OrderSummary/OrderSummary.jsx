@@ -71,100 +71,99 @@ const OrderSummary = ({ dishes, subscriptions, totalPrice }) => {
       </div>
 
       {Object.entries(subscriptions).map(([seller, subsDetails], index) => (
-        <div key={index} className={`seller-section ${index === 0 ? 'first-seller' : ''}`}>
-          <h2>{seller}</h2>
-          <div className="subscription-section">
-            <h4>Subscription Details</h4>
-            <button className="remove-subs" onClick={() => {dispatch(removeSubscription({ sellerName: seller }))}}>
-              <span className="material-symbols-outlined">delete</span>
-            </button>
+        <div key={index} className={`seller-section subs-section ${index === 0 ? 'first-seller' : ''}`}>
+          <h1>{seller}</h1>
 
-            <h4 className="subs-head">Meals:</h4>
-            <div className="subs-details">
-              {["Breakfast", "Lunch", "Dinner"].map((meal, mealIndex) => (
-                <div key={mealIndex} className="mealbox-container">
-                <div className="checkbox-wrapper-12">
-                  <div className="cbx">
-                    <input
-                      id="cbx-12"
-                      type="checkbox"
-                      value={meal}
-                      checked={subsDetails.selectedMeals.includes(meal)}
-                      onChange={(e) => handleSubscription(e, subsDetails, seller)}
-                    />
-                    <label htmlFor="cbx-12"></label>
-                    <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
-                      <path d="M2 8.36364L6.23077 12L13 2"></path>
-                    </svg>
-                  </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                    <defs>
-                      <filter id="goo-12">
-                        <fegaussianblur in="SourceGraphic" stdDeviation="4" result="blur"></fegaussianblur>
-                        <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo-12"></fecolormatrix>
-                        <feblend in="SourceGraphic" in2="goo-12"></feblend>
-                      </filter>
-                    </defs>
+          <h4>Subscription Details</h4>
+          <button className="remove-subs" onClick={() => {dispatch(removeSubscription({ sellerName: seller }))}}>
+            <span className="material-symbols-outlined">delete</span>
+          </button>
+
+          <h4 className="subs-head">Meals:</h4>
+          <div className="subs-details">
+            {["Breakfast", "Lunch", "Dinner"].map((meal, mealIndex) => (
+              <div key={mealIndex} className="mealbox-container">
+              <div className="checkbox-wrapper-12">
+                <div className="cbx">
+                  <input
+                    id="cbx-12"
+                    type="checkbox"
+                    value={meal}
+                    checked={subsDetails.selectedMeals.includes(meal)}
+                    onChange={(e) => handleSubscription(e, subsDetails, seller)}
+                  />
+                  <label htmlFor="cbx-12"></label>
+                  <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
+                    <path d="M2 8.36364L6.23077 12L13 2"></path>
                   </svg>
                 </div>
-                <h2 key={mealIndex}>{meal}</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                  <defs>
+                    <filter id="goo-12">
+                      <fegaussianblur in="SourceGraphic" stdDeviation="4" result="blur"></fegaussianblur>
+                      <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo-12"></fecolormatrix>
+                      <feblend in="SourceGraphic" in2="goo-12"></feblend>
+                    </filter>
+                  </defs>
+                </svg>
               </div>
-              ))}
+              <h2 key={mealIndex}>{meal}</h2>
             </div>
+            ))}
+          </div>
 
-            <h4 className="subs-head">Delivery Slots:</h4>
-            <div className="subs-details">
-              <h2>9-10 AM</h2>
-              <h2>1-2 PM</h2>
-              <h2>8-9 PM</h2>
-            </div>
-            <div className="subs-details">
-              <div>
-                <h4 className="subs-head">Start Date:</h4>
-                <div className="subs-details date-div">
-                  <DatePicker
-                    showIcon selected={new Date(subsDetails.startDate)}
-                    onChange={(date) => handleSubscription(date, subsDetails, seller)}
-                    dateFormat="dd/MM/yyyy"
-                    minDate={new Date()}
-                    maxDate={new Date(new Date().setMonth(new Date().getMonth() + 1))}
-                    popperPlacement="bottom-end"
-                    className="datepicker"
-                  />
-                </div>
+          <h4 className="subs-head">Delivery Slots:</h4>
+          <div className="subs-details">
+            <h2>9-10 AM</h2>
+            <h2>1-2 PM</h2>
+            <h2>8-9 PM</h2>
+          </div>
+          <div className="subs-details">
+            <div>
+              <h4 className="subs-head">Start Date:</h4>
+              <div className="subs-details date-div">
+                <DatePicker
+                  showIcon selected={new Date(subsDetails.startDate)}
+                  onChange={(date) => handleSubscription(date, subsDetails, seller)}
+                  dateFormat="dd/MM/yyyy"
+                  minDate={new Date()}
+                  maxDate={new Date(new Date().setMonth(new Date().getMonth() + 1))}
+                  popperPlacement="bottom-end"
+                  className="datepicker"
+                />
               </div>
-              <div>
-              <h4 className="subs-head">Duration:</h4>
-                <div className="subs-details">
-                  <div className="date-group">
-                    <select className="date-select" value={subsDetails.subsDays} onChange={(e) => handleSubscription(e, subsDetails, seller)} required>
-                      <option value="" disabled>
-                        Days
+            </div>
+            <div>
+            <h4 className="subs-head">Duration:</h4>
+              <div className="subs-details">
+                <div className="date-group">
+                  <select className="date-select" value={subsDetails.subsDays} onChange={(e) => handleSubscription(e, subsDetails, seller)} required>
+                    <option value="" disabled>
+                      Days
+                    </option>
+                    {[28, 21, 14, 7].map((option) => (
+                      <option key={option} value={option}>
+                        {option}
                       </option>
-                      {[28, 21, 14, 7].map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
-            <h4 className="subs-head">Total Cost:</h4>
-            <div className="subs-details">
-              <h4>₹{subsDetails.subsPrice}<small>&nbsp;(excluding taxes)</small></h4>
-            </div>
+          </div>
+          <h4 className="subs-head">Total Cost:</h4>
+          <div className="subs-details">
+            <h4>₹{subsDetails.subsPrice}<small>&nbsp;(excluding taxes)</small></h4>
           </div>
         </div>
       ))}
 
       {Object.entries(dishes).map(([seller, sellerDishes], index) => (
         <div key={index} className={`seller-section ${index === 0 && Object.keys(subscriptions).length === 0 ? 'first-seller' : ''}`}>
-          <h2>{seller}</h2>
+          <h1>{seller}</h1>
 
           {Object.entries(sellerDishes).map(([dishName, dish]) => (
-            <div key={dishName} className="ready-checkout">
+            <div key={dishName} className="ready-checkout mealInfo-div">
               <div className="checkout-dishinfo">
                 <div className="svg-container checkout-svg">
                   <div className="veg-nonveg-svg">

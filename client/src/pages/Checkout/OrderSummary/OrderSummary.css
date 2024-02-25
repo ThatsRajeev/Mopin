@@ -35,21 +35,22 @@
 }
 
 .seller-section {
-  padding: 8px 12px;
+  padding: 12px;
   margin: 0 12px 12px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 24px 4px rgba(0, 0, 0, 0.08);
 
-  >h2 {
-    padding: 0 12px;
+  h1 {
     font-size: 18px;
+    margin-bottom: 0.6rem;
   }
 
   >div {
-    margin: unset;
     box-shadow: unset;
     background-color: unset;
+    margin: unset;
+    padding: unset;
   }
 }
 
@@ -57,19 +58,14 @@
   margin-top: 72px;
 }
 
-.subscription-section {
+.subs-section {
+  background: rgb(255, 245, 240);
   position: relative;
-  margin: 8px !important;
-  background: rgb(255, 245, 240) !important;
-  padding: 8px 12px;
-  border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
 }
 
 .subs-details {
   display: flex;
   justify-content: space-between;
-  margin: 8px 0;
   gap: 8px;
 
   h2 {
@@ -84,10 +80,6 @@
   }
 }
 
-.subs-details:last-child {
-  margin-top: 8px;
-}
-
 .datepicker {
   max-width: 8rem;
   border-radius: 8px;
@@ -97,12 +89,12 @@
 
 .subs-head {
   color: #686b78;
-  margin-top: 12px;
+  margin: 12px 0 6px;
 }
 
 .mealbox-container {
   display: flex;
-  gap: 2px;
+  gap: 4px;
   align-items: center;
 }
 
@@ -121,8 +113,8 @@
 .remove-subs {
   border: none;
   border-radius: 50%;
-  right: 6px;
-  top: 6px;
+  right: 8px;
+  top: 8px;
   position: absolute;
   background-color: #e74c3c;
   color: #fff;
@@ -147,6 +139,10 @@
   box-shadow: 0 2px 24px 4px rgba(0, 0, 0, 0.08);
   padding: 8px 12px;
   margin: 0 12px 12px;
+}
+
+.mealInfo-div {
+  margin-top: 8px !important;
 }
 
 .price-details {
