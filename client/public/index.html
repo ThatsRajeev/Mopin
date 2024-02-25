@@ -17,22 +17,20 @@
       as="style"
     />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Sans&family=Poppins:wght@400;500&display=swap"
-
+      fetchpriority="high"
+      rel="preload"
       as="style"
     />
 
     <link rel="stylesheet" href="/styles.css" />
     <link rel="manifest" href="manifest.json" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js" fetchpriority="low" async></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js" fetchpriority="low" async></script>
   </head>
 
   <body>
     <div id="root"></div>
-    <div class="modal"></div>
-    <script>
-      src="../src/index.js"
-    </script>
+    <script src="../src/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js" fetchpriority="low" async></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js" fetchpriority="low" async></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/service-worker.js');

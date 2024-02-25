@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 import useWindowResize from "../../hooks/useWindowResize";
-import { fetchSellerCartInfo } from "../../utils/fetchCartInfo";
 import SellerDetailsSection from "./SellerDetailsSection/SellerDetailsSection";
 import MealFilterContainer from "./MealFilterContainer/MealFilterContainer";
 import CartContainer from "./CartContainer/CartContainer";
@@ -14,16 +14,27 @@ import Footer from "../../components/Footer/Footer";
 function SellerPage() {
   const { sellerId } = useParams();
   const sellerDetails = homecooks.find(item => item.name === sellerId);
+  const dishes = useSelector((state) => state.dishes);
+  const dishesData = useMemo(() => dishes.bySeller[sellerDetails.name] || {},
+                                  [dishes.bySeller[sellerDetails.name]])
   const [showCheckboxes, setShowCheckboxes] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [dishInfo, setdishInfo] = useState({});
   const windowWidth = useWindowResize();
 
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    fetchSellerCartInfo(cart, sellerDetails.name, setdishInfo, setTotalItems, setTotalPrice);
-  }, [sellerDetails.name]);
+    let newTotalItems = 0;
+    let newTotalPrice = 0;
+
+    for (const dishName in dishesData) {
+      const dish = dishesData[dishName];
+      newTotalItems += dish.qty;
+      newTotalPrice += dish.qty * dish.price;
+    }
+
+    setTotalItems(newTotalItems);
+    setTotalPrice(newTotalPrice);
+  }, [dishesData]);
 
   return (
     <>
@@ -35,9 +46,6 @@ function SellerPage() {
       />
       <MealFilterContainer
         sellerDetails={sellerDetails}
-        dishInfo={dishInfo}
-        setTotalItems={setTotalItems}
-        setTotalPrice={setTotalPrice}
       />
       <CartContainer
         totalItems={totalItems}

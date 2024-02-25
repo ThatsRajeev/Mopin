@@ -67,11 +67,16 @@ const MealtimeFilter = () => {
        });
      });
 
-    for (const day in resultsByDay) {
-      resultsByDay[day].forEach(dish => {
-        dish.availability[0].dayOffset = getDayOffset(dish.availability[0].day);
-      });
-    }
+   for (const day in resultsByDay) {
+     resultsByDay[day] = resultsByDay[day].map(dish => {
+       return {
+         ...dish,
+         availability: [
+           { ...dish.availability[0], dayOffset: getDayOffset(dish.availability[0].day) }
+         ]
+       };
+     });
+   }
 
    const sortedResults = sortDays(resultsByDay);
 

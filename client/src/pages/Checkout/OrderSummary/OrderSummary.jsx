@@ -1,163 +1,209 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addDish, updateDish } from "../../../store/dishesSlice";
+import { addSubscription, removeSubscription } from "../../../store/subscriptionsSlice";
+import homecooks from "../../../data/homecooks";
 import { useNavigate } from "react-router-dom";
 import { getDayOfTheWeek } from "../../../utils/getFilteredDishes";
-import { fetchFullCartInfo } from "../../../utils/fetchCartInfo";
-import handleCart from "../../../utils/handleCart";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./OrderSummary.css"
 
-const OrderSummary = ({ dishInfo, setdishInfo }) => {
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+const OrderSummary = ({ dishes, subscriptions, totalPrice }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    fetchFullCartInfo(cart, setdishInfo, setTotalItems, setTotalPrice);
-  }, []);
-
-  const updateCartAndTotal = (changeValue, dish, seller) => {
-    handleCart(seller.sellerName, dish, changeValue);
-
-    setTotalItems(prev => prev + changeValue);
-    setTotalPrice(prev => prev + changeValue*parseInt(dish.price));
-  };
+  const dispatch = useDispatch();
 
   const handleIncrement = (event, dish, seller) => {
     const counterValue = event.target.previousElementSibling;
     counterValue.textContent = parseInt(counterValue.textContent) + 1;
-    updateCartAndTotal(1, dish, seller);
+    dispatch(updateDish({ sellerName: seller, dishName: dish.name, qtyChange: 1 }));
   };
 
   const handleDecrement = (event, dish, seller) => {
     const counterValue = event.target.nextElementSibling;
     const newValue = parseInt(counterValue.textContent) - 1;
-    updateCartAndTotal(-1, dish, seller);
+    counterValue.textContent = newValue;
+    dispatch(updateDish({ sellerName: seller, dishName: dish.name, qtyChange: -1 }));
+  };
 
-    if (newValue === 0) {
-      setdishInfo((prevDishInfo) => {
-        const updatedDishInfo = [...prevDishInfo];
-        const sellerIndex = updatedDishInfo.findIndex((sell) => sell.sellerName === seller.sellerName);
+  const handleSubscription = (event, subsDetails, seller) => {
+    const originalDetails = subscriptions[seller];
+    const sellerDetails = homecooks.find(item => item.name === seller);
 
-        if (sellerIndex !== -1) {
-          const dishIndex = updatedDishInfo[sellerIndex].dishes.findIndex(
-            currentDish => currentDish.name === dish.name
-          );
-
-          if (dishIndex !== -1) {
-            updatedDishInfo[sellerIndex].dishes.splice(dishIndex, 1);
-          }
-
-          if (updatedDishInfo[sellerIndex].dishes.length === 0 && updatedDishInfo[sellerIndex].subs.length === 0) {
-            return updatedDishInfo.filter(sellerInfo => sellerInfo.sellerName !== seller.sellerName);
-          }
-        }
-
-        return updatedDishInfo;
-      });
+    let newDetails;
+    if (event.target && event.target.type === 'checkbox') {
+      newDetails = {
+        ...originalDetails,
+        selectedMeals: event.target.checked ?
+                       [...originalDetails.selectedMeals, event.target.value] :
+                       originalDetails.selectedMeals.filter(m => m !== event.target.value)
+      };
+    } else if (event.target && event.target.type === 'select-one') {
+      const selectedIndex = event.target.selectedIndex;
+      newDetails = { ...originalDetails, subsDays: event.target.value }
     } else {
-      counterValue.textContent = newValue;
+      newDetails = { ...originalDetails, startDate: event.getTime() }
+    }
+
+    let totalCost = 0;
+    const calculateTotalCost = () => {
+      if (newDetails.selectedMeals.includes('Breakfast')) {
+        totalCost += parseInt(sellerDetails.subscriptionCost)*0.25;
+      } if(newDetails.selectedMeals.includes('Lunch')) {
+        totalCost += parseInt(sellerDetails.subscriptionCost)*0.4
+      } if(newDetails.selectedMeals.includes('Dinner')) {
+        totalCost += parseInt(sellerDetails.subscriptionCost)*0.35
+      }
+      totalCost *= newDetails.subsDays/28;
+      newDetails.subsPrice = parseInt(totalCost);
+    };
+    calculateTotalCost();
+    if(newDetails.selectedMeals.length > 0) {
+      dispatch(addSubscription({ sellerName: seller, subscriptionDetails: newDetails }));
     }
   };
 
-  const removeSubs = (seller) => {
-    let existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    const existingSellerIndex = existingCart.findIndex(group => group.sellerName === seller.sellerName);
-
-    if (existingSellerIndex !== -1) {
-      if (seller.dishes.length === 0) {
-        existingCart.splice(existingSellerIndex, 1);
-
-        localStorage.setItem('cart', JSON.stringify(existingCart));
-
-        setdishInfo((prevDishInfo) => {
-          const updatedDishInfo = prevDishInfo.filter(sellerInfo => sellerInfo.sellerName !== seller.sellerName);
-          return updatedDishInfo;
-        });
-      } else {
-        existingCart[existingSellerIndex].subs = [];
-
-        localStorage.setItem('cart', JSON.stringify(existingCart));
-
-        setdishInfo((prevDishInfo) => {
-          const updatedDishInfo = prevDishInfo.map(sellerInfo => {
-            if (sellerInfo.sellerName === seller.sellerName) {
-              sellerInfo.subs = [];
-            }
-            return sellerInfo;
-          });
-          return updatedDishInfo;
-        });
-      }
-    }
-  }
-
   return (
     <div className="order-summary">
-      <div className="cart-div mob-view">
+      <div className="cart-div">
         <span className="material-symbols-outlined" onClick={() => navigate(-1)}>arrow_back_ios</span>
         Cart
       </div>
 
-      {Array.isArray(dishInfo) && dishInfo.map((seller, index) => (
-        (seller.dishes.length > 0 || seller.subs.length > 0) && (
-          <div key={index} className={`seller-section ${index === 0 ? 'first-seller' : ''}`}>
-            <h2>{seller.sellerName}</h2>
+      {Object.entries(subscriptions).map(([seller, subsDetails], index) => (
+        <div key={index} className={`seller-section ${index === 0 ? 'first-seller' : ''}`}>
+          <h2>{seller}</h2>
+          <div className="subscription-section">
+            <h4>Subscription Details</h4>
+            <button className="remove-subs" onClick={() => {dispatch(removeSubscription({ sellerName: seller }))}}>
+              <span className="material-symbols-outlined">delete</span>
+            </button>
 
-            {Array.isArray(seller.subs) && seller.subs.map((subs, subsIndex) => (
-              <div className="subs-section" key={subsIndex}>
-                <h4>{subs.subsDays} days subscription</h4>
-                <div className="subs-details">
-                  {subs.selectedMeals.map((meal, mealIndex) => (
-                    <h2 key={mealIndex}>{meal}</h2>
-                  ))}
+            <h4 className="subs-head">Meals:</h4>
+            <div className="subs-details">
+              {["Breakfast", "Lunch", "Dinner"].map((meal, mealIndex) => (
+                <div key={mealIndex} className="mealbox-container">
+                <div className="checkbox-wrapper-12">
+                  <div className="cbx">
+                    <input
+                      id="cbx-12"
+                      type="checkbox"
+                      value={meal}
+                      checked={subsDetails.selectedMeals.includes(meal)}
+                      onChange={(e) => handleSubscription(e, subsDetails, seller)}
+                    />
+                    <label htmlFor="cbx-12"></label>
+                    <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
+                      <path d="M2 8.36364L6.23077 12L13 2"></path>
+                    </svg>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                    <defs>
+                      <filter id="goo-12">
+                        <fegaussianblur in="SourceGraphic" stdDeviation="4" result="blur"></fegaussianblur>
+                        <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo-12"></fecolormatrix>
+                        <feblend in="SourceGraphic" in2="goo-12"></feblend>
+                      </filter>
+                    </defs>
+                  </svg>
                 </div>
-                <div className="subs-details">
-                  <button onClick={() => removeSubs(seller)}>Remove</button>
-                  <h4>₹{subs.subsPrice}</h4>
+                <h2 key={mealIndex}>{meal}</h2>
+              </div>
+              ))}
+            </div>
+
+            <h4 className="subs-head">Delivery Slots:</h4>
+            <div className="subs-details">
+              <h2>9-10 AM</h2>
+              <h2>1-2 PM</h2>
+              <h2>8-9 PM</h2>
+            </div>
+            <div className="subs-details">
+              <div>
+                <h4 className="subs-head">Start Date:</h4>
+                <div className="subs-details date-div">
+                  <DatePicker
+                    showIcon selected={new Date(subsDetails.startDate)}
+                    onChange={(date) => handleSubscription(date, subsDetails, seller)}
+                    dateFormat="dd/MM/yyyy"
+                    minDate={new Date()}
+                    maxDate={new Date(new Date().setMonth(new Date().getMonth() + 1))}
+                    popperPlacement="bottom-end"
+                    className="datepicker"
+                  />
                 </div>
               </div>
-            ))}
-
-            {Array.isArray(seller.dishes) && seller.dishes.map((dish, dishIndex) => (
-              <div key={dishIndex} className="ready-checkout">
-                <div className="checkout-dishinfo">
-                  <div className="svg-container checkout-svg">
-                    <div className="veg-nonveg-svg">
-                      <svg width="16" height="16" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      {dish.isVeg ?
-                        <>
-                          <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#43B500"></path>
-                          <circle cx="5" cy="5" r="2" fill="#43B500"></circle>
-                        </> :
-                        <>
-                          <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#a5292a"></path>
-                          <path d="M4.74019 2.825C4.85566 2.625 5.14434 2.625 5.25981 2.825L7.33827 6.425C7.45374 6.625 7.3094 6.875 7.07846 6.875H2.92154C2.6906 6.875 2.54626 6.625 2.66173 6.425L4.74019 2.825Z" fill="#a5292a"></path>
-                        </>}
-                      </svg>
-                    </div>
-                    <div className="checkout-dishname">{dish.name}</div>
-                  </div>
-                  <h3>₹{dish.price}</h3>
-                </div>
-                <div className="checkout-dishinfo mealtime-info">
-                  <p>{dish.availability[0].meal}</p>
-                  <p>
-                    {dish.availability[0].day === getDayOfTheWeek(0) ? 'Today' : dish.availability[0].day === getDayOfTheWeek(1) ? 'Tommorrow' : dish.availability[0].day}
-                  </p>
-                </div>
-                <div className="checkout-dishinfo">
-                  <p>{dish.description}</p>
-                  <div className="counter checkout-counter">
-                    <button className="counter-button" onClick={(e) => handleDecrement(e, dish, seller)}>-</button>
-                    <span className="counter-value">{dish.qty}</span>
-                    <button className="counter-button" onClick={(e) => handleIncrement(e, dish, seller)} > +</button>
+              <div>
+              <h4 className="subs-head">Duration:</h4>
+                <div className="subs-details">
+                  <div className="date-group">
+                    <select className="date-select" value={subsDetails.subsDays} onChange={(e) => handleSubscription(e, subsDetails, seller)} required>
+                      <option value="" disabled>
+                        Days
+                      </option>
+                      {[28, 21, 14, 7].map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
+            <h4 className="subs-head">Total Cost:</h4>
+            <div className="subs-details">
+              <h4>₹{subsDetails.subsPrice}<small>&nbsp;(excluding taxes)</small></h4>
+            </div>
           </div>
-        )
+        </div>
+      ))}
+
+      {Object.entries(dishes).map(([seller, sellerDishes], index) => (
+        <div key={index} className={`seller-section ${index === 0 && Object.keys(subscriptions).length === 0 ? 'first-seller' : ''}`}>
+          <h2>{seller}</h2>
+
+          {Object.entries(sellerDishes).map(([dishName, dish]) => (
+            <div key={dishName} className="ready-checkout">
+              <div className="checkout-dishinfo">
+                <div className="svg-container checkout-svg">
+                  <div className="veg-nonveg-svg">
+                    <svg width="16" height="16" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {dish.isVeg ?
+                      <>
+                        <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#43B500"></path>
+                        <circle cx="5" cy="5" r="2" fill="#43B500"></circle>
+                      </> :
+                      <>
+                        <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#a5292a"></path>
+                        <path d="M4.74019 2.825C4.85566 2.625 5.14434 2.625 5.25981 2.825L7.33827 6.425C7.45374 6.625 7.3094 6.875 7.07846 6.875H2.92154C2.6906 6.875 2.54626 6.625 2.66173 6.425L4.74019 2.825Z" fill="#a5292a"></path>
+                      </>}
+                    </svg>
+                  </div>
+                  <div className="checkout-dishname">{dish.name}</div>
+                </div>
+                <h3>₹{dish.price}</h3>
+              </div>
+              <div className="checkout-dishinfo mealtime-info">
+                <p>
+                  {dish.availability[0].meal}&nbsp;
+                  ({dish.availability[0].meal === 'Breakfast' ? '9-10 AM' : dish.availability[0].meal === 'Lunch' ? '1-2 PM' : '8-9 PM'})
+                </p>
+                <p>
+                  {dish.availability[0].day === getDayOfTheWeek(0) ? 'Today' : dish.availability[0].day === getDayOfTheWeek(1) ? 'Tommorrow' : dish.availability[0].day}
+                </p>
+              </div>
+              <div className="checkout-dishinfo">
+                <p>{dish.description}</p>
+                <div className="counter checkout-counter">
+                  <button className="counter-button" onClick={(e) => handleDecrement(e, dish, seller)}>-</button>
+                  <span className="counter-value">{dish.qty}</span>
+                  <button className="counter-button" onClick={(e) => handleIncrement(e, dish, seller)} > +</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       ))}
 
       <div className="ready-checkout coupon-div">
@@ -175,16 +221,20 @@ const OrderSummary = ({ dishInfo, setdishInfo }) => {
         </div>
         <div className="price-details">
           <p>Packaging & Delivery</p>
-          <p>₹7</p>
+          <p>₹{Object.keys(dishes).length > 0 ? "14" : "0"}</p>
         </div>
         <div className="price-details">
-          <p>Govt Taxes</p>
-          <p>₹4</p>
+          <p>Govt Taxes (5%)</p>
+          <p>₹{Math.round(0.05*totalPrice)}</p>
+        </div>
+        <div className="price-details">
+          <p>Platform Fees</p>
+          <p>₹{Object.keys(dishes).length > 0 ? "3" : "0"}</p>
         </div>
         <div className="sum-total-line"></div>
         <div className="checkout-dishinfo">
           <h4>To Pay</h4>
-          <h4>₹{totalPrice+7+4}</h4>
+          <h4>₹{Math.round(totalPrice+14+0.05*totalPrice+3)}</h4>
         </div>
       </div>
     </div>

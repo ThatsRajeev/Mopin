@@ -1,13 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import Navbar from "../Navbar/Navbar";
 import DishCard from "../../pages/SellerPage/DishCard/DishCard";
+import CartContainer from "../../pages/SellerPage/CartContainer/CartContainer";
 import { getDayOfTheWeek } from "../../utils/getFilteredDishes";
 import homecooks from "../../data/homecooks";
 import "./Search.css";
 
-export const SearchResult = ({ fetchData, result, loading, dishInfo, setTotalItems, setTotalPrice }) => {
+export const SearchResult = ({ result, loading }) => {
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const dishes = useSelector((state) => state.dishes);
+  const dishesData = useMemo(() => dishes.bySeller || {},
+                                  [dishes.bySeller])
+  useEffect(() => {
+    let newTotalItems = 0;
+    let newTotalPrice = 0;
+
+    for (const [seller, sellerDishes] of Object.entries(dishesData)) {
+      for (const [dishName, dish] of Object.entries(sellerDishes)) {
+        newTotalItems += dish.qty;
+        newTotalPrice += dish.qty * dish.price;
+      }
+    }
+
+    setTotalItems(newTotalItems);
+    setTotalPrice(newTotalPrice);
+  }, [dishesData]);
+
   return (
     <>
       {loading ? (
@@ -54,9 +76,6 @@ export const SearchResult = ({ fetchData, result, loading, dishInfo, setTotalIte
                       <DishCard
                         sellerName={dish.homecookName}
                         dishItem={dish}
-                        dishInfo={dishInfo}
-                        setTotalItems={setTotalItems}
-                        setTotalPrice={setTotalPrice}
                       />
                   </div>
                 ))}
@@ -65,6 +84,10 @@ export const SearchResult = ({ fetchData, result, loading, dishInfo, setTotalIte
           </div>
         )
       )}
+      <CartContainer
+        totalItems={totalItems}
+        totalPrice={totalPrice}
+      />
     </>
   );
 };
@@ -75,9 +98,6 @@ const Search = () => {
   const [sortType, setSortType] = useState('price');
   const [sortDirection, setSortDirection] = useState('asc');
   const [loading, setLoading] = useState(false);
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [dishInfo, setdishInfo] = useState({});
   const today = new Date();
   const todaysDay = today.getDay();
 
@@ -108,6 +128,32 @@ const Search = () => {
      return Object.fromEntries(sortedDays);
   }
 
+  const sortResults = (results, type, direction) => {
+      return results.slice().sort((a, b) => {
+          if (type === 'price') {
+              return (direction === 'asc')
+                  ? a.matchingDishes[0].price - b.matchingDishes[0].price
+                  : b.matchingDishes[0].price - a.matchingDishes[0].price;
+          } else if (type === 'rating') {
+              return (direction === 'asc')
+                  ? a.homecookRating - b.homecookRating
+                  : b.homecookRating - a.homecookRating;
+          } else {
+              return 0;
+          }
+      });
+  };
+
+  const handleSearchInput = (e) => {
+    const q = e.target.value;
+    setSearchParams({ q }, {replace: true});
+  }
+
+  const handleClearInput = () => {
+    setSearchParams({});
+    setSearchResults([]);
+  };
+
   useEffect(() => {
     const query = searchParams.get("q");
 
@@ -137,11 +183,16 @@ const Search = () => {
          });
        });
 
-      for (const day in resultsByDay) {
-        resultsByDay[day].forEach(dish => {
-          dish.availability[0].dayOffset = getDayOffset(dish.availability[0].day);
-        });
-      }
+     for (const day in resultsByDay) {
+       resultsByDay[day] = resultsByDay[day].map(dish => {
+         return {
+           ...dish,
+           availability: [
+             { ...dish.availability[0], dayOffset: getDayOffset(dish.availability[0].day) }
+           ]
+         };
+       });
+     }
 
      const sortedResults = sortDays(resultsByDay);
 
@@ -152,32 +203,6 @@ const Search = () => {
 
     handleSearch();
   }, [searchParams])
-
-  const sortResults = (results, type, direction) => {
-      return results.slice().sort((a, b) => {
-          if (type === 'price') {
-              return (direction === 'asc')
-                  ? a.matchingDishes[0].price - b.matchingDishes[0].price
-                  : b.matchingDishes[0].price - a.matchingDishes[0].price;
-          } else if (type === 'rating') {
-              return (direction === 'asc')
-                  ? a.homecookRating - b.homecookRating
-                  : b.homecookRating - a.homecookRating;
-          } else {
-              return 0;
-          }
-      });
-  };
-
-  const handleSearchInput = (e) => {
-    const q = e.target.value;
-    setSearchParams({ q }, {replace: true});
-  }
-
-  const handleClearInput = () => {
-    setSearchParams({});
-    setSearchResults([]);
-  };
 
   return (
     <>
@@ -200,9 +225,6 @@ const Search = () => {
         <SearchResult
           result={searchResults}
           loading={loading}
-          dishInfo={dishInfo}
-          setTotalItems={setTotalItems}
-          setTotalPrice={setTotalPrice}
         />
       </section>
     </>

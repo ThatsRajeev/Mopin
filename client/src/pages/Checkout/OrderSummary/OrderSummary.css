@@ -1,7 +1,7 @@
 .order-summary {
+  position: relative;
   border-radius: 8px;
   background-color: #f2f2f2;
-  margin: 0;
   width: -webkit-fill-available;
 
   @media (width > 768px) {
@@ -22,10 +22,15 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 16px;
+  z-index: 200;
 
   >span {
     font-size: 18px;
     margin-right: 8px;
+  }
+
+  @media (width > 768px) {
+    position: absolute;
   }
 }
 
@@ -52,7 +57,8 @@
   margin-top: 72px;
 }
 
-.subs-section {
+.subscription-section {
+  position: relative;
   margin: 8px !important;
   background: rgb(255, 245, 240) !important;
   padding: 8px 12px;
@@ -63,24 +69,74 @@
 .subs-details {
   display: flex;
   justify-content: space-between;
-  margin: 4px 12px;
+  margin: 8px 0;
+  gap: 8px;
 
   h2 {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 100;
   }
 
-  button {
-    border: none;
-    background: #fff;
-    padding: 2%;
-    border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  h4 small {
+    font-weight: 100;
+    font-size: 14px;
+    color: #666;
   }
 }
 
 .subs-details:last-child {
   margin-top: 8px;
+}
+
+.datepicker {
+  max-width: 8rem;
+  border-radius: 8px;
+  border: 0.72px solid #bfbfc0;
+  padding: 6px 10px 5px 28px !important;
+}
+
+.subs-head {
+  color: #686b78;
+  margin-top: 12px;
+}
+
+.mealbox-container {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.date-select {
+  border-radius: 8px;
+  padding: 6px 18px;
+  border: 1px solid #bfbfc0;
+  appearance: none;
+  background-color: unset;
+  background-image: url(data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23222%27><path d=%27M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z%27/></svg>);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px auto;
+}
+
+.remove-subs {
+  border: none;
+  border-radius: 50%;
+  right: 6px;
+  top: 6px;
+  position: absolute;
+  background-color: #e74c3c;
+  color: #fff;
+  display: flex;
+  padding: 6px;
+  cursor: pointer;
+
+  span {
+    font-size: 18px;
+  }
+}
+
+.remove-subs:hover {
+  background-color: #c0392b;
 }
 
 .ready-checkout {

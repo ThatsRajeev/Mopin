@@ -7,11 +7,11 @@
   width: -webkit-fill-available;
   height: unset;
   border-radius: 12px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
   z-index: 999;
   transition: all 0.3s ease-in-out;
   padding: 12px;
-  margin: 16px;
+  margin: 12px;
   justify-content: space-between;
 
   @media (width > 768px) {

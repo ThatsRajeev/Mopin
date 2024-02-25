@@ -1,23 +1,21 @@
-import React from "react";
-import handleCart from "../../../utils/handleCart";
+import React, { useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addDish, updateDish } from "../../../store/dishesSlice";
 import "./DishCard.css";
 
-const DishCard = ({ sellerName, dishItem, dishInfo, setTotalItems, setTotalPrice }) => {
-  const isVeg = dishItem.isVeg;
-  const quantityGreaterThanZero = dishInfo[dishItem.name] > 0;
-
-  const updateCartAndTotal = (changeValue, dish) => {
-    handleCart(sellerName, dish, changeValue);
-
-    setTotalItems(prev => prev + changeValue);
-    setTotalPrice(prev => prev + changeValue*parseInt(dish.price));
-  };
+const DishCard = ({ sellerName, dishItem }) => {
+  const dispatch = useDispatch();
+  const dishes = useSelector((state) => state.dishes);
+  const dishData = useMemo(() => dishes.bySeller[sellerName]?.[dishItem.name] || {},
+                                 [dishes.bySeller[sellerName]])
+  const quantityGreaterThanZero = dishData?.qty > 0;
 
   const handleButtonClick = (event, dish, qty) => {
     const button = event.target;
     const counter = button.nextElementSibling;
     button.classList.add('hidden');
-    updateCartAndTotal(1, dish);
+
+    dispatch(addDish({ sellerName, dish }));
 
     setTimeout(() => {
       button.style.display = 'none';
@@ -29,13 +27,15 @@ const DishCard = ({ sellerName, dishItem, dishInfo, setTotalItems, setTotalPrice
   const handleIncrement = (event, dish) => {
     const counterValue = event.target.previousElementSibling;
     counterValue.textContent = parseInt(counterValue.textContent) + 1;
-    updateCartAndTotal(1, dish);
+
+    dispatch(updateDish({ sellerName, dishName: dish.name, qtyChange: 1 }));
   };
 
   const handleDecrement = (event, dish) => {
     const counterValue = event.target.nextElementSibling;
     const newValue = parseInt(counterValue.textContent) - 1;
-    updateCartAndTotal(-1, dish);
+
+    dispatch(updateDish({ sellerName, dishName: dish.name, qtyChange: -1 }));
 
     if(newValue === 0) {
       const counter = event.target.parentElement;
@@ -59,7 +59,7 @@ const DishCard = ({ sellerName, dishItem, dishInfo, setTotalItems, setTotalPrice
           <div className="svg-container">
             <div className="veg-nonveg-svg">
               <svg width="16" height="16" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {isVeg ? (
+                {dishItem.isVeg ? (
                   <>
                     <path d="M2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2C0.5 1.17157 1.17157 0.5 2 0.5Z" fill="white" stroke="#43B500"></path>
                     <circle cx="5" cy="5" r="2" fill="#43B500"></circle>
@@ -83,7 +83,7 @@ const DishCard = ({ sellerName, dishItem, dishInfo, setTotalItems, setTotalPrice
         <button className={`add-btn ${quantityGreaterThanZero ? 'hidden' : ""}`} onClick={(e) => handleButtonClick(e, dishItem, 1)}> Add</button>
         <div className={`counter ${quantityGreaterThanZero ? "" : 'hidden'}`}>
           <button className="counter-button" onClick={(e) => handleDecrement(e, dishItem)}>-</button>
-          <span className="counter-value">{quantityGreaterThanZero ? dishInfo[dishItem.name] : 1}</span>
+          <span className="counter-value">{quantityGreaterThanZero ? dishData.qty : 1}</span>
           <button className="counter-button" onClick={(e) => handleIncrement(e, dishItem)}> +</button>
         </div>
       </div>

@@ -13,6 +13,7 @@ const homecooks = [{
     veg: false,
     spicy: false,
     dairyFree: false,
+    subscriptionCost: "3000",
     dishes: [{
         name: "Idli sambar and coconut chutney",
         description: "A South Indian trio that brings together fluffy rice cakes, flavorful lentil stew, and creamy coconut chutney. A symphony of tastes in every bite!",
@@ -261,6 +262,7 @@ const homecooks = [{
     spicy: true,
     dairyFree: false,
     dateOfJoining: "2022-08-25",
+    subscriptionCost: "3200",
     dishes: [{
         name: "Aloo Paratha",
         description: "Flatbread stuffed with a spiced potato mixture, served with yogurt and butter.",
@@ -509,6 +511,7 @@ const homecooks = [{
     spicy: false,
     dairyFree: true,
     dateOfJoining: "2022-12-12",
+    subscriptionCost: "3100",
     dishes: [{
         name: "Mithe Chawal (Sweet Rice)",
         description: "Flavored rice cooked with saffron, nuts, and a touch of sweetness.",
@@ -757,6 +760,7 @@ const homecooks = [{
     spicy: true,
     dairyFree: false,
     dateOfJoining: "2023-11-25",
+    subscriptionCost: "3000",
     dishes: [{
         name: "Bajre ki Raab",
         description: "A warm and nourishing porridge made with pearl millet flour, buttermilk, and spices.",
@@ -1005,6 +1009,7 @@ const homecooks = [{
     spicy: true,
     dairyFree: true,
     dateOfJoining: "2022-07-15",
+    subscriptionCost: "3400",
     dishes: [{
         name: "Luchi and Alur Dom",
         description: "Fluffy, deep-fried flatbreads (luchi) served with a simple and comforting potato curry (alur dom).",
@@ -1253,6 +1258,7 @@ const homecooks = [{
     spicy: true,
     dairyFree: false,
     dateOfJoining: "2023-11-22",
+    subscriptionCost: "2900",
     dishes: [{
         name: "Bedmi Poori with Aloo Sabzi",
         description: "Deep-fried, lentil stuffed puris paired with a spicy potato curry.",
@@ -1501,6 +1507,7 @@ const homecooks = [{
     spicy: true,
     dairyFree: true,
     dateOfJoining: "2024-02-13",
+    subscriptionCost: "2900",
     dishes: [{
         name: "Bedmi Poori with Aloo Sabzi",
         description: "Deep-fried, lentil stuffed puris paired with a spicy potato curry.",
@@ -1749,6 +1756,7 @@ const homecooks = [{
     spicy: false,
     dairyFree: true,
     dateOfJoining: "2023-05-23",
+    subscriptionCost: "3400",
     dishes: [{
         name: "Luchi and Alur Dom",
         description: "Fluffy, deep-fried flatbreads (luchi) served with a simple and comforting potato curry (alur dom).",
@@ -1997,6 +2005,7 @@ const homecooks = [{
     spicy: true,
     dairyFree: false,
     dateOfJoining: "2024-02-18",
+    subscriptionCost: "3200",
     dishes: [{
         name: "Bajre ki Raab",
         description: "A warm and nourishing porridge made with pearl millet flour, buttermilk, and spices.",
@@ -2245,6 +2254,7 @@ const homecooks = [{
     spicy: true,
     dairyFree: true,
     dateOfJoining: "2023-12-1",
+    subscriptionCost: "3000",
     dishes: [{
         name: "Mithe Chawal (Sweet Rice)",
         description: "Flavored rice cooked with saffron, nuts, and a touch of sweetness.",
@@ -2493,6 +2503,7 @@ const homecooks = [{
     spicy: true,
     dairyFree: false,
     dateOfJoining: "2022-11-16",
+    subscriptionCost: "3100",
     dishes: [{
         name: "Aloo Paratha",
         description: "Flatbread stuffed with a spiced potato mixture, served with yogurt and butter.",
@@ -2741,6 +2752,7 @@ const homecooks = [{
     spicy: false,
     dairyFree: false,
     dateOfJoining: "2022-09-25",
+    subscriptionCost: "3000",
     dishes: [{
         name: "Idli sambar and coconut chutney",
         description: "A South Indian trio that brings together fluffy rice cakes, flavorful lentil stew, and creamy coconut chutney. A symphony of tastes in every bite!",

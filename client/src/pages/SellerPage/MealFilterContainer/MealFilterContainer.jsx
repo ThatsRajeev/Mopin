@@ -4,7 +4,7 @@ import { getFilteredDishes, getDayOfTheWeek } from "../../../utils/getFilteredDi
 import DishCard from "../DishCard/DishCard";
 import "./MealFilterContainer.css";
 
-const MealFilterContainer = ({ sellerDetails, dishInfo, setTotalItems, setTotalPrice }) => {
+const MealFilterContainer = ({ sellerDetails }) => {
   const daysInOrder = [0, 1, 2, 3, 4, 5, 6].map(offset => getDayOfTheWeek(offset));
   const [activeCategory, setActiveCategory] = useState(getDayOfTheWeek(0));
   const [activeSwitch, setActiveSwitch] = useState("All");
@@ -136,9 +136,6 @@ const MealFilterContainer = ({ sellerDetails, dishInfo, setTotalItems, setTotalP
                       key={dishIndex}
                       sellerName={sellerDetails.name}
                       dishItem={dishItem}
-                      dishInfo={dishInfo}
-                      setTotalItems={setTotalItems}
-                      setTotalPrice={setTotalPrice}
                     />
                   ))}
                 </div>
