@@ -73,13 +73,11 @@ const OrderSummary = ({ dishes, subscriptions, totalPrice }) => {
       {Object.entries(subscriptions).map(([seller, subsDetails], index) => (
         <div key={index} className={`seller-section subs-section ${index === 0 ? 'first-seller' : ''}`}>
           <h1>{seller}</h1>
-
-          <h4>Subscription Details</h4>
           <button className="remove-subs" onClick={() => {dispatch(removeSubscription({ sellerName: seller }))}}>
             <span className="material-symbols-outlined">delete</span>
           </button>
 
-          <h4 className="subs-head">Meals:</h4>
+          <h4 className="subs-head subs-head-first-child">Meals:</h4>
           <div className="subs-details">
             {["Breakfast", "Lunch", "Dinner"].map((meal, mealIndex) => (
               <div key={mealIndex} className="mealbox-container">
@@ -206,7 +204,7 @@ const OrderSummary = ({ dishes, subscriptions, totalPrice }) => {
       ))}
 
       <div className="ready-checkout coupon-div">
-        <h4>APPLY COUPON</h4>
+        <h4>Apply Coupon</h4>
         <div>
           <p>Explore available offers</p>
           <span className="material-symbols-outlined">chevron_right</span>

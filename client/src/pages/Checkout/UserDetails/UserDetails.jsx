@@ -52,7 +52,7 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
   }, [user]);
 
   useEffect(() => {
-    if(addressChoosen) {
+    if(addressChoosen && window.innerWidth < 768) {
       toggleOverlay('address')
     }
     const userDetailsContainerHeight = document.querySelector('.user-details-container-mob').clientHeight;
@@ -166,7 +166,8 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
                 {address}
               </div>
             </div>
-            <button className="proceed-btn" onClick={() => {setLoading(true); handlePayment(totalPrice, setdishInfo, name, user.phoneNumber, address)}}>
+            <button className="proceed-btn"
+              onClick={() => {setLoading(true); handlePayment(Math.round(totalPrice+14+0.05*totalPrice+3), setdishInfo, name, user.phoneNumber, address)}}>
               <h4>Proceed to Pay (₹{totalPrice+7+4})</h4>
               {loading && <img className="loader-img" src={loader} alt="load-img" />}
           </button>
