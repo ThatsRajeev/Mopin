@@ -10,6 +10,7 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
 router.post("/orders", async (req, res) => {
   try {
+    console.log(req.body);
     var request = {
         "order_amount": req.body.totalCost,
         "order_currency": "INR",
@@ -20,7 +21,7 @@ router.post("/orders", async (req, res) => {
         },
         "order_meta": {
             "return_url": "https://www.cashfree.com/devstudio/preview/pg/web/checkout/?order_id={order_id}",
-            "notify_url": "https://mopin-server.vercel.app/api/payment/orders"
+            "notify_url": "https://mopin-server.vercel.app/api/payment/verify"
         },
     };
 
