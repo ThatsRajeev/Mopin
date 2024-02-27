@@ -16,8 +16,8 @@ router.post("/orders", async (req, res) => {
         "order_currency": "INR",
         "order_id": uuidv4(),
         "customer_details": {
-            "customer_id": req.body.number,
-            "customer_phone": req.body.number
+            "customer_id": req.body.number.slice(3),
+            "customer_phone": req.body.number.slice(3)
         },
         "order_meta": {
             "return_url": "https://www.cashfree.com/devstudio/preview/pg/web/checkout/?order_id={order_id}",
