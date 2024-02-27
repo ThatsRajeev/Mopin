@@ -210,11 +210,11 @@ const Order = mongoose.model("Order", orderSchema);
 
 app.post("/api/order", async (req, res) => {
   try {
-    const { name, number, address, cart } = req.body;
+    const { name, number, address, dishes, subscriptions } = req.body;
 
     const orderPromises = [];
 
-    cart.forEach((item) => {
+    dishes.forEach((item) => {
       const orderItems = item.items.map((dish) => ({
         dishName: dish.name,
         quantity: dish.qty,
@@ -227,7 +227,7 @@ app.post("/api/order", async (req, res) => {
       const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
 
       const newOrder = new Order({
-        orderId: uuidv4(),
+        orderId: req.body.orderId,
         name: name,
         phoneNumber: number,
         address,
