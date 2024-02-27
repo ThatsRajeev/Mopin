@@ -1,26 +1,33 @@
 const router = require("express").Router();
-const Razorpay = require("razorpay");
-const crypto = require("crypto");
+const { Cashfree } = require('cashfree-pg');
+const { v4: uuidv4 } = require('uuid');
 require("dotenv").config();
 // create noOfOrders
+
+Cashfree.XClientId = process.env.CASHFREE_CLIENT_ID;
+Cashfree.XClientSecret = process.env.CASHFREE_SECRET_KEY;
+Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+
 router.post("/orders", async (req, res) => {
   try {
-    const instance = new Razorpay({
-      key_id: process.env.RAZORPAY_API_KEY,
-      key_secret: process.env.RAZORPAY_SECRET,
-    });
-    const options = {
-      amount: req.body.amount * 100,
-      currency: "INR",
-      receipt: crypto.randomBytes(10).toString("hex"),
+    var request = {
+        "order_amount": req.body.totalCost,
+        "order_currency": "INR",
+        "order_id": uuidv4(),
+        "customer_details": {
+            "customer_id": req.body.number,
+            "customer_phone": req.body.number
+        },
+        "order_meta": {
+            "return_url": "https://www.cashfree.com/devstudio/preview/pg/web/checkout/?order_id={order_id}",
+            "notify_url": "https://mopin-server.vercel.app/api/payment/orders"
+        },
     };
 
-    instance.orders.create(options, (error, order) => {
-      if (error) {
-        console.log(error);
-        return res.status(500).json({ message: "Something Went Wrong!" });
-      }
-      res.status(200).json({ data: order });
+    Cashfree.PGCreateOrder("2023-08-01", request).then((response) => {
+        console.log('Order created successfully:',response.data);
+    }).catch((error) => {
+        console.error('Error:', error.response.data.message);
     });
   } catch (error) {
     console.log(error);
@@ -28,25 +35,17 @@ router.post("/orders", async (req, res) => {
   }
 });
 
-// payment verify
 router.post("/verify", async (req, res) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
-    const sign = razorpay_order_id + "|" + razorpay_payment_id;
-    const expectedSign = crypto
-      .createHmac("sha256", process.env.RAZORPAY_SECRET)
-      .update(sign.toString())
-      .digest("hex");
-
-    if (razorpay_signature === expectedSign) {
-      return res.status(200).json({ message: "Payment verified successfully" });
-    } else {
-      return res.status(400).json({ message: "Invalid signature sent!" });
-    }
+    Cashfree.PGOrderFetchPayments("2023-08-01", req.body.order_id).then((response) => {
+        console.log('Order fetched successfully:', response.data);
+    }).catch((error) => {
+        console.error('Error:', error.response.data.message);
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error!" });
   }
-});
+})
 
 module.exports = router;
