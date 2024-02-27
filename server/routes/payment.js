@@ -38,7 +38,7 @@ router.post("/orders", async (req, res) => {
 
 router.post("/verify", async (req, res) => {
   try {
-    Cashfree.PGVerifyWebhookSignature(req.headers["x-webhook-signature"], req.rawBody, req.headers["x-webhook-timestamp"]))
+    Cashfree.PGVerifyWebhookSignature(req.headers["x-webhook-signature"], req.rawBody, req.headers["x-webhook-timestamp"]);
     console.log(req.body);
   } catch (error) {
     console.log(error);
