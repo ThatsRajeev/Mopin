@@ -11,7 +11,6 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 router.post("/orders", async (req, res) => {
   try {
     var request = {
-        "cart_details": {dishes: req.body.dishes, subscriptions: req.body.subscriptions},
         "order_amount": req.body.totalCost,
         "order_currency": "INR",
         "order_id": uuidv4(),
