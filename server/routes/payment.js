@@ -40,6 +40,7 @@ router.post("/verify", async (req, res) => {
   try {
     Cashfree.PGVerifyWebhookSignature(req.headers["x-webhook-signature"], req.rawBody, req.headers["x-webhook-timestamp"]);
     console.log(req.body);
+    res.json({ message: 'Payment verified Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error!" });
