@@ -2,18 +2,16 @@ import axios from "axios";
 import { load } from "@cashfreepayments/cashfree-js";
 
 const doPayment = async (payment_session_id) => {
-  let cashfree;
-  var initializeSDK = async function () {
-      cashfree = await load({
-          mode: "sandbox"
-      });
-      console.log(cashfree);
-  }
-  initializeSDK();
+  const cashfree = await load({
+      mode: "sandbox"
+  });
+
   let checkoutOptions = {
       paymentSessionId: payment_session_id,
       redirectTarget: "_self",
   };
+  console.log(cashfree);
+
   cashfree.checkout(checkoutOptions);
 };
 
