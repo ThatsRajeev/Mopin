@@ -11,13 +11,14 @@ import LogoutContent from "../../../components/LogoutContent/LogoutContent";
 import loader from "../../../assets/loader.svg";
 import "./UserDetails.css";
 
-const UserDetails = ({ totalPrice, setdishInfo }) => {
+const UserDetails = ({ dishes, subscriptions, costDetails }) => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [addressType, setAddressType] = useState("");
   const [showLogout, setShowLogout] = useState(false);
   const [addressChoosen, setAddressChoosen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const totalCost = Object.values(costDetails).reduce((sum, currentValue) => sum + currentValue, 0);
 
   const { user } = useUserAuth();
   const [overlayParams, setOverlayParams] = useSearchParams();
@@ -131,8 +132,11 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
             <div className="login-insist">Choose Payment Method</div>
           </div>
           <div className="contact-details">
-            <button className="proceed-btn" onClick={() => handlePayment(totalPrice, setdishInfo)} disabled={!addressChoosen}>
+            <button className="proceed-btn"
+              onClick={() => {setLoading(true); handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost)}}
+              disabled={!addressChoosen}>
               Proceed to Pay
+              {loading && <img className="loader-img" src={loader} alt="load-img" />}
             </button>
           </div>
         </div>
@@ -167,8 +171,8 @@ const UserDetails = ({ totalPrice, setdishInfo }) => {
               </div>
             </div>
             <button className="proceed-btn"
-              onClick={() => {setLoading(true); handlePayment(Math.round(totalPrice+14+0.05*totalPrice+3), setdishInfo, name, user.phoneNumber, address)}}>
-              <h4>Proceed to Pay (₹{totalPrice+7+4})</h4>
+              onClick={() => {setLoading(true); handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost)}}>
+              <h4>Proceed to Pay (₹{totalCost})</h4>
               {loading && <img className="loader-img" src={loader} alt="load-img" />}
           </button>
         </div>

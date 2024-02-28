@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./OrderSummary.css"
 
-const OrderSummary = ({ dishes, subscriptions, totalPrice }) => {
+const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -214,24 +214,24 @@ const OrderSummary = ({ dishes, subscriptions, totalPrice }) => {
         <h4>Bill Details</h4>
         <div className="price-details">
           <p>Item Total</p>
-          <p>₹{totalPrice}</p>
+          <p>₹{costDetails.totalPrice}</p>
         </div>
         <div className="price-details">
           <p>Packaging & Delivery</p>
-          <p>₹{Object.keys(dishes).length > 0 ? "14" : "0"}</p>
+          <p>₹{costDetails.packagingAndDelivery}</p>
         </div>
         <div className="price-details">
           <p>Govt Taxes (5%)</p>
-          <p>₹{Math.round(0.05*totalPrice)}</p>
+          <p>₹{costDetails.govtTaxes}</p>
         </div>
         <div className="price-details">
           <p>Platform Fees</p>
-          <p>₹{Object.keys(dishes).length > 0 ? "3" : "0"}</p>
+          <p>₹{costDetails.platformFees}</p>
         </div>
         <div className="sum-total-line"></div>
         <div className="checkout-dishinfo">
           <h4>To Pay</h4>
-          <h4>₹{Math.round(totalPrice+14+0.05*totalPrice+3)}</h4>
+          <h4>₹{costDetails.totalPrice + costDetails.packagingAndDelivery + costDetails.govtTaxes + costDetails.platformFees}</h4>
         </div>
       </div>
     </div>

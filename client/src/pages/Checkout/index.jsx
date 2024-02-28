@@ -13,30 +13,30 @@ const Checkout = () => {
   const subscriptions = useSelector((state) => state.subscriptions);
   const subscriptionsData = useMemo(() => subscriptions.bySeller || {},
                                          [subscriptions.bySeller])
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [costDetails, setCostDetails] = useState({});
 
   const navigate = useNavigate();
   const windowWidth = useWindowResize();
 
   useEffect(() => {
-    let newTotalItems = 0;
     let newTotalPrice = 0;
 
     for (const [seller, sellerDishes] of Object.entries(dishesData)) {
       for (const [dishName, dish] of Object.entries(sellerDishes)) {
-        newTotalItems += dish.qty;
         newTotalPrice += dish.qty * dish.price;
       }
     }
 
     for (const [seller, subsDetails] of Object.entries(subscriptionsData)) {
-      newTotalItems += 1;
       newTotalPrice += subsDetails.subsPrice
     }
 
-    setTotalItems(newTotalItems);
-    setTotalPrice(newTotalPrice);
+    setCostDetails((prev) => ({
+      totalPrice: newTotalPrice,
+      packagingAndDelivery: Object.keys(dishesData).length > 0 ? 14 : 0,
+      govtTaxes: Math.round(0.05* newTotalPrice),
+      platformFees: Object.keys(dishesData).length > 0 ? 3 : 0
+    }));
   }, [dishesData, subscriptionsData]);
 
   return (
@@ -46,13 +46,14 @@ const Checkout = () => {
         <div className="checkout-container">
           <div className="checkout-div">
             <UserDetails
-              totalPrice={totalPrice}
-              totalItems={totalItems}
+              dishes={dishesData}
+              subscriptions={subscriptionsData}
+              costDetails={costDetails}
             />
             <OrderSummary
               dishes={dishesData}
               subscriptions={subscriptionsData}
-              totalPrice={totalPrice}
+              costDetails={costDetails}
             />
           </div>
         </div>

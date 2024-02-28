@@ -1,54 +1,46 @@
 import axios from "axios";
+import { load } from "@cashfreepayments/cashfree-js";
 
-const initPayment = (data)=> {
-  const options = {
-    key: "rzp_test_vEfERvWyBIr2EW",
-    amount: data.amount,
-    currency: data.currency,
-    name: "Mopin",
-    description: "Test Transaction",
-    order_id: data.id,
-    handler: async (response) => {
-      try {
-        const {data} = await axios.post('https://mopin-server.vercel.app/api/payment/verify', {
-        }, {
-          withCredentials: true
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    theme: {
-      color: "#f16122",
-    },
+const doPayment = async (cashfree, payment_session_id) => {
+  let checkoutOptions = {
+      paymentSessionId: payment_session_id,
+      redirectTarget: "_self",
   };
-  const rzp1 = new window.Razorpay(options);
-  rzp1.open();
-}
+  cashfree.checkout(checkoutOptions);
+};
 
-const handlePayment = async (totalPrice, setdishInfo, name, number, address) => {
+const handlePayment = async (name, number, address, dishes, subscriptions, totalCost) => {
   try {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cashfree;
+    var initializeSDK = async function () {
+        cashfree = await load({
+            mode: "sandbox"
+        });
+    }
+    initializeSDK();
 
     const orderData = {
-      amount: parseInt(totalPrice + 7 + 4),
       name,
       number,
       address,
-      cart: cart,
+      dishes,
+      subscriptions,
+      totalCost
     };
 
-    const { data } = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {
+    const response = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {
       withCredentials: true,
     });
+    console.log(response.data);
 
-    initPayment(data.data);
+    doPayment(cashfree, response.payment_session_id);
 
-    await axios.post('https://mopin-server.vercel.app/api/order', orderData, {
-      withCredentials: true,
-    });
-    setdishInfo({});
-    localStorage.removeItem('cart');
+    // await axios.post('https://mopin-server.vercel.app/api/order', {
+    //   orderData,
+    //   orderId: response.order_id
+    // }, {
+    //   withCredentials: true,
+    // });
   } catch (error) {
     console.error(error);
   }
