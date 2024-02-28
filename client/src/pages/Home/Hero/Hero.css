@@ -1,8 +1,8 @@
 .hero-bigScreen-div {
   display: none;
   color: #fff;
-  min-height: 665px;
-  padding: 0 14px;
+  min-height: calc(100vh - 80px);
+  padding: 1.6rem 14px;
   align-items: center;
   background-color: #222222;
   background-image: none;

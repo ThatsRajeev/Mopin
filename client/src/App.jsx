@@ -5,6 +5,7 @@ import Search from "./components/Search/Search";
 import SellerPage from "./pages/SellerPage/index";
 import Profile from "./pages/Profile/index";
 import Checkout from "./pages/Checkout/index";
+import OrderSuccessPage from "./pages/Checkout/OrderSuccessPage/OrderSuccessPage";
 import AdminOrdersPage from "./pages/Admin/AdminOrdersPage/AdminOrdersPage";
 import DataDeletion from "./components/DataDeletion/DataDeletion";
 import AboutUs from './legal/AboutUs';
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/checkout",
     element: <Checkout />
+  },
+  {
+    path: "/order-success",
+    element: <OrderSuccessPage />
   },
   {
     path:"/admin",

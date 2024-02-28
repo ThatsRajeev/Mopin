@@ -19,7 +19,7 @@ router.post("/orders", async (req, res) => {
             "customer_phone": req.body.number.slice(3)
         },
         "order_meta": {
-            "return_url": "https://www.cashfree.com/devstudio/preview/pg/web/checkout/?order_id={order_id}",
+            "return_url": "https://mopin-frontend.vercel.app/order-success?order_id={order_id}",
             "notify_url": "https://mopin-server.vercel.app/api/payment/verify"
         },
     };
@@ -35,11 +35,11 @@ router.post("/orders", async (req, res) => {
   }
 });
 
-router.get("/verify", async (req, res) => {
+router.post("/verify", async (req, res) => {
   try {
     Cashfree.PGVerifyWebhookSignature(req.headers["x-webhook-signature"], req.rawBody, req.headers["x-webhook-timestamp"]);
     console.log(req.body);
-    res.json({ message: 'Payment verified Successfully' });
+    res.status(200).json({ message: 'Payment verified Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error!" });

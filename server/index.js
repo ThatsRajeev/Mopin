@@ -210,20 +210,20 @@ const Order = mongoose.model("Order", orderSchema);
 
 app.post("/api/order", async (req, res) => {
   try {
-    const { name, number, address, dishes, subscriptions } = req.body;
+    const { name, number, address, dishes, subscriptions } = req.body.orderData;
 
     const orderPromises = [];
 
-    dishes.forEach((item) => {
-      const orderItems = item.items.map((dish) => ({
+    {Object.entries(dishes).map(([seller, sellerDishes]) => (
+      const orderItems = Object.entries(sellerDishes).map(([dishName, dish]) => (
         dishName: dish.name,
         quantity: dish.qty,
         mealTime: dish.availability[0].meal,
         deliveryDate: getDateFromDay(dish.availability[0].day),
         price: parseInt(dish.price),
         status: "Pending",
-      }));
-
+      ));
+      
       const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
 
       const newOrder = new Order({
@@ -231,15 +231,16 @@ app.post("/api/order", async (req, res) => {
         name: name,
         phoneNumber: number,
         address,
-        sellerName: item.sellerName,
+        sellerName: seller,
         items: orderItems,
         totalAmount,
+        orderStatus: "pending",
         createdAt: new Date(),
         updatedAt: null,
       });
 
       orderPromises.push(newOrder.save());
-    });
+    ))};
 
     await Promise.all(orderPromises);
 
