@@ -215,15 +215,15 @@ app.post("/api/order", async (req, res) => {
     const orderPromises = [];
 
     {Object.entries(dishes).map(([seller, sellerDishes]) => (
-      const orderItems = Object.entries(sellerDishes).map(([dishName, dish]) => (
+      const orderItems = Object.entries(sellerDishes).map(([dishName, dish]) => ({
         dishName: dish.name,
         quantity: dish.qty,
         mealTime: dish.availability[0].meal,
         deliveryDate: getDateFromDay(dish.availability[0].day),
         price: parseInt(dish.price),
         status: "Pending",
-      ));
-      
+      }));
+
       const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
 
       const newOrder = new Order({
