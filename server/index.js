@@ -215,6 +215,7 @@ app.post("/api/order", async (req, res) => {
 
     const orderPromises = [];
     for (const [seller, sellerDishes] of Object.entries(dishes)) {
+      const orderItems = [];
       for (const [dishName, dish] of Object.entries(sellerDishes)) {
         orderItems.push({
           dishName: dish.name,
@@ -223,7 +224,7 @@ app.post("/api/order", async (req, res) => {
           deliveryDate: getDateFromDay(dish.availability[0].day),
           price: parseInt(dish.price),
           status: "Pending",
-        })
+        });
       }
       const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
 
@@ -242,7 +243,7 @@ app.post("/api/order", async (req, res) => {
       });
 
       orderPromises.push(newOrder.save());
-    ))};
+    }
 
     await Promise.all(orderPromises);
 
