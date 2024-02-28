@@ -12,16 +12,16 @@ const path = require('path');
 dotenv.config();
 
 // Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(path.resolve(__dirname, 'build')));
-
 app.use(cors({
   origin: ["https://mopin-frontend.vercel.app", "http://localhost:3000"],
   methods: ["POST", "GET"],
   credentials: true,
 }));
+app.use(bodyParser.raw({ type: '*/*' }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.resolve(__dirname, 'build')));
 
 // MongoDB Connection
 async function connectToDatabase() {
