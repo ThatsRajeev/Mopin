@@ -10,10 +10,16 @@ const doPayment = async (payment_session_id) => {
       paymentSessionId: payment_session_id,
       redirectTarget: "_self",
   };
-  console.log(cashfree);
+  console.log(cashfree.checkout);
 
-  cashfree.checkout(checkoutOptions);
-};
+  cashfree.checkout(checkoutOptions).then(function(result){
+  	if(result.error){
+  		alert(result.error.message)
+  	}
+  	if(result.redirect){
+  		console.log("Redirection")
+  	}
+  });};
 
 const handlePayment = async (name, number, address, dishes, subscriptions, totalCost) => {
   try {

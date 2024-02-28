@@ -27,7 +27,7 @@ router.post("/orders", async (req, res) => {
     Cashfree.PGCreateOrder("2023-08-01", request).then((response) => {
         res.json(response.data);
     }).catch((error) => {
-        return res.status(500).send(error.response.data.message);
+        return res.status(500).send(error.response.data);
     });
   } catch (error) {
     console.log(error);
