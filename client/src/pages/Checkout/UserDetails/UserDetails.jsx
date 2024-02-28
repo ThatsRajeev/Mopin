@@ -9,7 +9,6 @@ import Login from "../../../components/Login/Login";
 import ManageAddressContent from '../../../components/ManageAddressContent/ManageAddressContent';
 import LogoutContent from "../../../components/LogoutContent/LogoutContent";
 import loader from "../../../assets/loader.svg";
-import { load } from "@cashfreepayments/cashfree-js";
 import "./UserDetails.css";
 
 const UserDetails = ({ dishes, subscriptions, costDetails }) => {
@@ -23,13 +22,6 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
 
   const { user } = useUserAuth();
   const [overlayParams, setOverlayParams] = useSearchParams();
-  let cashfree;
-    var initializeSDK = async function () {
-        cashfree = await load({
-            mode: "sandbox"
-        });
-    }
-    initializeSDK();
 
   const toggleOverlay = (overlayType) => {
    setOverlayParams((prev) => {
@@ -179,7 +171,7 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
               </div>
             </div>
             <button className="proceed-btn"
-              onClick={() => {setLoading(true); handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost, cashfree)}}>
+              onClick={() => {setLoading(true); handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost)}}>
               <h4>Proceed to Pay (₹{totalCost})</h4>
               {loading && <img className="loader-img" src={loader} alt="load-img" />}
           </button>
