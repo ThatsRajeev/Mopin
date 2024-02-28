@@ -38,8 +38,26 @@ router.post("/orders", async (req, res) => {
 router.post("/verify", async (req, res) => {
   try {
     Cashfree.PGVerifyWebhookSignature(req.headers["x-webhook-signature"], req.rawBody, req.headers["x-webhook-timestamp"]);
-    console.log(req.body);
-    res.status(200).json({ message: 'Payment verified Successfully' });
+
+    const webhookData = req.body.data;
+    const paymentId = webhookData.order.order_id;
+    const paymentStatus = webhookData.payment.payment_status;
+
+    // Find Order using orderId
+    const updateResult = await Order.updateMany(
+      { paymentId },
+      { paymentStatus }
+    );
+
+    if (updateResult.matchedCount === 0) {
+      return res.status(404).json({ message: "Orders not found" });
+    }
+
+    // Optionally: Handle additional logic based on paymentStatus
+    // e.g., sending notifications, updating inventory
+
+    res.status(200).json({ message: 'Payment status updated successfully' });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error!" });

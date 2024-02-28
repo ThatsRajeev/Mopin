@@ -175,6 +175,7 @@ app.post('/api/deletedata', async (req, res) => {
 // Order routes
 const orderSchema = new mongoose.Schema({
   orderId: { type: String, unique: true },
+  paymentId: String,
   name: String,
   phoneNumber: String,
   address: String,
@@ -190,7 +191,7 @@ const orderSchema = new mongoose.Schema({
     },
   ],
   totalAmount: Number,
-  orderStatus: { type: String, enum: ['Pending', 'Confirmed', 'Delivered'], default: 'Pending' },
+  paymentStatus: { type: String, enum: ['Pending', 'Success', 'Failed'], default: 'Pending' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: Date,
 });
@@ -213,28 +214,29 @@ app.post("/api/order", async (req, res) => {
     const { name, number, address, dishes, subscriptions } = req.body.orderData;
 
     const orderPromises = [];
-
-    {Object.entries(dishes).map(([seller, sellerDishes]) => (
-      const orderItems = Object.entries(sellerDishes).map(([dishName, dish]) => ({
-        dishName: dish.name,
-        quantity: dish.qty,
-        mealTime: dish.availability[0].meal,
-        deliveryDate: getDateFromDay(dish.availability[0].day),
-        price: parseInt(dish.price),
-        status: "Pending",
-      }));
-
+    for (const [seller, sellerDishes] of Object.entries(dishes)) {
+      for (const [dishName, dish] of Object.entries(sellerDishes)) {
+        orderItems.push({
+          dishName: dish.name,
+          quantity: dish.qty,
+          mealTime: dish.availability[0].meal,
+          deliveryDate: getDateFromDay(dish.availability[0].day),
+          price: parseInt(dish.price),
+          status: "Pending",
+        })
+      }
       const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
 
       const newOrder = new Order({
-        orderId: req.body.orderId,
+        orderId: uuidv4(),
+        paymentId: req.body.paymentId,
         name: name,
         phoneNumber: number,
         address,
         sellerName: seller,
         items: orderItems,
         totalAmount,
-        orderStatus: "pending",
+        paymentStatus: "pending",
         createdAt: new Date(),
         updatedAt: null,
       });
