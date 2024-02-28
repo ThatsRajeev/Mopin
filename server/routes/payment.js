@@ -11,6 +11,7 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 router.post("/orders", async (req, res) => {
   try {
     var request = {
+        "cart_details": {dishes: req.body.dishes, subscriptions: req.body.subscriptions},
         "order_amount": req.body.totalCost,
         "order_currency": "INR",
         "order_id": uuidv4(),
@@ -25,10 +26,8 @@ router.post("/orders", async (req, res) => {
     };
 
     Cashfree.PGCreateOrder("2023-08-01", request).then((response) => {
-        console.log('Order created successfully:',response.data);
         res.json(response.data);
     }).catch((error) => {
-        console.error('Error:', error.response.data.message);
         return res.status(500).send(error.response.data.message);
     });
   } catch (error) {

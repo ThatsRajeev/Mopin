@@ -262,7 +262,7 @@ app.get("/api/orders/:phoneNumber", async (req, res) => {
 
 app.get('/api/ordersdata', async (req, res) => {
   try {
-    const orders = await Order.find({ fullStatus: { $ne: "Delivered" } });
+    const orders = await Order.find({ orderStatus: { $ne: "Delivered" } });
     const categorizedOrders = {};
 
     orders.forEach(order => {
