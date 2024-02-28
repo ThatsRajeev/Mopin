@@ -1,15 +1,6 @@
 import axios from "axios";
-import { load } from "@cashfreepayments/cashfree-js";
 
-const doPayment = async (payment_session_id) => {
-  let cashfree;
-  var initializeSDK = async function () {
-      cashfree = await load({
-          mode: "sandbox"
-      });
-  }
-  initializeSDK();
-
+const doPayment = async (cashfree, payment_session_id) => {
   let checkoutOptions = {
       paymentSessionId: payment_session_id,
       redirectTarget: "_self",
@@ -18,7 +9,7 @@ const doPayment = async (payment_session_id) => {
   console.log(cashfree);
 };
 
-const handlePayment = async (name, number, address, dishes, subscriptions, totalCost) => {
+const handlePayment = async (name, number, address, dishes, subscriptions, totalCost, cashfree) => {
   try {
     const orderData = {
       name, number, address, dishes, subscriptions, totalCost
@@ -27,7 +18,7 @@ const handlePayment = async (name, number, address, dishes, subscriptions, total
     const response = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {
       withCredentials: true,
     });
-    doPayment(response.payment_session_id);
+    doPayment(cashfree, response.payment_session_id);
 
     // await axios.post('https://mopin-server.vercel.app/api/order', {
     //   orderData,
