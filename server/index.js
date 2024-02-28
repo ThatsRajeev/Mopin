@@ -237,7 +237,7 @@ app.post("/api/order", async (req, res) => {
         sellerName: seller,
         items: orderItems,
         totalAmount,
-        paymentStatus: "pending",
+        paymentStatus: "Pending",
         createdAt: new Date(),
         updatedAt: null,
       });
