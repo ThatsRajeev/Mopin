@@ -10,7 +10,7 @@ const doPayment = async (payment_session_id) => {
       paymentSessionId: payment_session_id,
       redirectTarget: "_self",
   };
-  console.log(cashfree.checkout);
+  console.log(payment_session_id);
 
   cashfree.checkout(checkoutOptions).then(function(result){
   	if(result.error){
@@ -30,8 +30,7 @@ const handlePayment = async (name, number, address, dishes, subscriptions, total
     const response = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {
       withCredentials: true,
     });
-    console.log(response.data);
-    doPayment(response.payment_session_id);
+    doPayment(response.data.payment_session_id);
 
     // await axios.post('https://mopin-server.vercel.app/api/order', {
     //   orderData,
