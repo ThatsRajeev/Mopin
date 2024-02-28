@@ -27,7 +27,7 @@ const handlePayment = async (name, number, address, dishes, subscriptions, total
     const response = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {
       withCredentials: true,
     });
-    doPayment(cashfree, response.payment_session_id);
+    doPayment(response.payment_session_id);
 
     // await axios.post('https://mopin-server.vercel.app/api/order', {
     //   orderData,
