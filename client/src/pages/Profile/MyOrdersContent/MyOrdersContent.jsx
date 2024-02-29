@@ -78,7 +78,7 @@ const MyOrdersContent = () => {
                       </span>
                     ) : (
                       <span>
-                        <ErrorIcon style={{ color: '#349E46' }} />
+                        <ErrorIcon style={{ color: '#fa4a5b' }} />
                         <h4>&nbsp;Cancelled</h4>
                       </span>
                     )}
