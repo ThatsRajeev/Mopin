@@ -6,17 +6,17 @@ import Typography from '@mui/material/Typography';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Snackbar from '@mui/material/Snackbar';
 import Button from '@mui/material/Button';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 function OrderSuccessPage() {
   const [snackbar, setSnackbar] = useState(true);
   const [orderStatus, setOrderStatus] = useState('Processing');
-  const { order_id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const order_id = searchParams.get("order_id")
 
   useEffect(() => {
     const fetchOrderStatus = async () => {
       try {
-        console.log(order_id);
         const response = await axios.post(
           'https://mopin-server.vercel.app/api/payment/paymentstatus',
           { payment_id: order_id },
@@ -24,7 +24,7 @@ function OrderSuccessPage() {
         );
 
         const { paymentStatuses } = response.data;
-console.log(response.data);
+
         const isOrderSuccessful = paymentStatuses.every(
           (order) => order.paymentStatus === 'SUCCESS'
         );

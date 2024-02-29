@@ -9,12 +9,9 @@ Cashfree.XClientSecret = process.env.CASHFREE_SECRET_KEY;
 Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
 router.post("/paymentstatus", async (req, res) => {
-  console.log("Reached /paymentstatus route");
   try {
     const { payment_id } = req.body;
-    console.log("Payment ID:", payment_id);
     const orders = await Order.find({ paymentId: payment_id });
-    console.log("Orders:", orders);
 
     if (!orders || orders.length === 0) {
       res.status(404).json({ message: "No orders found for the provided payment_id" });
