@@ -69,7 +69,7 @@ function OrderSuccessPage() {
                 color="primary"
                 component={Link}
                 to={`/view-order/${order_id}`} // Assuming a route for viewing order details
-                style={{ marginTop: '20px' }}
+                style={{ marginTop: '20px', backgroundColor: '#f16122', color: '#fff', marginRight: '12px' }}
               >
                 View Order
               </Button>
@@ -90,13 +90,12 @@ function OrderSuccessPage() {
             color="secondary"
             component={Link}
             to="/" // Assuming a route for the homepage
-            style={{ marginTop: '20px' }}
+            style={{ marginTop: '20px', borderColor: '#f16122', color: '#f16122' }}
           >
             Continue Shopping
           </Button>
         </Card>
       </Grid>
-      <Snackbar open={snackbar} autoHideDuration={3000} message="Thank you for your order!" />
     </Grid>
   );
 }
