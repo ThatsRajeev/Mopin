@@ -51,6 +51,9 @@ function handleErrors(res, error, message = 'Error processing request') {
   return res.status(500).send(message);
 }
 
+// Payment Routes
+app.use("/api/payment", paymentRoutes);
+
 // Formspree Route
 app.post('/formspree', (req, res) => {
   const url = 'https://formspree.io/f/mknlpedg';
@@ -312,9 +315,6 @@ app.get('/api/ordersdata', async (req, res) => {
     handleErrors(res, err);
   }
 });
-
-// Payment Routes
-app.use("/api/payment", paymentRoutes);
 
 // Server Start
 app.listen(process.env.PORT, () => {
