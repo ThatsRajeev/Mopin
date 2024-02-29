@@ -61,7 +61,7 @@ router.post("/verify", async (req, res) => {
   }
 });
 
-router.post("/fetchOrderStatus", async (req, res) => {
+router.post("/paymentstatus", async (req, res) => {
   try {
     const { payment_id } = req.body;
     const orders = await Order.find({ paymentId: payment_id });

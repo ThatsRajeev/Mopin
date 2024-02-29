@@ -17,15 +17,15 @@ function OrderSuccessPage() {
     const fetchOrderStatus = async () => {
       try {
         const response = await axios.post(
-          'https://mopin-server.vercel.app/api/payment/fetchOrderStatus',
+          'https://mopin-server.vercel.app/api/payment/paymentstatus',
           { payment_id: order_id },
           { withCredentials: true }
         );
 
         const { paymentStatuses } = response.data;
-
+console.log(response.data);
         const isOrderSuccessful = paymentStatuses.every(
-          (order) => order.paymentStatus === 'Success'
+          (order) => order.paymentStatus === 'SUCCESS'
         );
 
         setOrderStatus(isOrderSuccessful ? 'Success' : 'Failed');
