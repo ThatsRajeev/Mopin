@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
 import axios from 'axios';
 import useWindowResize from "../../../hooks/useWindowResize";
 import Navbar from "../../../components/Navbar/Navbar";
+import { emptyDish } from "../../../store/dishesSlice";
+import { emptySubscription } from "../../../store/subscriptionsSlice";
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
@@ -10,7 +13,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import Button from '@mui/material/Button';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import './OrderSuccessPage.css';
 
 function OrderSuccessPage() {
@@ -20,6 +23,8 @@ function OrderSuccessPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const order_id = searchParams.get("order_id");
   const windowWidth = useWindowResize();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchOrderStatus = async () => {
@@ -38,6 +43,8 @@ function OrderSuccessPage() {
         );
 
         setOrderStatus(isOrderSuccessful ? 'Success' : 'Failed');
+        dispatch(emptySubscription());
+        dispatch(emptyDish());
       } catch (error) {
         console.error('Error fetching order status:', error);
         setOrderStatus('Failed');
@@ -52,12 +59,16 @@ function OrderSuccessPage() {
   return (
     <>
     <Navbar header="Order Tracking" showAddress="none" showNavbar = {windowWidth < 768 ? "none" : ""}/>
+    <div className="profile-head mob-view">
+      <span className="material-symbols-outlined" onClick={() => navigate('/')}>arrow_back</span>
+      <p>Order Tracking</p>
+    </div>
     <Grid container justifyContent="center" alignItems="center" className="order-success-container">
       <Grid item xs={10} sm={6}>
         <Card className="order-card">
           {isLoading ? (
             <div className="loading-spinner">
-              <CircularProgress />
+              <CircularProgress style={{ color: '#f16122' }} />
             </div>
           ) : orderStatus === 'Success' ? (
             <>

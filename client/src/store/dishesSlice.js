@@ -31,8 +31,11 @@ const dishesSlice = createSlice({
         }
       }
     },
+    emptyDish(state) {
+      state.bySeller = {};
+   },
   },
 });
 
-export const { addDish, updateDish } = dishesSlice.actions;
+export const { addDish, updateDish, emptyDish } = dishesSlice.actions;
 export default dishesSlice.reducer;

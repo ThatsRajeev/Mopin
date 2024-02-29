@@ -1,11 +1,11 @@
 .order-success-container {
-  height: 100vh;
+  height: calc(100vh - 80px);
 }
 
 .order-card {
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s ease-in-out;
+  padding: 20px !important;
+  text-align: center !important;
+  transition: transform 0.3s ease-in-out !important;
 }
 
 .loading-spinner {
@@ -15,64 +15,64 @@
 }
 
 .success-icon,
-.error-icon { 
-  font-size: 6.4em;
+.error-icon {
+  font-size: 6.4em !important;
   margin-bottom: 16px;
   color: #f16122;
 
   @media (width > 768px) {
-    font-size: 7.2em;
+    font-size: 7.2em !important;
   }
 }
 
 .success-heading,
 .error-heading {
-  font-size: 1.5em;
-  margin-bottom: 16px;
+  font-size: 1.5em !important;
+  margin-bottom: 16px !important;
 }
 
 .success-message,
 .error-message {
   max-width: 400px;
-  margin: 0 auto 24px;
+  margin: 0 auto 24px !important;
   color: #686b78;
 }
 
 .view-order-button,
 .continue-shopping-button {
-  margin-top: 16px;
-  padding: 8px 0;
+  margin-top: 16px !important;
+  padding: 8px 0 !important;
   width: 200px;
   text-transform: none;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out !important;
 
   @media (width > 768px) {
-    margin-right: 16px;
+    margin-right: 16px !important;
   }
 }
 
 .continue-shopping-button:hover {
-  background-color: #f16122;
-  color: #fff;
+  background-color: #f16122 !important;
+  color: #fff !important;
 }
 
 .view-order-button {
-  border: 1px solid #f16122;
-  color: #f16122;
-  margin-top: 0;
+  border: 1px solid #f16122 !important;
+  color: #f16122 !important;
+  margin-top: 0 !important;
 
   @media (width > 768px) {
-    margin-top: 16px;
+    margin-top: 16px !important;
   }
 }
 
 .view-order-button:hover {
-  border: 1px solid #f16122;
+  border: 1px solid #f16122 !important;
 }
 
 .continue-shopping-button {
-  background-color: #f16122;
-  color: #fff;
+  background-color: #f16122 !important;
+  color: #fff !important;
 }
 
 /* Add more styles and animations as needed */

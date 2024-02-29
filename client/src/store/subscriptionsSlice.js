@@ -14,8 +14,11 @@ const subscriptionsSlice = createSlice({
       const { sellerName } = action.payload;
       delete state.bySeller[sellerName];
     },
+    emptySubscription(state) {
+      state.bySeller = {};
+   },
   },
 });
 
-export const { addSubscription, removeSubscription } = subscriptionsSlice.actions;
+export const { addSubscription, removeSubscription, emptySubscription } = subscriptionsSlice.actions;
 export default subscriptionsSlice.reducer;
