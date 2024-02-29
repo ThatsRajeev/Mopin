@@ -73,12 +73,12 @@ const MyOrdersContent = () => {
                   <div className="order-header">
                     {order.paymentStatus === "SUCCESS" ? (
                       <span>
-                        <CheckCircleIcon style={{ color: '#f16122' }} />
+                        <CheckCircleIcon style={{ color: '#349E46' }} />
                         <h4>&nbsp;Order Confirmed</h4>
                       </span>
                     ) : (
                       <span>
-                        <ErrorIcon style={{ color: '#f16122' }} />
+                        <ErrorIcon style={{ color: '#349E46' }} />
                         <h4>&nbsp;Cancelled</h4>
                       </span>
                     )}
