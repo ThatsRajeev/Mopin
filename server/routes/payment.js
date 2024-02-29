@@ -8,6 +8,27 @@ Cashfree.XClientId = process.env.CASHFREE_CLIENT_ID;
 Cashfree.XClientSecret = process.env.CASHFREE_SECRET_KEY;
 Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
+router.post("/paymentstatus", async (req, res) => {
+  console.log("Reached /paymentstatus route");
+  try {
+    const { payment_id } = req.body;
+    const orders = await Order.find({ paymentId: payment_id });
+
+    if (!orders || orders.length === 0) {
+      res.status(404).json({ message: "No orders found for the provided payment_id" });
+    } else {
+      const paymentStatuses = orders.map(order => ({
+        orderId: order.orderId,
+        paymentStatus: order.paymentStatus
+      }));
+      res.status(200).json({ paymentStatuses });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching order status" });
+  }
+});
+
 router.post("/orders", async (req, res) => {
   try {
     const fiveMinutesFromNow = new Date(Date.now() + 16 * 60000);
@@ -58,26 +79,6 @@ router.post("/verify", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error verifying payment" });
-  }
-});
-
-router.post("/paymentstatus", async (req, res) => {
-  try {
-    const { payment_id } = req.body;
-    const orders = await Order.find({ paymentId: payment_id });
-
-    if (!orders || orders.length === 0) {
-      res.status(404).json({ message: "No orders found for the provided payment_id" });
-    } else {
-      const paymentStatuses = orders.map(order => ({
-        orderId: order.orderId,
-        paymentStatus: order.paymentStatus
-      }));
-      res.status(200).json({ paymentStatuses });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching order status" });
   }
 });
 
