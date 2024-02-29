@@ -256,7 +256,7 @@ today.setHours(0, 0, 0, 0);
 app.get('/api/ordersdata', async (req, res) => {
   try {
     const orders = await Order.find({
-      "paymentStatus": "Success",
+      "paymentStatus": "SUCCESS",
     });
     const categorizedOrders = {};
 
