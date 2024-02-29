@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { toast } from "react-hot-toast";
 import axios from 'axios';
+import useWindowResize from "../../../hooks/useWindowResize";
+import Navbar from "../../../components/Navbar/Navbar";
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
@@ -10,13 +11,15 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import Button from '@mui/material/Button';
 import { Link, useSearchParams } from 'react-router-dom';
+import './OrderSuccessPage.css';
 
 function OrderSuccessPage() {
   const [snackbar, setSnackbar] = useState(true);
   const [orderStatus, setOrderStatus] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const order_id = searchParams.get("order_id")
+  const order_id = searchParams.get("order_id");
+  const windowWidth = useWindowResize();
 
   useEffect(() => {
     const fetchOrderStatus = async () => {
@@ -38,7 +41,6 @@ function OrderSuccessPage() {
       } catch (error) {
         console.error('Error fetching order status:', error);
         setOrderStatus('Failed');
-        toast.error('An error occurred while fetching order status');
       } finally {
         setIsLoading(false);
       }
@@ -48,55 +50,58 @@ function OrderSuccessPage() {
   }, [order_id]);
 
   return (
-    <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
+    <>
+    <Navbar header="Order Tracking" showAddress="none" showNavbar = {windowWidth < 768 ? "none" : ""}/>
+    <Grid container justifyContent="center" alignItems="center" className="order-success-container">
       <Grid item xs={10} sm={6}>
-        <Card style={{ padding: '20px', textAlign: 'center' }}>
+        <Card className="order-card">
           {isLoading ? (
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <div className="loading-spinner">
               <CircularProgress />
             </div>
           ) : orderStatus === 'Success' ? (
             <>
-              <Typography variant="h4" gutterBottom>
-                <CheckCircleIcon sx={{ fontSize: 40, color: 'success.main' }} />
+              <CheckCircleIcon className="success-icon" />
+              <Typography variant="h4" className="success-heading">
                 Your Order is Confirmed!
               </Typography>
-              <Typography variant="body1">
+              <Typography variant="body1" className="success-message">
                 Thank you for ordering homemade food! Your order has been successfully placed.
               </Typography>
               <Button
-                variant="contained"
-                color="primary"
+                variant="outlined"
+                color="secondary"
                 component={Link}
                 to={`/view-order/${order_id}`} // Assuming a route for viewing order details
-                style={{ marginTop: '20px', backgroundColor: '#f16122', color: '#fff', marginRight: '12px' }}
+                className="view-order-button"
               >
                 View Order
               </Button>
             </>
           ) : (
             <>
-              <Typography variant="h4" gutterBottom>
-                <ErrorIcon sx={{ fontSize: 40, color: 'error.main' }} />
+              <ErrorIcon className="error-icon" />
+              <Typography variant="h4" className="error-heading">
                 Payment Failed
               </Typography>
-              <Typography variant="body1">
+              <Typography variant="body1" className="error-message">
                 We're sorry, but there was an issue processing your payment. Please try again or contact support.
               </Typography>
             </>
           )}
           <Button
-            variant="outlined"
-            color="secondary"
+            variant="contained"
+            color="primary"
             component={Link}
             to="/" // Assuming a route for the homepage
-            style={{ marginTop: '20px', borderColor: '#f16122', color: '#f16122' }}
+            className="continue-shopping-button"
           >
-            Continue Shopping
+            Continue Browsing
           </Button>
         </Card>
       </Grid>
     </Grid>
+    </>
   );
 }
 

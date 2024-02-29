@@ -1,0 +1,78 @@
+.order-success-container {
+  height: 100vh;
+}
+
+.order-card {
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.success-icon,
+.error-icon { 
+  font-size: 6.4em;
+  margin-bottom: 16px;
+  color: #f16122;
+
+  @media (width > 768px) {
+    font-size: 7.2em;
+  }
+}
+
+.success-heading,
+.error-heading {
+  font-size: 1.5em;
+  margin-bottom: 16px;
+}
+
+.success-message,
+.error-message {
+  max-width: 400px;
+  margin: 0 auto 24px;
+  color: #686b78;
+}
+
+.view-order-button,
+.continue-shopping-button {
+  margin-top: 16px;
+  padding: 8px 0;
+  width: 200px;
+  text-transform: none;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+  @media (width > 768px) {
+    margin-right: 16px;
+  }
+}
+
+.continue-shopping-button:hover {
+  background-color: #f16122;
+  color: #fff;
+}
+
+.view-order-button {
+  border: 1px solid #f16122;
+  color: #f16122;
+  margin-top: 0;
+
+  @media (width > 768px) {
+    margin-top: 16px;
+  }
+}
+
+.view-order-button:hover {
+  border: 1px solid #f16122;
+}
+
+.continue-shopping-button {
+  background-color: #f16122;
+  color: #fff;
+}
+
+/* Add more styles and animations as needed */
