@@ -24,6 +24,7 @@
 
   @media (width > 768px) {
     margin-top: 16%;
+    min-width: 48vw;
   }
 }
 
