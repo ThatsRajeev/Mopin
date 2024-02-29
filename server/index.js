@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const paymentRoutes = require('./routes/payment');
 const path = require('path');
+const Order = require('./models/order');
 
 dotenv.config();
 
@@ -183,29 +184,6 @@ app.post('/api/deletedata', async (req, res) => {
 });
 
 // Order routes
-const orderSchema = new mongoose.Schema({
-  orderId: { type: String, unique: true },
-  paymentId: String,
-  name: String,
-  phoneNumber: String,
-  address: String,
-  sellerName: String,
-  items: [
-    {
-      dishName: String,
-      quantity: Number,
-      mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner']},
-      deliveryDate: Date,
-      price: Number,
-      status: { type: String, enum: ['Pending', 'Confirmed', 'Delivered'], default: 'Pending' },
-    },
-  ],
-  totalAmount: Number,
-  paymentStatus: { type: String, enum: ['Pending', 'Success', 'Failed'], default: 'Pending' },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: Date,
-});
-
 function getDateFromDay(targetDay) {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const today = new Date();
@@ -216,9 +194,6 @@ function getDateFromDay(targetDay) {
 
   return formattedDate;
 }
-
-const Order = mongoose.model("Order", orderSchema);
-module.exports = Order;
 
 app.post("/api/order", async (req, res) => {
   try {
