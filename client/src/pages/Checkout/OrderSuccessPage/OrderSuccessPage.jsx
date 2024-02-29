@@ -16,6 +16,7 @@ function OrderSuccessPage() {
   useEffect(() => {
     const fetchOrderStatus = async () => {
       try {
+        console.log(order_id);
         const response = await axios.post(
           'https://mopin-server.vercel.app/api/payment/paymentstatus',
           { payment_id: order_id },

@@ -12,7 +12,9 @@ router.post("/paymentstatus", async (req, res) => {
   console.log("Reached /paymentstatus route");
   try {
     const { payment_id } = req.body;
+    console.log("Payment ID:", payment_id);
     const orders = await Order.find({ paymentId: payment_id });
+    console.log("Orders:", orders);
 
     if (!orders || orders.length === 0) {
       res.status(404).json({ message: "No orders found for the provided payment_id" });
@@ -31,12 +33,12 @@ router.post("/paymentstatus", async (req, res) => {
 
 router.post("/orders", async (req, res) => {
   try {
-    const fiveMinutesFromNow = new Date(Date.now() + 16 * 60000);
+    const sixteenMinutesFromNow = new Date(Date.now() + 16 * 60000);
     const request = {
       "order_amount": req.body.totalCost,
       "order_currency": "INR",
       "order_id": uuidv4(),
-      "order_expiry_time": fiveMinutesFromNow.toISOString(),
+      "order_expiry_time": sixteenMinutesFromNow.toISOString(),
       "customer_details": {
         "customer_id": req.body.number.slice(3),
         "customer_phone": req.body.number.slice(3)
