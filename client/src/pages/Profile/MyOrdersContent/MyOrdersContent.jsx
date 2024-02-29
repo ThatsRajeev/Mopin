@@ -10,6 +10,13 @@ const MyOrdersContent = () => {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
 
+  function generateOrderId() {
+  const timestamp = Date.now();
+  const randomPart = Math.floor(Math.random() * 1000); // 3 extra digits
+  return timestamp;
+}
+
+
   function trimDate(originalDate) {
     const trimmedDate = new Date(originalDate).toLocaleDateString("en-US", {
       weekday: 'short',
@@ -23,10 +30,12 @@ const MyOrdersContent = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      console.log(generateOrderId());
       try {
         if (user && Object.keys(user).length !== 0) {
           const response = await axios.get(`https://mopin-server.vercel.app/api/orders/${user.phoneNumber}`);
           setOrders(response.data.orders);
+          console.log(response.data.orders);
         }
       } catch (error) {
         console.error('Error fetching orders:', error);
