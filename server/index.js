@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
@@ -215,7 +214,7 @@ app.post("/api/order", async (req, res) => {
       const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
 
       const newOrder = new Order({
-        orderId: uuidv4(),
+        orderId: Date.now(),
         paymentId: req.body.paymentId,
         name: name,
         phoneNumber: number,

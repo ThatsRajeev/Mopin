@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { Cashfree } = require('cashfree-pg');
-const { v4: uuidv4 } = require('uuid');
 const Order = require('../models/order');
 require("dotenv").config();
 
@@ -34,7 +33,7 @@ router.post("/orders", async (req, res) => {
     const request = {
       "order_amount": req.body.totalCost,
       "order_currency": "INR",
-      "order_id": uuidv4(),
+      "order_id": Date.now(),
       "order_expiry_time": sixteenMinutesFromNow.toISOString(),
       "customer_details": {
         "customer_id": req.body.number.slice(3),
