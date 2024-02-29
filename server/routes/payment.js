@@ -11,10 +11,12 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
 router.post("/orders", async (req, res) => {
   try {
+    const fiveMinutesFromNow = new Date(Date.now() + 5 * 60000);
     var request = {
         "order_amount": req.body.totalCost,
         "order_currency": "INR",
         "order_id": uuidv4(),
+        "order_expiry_time": fiveMinutesFromNow.toISOString(),
         "customer_details": {
             "customer_id": req.body.number.slice(3),
             "customer_phone": req.body.number.slice(3)
@@ -65,5 +67,30 @@ router.post("/verify", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error!" });
   }
 })
+
+router.post("/fetchOrderStatus", async (req, res) => {
+  try {
+    const { payment_id } = req.body;
+
+    // Find all orders based on the paymentId
+    const orders = await Order.find({ paymentId: payment_id });
+
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ message: "Orders not found for the provided payment_id" });
+    }
+
+    // Extract payment statuses from the found orders
+    const paymentStatuses = orders.map(order => ({
+      orderId: order.orderId,
+      paymentStatus: order.paymentStatus
+    }));
+
+    res.status(200).json({ paymentStatuses });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+});
 
 module.exports = router;

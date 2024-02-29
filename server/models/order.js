@@ -13,11 +13,11 @@ const orderSchema = new mongoose.Schema({
       mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner']},
       deliveryDate: Date,
       price: Number,
-      status: { type: String, enum: ['Pending', 'Confirmed', 'Delivered'], default: 'Pending' },
+      status: { type: String, enum: ['Pending', 'Confirmed', 'Delivered', 'Cancelled'], default: 'Pending' },
     },
   ],
   totalAmount: Number,
-  paymentStatus: { type: String, enum: ['Pending', 'Success', 'Failed'], default: 'Pending' },
+  paymentStatus: { type: String, enum: ['Pending', 'Success', 'Failed', 'Refunded'], default: 'Pending' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: Date,
 });
