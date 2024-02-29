@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Cashfree } = require('cashfree-pg');
 const { v4: uuidv4 } = require('uuid');
-const Order = require('../index').model('Order');
+const Order = require('../index');
 require("dotenv").config();
 // create noOfOrders
 
