@@ -42,7 +42,7 @@ router.post("/verify", async (req, res) => {
     console.log("rawBody" + " " + req.rawBody);
     const timestamp = req.headers["x-webhook-timestamp"];
     const receivedSignature = req.headers["x-webhook-signature"];
-    const rawBody = req.rawBody.toString();
+    const rawBody = req.rawBody;
 
     const generatedSignature = verify(timestamp, rawBody);
 
