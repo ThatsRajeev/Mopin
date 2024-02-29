@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 import { useUserAuth } from "../../../context/AuthContext";
 import fetchUserData from "../../../utils/fetchUserData";
@@ -69,6 +70,9 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
 
   return (
     <>
+      <Toaster
+        position="bottom-center"
+      />
       <div className="user-details-container pc-view">
         <div className="user-details-div">
           <div className="details-head">
@@ -132,10 +136,10 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
             <div className="login-insist">Choose Payment Method</div>
           </div>
           <div className="contact-details">
-            <button className="proceed-btn"
-              onClick={() => {setLoading(true); handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost)}}
+            <button className="proceed-btn" disabled={loading}
+              onClick={() => {handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost, setLoading)}}
               disabled={!addressChoosen}>
-              Proceed to Pay
+              {loading ? 'Processing Payment...' : 'Proceed to Pay'}
               {loading && <img className="loader-img" src={loader} alt="load-img" />}
             </button>
           </div>
@@ -170,9 +174,9 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
                 {address}
               </div>
             </div>
-            <button className="proceed-btn"
-              onClick={() => {setLoading(true); handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost)}}>
-              <h4>Proceed to Pay (₹{totalCost})</h4>
+            <button className="proceed-btn" disabled={loading}
+              onClick={() => {handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost, setLoading)}}>
+              <h4>{loading ? 'Processing Payment...' : 'Proceed to Pay (₹' + totalCost + ')'}</h4>
               {loading && <img className="loader-img" src={loader} alt="load-img" />}
           </button>
         </div>

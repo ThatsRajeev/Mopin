@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-hot-toast";
 import { load } from "@cashfreepayments/cashfree-js";
 
 const doPayment = async (payment_session_id) => {
@@ -20,8 +21,9 @@ const doPayment = async (payment_session_id) => {
   	}
   });};
 
-const handlePayment = async (name, number, address, dishes, subscriptions, totalCost) => {
+const handlePayment = async (name, number, address, dishes, subscriptions, totalCost, setLoading) => {
   try {
+    setLoading(true);
     const orderData = {
       name, number, address, dishes, subscriptions, totalCost
     };
@@ -40,7 +42,9 @@ const handlePayment = async (name, number, address, dishes, subscriptions, total
     doPayment(response.data.payment_session_id);
 
   } catch (error) {
+    setLoading(false);
     console.error(error);
+    toast.error('An error occurred during payment. Please try again.');
   }
 };
 

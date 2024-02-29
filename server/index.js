@@ -250,9 +250,15 @@ app.get("/api/orders/:phoneNumber", async (req, res) => {
   }
 });
 
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
 app.get('/api/ordersdata', async (req, res) => {
   try {
-    const orders = await Order.find({ orderStatus: { $ne: "Delivered" } });
+    const orders = await Order.find({
+      "paymentStatus": "Success",
+      "createdAt": { $gte: today }
+    });
     const categorizedOrders = {};
 
     orders.forEach(order => {
@@ -261,7 +267,7 @@ app.get('/api/ordersdata', async (req, res) => {
       items.forEach(item => {
         const { dishName, quantity, price, mealTime, deliveryDate, status } = item;
 
-        if (status !== "Delivered") {
+        if (status !== "Delivered" || status !== "Cancelled") {
           const dateObj = categorizedOrders[deliveryDate] || {};
           const mealTimeObj = dateObj[mealTime] || {};
           const sellerNameObj = mealTimeObj[sellerName] || { dish: [], customers: [] };
