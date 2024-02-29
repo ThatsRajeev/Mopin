@@ -257,9 +257,7 @@ app.get('/api/ordersdata', async (req, res) => {
   try {
     const orders = await Order.find({
       "paymentStatus": "Success",
-      "createdAt": { $gte: today }
     });
-    console.log(orders);
     const categorizedOrders = {};
 
     orders.forEach(order => {
