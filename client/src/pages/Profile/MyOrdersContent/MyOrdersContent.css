@@ -21,6 +21,10 @@
 
 .orders-container {
   margin-top: -16%;
+
+  @media (width > 768px) {
+    margin-top: 16%;
+  }
 }
 
 .order-item {
@@ -30,7 +34,17 @@
   padding: 16px;
   margin-bottom: 20px;
   border-radius: 16px;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0;
+
+  h3 {
+    line-height: 2.4rem;
+    font-size: 18px;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .order-header {
@@ -45,6 +59,7 @@
 
   p {
     text-align: right;
+    color: rgb(102, 102, 102);
   }
 }
 

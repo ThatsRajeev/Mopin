@@ -214,7 +214,7 @@ app.post("/api/order", async (req, res) => {
       const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
 
       const newOrder = new Order({
-        orderId: Date.now(),
+        orderId: Date.now().toString(),
         paymentId: req.body.paymentId,
         name: name,
         phoneNumber: number,

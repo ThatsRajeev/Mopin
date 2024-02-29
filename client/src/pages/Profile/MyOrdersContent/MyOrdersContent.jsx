@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 import { useUserAuth } from '../../../context/AuthContext';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -9,13 +12,6 @@ const MyOrdersContent = () => {
   const { user } = useUserAuth();
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
-
-  function generateOrderId() {
-  const timestamp = Date.now();
-  const randomPart = Math.floor(Math.random() * 1000); // 3 extra digits
-  return timestamp;
-}
-
 
   function trimDate(originalDate) {
     const trimmedDate = new Date(originalDate).toLocaleDateString("en-US", {
@@ -30,7 +26,6 @@ const MyOrdersContent = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      console.log(generateOrderId());
       try {
         if (user && Object.keys(user).length !== 0) {
           const response = await axios.get(`https://mopin-server.vercel.app/api/orders/${user.phoneNumber}`);
@@ -76,11 +71,24 @@ const MyOrdersContent = () => {
               {orders.map((order) => (
                 <li key={order.orderId} className="order-item">
                   <div className="order-header">
-                    <h4>Order ID: {order.orderId}</h4>
-                    <p>{trimDate(order.createdAt)}</p>
+                    {order.paymentStatus === "SUCCESS" ? (
+                      <span>
+                        <CheckCircleIcon style={{ color: '#f16122' }} />
+                        <h4>&nbsp;Order Confirmed</h4>
+                      </span>
+                    ) : (
+                      <span>
+                        <ErrorIcon style={{ color: '#f16122' }} />
+                        <h4>&nbsp;Cancelled</h4>
+                      </span>
+                    )}
+                    <div>
+                      <p><b># {order.orderId}</b></p>
+                      <p>{trimDate(order.createdAt)}</p>
+                    </div>
                   </div>
-                  <p>{order.sellerName}</p>
-                  <p>{order.fullStatus}</p>
+                  <hr />
+                  <h3><b>{order.sellerName}</b></h3>
                   <div className="order-items">
                     <ul>
                       {order.items.map((item) => (
@@ -90,6 +98,15 @@ const MyOrdersContent = () => {
                         </li>
                       ))}
                     </ul>
+                  </div>
+                  <hr />
+                  <div className="order-buttons">
+                    <Button variant="contained" style={{ backgroundColor: '#f16122', color: '#fff', margin: '12px 12px 0 0' }}>
+                      Reorder
+                    </Button>
+                    <Button variant="outlined" style={{ color: '#f16122', border: '1px solid #f16122', margin: '12px 12px 0 0' }}>
+                      View Order Details
+                    </Button>
                   </div>
                 </li>
               ))}

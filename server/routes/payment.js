@@ -33,7 +33,7 @@ router.post("/orders", async (req, res) => {
     const request = {
       "order_amount": req.body.totalCost,
       "order_currency": "INR",
-      "order_id": Date.now(),
+      "order_id": Date.now().toString(),
       "order_expiry_time": sixteenMinutesFromNow.toISOString(),
       "customer_details": {
         "customer_id": req.body.number.slice(3),
