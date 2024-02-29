@@ -12,6 +12,16 @@ const path = require('path');
 dotenv.config();
 
 // Middleware
+app.use((req, res, next) => {
+    req.rawBody = new Promise(resolve => {
+      buf = '';
+      req.on('data', x => buf += x);
+      req.on('end', () => {
+        resolve(buf);
+      });
+    });
+    next();
+  });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());

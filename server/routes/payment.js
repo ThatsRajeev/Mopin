@@ -37,9 +37,7 @@ router.post("/orders", async (req, res) => {
 
 router.post("/verify", async (req, res) => {
   try {
-    console.log("timestamp" + " " + req.headers["x-webhook-timestamp"]);
-    console.log("receivedSignature" + " " + req.headers["x-webhook-signature"]);
-    console.log("rawBody" + " " + req.rawBody);
+    console.log("rawBody" + " " + await req.rawBody);
     const timestamp = req.headers["x-webhook-timestamp"];
     const receivedSignature = req.headers["x-webhook-signature"];
     const rawBody = req.rawBody;
