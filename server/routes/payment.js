@@ -10,8 +10,7 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
 router.post("/orders", async (req, res) => {
   try {
-    const fiveMinutesFromNow = new Date(Date.now() + 5 * 60000);
-    console.log(fiveMinutesFromNow.toISOString());
+    const fiveMinutesFromNow = new Date(Date.now() + 16 * 60000);
     const request = {
       "order_amount": req.body.totalCost,
       "order_currency": "INR",
