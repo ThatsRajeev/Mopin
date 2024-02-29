@@ -259,6 +259,7 @@ app.get('/api/ordersdata', async (req, res) => {
       "paymentStatus": "Success",
       "createdAt": { $gte: today }
     });
+    console.log(orders);
     const categorizedOrders = {};
 
     orders.forEach(order => {
