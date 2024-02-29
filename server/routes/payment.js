@@ -3,7 +3,6 @@ const { Cashfree } = require('cashfree-pg');
 const { v4: uuidv4 } = require('uuid');
 const Order = require('../models/order');
 require("dotenv").config();
-// create noOfOrders
 
 Cashfree.XClientId = process.env.CASHFREE_CLIENT_ID;
 Cashfree.XClientSecret = process.env.CASHFREE_SECRET_KEY;
@@ -12,29 +11,27 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 router.post("/orders", async (req, res) => {
   try {
     const fiveMinutesFromNow = new Date(Date.now() + 5 * 60000);
-    var request = {
-        "order_amount": req.body.totalCost,
-        "order_currency": "INR",
-        "order_id": uuidv4(),
-        "order_expiry_time": fiveMinutesFromNow.toISOString(),
-        "customer_details": {
-            "customer_id": req.body.number.slice(3),
-            "customer_phone": req.body.number.slice(3)
-        },
-        "order_meta": {
-            "return_url": "https://mopin-frontend.vercel.app/order-success?order_id={order_id}",
-            "notify_url": "https://mopin-server.vercel.app/api/payment/verify"
-        },
+    console.log(fiveMinutesFromNow.toISOString());
+    const request = {
+      "order_amount": req.body.totalCost,
+      "order_currency": "INR",
+      "order_id": uuidv4(),
+      "order_expiry_time": fiveMinutesFromNow.toISOString(),
+      "customer_details": {
+        "customer_id": req.body.number.slice(3),
+        "customer_phone": req.body.number.slice(3)
+      },
+      "order_meta": {
+        "return_url": "https://mopin-frontend.vercel.app/order-success?order_id={order_id}",
+        "notify_url": "https://mopin-server.vercel.app/api/payment/verify"
+      },
     };
 
-    Cashfree.PGCreateOrder("2023-08-01", request).then((response) => {
-        res.json(response.data);
-    }).catch((error) => {
-        return res.status(500).send(error.response.data);
-    });
+    const response = await Cashfree.PGCreateOrder("2023-08-01", request);
+    res.json(response.data);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error!" });
+    console.error(error);
+    res.status(500).json({ message: "Error creating order" });
   }
 });
 
@@ -47,49 +44,41 @@ router.post("/verify", async (req, res) => {
     const paymentId = webhookData.order.order_id;
     const paymentStatus = webhookData.payment.payment_status;
 
-    // Find Order using orderId
     const updateResult = await Order.updateMany(
       { paymentId },
       { paymentStatus }
     );
 
     if (updateResult.matchedCount === 0) {
-      return res.status(404).json({ message: "Orders not found" });
+      res.status(404).json({ message: "No orders found for the provided paymentId" });
+    } else {
+      // Optionally handle additional logic based on paymentStatus
+      // e.g., sending notifications, updating inventory
+      res.status(200).json({ message: 'Payment status updated successfully' });
     }
-
-    // Optionally: Handle additional logic based on paymentStatus
-    // e.g., sending notifications, updating inventory
-
-    res.status(200).json({ message: 'Payment status updated successfully' });
-
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error!" });
+    console.error(error);
+    res.status(500).json({ message: "Error verifying payment" });
   }
-})
+});
 
 router.post("/fetchOrderStatus", async (req, res) => {
   try {
     const { payment_id } = req.body;
-
-    // Find all orders based on the paymentId
     const orders = await Order.find({ paymentId: payment_id });
 
     if (!orders || orders.length === 0) {
-      return res.status(404).json({ message: "Orders not found for the provided payment_id" });
+      res.status(404).json({ message: "No orders found for the provided payment_id" });
+    } else {
+      const paymentStatuses = orders.map(order => ({
+        orderId: order.orderId,
+        paymentStatus: order.paymentStatus
+      }));
+      res.status(200).json({ paymentStatuses });
     }
-
-    // Extract payment statuses from the found orders
-    const paymentStatuses = orders.map(order => ({
-      orderId: order.orderId,
-      paymentStatus: order.paymentStatus
-    }));
-
-    res.status(200).json({ paymentStatuses });
-
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error!" });
+    console.error(error);
+    res.status(500).json({ message: "Error fetching order status" });
   }
 });
 
