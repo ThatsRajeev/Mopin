@@ -37,16 +37,7 @@ router.post("/orders", async (req, res) => {
 
 router.post("/verify", async (req, res) => {
   try {
-    console.log("rawBody" + " " + await req.rawBody);
-    const timestamp = req.headers["x-webhook-timestamp"];
-    const receivedSignature = req.headers["x-webhook-signature"];
-    const rawBody = req.rawBody;
-
-    const generatedSignature = verify(timestamp, rawBody);
-
-    if (generatedSignature !== receivedSignature) {
-        return res.status(401).json({ message: "Signature verification failed" });
-    }
+    Cashfree.PGVerifyWebhookSignature(req.headers["x-webhook-signature"], await req.rawBody, req.headers["x-webhook-timestamp"]));
 
     const webhookData = req.body.data;
     const paymentId = webhookData.order.order_id;
@@ -72,15 +63,5 @@ router.post("/verify", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error!" });
   }
 })
-
-function verify(timestamp, rawBody) {
-  const secretKey = process.env.CASHFREE_SECRET_KEY;
-  const combinedData = timestamp + rawBody;
-  const generatedSignature = crypto.createHmac('sha256', secretKey)
-                                .update(combinedData)
-                                .digest("base64");
-
-  return generatedSignature;
-}
 
 module.exports = router;
