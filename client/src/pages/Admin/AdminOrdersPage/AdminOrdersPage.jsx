@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { fetchOrders } from "../../../store/ordersSlice";
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -9,22 +11,19 @@ const AdminOrdersPage = () => {
   const [loading, setLoading] = useState(true);
   const [expandedDates, setExpandedDates] = useState({});
   const [expandedCustomers, setExpandedCustomers] = useState([]);
+  const dispatch = useDispatch();
+  const ordersData = useSelector((state) => state.orders.items);
+  const ordersStatus = useSelector((state) => state.orders.status);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await axios.get('https://mopin-server.vercel.app/api/ordersdata');
-        const sortedOrders = sortOrders(response.data);
-        setOrders(sortedOrders);
-      } catch (error) {
-        console.error('Error fetching orders:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    dispatch(fetchOrders());
+  }, [dispatch]);
 
-    fetchOrders();
-  }, []);
+  useEffect(() => {
+    const sortedOrders = sortOrders(ordersData);
+    setOrders(sortedOrders);
+    setLoading(false);
+  }, [ordersData]);
 
   function trimDate(originalDate) {
     const trimmedDate = new Date(originalDate).toLocaleDateString("en-US", {

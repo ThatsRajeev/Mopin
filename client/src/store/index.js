@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import productsReducer from './productsSlice';
 import dishesReducer from './dishesSlice';
 import subscriptionsReducer from './subscriptionsSlice';
+import ordersReducer from "./ordersSlice";
 
 const loadStateFromLocalStorage = () => {
   try {
@@ -37,6 +38,7 @@ export const store = configureStore({
     products: productsReducer,
     dishes: dishesReducer,
     subscriptions: subscriptionsReducer,
+    orders: ordersReducer,
   },
   preloadedState: loadStateFromLocalStorage(),
   middleware: (getDefaultMiddleware) =>
