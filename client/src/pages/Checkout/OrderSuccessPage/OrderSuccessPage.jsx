@@ -72,7 +72,7 @@ function OrderSuccessPage() {
             </div>
           ) : orderStatus === 'Success' ? (
             <>
-              <CheckCircleIcon className="success-icon" />
+              <CheckCircleIcon style={{ color: '#349E46' }} className="success-icon" />
               <Typography variant="h4" className="success-heading">
                 Your Order is Confirmed!
               </Typography>
@@ -91,7 +91,7 @@ function OrderSuccessPage() {
             </>
           ) : (
             <>
-              <ErrorIcon className="error-icon" />
+              <ErrorIcon style={{ color: '#fa4a5b' }} className="error-icon" />
               <Typography variant="h4" className="error-heading">
                 Payment Failed
               </Typography>
