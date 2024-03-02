@@ -15,7 +15,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
       const isSticky = scrollPosition > 180;
 
       backFavBtnDiv.classList.toggle("backFavBtn-div-sticky", isSticky);
-      backFavBtnWrapper.classList.toggle("backFavBtn-wrapper-sticky", !isSticky);
+      backFavBtnWrapper.classList.toggle("backFavBtn-wrapper-unfixed", isSticky);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -29,13 +29,13 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
     const handleScroll = () => {
       const images = document.querySelectorAll(".anim-food-img");
       const scrollPosition = window.scrollY;
-      const maxRotation = 1.48;
+      const maxRotation = 1.64;
 
       let rotation = (scrollPosition / window.innerHeight) * maxRotation;
       if (window.oldScrollY > scrollPosition) {
           rotation *= -1;
       }
-      window.oldScrollY = scrollPosition; 
+      window.oldScrollY = scrollPosition;
 
       images.forEach((image) => {
         const currentTransform = getComputedStyle(image).transform;
@@ -83,7 +83,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
         <span className="bottom-bar"></span>
       </div>
       <div className="seller-div-mobile mob-view">
-        <div className="backFavBtn-wrapper backFavBtn-wrapper-sticky">
+        <div className="backFavBtn-wrapper">
           <div className="backFavBtn-div">
             <span className="material-symbols-outlined backFavBtn-icon" onClick={() => navigate(-1)}>arrow_back_ios</span>
             <div>

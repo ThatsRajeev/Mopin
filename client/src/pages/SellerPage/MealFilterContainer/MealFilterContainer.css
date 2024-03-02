@@ -1,7 +1,10 @@
 .dish-wrapper {
   max-width: 1200px;
   display: flex;
-  margin: 0 16px 48px;
+  padding: 0 16px 48px;
+  background-color: #f2f2f2;
+  position: relative;
+  padding-top: 24px;
 
   @media (width > 768px) {
     margin: 0 14px 64px;
