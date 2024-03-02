@@ -29,7 +29,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
     const handleScroll = () => {
       const images = document.querySelectorAll(".anim-food-img");
       const scrollPosition = window.scrollY;
-      const maxRotation = 1.64;
+      const maxRotation = 1.96;
 
       let rotation = (scrollPosition / window.innerHeight) * maxRotation;
       if (window.oldScrollY > scrollPosition) {
