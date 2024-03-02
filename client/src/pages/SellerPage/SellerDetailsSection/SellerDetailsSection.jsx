@@ -1,15 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import woman from "../../../assets/woman.png";
 import "./SellerDetailsSection.css";
 
 const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes }) => {
   const navigate = useNavigate();
-  const [backFavSticky, setBackFavSticky] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setBackFavSticky(window.pageYOffset > 216);
+      const scrollPosition = window.scrollY;
+      const backFavBtnWrapper = document.querySelector(".backFavBtn-wrapper");
+      const backFavBtnDiv = document.querySelector(".backFavBtn-div");
+
+      const isSticky = scrollPosition > 180;
+
+      backFavBtnDiv.classList.toggle("backFavBtn-div-sticky", isSticky);
+      backFavBtnWrapper.classList.toggle("backFavBtn-wrapper-sticky", !isSticky);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const images = document.querySelectorAll(".anim-food-img");
+      const scrollPosition = window.scrollY;
+      const maxRotation = 1.28;
+
+      const rotation = (scrollPosition / window.innerHeight) * maxRotation;
+
+      images.forEach((image) => {
+        const currentTransform = getComputedStyle(image).transform;
+
+        image.style.transform = `${currentTransform} rotate(${rotation}deg)`;
+      });
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -52,8 +80,8 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
         <span className="bottom-bar"></span>
       </div>
       <div className="seller-div-mobile mob-view">
-        <div className={`backFavBtn-wrapper ${!backFavSticky ? "backFavBtn-wrapper-sticky" : ""}`}>
-          <div className={`backFavBtn-div ${backFavSticky ? "backFavBtn-sticky" : ""}`}>
+        <div className="backFavBtn-wrapper backFavBtn-wrapper-sticky">
+          <div className="backFavBtn-div">
             <span className="material-symbols-outlined backFavBtn-icon" onClick={() => navigate(-1)}>arrow_back_ios</span>
             <div>
               <div>{sellerDetails.name}</div>
@@ -63,7 +91,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
           </div>
         </div>
         <div className="seller-details-wrapper">
-          <img src={sellerDetails.imgURL} alt="food-img" />
+          <img className="anim-food-img" src={sellerDetails.imgURL} alt="food-img" />
           <div>
             <h1> {sellerDetails.name} </h1>
             <p>{sellerDetails.foodType}</p>
