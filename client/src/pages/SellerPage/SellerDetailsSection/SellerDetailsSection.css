@@ -4,10 +4,10 @@
   position: relative;
   overflow: hidden;
   justify-content: center;
-  margin: 0;
 
   @media (width > 768px) {
     margin-bottom: 36px;
+    padding: 12px 0;
   }
 }
 
@@ -30,13 +30,19 @@
 }
 
 .backFavBtn-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.backFavBtn-wrapper-sticky {
+  position: fixed;
+  top: 0;
+  min-height: 178px;
   background-image: url("https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/Group+164.avif");
   background-repeat: no-repeat;
   background-size: cover;
-  width: 100%;
-  min-height: 178px;
-  display: flex;
-  flex-direction: column;
+  transition: all 0.5s ease-in-out;
 }
 
 .backFavBtn-div {
@@ -57,6 +63,7 @@
   position: fixed;
   width: 100%;
   border: 1px solid rgba(40,44,63,.1);
+  transition: all 0.5s ease-in-out;
   z-index: 1000;
 
   >span {
@@ -91,13 +98,14 @@
   position: relative;
   background: #f2f2f2;
   top: -24px;
+  margin-top: 12rem;
   border-radius: 24px 24px 0 0;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0,
     rgba(27, 31, 35, 0.15) 0 0 0 1px;
 
   >img {
-    width: 72%;
+    width: 64%;
     margin: 0 auto -36%;
     transform: translateY(-50%);
     filter: drop-shadow(0px 2px 5px grey);
@@ -106,7 +114,7 @@
   >div>h1 {
     font-size: 24px;
     color: #222222;
-    margin-bottom: 8px;
+    margin: 24px 0 8px;
   }
 
   >div>p {

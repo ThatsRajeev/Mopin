@@ -1,7 +1,7 @@
 const homecooks = [{
     id: "1",
     name: "Anjali Sharma",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/174915046-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/fd608126a5c63c254610dd0f9f76222c-removebg-preview.avif",
     foodType: "North indian",
     quote: "Homemade goodness that satisfies your cravings",
     rating: "4.2",
@@ -9,7 +9,7 @@ const homecooks = [{
     noOfOrders: "122",
     minPrice: "79",
     healthyPick: false,
-    dateOfJoining: "2023-12-22",
+    dateOfJoining: "2024-02-22",
     veg: false,
     spicy: false,
     dairyFree: false,
@@ -250,7 +250,7 @@ const homecooks = [{
   {
     id: "2",
     name: "Aisha Khan",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/190926-chicken-tikka-masala-se-405p-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/360_F_226357770_cMpMAH76wCOIs1uwURL0BXMWlspPyBGQ-removebg-preview-removebg-preview.avif",
     foodType: "North indian, Punjabi",
     quote: "Crafting flavors with love and passion",
     rating: "4.1",
@@ -499,7 +499,7 @@ const homecooks = [{
   {
     id: "3",
     name: "Nandini Verma",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Coconut-Chocolate-Ladoo.-Chocolate-Almond-Truffles-Piping-Pot-Curry-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/8477ee262de33852e3d7de4081c6b282-removebg-preview.avif",
     foodType: "North indian, Hariyanvi",
     quote: "Indulge in the essence of homemade delicacies",
     rating: "4.2",
@@ -748,7 +748,7 @@ const homecooks = [{
   {
     id: "4",
     name: "Lakshmi Patel",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Curry-769792415-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/18604cbbd8afcdb92239853c06b78172-removebg-preview.avif",
     foodType: "Biryani, Rajasthani",
     quote: "Authentic homemade flavors delivered with love",
     rating: "4.5",
@@ -759,7 +759,7 @@ const homecooks = [{
     veg: true,
     spicy: true,
     dairyFree: false,
-    dateOfJoining: "2023-11-25",
+    dateOfJoining: "2024-01-25",
     subscriptionCost: "3000",
     dishes: [{
         name: "Bajre ki Raab",
@@ -997,7 +997,7 @@ const homecooks = [{
   {
     id: "5",
     name: "Sakshi Iyer",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Dahi-Vada_18129fb9c3a_large-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/Indian-Dish-Malai-Kofta-removebg-preview-removebg-preview.avif",
     foodType: "Bengali",
     quote: "Unleashing flavors that ignite your taste buds",
     rating: "4.2",
@@ -1246,7 +1246,7 @@ const homecooks = [{
   {
     id: "6",
     name: "Neha Das",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/homemade-indian-dessert-ornate-patterned-plate-generated-by-ai_188544-53755-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/e46fa71bb022ce9caf6a900b5077adc8-removebg-preview.avif",
     foodType: "North Indian",
     quote: "A delightful journey through the taste of Bengal",
     rating: "3.8",
@@ -1257,7 +1257,7 @@ const homecooks = [{
     veg: true,
     spicy: true,
     dairyFree: false,
-    dateOfJoining: "2023-11-22",
+    dateOfJoining: "2024-02-22",
     subscriptionCost: "2900",
     dishes: [{
         name: "Bedmi Poori with Aloo Sabzi",
@@ -1495,7 +1495,7 @@ const homecooks = [{
   {
     id: "7",
     name: "Sneha Mishra",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/homemade-indian-vegetarian-food-allo-paratha-served-with-potato-curry-bowl-curd-traditional-cuisine_859990-3274-removebg-preview__1_-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/d7fdc3057529d9137b44aca0254e01ff-removebg-preview.avif",
     foodType: "North Indian, Kashmiri",
     quote: "Savor the essence of authentic homemade delicacies",
     rating: "3.7",
@@ -1744,7 +1744,7 @@ const homecooks = [{
   {
     id: "8",
     name: "Ananya Reddy",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Indian-Dish-Malai-Kofta-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/homemade-indian-vegetarian-food-allo-paratha-served-with-potato-curry-bowl-curd-traditional-cuisine_859990-3274-removebg-preview.avif",
     foodType: "North indian",
     quote: "Exploring the rich heritage of homemade flavors",
     rating: "4.4",
@@ -1993,7 +1993,7 @@ const homecooks = [{
   {
     id: "9",
     name: "Nisha Choudhary",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/indian-heart-homemade-sweet-with-plate-photo-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/f7ed2310eb7229ac9e80d4c5341d82db-removebg-preview_cleanup.avif",
     foodType: "Rajasthani",
     quote: "Indulge in the authentic taste of Marwari cuisine",
     rating: "4.2",
@@ -2242,7 +2242,7 @@ const homecooks = [{
   {
     id: "10",
     name: "Meera Joshi",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/istockphoto-1164476202-170667a-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/Canon_190217_MG_2243is-removebg-preview-removebg-preview.avif",
     foodType: "Gujrati thali",
     quote: "Delight in the flavors of Gujarat with a variety of snacks",
     rating: "3.8",
@@ -2253,7 +2253,7 @@ const homecooks = [{
     veg: true,
     spicy: true,
     dairyFree: true,
-    dateOfJoining: "2023-12-1",
+    dateOfJoining: "2024-03-1",
     subscriptionCost: "3000",
     dishes: [{
         name: "Mithe Chawal (Sweet Rice)",
@@ -2491,7 +2491,7 @@ const homecooks = [{
   {
     id: "11",
     name: "Radha Iyer",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/Masala-Oats-Upma-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/Saffron-rice-kheer-indian-rice-pudding-keer-diwali-removebg-preview-removebg-preview.avif",
     foodType: "Idli, Dosa, Upma, Vada",
     quote: "Experience a fusion of traditional Indian flavors with a modern twist",
     rating: "4.5",
@@ -2740,7 +2740,7 @@ const homecooks = [{
   {
     id: "12",
     name: "Jyoti Yadav",
-    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+images/paneer-stuffed-besan-chilla-cheela-made-using-chickpea-flour-with-cottage-cheese-stuffing_466689-86791-removebg-preview.avif",
+    imgURL: "https://mopin-assets.s3.ap-south-1.amazonaws.com/food+imagery/3d9831ea70cfab526f30009f0ef640ed-removebg-preview.avif",
     foodType: "Rajasthani thali",
     quote: "Savor the rich and aromatic flavors of North Indian and Mughlai cuisine",
     rating: "4.5",

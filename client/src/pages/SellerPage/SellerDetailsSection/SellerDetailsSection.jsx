@@ -9,7 +9,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
 
   useEffect(() => {
     const handleScroll = () => {
-      setBackFavSticky(window.pageYOffset > 178);
+      setBackFavSticky(window.pageYOffset > 216);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -52,7 +52,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
         <span className="bottom-bar"></span>
       </div>
       <div className="seller-div-mobile mob-view">
-        <div className="backFavBtn-wrapper">
+        <div className={`backFavBtn-wrapper ${!backFavSticky ? "backFavBtn-wrapper-sticky" : ""}`}>
           <div className={`backFavBtn-div ${backFavSticky ? "backFavBtn-sticky" : ""}`}>
             <span className="material-symbols-outlined backFavBtn-icon" onClick={() => navigate(-1)}>arrow_back_ios</span>
             <div>
