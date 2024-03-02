@@ -31,8 +31,7 @@
 
 .backFavBtn-wrapper {
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  height: 0;
 }
 
 .backFavBtn-wrapper-sticky {
