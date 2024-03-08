@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const request = require('request');
+const { validationResult } = require('express-validator');
 const paymentRoutes = require('./routes/payment');
 const path = require('path');
 const Order = require('./models/order');
@@ -78,8 +79,8 @@ const User = mongoose.model("User", userSchema);
 app.post("/api/endpoint", async (req, res) => {
   try {
     const { phoneNumber, name, email } = req.body;
-    const foundUserByPhone = await User.findOne({ phoneNumber });
-    const foundUserByEmail = email ? await User.findOne({ email }) : null;
+    const foundUserByPhone = await User.findOne({ phoneNumber: {$eq: phoneNumber} });
+    const foundUserByEmail = email ? await User.findOne({ email: {$eq: email} }) : null;
 
     if (foundUserByPhone && name) {
       return res.json({ message: 'Phone number already exists' });
@@ -102,7 +103,11 @@ app.post("/api/endpoint", async (req, res) => {
 // UserData Route
 app.post('/api/userdata', async (req, res) => {
   try {
-    const foundUserByPhone = await User.findOne({ phoneNumber: req.body.phoneNumber });
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+      return res.status(400).json({errors: errors.array() })
+    }
+    const foundUserByPhone = await User.findOne({ phoneNumber: { $eq: req.body.phoneNumber} });
 
     if (!foundUserByPhone) {
       return res.status(404).json({ message: 'User not found' });
@@ -133,11 +138,11 @@ const Address = mongoose.model("Address", addressSchema);
 app.post("/api/savepoint", async (req, res) => {
   try {
     const phoneNumber = req.body.phoneNumber;
-    const existingAddress = await Address.findOne({ phoneNumber });
+    const existingAddress = await Address.findOne({ phoneNumber: {$eq: phoneNumber} });
 
     if (existingAddress) {
       await Address.findOneAndUpdate(
-        { phoneNumber },
+        { phoneNumber: {$eq: phoneNumber} },
         { ...req.body }
       );
       return res.json({ message: 'Address Details Updated' });
@@ -154,7 +159,7 @@ app.post("/api/savepoint", async (req, res) => {
 // Address Data Route
 app.post('/api/addressdata', async (req, res) => {
   try {
-    const foundAddress = await Address.findOne({ phoneNumber: req.body.phoneNumber });
+    const foundAddress = await Address.findOne({ phoneNumber: { $eq: req.body.phoneNumber} });
 
     if (!foundAddress) {
       return res.status(404).json({ message: 'Address not found' });
@@ -241,7 +246,7 @@ app.post("/api/order", async (req, res) => {
 app.get("/api/orders/:phoneNumber", async (req, res) => {
   try {
     const phoneNumber = req.params.phoneNumber;
-    const orders = await Order.find({ phoneNumber: phoneNumber });
+    const orders = await Order.find({ phoneNumber: {$eq: phoneNumber} });
 
     res.status(200).json({ orders });
   } catch (err) {
