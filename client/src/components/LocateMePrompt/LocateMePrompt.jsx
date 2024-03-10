@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from "react";
 import { useSearchParams } from "react-router-dom";
-import axios from "axios";
+import handlePlaceSearch from "../../utils/handlePlaceSearch";
 import handleGeolocation from "../../utils/handleGeolocation";
 import Overlay from "../Overlay/Overlay"
 import Location from "../Location/Location";
+import MyLocationIcon from '@mui/icons-material/MyLocation';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 import Check from "../../assets/check.svg";
 import "./LocateMePrompt.css";
 
@@ -30,11 +33,8 @@ function LocateMePrompt() {
 
     if (inputValue.length > 2) {
       try {
-        const response = await axios.get(
-          `https://mopin-server.vercel.app/proxy/?q=${inputValue}`,
-          { withCredentials: false }
-        );
-        setSuggestions(response.data);
+        const res = await handlePlaceSearch(inputValue);
+        setSuggestions(res);
       } catch (error) {
         console.error(error);
       }
@@ -87,12 +87,12 @@ function LocateMePrompt() {
           />
           {inputValue ? (
             <button className="clear-button" onClick={handleClearInput}>
-              <span className="material-symbols-outlined">close</span>
+              <CloseIcon style={{ color: '#222222', fontSize: '18px' }} />
             </button>
           )
           : (
             <p className="gps-location" onClick={getCurrentLocation}>
-              <span className="material-symbols-outlined my-location-icon">my_location</span>
+              <MyLocationIcon style={{ color: '#222222', marginRight: '12px'}} />
               Locate Me
             </p>
           )}
@@ -110,7 +110,7 @@ function LocateMePrompt() {
                   key={suggestion.place_id}
                   onClick={() => handleSuggestionClick(suggestion)}
                 >
-                  <span className="material-symbols-outlined location-icon">location_on</span>
+                  <LocationOnOutlinedIcon style={{ color: '#222222', marginRight: '16px'}} />
                   <div className="SuggDiv">
                     <p>
                       {

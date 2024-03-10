@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import handleGeolocation from "../../utils/handleGeolocation";
 import handlePlaceSearch from "../../utils/handlePlaceSearch";
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import MyLocationIcon from '@mui/icons-material/MyLocation';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 import loader from "../../assets/loader2.svg";
 import "./Location.css";
 
@@ -53,12 +58,12 @@ const Location = ({ setShowProp }) => {
   return (
     <div className="location-container">
       <div className="search-heading mob-view">
-        <span className="material-symbols-outlined" onClick={() => setShowProp('address')}>arrow_back</span>
+        <ArrowBackOutlinedIcon style={{color: '#222222', marginRight: '12px', fontSize: '20px'}} onClick={() => setShowProp('address')}/>
         <p> Search your delivery location</p>
       </div>
       <div className="address-container">
         <div className="address-div">
-          <span className="material-symbols-outlined">search</span>
+          <SearchOutlinedIcon style={{ color: '#222222', fontSize: '20px', marginRight: '4px', opacity: '64%' }} />
           <input
             className="address-input"
             placeholder="Search for locality or street name"
@@ -67,7 +72,7 @@ const Location = ({ setShowProp }) => {
           />
           {inputValue && (
             <button className="clear-button" onClick={handleClearInput}>
-              <span className="material-symbols-outlined">close</span>
+              <CloseIcon style={{ color: '#222222', fontSize: '18px' }} />
             </button>
           )}
         </div>
@@ -81,7 +86,7 @@ const Location = ({ setShowProp }) => {
                 key={suggestion.place_id}
                 onClick={() => handleSuggestionClick(suggestion)}
               >
-                <span className="material-symbols-outlined location-icon">location_on</span>
+                <LocationOnOutlinedIcon style={{ color: '#222222', marginRight: '16px'}} />
                 <div className="SuggDiv">
                   <p>
                     {
@@ -98,13 +103,13 @@ const Location = ({ setShowProp }) => {
         )}
       </ul>
       <p className="gps-location" onClick={getCurrentLocation}>
-        <span className="material-symbols-outlined my-location-icon">my_location</span>
+        <MyLocationIcon style={{ color: '#222222', marginRight: '12px', fontSize: '20px'}} />
         Use Current Location Using GPS
         {isLoading && <img className="loader-img" src={loader} alt="load-img" />}
       </p>
       <div className="choose-location">
         <div className="location-icon-container">
-          <span className="material-symbols-outlined location-on-icon">location_on</span>
+          <LocationOnOutlinedIcon style={{ color: '#222222', fontSize: '48px'}} />
         </div>
         <p className="choose-location-p1"> Choose your location! </p>
         <p className="choose-location-p2"> And enjoy delicious homemade cuisines near your location </p>

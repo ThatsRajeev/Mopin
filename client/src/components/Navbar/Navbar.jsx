@@ -7,6 +7,10 @@ import HelpAndSupport from "../../pages/Profile/HelpAndSupport/HelpAndSupport";
 import Overlay from "../Overlay/Overlay";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchUserData from "../../utils/fetchUserData";
+import PinDropOutlinedIcon from '@mui/icons-material/PinDropOutlined';
+import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import "./Navbar.css";
 
 const NavCase = styled.header`
@@ -230,9 +234,9 @@ const handleProfileClick = () => {
         <FlexContainer adr={"true"}>
           <Logo to="/"> mopin </Logo>
           <NavLink onClick={() => {toggleOverlay('address')}} open={showAddress}>
-            <span className="material-symbols-outlined pin-icon">pin_drop</span>
+            <PinDropOutlinedIcon style={{ color: '#f16122', marginRight: '8px', fontSize: '22px'}} />
             <Address>{localStorage.getItem("userLocation")}</Address>
-            <span className="material-symbols-outlined">expand_more</span>
+            <ExpandMoreOutlinedIcon style={{ color: '#222222', marginRight: '6px', fontSize: '20px'}}/>
           </NavLink>
         </FlexContainer>
 
@@ -267,7 +271,7 @@ const handleProfileClick = () => {
         </Menu>
 
         <NavLink className="mob-view" onClick={handleProfileClick}>
-          <span className="material-symbols-outlined person-icon">person</span>
+          <PersonOutlineOutlinedIcon className="person-icon"/>
         </NavLink>
 
         {overlayParams.get("login") && (
@@ -289,7 +293,7 @@ const handleProfileClick = () => {
 
       <FlexContainer className="mob-view">
         <SearchBarContainer to="/search">
-          <span className="material-symbols-outlined search-icon">search</span>
+          <SearchOutlinedIcon className="search-icon"/>
           <input type="text" placeholder="Search your favourite food..." />
         </SearchBarContainer>
         <span className="material-symbols-outlined page-info-icon">page_info</span>
