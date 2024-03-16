@@ -411,6 +411,7 @@ hr {
 
 .skeleton-section {
   padding: 16px;
+  max-height: 100vh;
   overflow-y: hidden;
 }
 
