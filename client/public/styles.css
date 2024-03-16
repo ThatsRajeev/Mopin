@@ -411,6 +411,7 @@ hr {
 
 .skeleton-section {
   padding: 16px;
+  overflow-y: hidden;
 }
 
 .skeleton-title {
@@ -420,7 +421,7 @@ hr {
 }
 
 .card-title {
-  margin-top: 16px;
+  margin: 16px 0 4px 0;
 }
 
 .skeletion-card {
@@ -429,6 +430,18 @@ hr {
 
   .react-loading-skeleton {
     border-radius: 28px 12px;
+  }
+}
+
+.meal-skeleton {
+  .react-loading-skeleton {
+    border-radius: 12px;
+  }
+}
+
+.skeleton-titli {
+  .react-loading-skeleton {
+    border-radius: 64px 16px 16px 64px;
   }
 }
 
