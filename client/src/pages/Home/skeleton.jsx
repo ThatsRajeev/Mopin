@@ -6,7 +6,7 @@ const SkeletonCard = () => {
     <section className="skeleton-section">
       <Skeleton height={180} highlightColor="#d9d9d9" />
       <h4 className="card-title">
-        <Skeleton height={28} highlightColor="#d9d9d9" />
+        <Skeleton height={36} highlightColor="#d9d9d9" />
       </h4>
       <div className="skeletion-card">
         <p className="card-channel">

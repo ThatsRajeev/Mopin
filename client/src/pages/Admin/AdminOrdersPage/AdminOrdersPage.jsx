@@ -87,9 +87,9 @@ const AdminOrdersPage = () => {
     <div className="admin-orders-container">
       {loading ? (
         <div>
-          <h3><Skeleton width={156} height={36} /></h3>
+          <h3><Skeleton width={156} height={36} highlightColor="#d9d9d9" /></h3>
           <ul>
-            <Skeleton height={56} count={5} />
+            <Skeleton height={56} count={5} highlightColor="#d9d9d9" />
           </ul>
         </div>
       ) : (

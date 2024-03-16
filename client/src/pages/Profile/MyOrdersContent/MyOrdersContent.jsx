@@ -48,9 +48,9 @@ const MyOrdersContent = () => {
         <div className="skeleton">
           {Array(4).fill().map((item, index) => (
               <div key={index}>
-                <Skeleton height={24} width={`48vw`} />
-                <Skeleton height={24} width={`64vw`} />
-                <Skeleton width={`80vw`} height={100} />
+                <Skeleton height={24} width={`48vw`} highlightColor="#d9d9d9" />
+                <Skeleton height={24} width={`64vw`} highlightColor="#d9d9d9" />
+                <Skeleton width={`80vw`} height={100} highlightColor="#d9d9d9" />
               </div>
             ))}
         </div>
