@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import handlePlaceSearch from "../../utils/handlePlaceSearch";
 import handleGeolocation from "../../utils/handleGeolocation";
 import Overlay from "../Overlay/Overlay"
@@ -11,6 +11,7 @@ import Check from "../../assets/check.svg";
 import "./LocateMePrompt.css";
 
 function LocateMePrompt() {
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [overlayParams, setOverlayParams] = useSearchParams();
@@ -55,11 +56,11 @@ function LocateMePrompt() {
 
   const toggleOverlay = () => {
    setOverlayParams((prev) => {
-     const isOpen = prev.get("address") === "true";
+     const isOpen = prev.get("address") === "set";
      if (isOpen) {
-       prev.delete("address");
+       navigate(-1);
      } else {
-       prev.set("address", "true");
+       prev.set("address", "set");
      }
      return prev;
    });
@@ -69,7 +70,6 @@ function LocateMePrompt() {
     if(localStorage.getItem('userLocation')) {
       window.location.reload();
     }
-
   }, [localStorage.getItem('userLocation')]);
 
   return (
@@ -128,8 +128,8 @@ function LocateMePrompt() {
         </ul>
       </div>
       {overlayParams.get("address") && (
-        <Overlay closeOverlay={toggleOverlay}>
-          <Location setShowProp={toggleOverlay}/>
+        <Overlay>
+          <Location setShowProp={() => navigate(-1)}/>
         </Overlay>
       )}
 

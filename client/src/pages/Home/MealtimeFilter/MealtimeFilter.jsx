@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Overlay from "../../../components/Overlay/Overlay";
 import { SearchResult } from "../../../components/Search/Search";
 import { getDayOfTheWeek } from "../../../utils/getFilteredDishes";
@@ -18,6 +18,7 @@ const MealtimeFilter = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [dishInfo, setdishInfo] = useState({});
   const today = new Date();
+  const navigate = useNavigate();
   const todaysDay = today.getDay();
 
   const getDayLabel = (dish) => {
@@ -89,7 +90,7 @@ const MealtimeFilter = () => {
      setSearchParams((prev) => {
        const isOpen = prev.get(overlayType) === "true";
        if (isOpen) {
-         prev.delete(overlayType);
+         navigate(-1);
        } else {
          handleFilter(overlayType);
          prev.set(overlayType, "true");
@@ -116,7 +117,7 @@ const MealtimeFilter = () => {
       </div>
 
       {searchParams.get('breakfast') && (
-        <Overlay closeOverlay={() => toggleOverlay('breakfast')}>
+        <Overlay>
           <div className="profile-head" onClick={() => toggleOverlay('breakfast')}>
             <span className="material-symbols-outlined">arrow_back</span>
             <p>Breakfast</p>
@@ -131,7 +132,7 @@ const MealtimeFilter = () => {
         </Overlay>
       )}
       {searchParams.get('lunch') && (
-        <Overlay closeOverlay={() => toggleOverlay('lunch')}>
+        <Overlay>
           <div className="profile-head" onClick={() => toggleOverlay('lunch')}>
             <span className="material-symbols-outlined">arrow_back</span>
             <p>Lunch</p>
@@ -146,7 +147,7 @@ const MealtimeFilter = () => {
         </Overlay>
       )}
       {searchParams.get('dinner') && (
-        <Overlay closeOverlay={() => toggleOverlay('dinner')}>
+        <Overlay>
           <div className="profile-head" onClick={() => toggleOverlay('dinner')}>
             <span className="material-symbols-outlined">arrow_back</span>
             <p>Dinner</p>

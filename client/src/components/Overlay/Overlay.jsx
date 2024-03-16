@@ -1,8 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Overlay.css";
 
-const Overlay = ({ children, closeOverlay, unsetDims }) => {
+const Overlay = ({ children, unsetDims }) => {
+  const navigate = useNavigate();
+
+  const closeOverlay = () => {
+    navigate(-1);
+  };
+
   const overlayStyles = unsetDims ? { height: 'unset', width: 'unset' } : {};
 
   return (
@@ -19,7 +26,7 @@ const Overlay = ({ children, closeOverlay, unsetDims }) => {
 
 Overlay.propTypes = {
   children: PropTypes.node.isRequired,
-  closeOverlay: PropTypes.func.isRequired,
+  unsetDims: PropTypes.bool,
 };
 
 export default Overlay;

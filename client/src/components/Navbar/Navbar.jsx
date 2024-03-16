@@ -212,7 +212,7 @@ function Navbar({showNavbar, showAddress, header}) {
    setOverlayParams((prev) => {
      const isOpen = prev.get(overlayType) === "true";
      if (isOpen) {
-       prev.delete(overlayType);
+       navigate(-1);
      } else {
        prev.set(overlayType, "true");
      }

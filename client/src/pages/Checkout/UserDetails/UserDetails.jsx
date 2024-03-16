@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../../context/AuthContext";
 import fetchUserData from "../../../utils/fetchUserData";
 import fetchAddress from "../../../utils/fetchAddress";
@@ -22,13 +22,14 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
   const totalCost = Object.values(costDetails).reduce((sum, currentValue) => sum + currentValue, 0);
 
   const { user } = useUserAuth();
+  const navigate = useNavigate();
   const [overlayParams, setOverlayParams] = useSearchParams();
 
   const toggleOverlay = (overlayType) => {
    setOverlayParams((prev) => {
      const isOpen = prev.get(overlayType) === "true";
      if (isOpen) {
-       prev.delete(overlayType);
+       navigate(-1);
      } else {
        prev.set(overlayType, "true");
      }
@@ -150,7 +151,7 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
         {!user || !addressChoosen ? (
           <div className="login-address-overlay">
             {overlayParams.get("login") && (
-              <Overlay closeOverlay={() => toggleOverlay('login')}>
+              <Overlay>
                 <Login setShowProp={() => toggleOverlay('login')}/>
               </Overlay>
             )}

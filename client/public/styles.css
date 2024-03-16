@@ -69,6 +69,10 @@ label {
   transition: 300ms ease all;
 }
 
+a, a:visited, a:hover, a:active {
+    -webkit-tap-highlight-color: transparent;
+}
+
 hr {
   border-color: rgba(217, 217, 217, 0.16);
   width: 100%;

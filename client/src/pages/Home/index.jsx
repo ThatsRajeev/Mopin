@@ -15,7 +15,7 @@ const Features = lazy(() => import("./Features/Features"));
 const Fooder = lazy(() => import("./Fooder/Fooder"));
 const Makers = lazy(() => import("./Makers/Makers"));
 const Testimonials = lazy(() => import("./Testimonials/Testimonials"));
-const Footer = lazy(() => import("../../components/Footer/Footer"));
+const Footer = lazy(() => import("../../components/Footer/Footer"))
 
 function Homepage() {
   const [locationPrompt, setLocationPrompt] = useState(false);

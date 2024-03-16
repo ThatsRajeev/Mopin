@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useUserAuth } from "../../context/AuthContext";
 import Overlay from "../Overlay/Overlay";
@@ -8,6 +8,7 @@ import fetchAddress from "../../utils/fetchAddress";
 import "./ManageAddressContent.css"
 
 const ManageAddressContent = ({ setAddressChoosen }) => {
+  const navigate = useNavigate();
   const [address, setAddress] = useState("");
   const [addressType, setAddressType] = useState("");
   const { user, logOut } = useUserAuth();
@@ -46,7 +47,7 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
    setOverlayParams((prev) => {
      const isOpen = prev.get(overlayType) === "true";
      if (isOpen) {
-       prev.delete(overlayType);
+       navigate(-1);
      } else {
        prev.set(overlayType, "true");
      }
@@ -62,7 +63,7 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
       </div>
 
       {overlayParams.get("map") && (
-        <Overlay closeOverlay={() => toggleOverlay('map')}>
+        <Overlay>
           <div className="profile-head mob-view" onClick={() => toggleOverlay('map')}>
             <span className="material-symbols-outlined">arrow_back</span>
             <p> Edit Address </p>
@@ -87,7 +88,7 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
             <button onClick={() => {toggleOverlay('delete')}}><span className="material-symbols-outlined type-icon">delete</span></button>
 
             {overlayParams.get("delete") && (
-              <Overlay closeOverlay={() => toggleOverlay('delete')} unsetDims="true">
+              <Overlay unsetDims="true">
                 <div className="delete-container">
                   <h3 className="delete-heading">Are you sure you want to delete? </h3>
                   <div>

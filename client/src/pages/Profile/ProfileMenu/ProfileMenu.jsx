@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Overlay from "../../../components/Overlay/Overlay";
 import fetchUserData from "../../../utils/fetchUserData";
 import { useUserAuth } from "../../../context/AuthContext";
@@ -9,6 +10,7 @@ const ProfileMenu = ({ menuItems, active, setActive, renderContent }) => {
   const [name, setName] = useState("");
   const windowWidth = useWindowResize();
   const { user } = useUserAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async function() {
@@ -24,10 +26,7 @@ const ProfileMenu = ({ menuItems, active, setActive, renderContent }) => {
   }, [user]);
 
   const closeOverlay = () => {
-   setActive((prev) => {
-     prev.delete("p");
-     return prev;
-   });
+   navigate(-1);
  };
 
   const RenderMenuItem = ({ menuItem }) => (
@@ -67,7 +66,7 @@ const ProfileMenu = ({ menuItems, active, setActive, renderContent }) => {
         </div>
         {windowWidth <= 768 ? (
           active && (
-            <Overlay closeOverlay={closeOverlay}>
+            <Overlay>
               <div className="profile-head" onClick={closeOverlay}>
                 <span className="material-symbols-outlined">arrow_back</span>
                 <p>{active}</p>

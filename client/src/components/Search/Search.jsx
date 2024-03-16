@@ -7,6 +7,7 @@ import DishCard from "../../pages/SellerPage/DishCard/DishCard";
 import CartContainer from "../../pages/SellerPage/CartContainer/CartContainer";
 import { getDayOfTheWeek } from "../../utils/getFilteredDishes";
 import homecooks from "../../data/homecooks";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import "./Search.css";
 
 export const SearchResult = ({ result, loading }) => {
@@ -210,7 +211,7 @@ const Search = () => {
       <section className="search-section">
         <div className="search-container">
           <div className="search-link">
-            <span className="material-symbols-outlined search-icon">search</span>
+            <SearchOutlinedIcon className="search-icon"/>
             <input type="text" placeholder="Search your favourite food..." autoFocus
             value={searchParams.get("q") || ""} onChange={handleSearchInput}/>
             {searchParams.get("q") && (

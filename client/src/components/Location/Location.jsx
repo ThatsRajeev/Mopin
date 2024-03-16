@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import handleGeolocation from "../../utils/handleGeolocation";
 import handlePlaceSearch from "../../utils/handlePlaceSearch";
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';

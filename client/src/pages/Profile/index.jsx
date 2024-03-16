@@ -60,7 +60,7 @@ const Profile = () => {
         />
       </>
     ) : (
-      <Overlay closeOverlay={() => navigate(-1)}>
+      <Overlay>
         <Login setShowProp={() => navigate(-1)}/>
       </Overlay>
     )
