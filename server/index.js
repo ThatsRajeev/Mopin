@@ -72,7 +72,7 @@ const userSchema = new mongoose.Schema({
   name: String,
   email: String,
   address: String,
-  role: { default: "user" },
+  role: {type: String, enum: ['user', 'admin'], default: 'user'},
 });
 
 const User = mongoose.model("User", userSchema);

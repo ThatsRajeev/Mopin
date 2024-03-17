@@ -10,6 +10,11 @@ const Admin = () => {
   const [overlayParams, setOverlayParams] = useSearchParams();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const userd = localStorage.getItem('userData');
+    console.log(userd);
+  } , [])
+
   return (
     user && Object.keys(user).length !== 0 ? (
       <>
