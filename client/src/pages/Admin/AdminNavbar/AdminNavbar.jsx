@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useSearchParams, useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import Overlay from "../../../components/Overlay/Overlay";
-import HomeOutlinedIcon from '@mui/icons-material/Home';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import SupportOutlinedIcon from '@mui/icons-material/SupportOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import PinDropOutlinedIcon from '@mui/icons-material/PinDropOutlined';
-import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import LunchDiningOutlinedIcon from '@mui/icons-material/LunchDiningOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const NavCase = styled.header`
   display: block;
@@ -28,7 +25,12 @@ const GlobalNav = styled.nav`
   height: 80px;
   margin: 0 auto;
   justify-content: space-between;
-  max-width: 1200px;
+  max-width: 1100px;
+  background: rgb(242, 242, 242);
+  border-radius: 0 0 28px 28px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 
   @media (width > 768px){
     display: flex;
@@ -198,32 +200,30 @@ function AdminNavbar({children}) {
   return (
     <NavCase>
       <GlobalNav>
-        <FlexContainer>
-          <Logo to="/"> mopin </Logo>
-        </FlexContainer>
+        <Logo to="/"> mopin </Logo>
 
         <Menu>
           <Item>
-            <NavLink to="/search">
-              <SearchOutlinedIcon />
+            <NavLink sc={navItem!=='Orders' ? "true" : "false"} to="/search">
+              <LunchDiningOutlinedIcon />
               &nbsp;Orders
             </NavLink>
           </Item>
           <Item>
-            <NavLink onClick={() => {toggleOverlay('help')}}>
-              <SupportOutlinedIcon />
+            <NavLink sc={navItem!=='Menu' ? "true" : "false"} onClick={() => {toggleOverlay('help')}}>
+              <MenuOutlinedIcon />
               &nbsp;Menu
             </NavLink>
           </Item>
           <Item>
-            <NavLink>
+            <NavLink sc={navItem!=='Customers' ? "true" : "false"}>
               <PersonOutlineOutlinedIcon />
               &nbsp;Customers
             </NavLink>
           </Item>
           <Item>
-            <NavLink to="/checkout">
-              <ShoppingCartOutlinedIcon />
+            <NavLink sc={navItem!=='Settings' ? "true" : "false"} to="/checkout">
+              <SettingsOutlinedIcon />
               &nbsp;Settings
             </NavLink>
           </Item>
@@ -233,25 +233,25 @@ function AdminNavbar({children}) {
       <MobNav>
         <NavLink sc={navItem!=='Orders' ? "true" : "false"} to="/">
           <NavItem>
-            <HomeOutlinedIcon />
+            <LunchDiningOutlinedIcon />
             Orders
           </NavItem>
         </NavLink>
         <NavLink sc={navItem!=='Menu' ? "true" : "false"} >
           <NavItem>
-            <PersonOutlineOutlinedIcon />
+            <MenuOutlinedIcon />
             Menu
           </NavItem>
         </NavLink>
         <NavLink sc={navItem!=='Customers' ? "true" : "false"} to="/search">
           <NavItem>
-            <SearchOutlinedIcon />
+            <PersonOutlineOutlinedIcon />
             Customers
           </NavItem>
         </NavLink>
         <NavLink sc={navItem!=='Settings' ? "true" : "false"} to="/checkout">
           <NavItem>
-            <ShoppingCartOutlinedIcon />
+            <SettingsOutlinedIcon />
             Settings
           </NavItem>
         </NavLink>
