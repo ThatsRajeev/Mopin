@@ -1,17 +1,27 @@
 import axios from "axios";
+const SEVEN_DAYS_IN_MS = 604800000;
 
 const fetchUserData = async (user) => {
   const storedData = localStorage.getItem("userData");
-  if(storedData) {
-    return JSON.parse(storedData)
-  } else {
-    try {
-      const response = await axios.post('https://mopin-server.vercel.app/api/userdata', user);
-      localStorage.setItem("userData", JSON.stringify(response.data));
-      return response.data;
-    } catch (error) {
-      console.error(error);
+
+  if (storedData) {
+    const { data, timestamp } = JSON.parse(storedData);
+    if (Date.now() - timestamp <= SEVEN_DAYS_IN_MS) {
+      return data;
+    } else {
+      localStorage.removeItem("userData");
     }
+  }
+
+  try {
+    const response = await axios.post('https://mopin-server.vercel.app/api/userdata', user);
+    localStorage.setItem("userData", JSON.stringify({
+      data: response.data,
+      timestamp: Date.now()
+    }));
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
 };
 

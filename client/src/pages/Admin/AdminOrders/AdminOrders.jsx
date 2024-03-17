@@ -20,9 +20,11 @@ const AdminOrders = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const sortedOrders = sortOrders(ordersData);
-    setOrders(sortedOrders);
-    setLoading(false);
+    if(Object.keys(ordersData).length) {
+      const sortedOrders = sortOrders(ordersData);
+      setOrders(sortedOrders);
+      setLoading(false);
+    }
   }, [ordersData]);
 
   function trimDate(originalDate) {
