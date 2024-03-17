@@ -219,8 +219,8 @@ const Search = () => {
                 <span className="material-symbols-outlined">close</span>
               </button>
             )}
+            <span className="material-symbols-outlined page-info-icon">page_info</span>
           </div>
-          <span className="material-symbols-outlined page-info-icon">page_info</span>
         </div>
 
         <SearchResult

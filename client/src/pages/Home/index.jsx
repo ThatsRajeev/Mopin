@@ -17,24 +17,8 @@ const Testimonials = lazy(() => import("./Testimonials/Testimonials"));
 const Footer = lazy(() => import("../../components/Footer/Footer"))
 
 function Homepage() {
-  const [locationPrompt, setLocationPrompt] = useState(false);
   const [active, setActive] = useState('All');
-
   const foodCatgor = ['All', 'Spicy', 'Veg', 'Non-veg', 'Dairy-free'];
-
-  useEffect(() => {
-    const checkLocationPermission = async () => {
-      try {
-        const location = localStorage.getItem("userLocation");
-        if (location === null) {
-          setLocationPrompt(true);
-        }
-      } catch (error) {
-        console.error('Error checking location:', error);
-      }
-    };
-    checkLocationPermission();
-  }, []);
 
   const newly = (props) => {
     const jd = new Date(props.dateOfJoining).getTime();
@@ -64,7 +48,7 @@ function Homepage() {
 
   return (
     <>
-      {locationPrompt ? (
+      {localStorage.getItem("userLocation") === null ? (
         <LocateMePrompt />
       ) : (
         <>

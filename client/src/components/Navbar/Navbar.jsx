@@ -7,10 +7,12 @@ import HelpAndSupport from "../../pages/Profile/HelpAndSupport/HelpAndSupport";
 import Overlay from "../Overlay/Overlay";
 import { useUserAuth } from "../../context/AuthContext";
 import fetchUserData from "../../utils/fetchUserData";
-import PinDropOutlinedIcon from '@mui/icons-material/PinDropOutlined';
-import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/Home';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import PinDropOutlinedIcon from '@mui/icons-material/PinDropOutlined';
+import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import "./Navbar.css";
 
 const NavCase = styled.header`
@@ -81,13 +83,12 @@ const SearchBarContainer = styled(Link)`
   align-items: center;
   text-decoration: none;
   background-color: #fff;
-  border-radius: 18px;
+  border-radius: 16px;
   border: 1px solid rgb(239, 239, 239);
-  padding: 8px;
+  padding: 6px;
   width: 100%;
-  height: 48px;
+  height: 52px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
-  margin-right: 16px;
 
   @media (width > 768px){
     display: none;
@@ -120,11 +121,8 @@ const NavItem = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  align-items: center;
   font-size: 0.68rem;
-
-  .material-symbols-outlined {
-    margin: 0 !important;
-  }
 `;
 
 const NavLink = styled(Link)`
@@ -150,6 +148,7 @@ const MobNav = styled.nav`
   margin-left: -16px;
   z-index: 100;
   background: #f2f2f2;
+  border-radius: 28px 28px 0 0;
   box-shadow: 0px -2px 14px 0px rgba(0, 0, 0, 0.12);
   transition: transform .3s ease-in;
   will-change: transform;
@@ -295,32 +294,32 @@ const handleProfileClick = () => {
         <SearchBarContainer to="/search">
           <SearchOutlinedIcon className="search-icon"/>
           <input type="text" placeholder="Search your favourite food..." />
+          <span className="material-symbols-outlined page-info-icon">page_info</span>
         </SearchBarContainer>
-        <span className="material-symbols-outlined page-info-icon">page_info</span>
       </FlexContainer>
 
       <MobNav>
         <NavLink sc={navItem!=='Home' ? "true" : "false"} to="/">
           <NavItem>
-            <span className="material-symbols-outlined">home</span>
+            <HomeOutlinedIcon />
             Home
           </NavItem>
         </NavLink>
         <NavLink sc={navItem!=='Profile' ? "true" : "false"} onClick={handleProfileClick}>
           <NavItem>
-            <span className="material-symbols-outlined">person</span>
+            <PersonOutlineOutlinedIcon />
             Profile
           </NavItem>
         </NavLink>
         <NavLink sc={navItem!=='Search' ? "true" : "false"} to="/search">
           <NavItem>
-            <span className="material-symbols-outlined">search</span>
+            <SearchOutlinedIcon />
             Search
           </NavItem>
         </NavLink>
         <NavLink sc={navItem!=='Checkout' ? "true" : "false"} to="/checkout">
           <NavItem>
-            <span className="material-symbols-outlined">shopping_cart</span>
+            <ShoppingCartOutlinedIcon />
             Checkout
           </NavItem>
         </NavLink>
