@@ -92,7 +92,7 @@ app.post("/api/endpoint", async (req, res) => {
     } else if (!foundUserByPhone && !email) {
       return res.json({ message: 'Create an Account' });
     } else {
-      const newUser = new User({ phoneNumber, name, email });
+      const newUser = new User({ phoneNumber, name, email, role: "user" });
       await newUser.save();
       return res.json({ message: 'User Details Saved' });
     }
@@ -117,7 +117,8 @@ app.post('/api/userdata', async (req, res) => {
     res.json({
       name: foundUserByPhone.name,
       email: foundUserByPhone.email,
-      phoneNumber: foundUserByPhone.phoneNumber
+      phoneNumber: foundUserByPhone.phoneNumber,
+      role: foundUserByPhone.role
     });
   } catch (err) {
     handleErrors(res, err);
