@@ -1,6 +1,6 @@
 {
   "short_name": "mopin",
-  "start_url" : "/?home=true",
+  "start_url" : "/admin",
   "icons" : [
     {
       "src": "icons/manifest-icon-192.maskable.png",
