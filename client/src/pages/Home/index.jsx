@@ -72,7 +72,7 @@ function Homepage() {
                 <h1 className="cardHeader">All Homechefs Nearby</h1>
               </div>
               {homecooks.map((cook, index) => (
-                <Link to ={`/sellers/${cook.name}`} style={{textDecoration: 'none'}}>
+                <Link to ={`/sellers/${cook.name}`}>
                   <FoodItemCard
                     key={index}
                     cardType={"chef"}

@@ -70,7 +70,8 @@ label {
 }
 
 a, a:visited, a:hover, a:active {
-    -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 hr {
@@ -271,7 +272,6 @@ hr {
   display: flex;
   align-items: center;
   padding: 12px 24px;
-  text-decoration: none;
   font-weight: 600;
   color: #fff;
   background-color: #349E46;

@@ -10,6 +10,7 @@ import fetchUserData from "../../utils/fetchUserData";
 import HomeOutlinedIcon from '@mui/icons-material/Home';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import SupportOutlinedIcon from '@mui/icons-material/SupportOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PinDropOutlinedIcon from '@mui/icons-material/PinDropOutlined';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
@@ -41,7 +42,6 @@ const Logo = styled(Link)`
   color: #f16122;
   font-size: 26px;
   letter-spacing: 2px;
-  text-decoration: none;
   font-weight: 800;
   margin-right: 20px;
 
@@ -81,13 +81,12 @@ const Address = styled.div`
 const SearchBarContainer = styled(Link)`
   display: flex;
   align-items: center;
-  text-decoration: none;
   background-color: #fff;
   border-radius: 16px;
   border: 1px solid rgb(239, 239, 239);
   padding: 6px;
   width: 100%;
-  height: 52px;
+  height: 48px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
 
   @media (width > 768px){
@@ -128,15 +127,10 @@ const NavItem = styled.div`
 const NavLink = styled(Link)`
   display: ${(props) => (props.open ? "none" : "flex")};
   align-items: center;
-  text-decoration: none;
   font-size: 0.8rem;
   font-weight: bold;
   letter-spacing: 1.6px;
   color: ${(props) => (props.sc==="true" ? "#9C9C9C" : "#222222")};
-
-  .material-symbols-outlined {
-    margin-right: 8px;
-  }
 `;
 
 const MobNav = styled.nav`
@@ -245,26 +239,26 @@ const handleProfileClick = () => {
         <Menu open={header === "Secure Checkout"}>
           <Item open={header === "Secure Checkout"}>
             <NavLink to="/search">
-              <span className="material-symbols-outlined">search</span>
-              Search
+              <SearchOutlinedIcon />
+              &nbsp;Search
             </NavLink>
           </Item>
           <Item>
             <NavLink onClick={() => {toggleOverlay('help')}}>
-              <span className="material-symbols-outlined">support</span>
-              Help
+              <SupportOutlinedIcon />
+              &nbsp;Help
             </NavLink>
           </Item>
           <Item>
             <NavLink onClick={handleProfileClick}>
-              <span className="material-symbols-outlined">person</span>
-              {name ? name : "Sign in"}
+              <PersonOutlineOutlinedIcon />
+              &nbsp;{name ? name : "Sign in"}
             </NavLink>
           </Item>
           <Item open={header === "Secure Checkout"}>
             <NavLink to="/checkout">
-              <span className="material-symbols-outlined">shopping_cart</span>
-              Cart
+              <ShoppingCartOutlinedIcon />
+              &nbsp;Cart
             </NavLink>
           </Item>
         </Menu>
@@ -294,7 +288,7 @@ const handleProfileClick = () => {
         <SearchBarContainer to="/search">
           <SearchOutlinedIcon className="search-icon"/>
           <input type="text" placeholder="Search your favourite food..." />
-          <span className="material-symbols-outlined page-info-icon">page_info</span>
+          <svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="-8 -968 976 976" width="36" style={{backgroundColor: '#f16122', padding: '6px', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><path d="M710-150q-63 0-106.5-43.5T560-300q0-63 43.5-106.5T710-450q63 0 106.5 43.5T860-300q0 63-43.5 106.5T710-150Zm0-80q29 0 49.5-20.5T780-300q0-29-20.5-49.5T710-370q-29 0-49.5 20.5T640-300q0 29 20.5 49.5T710-230Zm-550-30v-80h320v80H160Zm90-250q-63 0-106.5-43.5T100-660q0-63 43.5-106.5T250-810q63 0 106.5 43.5T400-660q0 63-43.5 106.5T250-510Zm0-80q29 0 49.5-20.5T320-660q0-29-20.5-49.5T250-730q-29 0-49.5 20.5T180-660q0 29 20.5 49.5T250-590Zm230-30v-80h320v80H480Zm230 320ZM250-660Z" fill="#fff"/></svg>
         </SearchBarContainer>
       </FlexContainer>
 
