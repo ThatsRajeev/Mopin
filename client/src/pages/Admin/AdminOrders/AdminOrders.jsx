@@ -4,9 +4,9 @@ import { fetchOrders } from "../../../store/ordersSlice";
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
-import "./AdminOrdersPage.css";
+import "./AdminOrders.css";
 
-const AdminOrdersPage = () => {
+const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedDates, setExpandedDates] = useState({});
@@ -148,4 +148,4 @@ const AdminOrdersPage = () => {
   );
 };
 
-export default AdminOrdersPage;
+export default AdminOrders;

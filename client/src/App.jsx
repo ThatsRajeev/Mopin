@@ -6,7 +6,7 @@ import SellerPage from "./pages/SellerPage/index";
 import Profile from "./pages/Profile/index";
 import Checkout from "./pages/Checkout/index";
 import OrderSuccessPage from "./pages/Checkout/OrderSuccessPage/OrderSuccessPage";
-import AdminOrdersPage from "./pages/Admin/AdminOrdersPage/AdminOrdersPage";
+import Admin from "./pages/Admin/index";
 import DataDeletion from "./components/DataDeletion/DataDeletion";
 import AboutUs from './legal/AboutUs';
 import ContactUs from './legal/ContactUs';
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
   },
   {
     path:"/admin",
-    element: <AdminOrdersPage />,
+    element: <Admin />,
   },
   {
     path: "/data-deletion",
