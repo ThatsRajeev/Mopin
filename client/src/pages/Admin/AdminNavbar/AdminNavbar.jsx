@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useSearchParams, useNavigate, Link } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
+import AdminOrders from "../AdminOrders/AdminOrders"
+import AdminProductList from "../AdminProductList/AdminProductList"
 import Overlay from "../../../components/Overlay/Overlay";
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
@@ -28,8 +30,8 @@ const GlobalNav = styled.nav`
   max-width: 1100px;
   background: rgb(242, 242, 242);
   border-radius: 0 0 28px 28px;
-  padding: 16px;
-  margin-bottom: 16px;
+  padding: 16px 32px;
+  margin-bottom: 32px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 
   @media (width > 768px){
@@ -43,60 +45,15 @@ const Logo = styled(Link)`
   font-size: 26px;
   letter-spacing: 2px;
   font-weight: 800;
-  margin-right: 20px;
 
   @media (width > 768px){
     display: flex;
   }
 `;
 
-const Heading = styled.h3`
-  position: absolute;
-  font-size: 18px;
-  transform: translateX(100%);
-`;
-
-const Address = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0;
-  white-space: nowrap;
-  max-width: 64vw;
-  margin: 0;
-  background-color: #f2f2f2;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  @media (width > 768px){
-    margin: unset;
-    max-width: 28vw;
-    background-color: unset;
-  }
-
-  @media (width > 1442px){
-    max-width: 18vw;
-  }
-`;
-
-const SearchBarContainer = styled(Link)`
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 16px;
-  border: 1px solid rgb(239, 239, 239);
-  padding: 6px;
-  width: 100%;
-  height: 48px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
-
-  @media (width > 768px){
-    display: none;
-  }
-`;
-
 const Menu = styled.ul`
   display: none;
-  width: 72%;
+  width: 78%;
   justify-content: space-between;
 
 
@@ -153,49 +110,19 @@ const MobNav = styled.nav`
   }
 `;
 
-const FlexContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-
-  input {
-    border: none;
-    flex: 1;
-    padding: 4px;
-  }
-`;
-
 function AdminNavbar({children}) {
-  const [navItem, setNavItem] = useState('Orders');
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [overlayParams, setOverlayParams] = useSearchParams();
+  const [navParams, setNavParams] = useSearchParams();
+
+  const setNav = (overlayType) => {
+    setNavParams(params => {
+      params.set("nav", overlayType);
+      return params;
+    });
+ };
 
   useEffect(() => {
-    const pathname = location.pathname;
-    const updatedNavItem =
-      pathname === "/menu"
-        ? "Menu"
-        : pathname === "/customers"
-        ? "Customers"
-        : pathname === "/settings"
-        ? "Settings"
-        : "Orders";
-    setNavItem(updatedNavItem);
-  }, [location.pathname]);
-
-  const toggleOverlay = (overlayType) => {
-   setOverlayParams((prev) => {
-     const isOpen = prev.get(overlayType) === "true";
-     if (isOpen) {
-       navigate(-1);
-     } else {
-       prev.set(overlayType, "true");
-     }
-     return prev;
-   });
- };
+    setNav('Orders')
+  }, []);
 
   return (
     <NavCase>
@@ -204,25 +131,25 @@ function AdminNavbar({children}) {
 
         <Menu>
           <Item>
-            <NavLink sc={navItem!=='Orders' ? "true" : "false"} to="/search">
+            <NavLink sc={navParams.get("nav")!=='Orders' ? "true" : "false"} onClick={() => setNav('Orders')}>
               <LunchDiningOutlinedIcon />
               &nbsp;Orders
             </NavLink>
           </Item>
           <Item>
-            <NavLink sc={navItem!=='Menu' ? "true" : "false"} onClick={() => {toggleOverlay('help')}}>
+            <NavLink sc={navParams.get("nav")!=='Menu' ? "true" : "false"} onClick={() => setNav('Menu')}>
               <MenuOutlinedIcon />
               &nbsp;Menu
             </NavLink>
           </Item>
           <Item>
-            <NavLink sc={navItem!=='Customers' ? "true" : "false"}>
+            <NavLink sc={navParams.get("nav")!=='Customers' ? "true" : "false"} onClick={() => setNav('Customers')}>
               <PersonOutlineOutlinedIcon />
               &nbsp;Customers
             </NavLink>
           </Item>
           <Item>
-            <NavLink sc={navItem!=='Settings' ? "true" : "false"} to="/checkout">
+            <NavLink sc={navParams.get("nav")!=='Settings' ? "true" : "false"} onClick={() => setNav('Settings')}>
               <SettingsOutlinedIcon />
               &nbsp;Settings
             </NavLink>
@@ -231,25 +158,25 @@ function AdminNavbar({children}) {
       </GlobalNav>
 
       <MobNav>
-        <NavLink sc={navItem!=='Orders' ? "true" : "false"} to="/">
+        <NavLink sc={navParams.get("nav")!=='Orders' ? "true" : "false"} onClick={() => setNav('Orders')}>
           <NavItem>
             <LunchDiningOutlinedIcon />
             Orders
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Menu' ? "true" : "false"} >
+        <NavLink sc={navParams.get("nav")!=='Menu' ? "true" : "false"} onClick={() => setNav('Menu')}>
           <NavItem>
             <MenuOutlinedIcon />
             Menu
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Customers' ? "true" : "false"} to="/search">
+        <NavLink sc={navParams.get("nav")!=='Customers' ? "true" : "false"} onClick={() => setNav('Customers')}>
           <NavItem>
             <PersonOutlineOutlinedIcon />
             Customers
           </NavItem>
         </NavLink>
-        <NavLink sc={navItem!=='Settings' ? "true" : "false"} to="/checkout">
+        <NavLink sc={navParams.get("nav")!=='Settings' ? "true" : "false"} onClick={() => setNav('Settings')}>
           <NavItem>
             <SettingsOutlinedIcon />
             Settings
@@ -257,7 +184,14 @@ function AdminNavbar({children}) {
         </NavLink>
       </MobNav>
 
-      {children}
+      {navParams.get("nav") === 'Orders' ? (
+        <AdminOrders />
+        ) : (
+          navParams.get("nav") === 'Menu' ? (
+            <AdminProductList />
+          ) : ""
+        )
+      }
     </NavCase>
   );
 }
