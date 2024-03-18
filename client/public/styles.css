@@ -58,17 +58,6 @@ input[type="checkbox"]:checked {
   accent-color: #349E46;
 }
 
-label {
-  color: rgb(150, 150, 150);
-  font-size: 14px;
-  font-weight: normal;
-  position: absolute;
-  pointer-events: none;
-  left: 5px;
-  top: 10px;
-  transition: 300ms ease all;
-}
-
 a, a:visited, a:hover, a:active {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
