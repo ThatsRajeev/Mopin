@@ -450,6 +450,13 @@ hr {
   margin-top: 16px;
 }
 
+.circularProgress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
 .pc-view {
   display: none !important;;
 

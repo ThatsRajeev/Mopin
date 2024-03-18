@@ -15,6 +15,7 @@ const userAuthContext = createContext();
 
 export const UserAuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
 
   function setUpRecaptha(number) {
     return new Promise(async (resolve, reject) => {
@@ -44,8 +45,8 @@ export const UserAuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-      console.log("Auth", currentuser);
       setUser(currentuser);
+      setIsLoadingUser(false);
     });
     return () => {
       unsubscribe();
@@ -54,7 +55,7 @@ export const UserAuthContextProvider = ({ children }) => {
 
   return (
     <userAuthContext.Provider
-      value={{ logOut, setUpRecaptha, user }}
+      value={{ logOut, setUpRecaptha, user, isLoadingUser }}
     >
       {children}
     </userAuthContext.Provider>

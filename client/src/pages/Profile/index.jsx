@@ -11,9 +11,10 @@ import ManageAddressContent from "../../components/ManageAddressContent/ManageAd
 import HelpAndSupport from "./HelpAndSupport/HelpAndSupport";
 import SubscriptionsContent from "./SubscriptionsContent/SubscriptionsContent";
 import LogoutContent from "../../components/LogoutContent/LogoutContent";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Profile = () => {
-  const { user } = useUserAuth();
+  const { user, isLoadingUser } = useUserAuth();
   const [overlayParams, setOverlayParams] = useSearchParams();
   const windowWidth = useWindowResize();
   const navigate = useNavigate();
@@ -49,21 +50,29 @@ const Profile = () => {
   }, []);
 
   return (
-    user && Object.keys(user).length !== 0 ? (
-      <>
-        <Navbar showAddress="none"/>
-        <ProfileMenu
-          menuItems={menuItems}
-          active={overlayParams.get("p")}
-          setActive={setOverlayParams}
-          renderContent={renderContent}
-        />
-      </>
-    ) : (
-      <Overlay>
-        <Login setShowProp={() => navigate(-1)}/>
-      </Overlay>
-    )
+    <>
+      {isLoadingUser ? (
+        <div className="circularProgress">
+          <CircularProgress />
+        </div>
+      ) : (
+        user && Object.keys(user).length !== 0 ? (
+          <>
+            <Navbar showAddress="none"/>
+            <ProfileMenu
+              menuItems={menuItems}
+              active={overlayParams.get("p")}
+              setActive={setOverlayParams}
+              renderContent={renderContent}
+            />
+          </>
+        ) : (
+          <Overlay>
+            <Login setShowProp={() => navigate(-1)}/>
+          </Overlay>
+        )
+      )}
+    </>
   )
 }
 
