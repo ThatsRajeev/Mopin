@@ -11,24 +11,24 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const NavCase = styled.header`
   display: block;
-  background-color: #f2f2f2;
   padding: 0 16px;
 
   @media (width > 768px){
-    background-color: #fff;
     padding: 0 14px;
   }
 `;
 
 const GlobalNav = styled.nav`
   display: none;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   align-items: center;
   height: 80px;
   margin: 0 auto;
   justify-content: space-between;
-  max-width: 1100px;
-  background: rgb(242, 242, 242);
+  max-width: 1164px;
+  background: #fff;
   border-radius: 0 0 28px 28px;
   padding: 16px 32px;
   margin-bottom: 32px;
@@ -121,7 +121,10 @@ function AdminNavbar({children}) {
  };
 
   useEffect(() => {
-    setNav('Orders')
+    setNavParams(params => {
+      params.set("nav", navParams.get("nav") || 'Orders');
+      return params;
+    });
   }, []);
 
   return (
