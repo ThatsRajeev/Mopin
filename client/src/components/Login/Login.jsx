@@ -177,7 +177,7 @@ function Login({ setShowProp }) {
           {showOtp ? (
             <>
               <MuiOtpInput display="flex" gap={1.6} TextFieldsProps={{size: 'small'}} autoFocus value={otp} onChange={setOtp}
-                sx={{marginBottom: '16px'}} fullWidth validateChar={(value) => {return /^\d$/.test(value) ? value : ""}} length={6}/>
+                sx={{marginBottom: '16px'}} fullWidth type="numeric" validateChar={(value) => {return /^\d$/.test(value) ? value : ""}} length={6}/>
 
               {resendTimer > 0 ? (
                 <p className="resend-p">Didn't recieve code? Resend OTP after <b>{resendTimer} seconds</b></p>

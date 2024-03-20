@@ -6,6 +6,7 @@ import Overlay from "../Overlay/Overlay";
 import MapComponent from "../MapComponent/MapComponent";
 import fetchAddress from "../../utils/fetchAddress";
 
+import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -105,8 +106,8 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
                 <div className="delete-container">
                   <h3 className="delete-heading">Are you sure you want to delete? </h3>
                   <div>
-                    <button className="delete" onClick={deleteAddress}>Yes</button>
-                    <button className="cancel" onClick={() => toggleOverlay('delete')}>Cancel</button>
+                    <Button variant="outlined" color="secondary" onClick={deleteAddress} sx={{marginRight: '28px', padding: '8px 32px'}}>Yes</Button>
+                    <Button variant="contained" color="secondary" onClick={() => toggleOverlay('delete')} sx={{padding: '8px 32px'}}>Cancel</Button>
                   </div>
                 </div>
               </Overlay>
