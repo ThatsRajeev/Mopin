@@ -1,27 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 import woman from "../../../assets/woman.png";
 import "./SellerDetailsSection.css";
 
 const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes }) => {
   const navigate = useNavigate();
   const [isSticky, setSticky] = useState(false);
+  const backFavBtnDivRef = useRef(null);
+  const backFavBtnWrapperRef = useRef(null);
+  const imageRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const backFavBtnWrapper = document.querySelector(".backFavBtn-wrapper");
-      const backFavBtnDiv = document.querySelector(".backFavBtn-div");
-
       const isSticky = scrollPosition > 180;
       setSticky(isSticky);
 
-      backFavBtnDiv.classList.toggle("backFavBtn-div-sticky", isSticky);
-      backFavBtnWrapper.classList.toggle("backFavBtn-wrapper-unfixed", isSticky);
+      if (backFavBtnDivRef.current && backFavBtnWrapperRef.current) {
+        backFavBtnDivRef.current.classList.toggle("backFavBtn-div-sticky", isSticky);
+        backFavBtnWrapperRef.current.classList.toggle("backFavBtn-wrapper-unfixed", isSticky);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -33,19 +36,15 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
 
   useEffect(() => {
     const handleScroll = () => {
-      const images = document.querySelectorAll(".anim-food-img");
       const scrollPosition = window.scrollY;
-      const maxRotation = 2;
-
-      let rotation = (scrollPosition / window.innerHeight) * maxRotation;
-      if (window.oldScrollY > scrollPosition) {
-          rotation *= -1;
+      const maxRotation = 20;
+      let rotation = (scrollPosition / 10) % 360;
+      if (rotation > 180) {
+        rotation -= 360; 
       }
-      window.oldScrollY = scrollPosition;
-
-      images.forEach((image) => {
-        image.style.transform = `$translateY(-50%) rotate(${rotation}deg)`;
-      });
+      if (imageRef.current) {
+        imageRef.current.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -88,18 +87,18 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
         <span className="bottom-bar"></span>
       </div>
       <div className="seller-div-mobile mob-view">
-        <div className="backFavBtn-wrapper">
-          <div className="backFavBtn-div">
+        <div ref={backFavBtnWrapperRef} className="backFavBtn-wrapper">
+          <div ref={backFavBtnDivRef} className="backFavBtn-div">
             <ArrowBackIosIcon onClick={() => navigate(-1)} sx={{color: isSticky ? "#222222" : "#fff"}}></ArrowBackIosIcon>
             <div>
               <div>{sellerDetails.name}</div>
               <div>{sellerDetails.foodType}</div>
             </div>
-            <FavoriteBorderIcon sx={{color: isSticky ? "#222222" : "#fff"}}></FavoriteBorderIcon>
+            <Checkbox icon={<FavoriteBorder sx={{color: isSticky ? "#222222" : "#fff"}}/>} checkedIcon={<Favorite sx={{color: isSticky ? "#f16122" : "#fff"}}/>} />
           </div>
         </div>
         <div className="seller-details-wrapper">
-          <img className="anim-food-img" src={sellerDetails.imgURL} alt="food-img" />
+          <img ref={imageRef} className="anim-food-img" src={sellerDetails.imgURL} alt="food-img" />
           <div>
             <h1> {sellerDetails.name} </h1>
             <p>{sellerDetails.foodType}</p>

@@ -71,7 +71,7 @@ const ProfileMenu = ({ menuItems, active, setActive, renderContent }) => {
           active && (
             <Overlay>
               <div className="profile-head" onClick={closeOverlay}>
-                <ArrowBackIosNewOutlinedIcon/>
+                <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px'}}/>
                 <p>{active}</p>
               </div>
               {renderContent()}

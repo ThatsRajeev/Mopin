@@ -5,7 +5,9 @@ import { useUserAuth } from "../../context/AuthContext";
 import Overlay from "../Overlay/Overlay";
 import MapComponent from "../MapComponent/MapComponent";
 import fetchAddress from "../../utils/fetchAddress";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import HomeIcon from '@mui/icons-material/Home';
 import ApartmentIcon from '@mui/icons-material/Apartment';
@@ -65,7 +67,9 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
   return (
     <div className="component address-comp">
       <div className="new-address-div addresses" onClick={() => {toggleOverlay('map')}}>
-        <AddCircleOutlineIcon sx={{marginRight: '8px'}}/>
+        <Fab size="medium"  aria-label="add"  sx={{marginRight: '12px'}}>
+        <AddIcon />
+      </Fab>
         <h3> Add New Address </h3>
       </div>
 
@@ -89,8 +93,12 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
           </div>
           <p onClick={() => setAddressChoosen && setAddressChoosen(true)}>{address}</p>
           <div className="modify-div">
-            <button onClick={() => {toggleOverlay('map')}}><EditOutlinedIcon sx={{color: "#f16122"}}/></button>
-            <button onClick={() => {toggleOverlay('delete')}}><DeleteOutlineIcon sx={{color: "#f16122"}}/></button>
+            <Fab size="small"  aria-label="edit"  sx={{marginRight: '12px'}}>
+              <EditOutlinedIcon onClick={() => {toggleOverlay('map')}} sx={{color: "#f16122"}}/>
+            </Fab>
+            <Fab size="small"  aria-label="delete"  sx={{marginRight: '12px'}}>
+              <DeleteOutlineIcon onClick={() => {toggleOverlay('delete')}} sx={{color: "#f16122"}}/>
+            </Fab>
 
             {overlayParams.get("delete") && (
               <Overlay unsetDims="true">

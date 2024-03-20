@@ -50,7 +50,7 @@
   justify-content: space-between;
   align-items: center;
   text-align: left;
-  padding: 3.6%;
+  padding: 2% 16px;
   z-index: 1000;
 
   >div {
