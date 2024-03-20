@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { getDayOfTheWeek } from "../../../utils/getFilteredDishes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import "./OrderSummary.css"
 
 const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
@@ -66,7 +69,7 @@ const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
   return (
     <div className="order-summary">
       <div className="cart-div">
-        <span className="material-symbols-outlined" onClick={() => navigate(-1)}>arrow_back_ios</span>
+      <ArrowBackIosNewOutlinedIcon onClick={() => navigate(-1)} sx={{marginRight: '8px'}}/>
         Cart
       </div>
 
@@ -74,7 +77,7 @@ const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
         <div key={index} className={`seller-section subs-section ${index === 0 ? 'first-seller' : ''}`}>
           <h1>{seller}</h1>
           <button className="remove-subs" onClick={() => {dispatch(removeSubscription({ sellerName: seller }))}}>
-            <span className="material-symbols-outlined">delete</span>
+            <DeleteOutlinedIcon/>
           </button>
 
           <h4 className="subs-head subs-head-first-child">Meals:</h4>
@@ -207,7 +210,7 @@ const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
         <h4>Apply Coupon</h4>
         <div>
           <p>Explore available offers</p>
-          <span className="material-symbols-outlined">chevron_right</span>
+          <ChevronRightOutlinedIcon/>
         </div>
       </div>
       <div className="ready-checkout">

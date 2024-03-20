@@ -5,6 +5,7 @@ import LocateMePrompt from "../../components/LocateMePrompt/LocateMePrompt";
 import Navbar from "../../components/Navbar/Navbar";
 import homecooks from "../../data/homecooks";
 import { styled } from "@mui/system";
+import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
 import "leaflet/dist/leaflet.css";
 
 const Hero = lazy(() => import("./Hero/Hero"));
@@ -56,10 +57,6 @@ const SeeAllButton = styled('button')({
   borderRadius: "6px",
   height: "100%",
   cursor: "pointer",
-
-  "& .material-symbols-outlined": {
-    margin: "0 -8px 0 4px",
-  }
 });
 
 const FoodCategoryContainer = styled('div')({
@@ -170,9 +167,7 @@ function Homepage() {
                 <CardHeader>Added Afresh</CardHeader>
                 <SeeAllButton>
                   See All Recently Added
-                  <span className="material-symbols-outlined">
-                    navigate_next
-                  </span>
+                  <NavigateNextOutlinedIcon sx={{margin: '0 -8px 0 4px'}}/>
                 </SeeAllButton>
               </HeaderContainer>
 
@@ -194,24 +189,22 @@ function Homepage() {
               </div>
 
                 <HeaderContainer>
-                  <CardHeader>
-                    Most Loved near you
-                  </CardHeader>
-                  <span className="material-symbols-outlined">
-                    navigate_next
-                  </span>
+                  <CardHeader>Most Loved near you</CardHeader>
+                  <SeeAllButton>
+                    See All Mostly Loved
+                    <NavigateNextOutlinedIcon sx={{margin: '0 -8px 0 4px'}}/>
+                  </SeeAllButton>
                 </HeaderContainer>
 
               <FoodSlider func={rated} />
               <hr />
 
                 <HeaderContainer>
-                  <CardHeader>
-                    Healthy Picks
-                  </CardHeader>
-                  <span className="material-symbols-outlined">
-                    navigate_next
-                  </span>
+                  <CardHeader>Healthy Picks</CardHeader>
+                  <SeeAllButton>
+                    See All Healthy Picks
+                    <NavigateNextOutlinedIcon sx={{margin: '0 -8px 0 4px'}}/>
+                  </SeeAllButton>
                 </HeaderContainer>
 
               <FoodSlider func={healthy} />

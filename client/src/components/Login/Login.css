@@ -41,7 +41,8 @@
 }
 
 .active-text {
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: 24px;
   margin-bottom: 8px;
   font-weight: 600;
@@ -54,11 +55,6 @@
 
 .otp-text {
   margin-bottom: 16px;
-}
-
-.clear-otp-icon {
-  margin-right: 8px;
-  cursor: pointer;
 }
 
 .form-group:first-child {
@@ -95,29 +91,6 @@
 }
 
 .loader-img { margin-left: 6px; }
-
-.submit-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #F16122;
-  border-radius: 12px;
-  font-size: 16px;
-  color: #fff;
-  padding: 12px;
-  width: 100%;
-  border: none;
-  cursor: pointer;
-
-  @media (width > 768px) {
-    padding: 8px;
-  }
-}
-
-.submit-btn:disabled {
-  background-color: #c0c0c9;
-  cursor: default;
-}
 
 .login-tc {
   margin-top: 14px;
@@ -175,4 +148,26 @@
   display: flex;
   position: fixed;
   bottom: 24px;
+}
+
+.back-button-div {
+  position: fixed;
+  z-index: 1000;
+  top: 3%;
+  left: 2%;
+  cursor: pointer;
+}
+
+.back-button {
+  display: flex;
+  border-radius: 50%;
+  border: none;
+  padding: 8px;
+  background-color: #fff;
+  z-index: 2000;
+  top: 8px;
+  left: 8px;
+  cursor: pointer;
+  border: 0.125rem solid rgb(229, 231, 236);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 4px 0px;
 }

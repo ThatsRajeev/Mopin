@@ -75,43 +75,6 @@ hr {
     background: #b43e0d;
 }
 
-
-.material-symbols-outlined {
-  font-size: 20px;
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 800,
-  'GRAD' 0,
-  'opsz' 48
-}
-
-.back-button-div {
-  position: fixed;
-  z-index: 1000;
-  top: 3%;
-  left: 2%;
-  cursor: pointer;
-}
-
-.back-button {
-  display: flex;
-  border-radius: 50%;
-  border: none;
-  padding: 8px;
-  background-color: #fff;
-  position: fixed;
-  z-index: 2000;
-  top: 8px;
-  left: 8px;
-  cursor: pointer;
-  border: 0.125rem solid rgb(229, 231, 236);
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 4px 0px;
-}
-
-.back-button-icon {
-  font-size: 16px;
-}
-
 .component {
   display: flex;
   flex-direction: column;

@@ -63,7 +63,7 @@ const MyOrdersContent = () => {
                 alt="Default"
               />
               <h2 className="coming-soon">You don't have any orders!</h2>
-              <Button variant="contained" size="large">Explore Dishes</Button>
+              <Button variant="contained" size="large" sx={{marginTop: '16px'}}>Explore Dishes</Button>
             </>
           ) : (
             <ul>

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import PhoneInput from "react-phone-number-input";
 import axios from "axios";
+import Button from '@mui/material/Button';
 import "./HelpAndSupport.css";
 
 function HelpAndSupport({setShowProp}) {
@@ -74,7 +75,7 @@ function HelpAndSupport({setShowProp}) {
               </div>
             </div>
 
-            <button type="submit" className="submit-btn">Submit</button>
+            <Button type="submit" variant="contained" disabled={!name || !phone || !subject || !message} fullWidth>Submit</Button>
 
           </form>
         </>

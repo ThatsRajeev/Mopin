@@ -7,10 +7,6 @@
   display: flex;
   margin-top: 8px;
   font-size: 16px;
-
-  .material-symbols-outlined {
-    margin-right: 16px;
-  }
 }
 
 .address-container {
@@ -27,11 +23,6 @@
   display: flex;
   width: 100%;
   align-items: center;
-
-  .material-symbols-outlined {
-    margin-right: 4px;
-    opacity: 64%;
-  }
 }
 
 .address-input {
@@ -54,11 +45,6 @@
   height: max-content;
   cursor: pointer;
   margin-right: 12px;
-
-  .material-symbols-outlined {
-    font-size: 16px;
-    margin: 0;
-  }
 }
 
 .list-div {

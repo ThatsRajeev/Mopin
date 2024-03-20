@@ -4,6 +4,7 @@ import Overlay from "../../../components/Overlay/Overlay";
 import { SearchResult } from "../../../components/Search/Search";
 import { getDayOfTheWeek } from "../../../utils/getFilteredDishes";
 import homecooks from "../../../data/homecooks";
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import "./MealtimeFilter.css";
 
 import breakfast from "../../../assets/breakfast.svg";
@@ -119,7 +120,7 @@ const MealtimeFilter = () => {
       {searchParams.get('breakfast') && (
         <Overlay>
           <div className="profile-head" onClick={() => toggleOverlay('breakfast')}>
-            <span className="material-symbols-outlined">arrow_back</span>
+            <ArrowBackIosNewOutlinedIcon/>
             <p>Breakfast</p>
           </div>
           <SearchResult
@@ -134,7 +135,7 @@ const MealtimeFilter = () => {
       {searchParams.get('lunch') && (
         <Overlay>
           <div className="profile-head" onClick={() => toggleOverlay('lunch')}>
-            <span className="material-symbols-outlined">arrow_back</span>
+            <ArrowBackIosNewOutlinedIcon/>
             <p>Lunch</p>
           </div>
           <SearchResult
@@ -149,7 +150,7 @@ const MealtimeFilter = () => {
       {searchParams.get('dinner') && (
         <Overlay>
           <div className="profile-head" onClick={() => toggleOverlay('dinner')}>
-            <span className="material-symbols-outlined">arrow_back</span>
+            <ArrowBackIosNewOutlinedIcon/>
             <p>Dinner</p>
           </div>
           <SearchResult

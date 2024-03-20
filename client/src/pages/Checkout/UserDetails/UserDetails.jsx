@@ -11,6 +11,9 @@ import Login from "../../../components/Login/Login";
 import ManageAddressContent from '../../../components/ManageAddressContent/ManageAddressContent';
 import LogoutContent from "../../../components/LogoutContent/LogoutContent";
 import loader from "../../../assets/loader.svg";
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import "./UserDetails.css";
 
 const UserDetails = ({ dishes, subscriptions, costDetails }) => {
@@ -79,7 +82,7 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
         <div className="user-details-div">
           <div className="details-head">
             <div className="checkout-logo-div">
-              <span className="material-symbols-outlined">person</span>
+              <PersonOutlineOutlinedIcon />
             </div>
             {name ? "Logged In" : <div className="login-insist">Login / Sign Up</div>}
           </div>
@@ -108,7 +111,7 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
         <div className="user-details-div">
           <div className="details-head">
             <div className="checkout-logo-div">
-              <span className="material-symbols-outlined">location_on</span>
+              <LocationOnOutlinedIcon/>
             </div>
             {addressChoosen ? "Delivery Address" : <div className="login-insist">Choose Delivery Address</div>}
           </div>
@@ -133,7 +136,7 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
         <div className="user-details-div">
           <div className="details-head">
             <div className="checkout-logo-div">
-              <span className="material-symbols-outlined">account_balance_wallet</span>
+              <AccountBalanceWalletOutlinedIcon/>
             </div>
             <div className="login-insist">Choose Payment Method</div>
           </div>

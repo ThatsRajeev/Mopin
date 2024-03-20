@@ -5,6 +5,13 @@ import { useUserAuth } from "../../context/AuthContext";
 import Overlay from "../Overlay/Overlay";
 import MapComponent from "../MapComponent/MapComponent";
 import fetchAddress from "../../utils/fetchAddress";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import HomeIcon from '@mui/icons-material/Home';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import "./ManageAddressContent.css"
 
 const ManageAddressContent = ({ setAddressChoosen }) => {
@@ -58,14 +65,14 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
   return (
     <div className="component address-comp">
       <div className="new-address-div addresses" onClick={() => {toggleOverlay('map')}}>
-        <span className="material-symbols-outlined address-icon ">add_circle</span>
+        <AddCircleOutlineIcon sx={{marginRight: '8px'}}/>
         <h3> Add New Address </h3>
       </div>
 
       {overlayParams.get("map") && (
         <Overlay>
           <div className="profile-head mob-view" onClick={() => toggleOverlay('map')}>
-            <span className="material-symbols-outlined">arrow_back</span>
+            <ArrowBackIosIcon/>
             <p> Edit Address </p>
           </div>
           <MapComponent setShowMap={() => {toggleOverlay('map')}} />
@@ -75,17 +82,15 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
       {address !== "" && (
         <div className="saved-address addresses">
           <div className="address-type-div">
-            <span className="material-symbols-outlined address-icon">
-              {addressType === "Home" ? "home" :
-              addressType === "Office" ? "apartment" :
-              addressType === "Others" ? "person_pin_circle" : ""}
-            </span>
-            <p>{addressType}</p>
+            {addressType === "Home" ? <HomeIcon/> :
+            addressType === "Office" ? <ApartmentIcon/> :
+            addressType === "Others" ? <PersonPinCircleIcon/> : ""}
+            <p style={{marginLeft: '8px'}}>{addressType}</p>
           </div>
           <p onClick={() => setAddressChoosen && setAddressChoosen(true)}>{address}</p>
           <div className="modify-div">
-            <button onClick={() => {toggleOverlay('map')}}><span className="material-symbols-outlined type-icon">edit</span></button>
-            <button onClick={() => {toggleOverlay('delete')}}><span className="material-symbols-outlined type-icon">delete</span></button>
+            <button onClick={() => {toggleOverlay('map')}}><EditOutlinedIcon sx={{color: "#f16122"}}/></button>
+            <button onClick={() => {toggleOverlay('delete')}}><DeleteOutlineIcon sx={{color: "#f16122"}}/></button>
 
             {overlayParams.get("delete") && (
               <Overlay unsetDims="true">

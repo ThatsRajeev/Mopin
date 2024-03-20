@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import axios from "axios";
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import L from "leaflet";
@@ -8,6 +9,7 @@ import { useUserAuth } from "../../context/AuthContext";
 import handleGeolocation from "../../utils/handleGeolocation";
 import { TextField, Button } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MyLocationOutlinedIcon from '@mui/icons-material/MyLocationOutlined';
 import "./MapComponent.css"
 
 function DraggableMarker({ setAddressInfo, setCurrentLocation, setLoading }) {
@@ -49,7 +51,11 @@ function LocationButton({getCurrentLocation}) {
 
     locationControl.onAdd = function () {
       const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom location-button');
-      container.innerHTML = '<span class="material-symbols-outlined">my_location</span>';
+
+      const iconContainer = document.createElement('div');
+      iconContainer.style.display = 'flex';
+      ReactDOM.render(<MyLocationOutlinedIcon />, iconContainer);
+      container.appendChild(iconContainer);
 
       container.onclick = function(){
         navigator.geolocation.getCurrentPosition((position) => {

@@ -8,6 +8,8 @@ import CartContainer from "../../pages/SellerPage/CartContainer/CartContainer";
 import { getDayOfTheWeek } from "../../utils/getFilteredDishes";
 import homecooks from "../../data/homecooks";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import "./Search.css";
 
 export const SearchResult = ({ result, loading }) => {
@@ -66,7 +68,7 @@ export const SearchResult = ({ result, loading }) => {
                         </div>
                       </div>
                       <Link to={`/sellers/${dish.homecookName}`}>
-                        <span className="material-symbols-outlined to-homechef">arrow_forward</span>
+                        <ArrowForwardOutlinedIcon sx={{color: '#222222'}}/>
                       </Link>
                     </div>
                     <hr />
@@ -216,7 +218,7 @@ const Search = () => {
             value={searchParams.get("q") || ""} onChange={handleSearchInput}/>
             {searchParams.get("q") && (
               <button className="clear-button" onClick={handleClearInput}>
-                <span className="material-symbols-outlined">close</span>
+                <CloseOutlinedIcon sx={{fontSize: '16px'}}/>
               </button>
             )}
             <svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="-8 -968 976 976" width="36" style={{backgroundColor: '#F16122', padding: '6px', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><path d="M710-150q-63 0-106.5-43.5T560-300q0-63 43.5-106.5T710-450q63 0 106.5 43.5T860-300q0 63-43.5 106.5T710-150Zm0-80q29 0 49.5-20.5T780-300q0-29-20.5-49.5T710-370q-29 0-49.5 20.5T640-300q0 29 20.5 49.5T710-230Zm-550-30v-80h320v80H160Zm90-250q-63 0-106.5-43.5T100-660q0-63 43.5-106.5T250-810q63 0 106.5 43.5T400-660q0 63-43.5 106.5T250-510Zm0-80q29 0 49.5-20.5T320-660q0-29-20.5-49.5T250-730q-29 0-49.5 20.5T180-660q0 29 20.5 49.5T250-590Zm230-30v-80h320v80H480Zm230 320ZM250-660Z" fill="#fff"/></svg>

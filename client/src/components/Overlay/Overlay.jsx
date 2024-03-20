@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import "./Overlay.css";
 
 const Overlay = ({ children, unsetDims }) => {
@@ -16,7 +17,7 @@ const Overlay = ({ children, unsetDims }) => {
     <div className="overlay-container" onClick={closeOverlay}>
       <div className="overlay-content" style={overlayStyles} onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={closeOverlay}>
-          <span className="material-symbols-outlined">close</span>
+          <CloseOutlinedIcon />
         </button>
         {children}
       </div>

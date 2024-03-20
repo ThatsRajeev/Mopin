@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders } from "../../../store/ordersSlice";
 import axios from 'axios';
 import Skeleton from '@mui/material/Skeleton';
+import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import "./AdminOrders.css";
 
 const AdminOrders = () => {
@@ -134,7 +135,7 @@ const AdminOrders = () => {
                             ))
                           )}
                         <button className="copy-btn" onClick={() => {copyOrderDetailsToClipboard(customers)}}>
-                          <span className="material-symbols-outlined">content_copy</span>
+                          <ContentCopyOutlinedIcon/>
                         </button>
                         </div>
                       </div>

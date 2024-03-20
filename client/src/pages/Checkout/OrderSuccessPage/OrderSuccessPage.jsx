@@ -13,6 +13,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import Button from '@mui/material/Button';
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import './OrderSuccessPage.css';
 
@@ -60,7 +61,7 @@ function OrderSuccessPage() {
     <>
     <Navbar header="Order Tracking" showAddress="none" showNavbar = {windowWidth < 768 ? "none" : ""}/>
     <div className="profile-head mob-view">
-      <span className="material-symbols-outlined" onClick={() => navigate('/')}>arrow_back</span>
+      <ArrowBackIosNewOutlinedIcon  onClick={() => navigate('/')}/>
       <p>Order Tracking</p>
     </div>
     <Grid container justifyContent="center" alignItems="center" className="order-success-container">

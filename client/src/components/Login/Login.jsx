@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import Button from '@mui/material/Button';
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import OtpInput from "react-otp-input";
@@ -6,6 +7,7 @@ import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import loader from "../../assets/loader.svg";
 import { useUserAuth } from "../../context/AuthContext";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import "./Login.css";
 
 function Login({ setShowProp }) {
@@ -152,8 +154,7 @@ function Login({ setShowProp }) {
       />
       <div className="back-button-div mob-view">
         <button className="back-button">
-          <span className="material-symbols-outlined back-button-icon"
-          onClick={() => setShowProp('login')}>arrow_back_ios</span>
+          <ArrowBackIosIcon onClick={() => setShowProp('login')} sx={{fontSize: '16px'}}/>
         </button>
       </div>
       <div className="login-img"></div>
@@ -161,8 +162,7 @@ function Login({ setShowProp }) {
         {showOtp ? (
           <p className="otp-text">
             <div className="active-text">
-              <span className="material-symbols-outlined clear-otp-icon"
-              onClick={(event) => setShowOtp(false)}>arrow_back_ios</span>
+              <ArrowBackIosIcon onClick={(event) => setShowOtp(false)} sx={{marginRight: '8px'}}/>
               Enter OTP
             </div>
             We've sent an OTP to your phone number.
@@ -225,11 +225,11 @@ function Login({ setShowProp }) {
             </>
           )}
 
-          <button name="submit" className="submit-btn" id="sign-in-button"
+          <Button fullWidth size="large" variant="contained" id="sign-in-button"
            onClick={showOtp ? "" : handleSubmit} disabled={showOtp && otp.length !== 6}>
              {isSignUp ? "Sign Me Up" : "Login With OTP"}
              {loading && <img className="loader-img" src={loader} alt="load-img" />}
-          </button>
+           </Button>
         </form>
         <p className="login-tc" >By {isSignUp ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
       </div>

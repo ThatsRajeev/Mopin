@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import "./Testimonials.css"
 
 // Import Swiper React components
@@ -148,7 +149,7 @@ const Testimonials = () => {
         ))}
       </Swiper>
 
-      <span className="material-symbols-outlined">arrow_left</span>
+      <ArrowBackIosNewOutlinedIcon/>
 
       <div className={`testimonial-image-container container-animation ${animate ? 'play' : ''}`}>
         <div className={`animation-div top ${animate ? 'play' : ''}`}>

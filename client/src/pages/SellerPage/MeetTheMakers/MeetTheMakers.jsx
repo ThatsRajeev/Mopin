@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import makers from "../../../data/makers";
 import Overlay from "../../../components/Overlay/Overlay";
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import "./MeetTheMakers.css";
 
 const MeetTheMakers = ({ sellerDetails }) => {
@@ -46,7 +47,7 @@ const MeetTheMakers = ({ sellerDetails }) => {
         <Overlay>
           <div className="makerOverlay-container">
             <div className="search-heading mob-view">
-              <span className="material-symbols-outlined" onClick={toggleOverlay}>arrow_back</span>
+              <ArrowBackIosNewOutlinedIcon onClick={toggleOverlay}/>
               <p>Meet the Maker</p>
             </div>
             <img className="makerOverlay-img" src={makers[randomIndex].imgURL} alt="makers-img" />

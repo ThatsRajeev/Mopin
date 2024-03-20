@@ -11,7 +11,13 @@ import ManageAddressContent from "../../components/ManageAddressContent/ManageAd
 import HelpAndSupport from "./HelpAndSupport/HelpAndSupport";
 import SubscriptionsContent from "./SubscriptionsContent/SubscriptionsContent";
 import LogoutContent from "../../components/LogoutContent/LogoutContent";
+
 import CircularProgress from '@mui/material/CircularProgress';
+import LocalDiningOutlinedIcon from '@mui/icons-material/LocalDiningOutlined';
+import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined';
+import SupportOutlinedIcon from '@mui/icons-material/SupportOutlined';
+import CardMembershipOutlinedIcon from '@mui/icons-material/CardMembershipOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 const Profile = () => {
   const { user, isLoadingUser } = useUserAuth();
@@ -20,11 +26,11 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const menuItems = [
-    { label: "My Orders", icon: "local_dining" },
-    { label: "Manage Address", icon: "edit_location" },
-    { label: "Help & Support", icon: "support" },
-    { label: "Subscriptions", icon: "card_membership" },
-    { label: "Logout", icon: "logout" },
+    { label: "My Orders", icon: <LocalDiningOutlinedIcon/> },
+    { label: "Manage Address", icon: <EditLocationOutlinedIcon/> },
+    { label: "Help & Support", icon: <SupportOutlinedIcon/> },
+    { label: "Subscriptions", icon: <CardMembershipOutlinedIcon/> },
+    { label: "Logout", icon: <LogoutOutlinedIcon/> },
   ];
 
   const renderContent = () => {

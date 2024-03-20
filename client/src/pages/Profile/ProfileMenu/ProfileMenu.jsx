@@ -4,6 +4,9 @@ import Overlay from "../../../components/Overlay/Overlay";
 import fetchUserData from "../../../utils/fetchUserData";
 import { useUserAuth } from "../../../context/AuthContext";
 import useWindowResize from "../../../hooks/useWindowResize";
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
+import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import "./ProfileMenu.css"
 
 const ProfileMenu = ({ menuItems, active, setActive, renderContent }) => {
@@ -34,12 +37,12 @@ const ProfileMenu = ({ menuItems, active, setActive, renderContent }) => {
       <div className={`li-subdiv ${active === menuItem.label ? "active-nav" : ""}`}>
         <div className={`line-style ${active === menuItem.label ? "active-div" : ""}`}></div>
         <div className={`userInfo-icon ${active === menuItem.label ? "active-icon-div" : ""}`}>
-          <span className={`material-symbols-outlined profile-icon ${active === menuItem.label ? "active-icon" : ""}`}>
+          <span className={`profile-icon ${active === menuItem.label ? "active-icon" : ""}`}>
             {menuItem.icon}
           </span>
         </div>
         <li className="profile-list">{menuItem.label}</li>
-        <span className="material-symbols-outlined arrow-right mob-view">chevron_right</span>
+        <span className="arrow-right mob-view"><ChevronRightOutlinedIcon/></span>
       </div>
     </div>
   );
@@ -49,7 +52,7 @@ const ProfileMenu = ({ menuItems, active, setActive, renderContent }) => {
       <div className="profile-div">
         <div className="profile-subdiv">
           <div className="user-info">
-            <span className="material-symbols-outlined user-icon">person</span>
+            <div className="user-icon"> <PersonOutlineOutlinedIcon sx={{fontSize: '36px'}}/></div>
             <div>
               <h4>{name}</h4>
               <h4>{user && user.phoneNumber}</h4>
@@ -68,7 +71,7 @@ const ProfileMenu = ({ menuItems, active, setActive, renderContent }) => {
           active && (
             <Overlay>
               <div className="profile-head" onClick={closeOverlay}>
-                <span className="material-symbols-outlined">arrow_back</span>
+                <ArrowBackIosNewOutlinedIcon/>
                 <p>{active}</p>
               </div>
               {renderContent()}
