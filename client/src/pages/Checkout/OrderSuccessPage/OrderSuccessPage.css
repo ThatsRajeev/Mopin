@@ -51,13 +51,13 @@
 }
 
 .continue-shopping-button:hover {
-  background-color: #f16122 !important;
+  background-color: #FF5B22 !important;
   color: #fff !important;
 }
 
 .view-order-button {
-  border: 1px solid #f16122 !important;
-  color: #f16122 !important;
+  border: 1px solid #FF5B22 !important;
+  color: #FF5B22 !important;
   margin-top: 0 !important;
 
   @media (width > 768px) {
@@ -66,11 +66,11 @@
 }
 
 .view-order-button:hover {
-  border: 1px solid #f16122 !important;
+  border: 1px solid #FF5B22 !important;
 }
 
 .continue-shopping-button {
-  background-color: #f16122 !important;
+  background-color: #FF5B22 !important;
   color: #fff !important;
 }
 

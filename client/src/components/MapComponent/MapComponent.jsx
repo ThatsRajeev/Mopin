@@ -6,6 +6,8 @@ import 'leaflet/dist/leaflet.css';
 import locationIcon from "../../assets/location-icon.png";
 import { useUserAuth } from "../../context/AuthContext";
 import handleGeolocation from "../../utils/handleGeolocation";
+import { TextField, Button } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import "./MapComponent.css"
 
 function DraggableMarker({ setAddressInfo, setCurrentLocation, setLoading }) {
@@ -150,7 +152,7 @@ const MapComponent = ({ setShowMap }) => {
         {isEditing && (
           <>
             <div className="profile-head" onClick={() => setIsEditing(false)}>
-              <span className="material-symbols-outlined">arrow_back</span>
+              <ArrowBackIcon style={{fontSize: '20px', marginRight: '16px'}} />
               <p> Edit Address </p>
             </div>
             <hr />
@@ -161,16 +163,13 @@ const MapComponent = ({ setShowMap }) => {
         {isEditing && (
           <div>
             <div className="address-form-group">
-              <input type="number" value={addressInfo.houseNo} onChange={(event) => setAddressInfo(prev => ({...prev, houseNo: event.target.value}))} required/>
-              <label> House / Apartment No. </label>
+              <TextField type="text" value={addressInfo.houseNo} onChange={(event) => setAddressInfo(prev => ({...prev, houseNo: event.target.value}))} required label="House / Apartment No." sx={{ width: '100%' }} />
             </div>
             <div className="address-form-group">
-              <input type="text" value={addressInfo.houseName} onChange={(event) => setAddressInfo(prev => ({...prev, houseName: event.target.value}))} required/>
-              <label> House / Apartment Name. </label>
+              <TextField type="text" value={addressInfo.houseName} onChange={(event) => setAddressInfo(prev => ({...prev, houseName: event.target.value}))} required label="House / Apartment Name." sx={{ width: '100%' }} />
             </div>
             <div className="address-form-group">
-              <input type="text" value={addressInfo.landmark} onChange={(event) => setAddressInfo(prev => ({...prev, landmark: event.target.value}))} required/>
-              <label> LandMark / Street Details </label>
+              <TextField type="text" value={addressInfo.landmark} onChange={(event) => setAddressInfo(prev => ({...prev, landmark: event.target.value}))} label="LandMark / Street Details" sx={{ width: '100%' }} />
             </div>
             <ul className="address-type">
               <p>Address Type</p>
@@ -180,9 +179,9 @@ const MapComponent = ({ setShowMap }) => {
             </ul>
           </div>
         )}
-        <button className="save-btn" disabled={loading || isEditing && (!addressInfo.houseNo || !addressInfo.houseName) } onClick={() => {isEditing ? handleSave() : setIsEditing(true)}}>
+        <Button variant="contained" color="ochra" disabled={loading || isEditing && (!addressInfo.houseNo || !addressInfo.houseName) } onClick={() => {isEditing ? handleSave() : setIsEditing(true)}}>
           {isEditing ? "Save Address Details" : "Confirm Location and Proceed"}
-        </button>
+        </Button>
       </div>
     </div>
   );

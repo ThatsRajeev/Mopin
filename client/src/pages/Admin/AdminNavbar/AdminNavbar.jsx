@@ -41,7 +41,7 @@ const GlobalNav = styled.nav`
 
 const Logo = styled(Link)`
   display: none;
-  color: #f16122;
+  color: #FF5B22;
   font-size: 26px;
   letter-spacing: 2px;
   font-weight: 800;

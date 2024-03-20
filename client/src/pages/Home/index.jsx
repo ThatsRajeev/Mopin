@@ -4,6 +4,7 @@ import SkeletonCard from "./skeleton.jsx"
 import LocateMePrompt from "../../components/LocateMePrompt/LocateMePrompt";
 import Navbar from "../../components/Navbar/Navbar";
 import homecooks from "../../data/homecooks";
+import styled from "styled-components";
 import "leaflet/dist/leaflet.css";
 
 const Hero = lazy(() => import("./Hero/Hero"));
@@ -14,7 +15,83 @@ const Features = lazy(() => import("./Features/Features"));
 const Fooder = lazy(() => import("./Fooder/Fooder"));
 const Makers = lazy(() => import("./Makers/Makers"));
 const Testimonials = lazy(() => import("./Testimonials/Testimonials"));
-const Footer = lazy(() => import("../../components/Footer/Footer"))
+const Footer = lazy(() => import("../../components/Footer/Footer"));
+
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 4.2vw 16px 0;
+  max-width: 1200px;
+  justify-content: space-between;
+
+  @media (width > 768px) {
+    margin: 3.2vw 14px 2.4vw;
+  }
+
+  @media (width > 1240px) {
+    width: 100%;
+    margin: 3.2vw auto 2.4vw;
+  }
+`;
+
+const CardHeader = styled.h1`
+  color: #222222;
+  font-size: 1.2rem;
+  ${({ customStyles }) => customStyles && customStyles};
+
+  @media (width > 768px) {
+    font-size: 1.6rem;
+    line-height: 1.8rem;
+    letter-spacing: 1px;
+  }
+`;
+
+const SeeAllButton = styled.button`
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #349E46;
+  border: none;
+  border-radius: 6px;
+  height: 100%;
+  cursor: pointer;
+
+  .material-symbols-outlined {
+    margin: 0 -8px 0 4px;
+  }
+`;
+
+
+const FoodCategoryContainer = styled.div`
+  display: flex;
+  gap: 12px;
+  margin: 0 16px;
+  overflow: auto;
+
+  div {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 14px;
+    background-color: #fff;
+    border: 2px solid #FF5B22;
+    border-radius: 20px;
+    white-space: nowrap;
+    opacity: 0.64;
+  }
+
+  div.active-catgor {
+    background-color: #FF5B22 !important;
+    color: #fff;
+    opacity: 1 !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+`;
 
 function Homepage() {
   const [active, setActive] = useState('All');
@@ -57,20 +134,20 @@ function Homepage() {
             <Hero />
 
             <div className="mob-view">
-              <div className="foodCatgor">
+              <FoodCategoryContainer>
                 {foodCatgor.map((catgor, index) => (
                   <div key={index} className={`${active === catgor ? "active-catgor" : ""}`}
                     onClick={() => setActive(catgor)}>{catgor}</div>
                 ))}
-              </div>
+              </FoodCategoryContainer>
               <FoodSlider func={filterDish} />
               <hr />
 
               <MealtimeFilter />
 
-              <div className="header-container">
-                <h1 className="cardHeader">All Homechefs Nearby</h1>
-              </div>
+              <HeaderContainer>
+                <CardHeader>All Homechefs Nearby</CardHeader>
+              </HeaderContainer>
               {homecooks.map((cook, index) => (
                 <Link to ={`/sellers/${cook.name}`}>
                   <FoodItemCard
@@ -91,67 +168,69 @@ function Homepage() {
             </div>
 
             <div className="pc-view" style={{flexDirection: 'column'}}>
-              <div className="header-container">
-                <h1 className="cardHeader">Added Afresh</h1>
-                <button className="see-all-btn">
+              <HeaderContainer>
+                <CardHeader>Added Afresh</CardHeader>
+                <SeeAllButton>
                   See All Recently Added
                   <span className="material-symbols-outlined">
                     navigate_next
                   </span>
-                </button>
-              </div>
+                </SeeAllButton>
+              </HeaderContainer>
 
               <FoodSlider func={newly} />
               <hr />
 
-              <div className="header-container">
-                <h1 className="cardHeader">Popular Regionals</h1>
-              </div>
+              <HeaderContainer>
+                <CardHeader>Added Afresh</CardHeader>
+              </HeaderContainer>
               <Fooder />
 
               <div className="feature-bcg">
-                <div className="header-container">
-                  <h1 className="cardHeader" style={{margin: '0 auto'}}>
-                    Grab your <span style={{ color: "#f16122" }}>ORDER NOW!</span>
-                  </h1>
-                </div>
+                <HeaderContainer>
+                  <CardHeader customStyles={{margin: '0 auto'}}>
+                    Grab your <span style={{ color: "#FF5B22" }}>ORDER NOW!</span>
+                  </CardHeader>
+                </HeaderContainer>
                 <Features />
               </div>
 
-              <div className="header-container">
-                <h1 className="cardHeader">Most Loved near you</h1>
-                <button className="see-all-btn">
-                  See All Loved Collections
+                <HeaderContainer>
+                  <CardHeader>
+                    Most Loved near you
+                  </CardHeader>
                   <span className="material-symbols-outlined">
                     navigate_next
                   </span>
-                </button>
-              </div>
+                </HeaderContainer>
 
               <FoodSlider func={rated} />
               <hr />
 
-              <div className="header-container">
-                <h1 className="cardHeader">Healthy Picks</h1>
-                <button className="see-all-btn">
-                  See All Healthy Picks
+                <HeaderContainer>
+                  <CardHeader>
+                    Healthy Picks
+                  </CardHeader>
                   <span className="material-symbols-outlined">
                     navigate_next
                   </span>
-                </button>
-              </div>
+                </HeaderContainer>
 
               <FoodSlider func={healthy} />
               <hr />
 
-              <div className="header-container">
-                <h1 className="cardHeader">Meet the Makers</h1>
-              </div>
+              <HeaderContainer>
+                <CardHeader>
+                  Meet the Makers
+                </CardHeader>
+              </HeaderContainer>
               <Makers />
 
-              <div className="header-container">
-                <h1 className="cardHeader">What do our Customers have to say</h1>
-              </div>
+              <HeaderContainer>
+                <CardHeader>
+                  What do our Customers have to say
+                </CardHeader>
+              </HeaderContainer>
               <Testimonials />
 
               <Footer />

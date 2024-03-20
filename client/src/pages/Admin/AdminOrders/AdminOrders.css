@@ -77,7 +77,12 @@
   background-color: #f5f5f5;
 }
 
-.react-loading-skeleton {
-  margin: 8px 0;
-  border-radius: 16px;
+.skeleton-item {
+  min-width: 84vw;
+  margin: 16px;
+
+  @media (width > 768px) {
+    min-width: 800px;
+    margin: 32px;
+  }
 }

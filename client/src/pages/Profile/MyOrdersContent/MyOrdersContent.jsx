@@ -3,8 +3,7 @@ import { Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useUserAuth } from '../../../context/AuthContext';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import Skeleton from '@mui/material/Skeleton';
 import axios from 'axios';
 import './MyOrdersContent.css';
 
@@ -45,13 +44,13 @@ const MyOrdersContent = () => {
   return (
     <div className="component">
       {loading ? (
-        <div className="skeleton">
+        <div className="skeleton orders-skeleton">
           {Array(4).fill().map((item, index) => (
-              <div key={index}>
-                <Skeleton height={24} width={`48vw`} highlightColor="#d9d9d9" />
-                <Skeleton height={24} width={`64vw`} highlightColor="#d9d9d9" />
-                <Skeleton width={`80vw`} height={100} highlightColor="#d9d9d9" />
-              </div>
+            <div key={index} className="skeleton-item">
+              <Skeleton variant="text" width={`52%`} height={24} />
+              <Skeleton variant="text" width={`68%`} height={24} />
+              <Skeleton variant="rectangular" width={`86%`} height={100} />
+            </div>
             ))}
         </div>
       ) : (
@@ -101,10 +100,10 @@ const MyOrdersContent = () => {
                   </div>
                   <hr />
                   <div className="order-buttons">
-                    <Button variant="contained" style={{ backgroundColor: '#f16122', color: '#fff', margin: '12px 12px 0 0' }}>
+                    <Button variant="contained" style={{ backgroundColor: '#FF5B22', color: '#fff', margin: '12px 12px 0 0' }}>
                       Reorder
                     </Button>
-                    <Button variant="outlined" style={{ color: '#f16122', border: '1px solid #f16122', margin: '12px 12px 0 0' }}>
+                    <Button variant="outlined" style={{ color: '#FF5B22', border: '1px solid #FF5B22', margin: '12px 12px 0 0' }}>
                       View Order Details
                     </Button>
                   </div>

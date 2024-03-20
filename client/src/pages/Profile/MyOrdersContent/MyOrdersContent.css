@@ -14,7 +14,7 @@
   border-radius: 10px;
   margin-top: 24px;
   color: #fff;
-  background-color: #f16122;
+  background-color: #FF5B22;
   border: none;
   cursor: pointer;
 }
@@ -82,4 +82,22 @@
 
 .order-items span {
   font-size: 16px;
+}
+
+.orders-skeleton {
+  margin-top: -24%;
+
+  @media (width > 768px) {
+    margin-top: 8%;
+  }
+}
+
+.skeleton-item {
+  min-width: 84vw;
+  margin: 16px;
+
+  @media (width > 768px) {
+    min-width: 800px;
+    margin: 32px;
+  }
 }

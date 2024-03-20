@@ -66,7 +66,7 @@
 
 .change-details {
   cursor: pointer;
-  color: #f16122;
+  color: #FF5B22;
 }
 
 .login-insist-p {
@@ -130,7 +130,7 @@
   border-radius: 8px;
   cursor: pointer;
   color: #fff;
-  background-color: #f16122;
+  background-color: #FF5B22;
   padding: 12px;
   width: 100%;
   font-size: 16px;

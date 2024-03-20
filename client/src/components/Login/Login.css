@@ -48,7 +48,7 @@
 }
 
 .inactive-text {
-  color: #f16122;
+  color: #FF5B22;
   cursor: pointer;
 }
 
@@ -78,6 +78,7 @@
 
   >input {
     border: none;
+    padding: 10px 10px 10px 5px;
   }
 }
 
@@ -99,7 +100,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f16122;
+  background-color: #FF5B22;
   border-radius: 12px;
   font-size: 16px;
   color: #fff;
@@ -138,9 +139,9 @@
   padding: 0.8rem;
   border-radius: 8px;
   background-color: #fff;
-  color: #f16122;
+  color: #FF5B22;
   font-size: 16px;
-  border: 1px solid #f16122;
+  border: 1px solid #FF5B22;
   font-weight: 400;
 }
 

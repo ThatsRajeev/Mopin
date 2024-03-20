@@ -48,7 +48,7 @@
   font-weight: 500;
 
   >span {
-    color: "#f16122";
+    color: "#FF5B22";
     font-family: "Poppins"
   }
 
@@ -71,7 +71,7 @@
 
 .hero-btn {
   color: #fff;
-  background-color: #f16122;
+  background-color: #FF5B22;
   font-size: 1.6rem;
   padding: 16px 32px;
   border-radius: 28px;
@@ -81,6 +81,6 @@
 
 .ghost-btn {
   background-color: #222222;
-  border: 1.4px solid #f16122;
+  border: 1.4px solid #FF5B22;
   margin-left: 1.6rem;
 }

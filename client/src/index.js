@@ -2,6 +2,8 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { UserAuthContextProvider } from "./context/AuthContext";
+import theme from "./theme/theme";
+import { ThemeProvider } from '@mui/material/styles';
 import { store } from "./store/index";
 import { Provider } from "react-redux";
 
@@ -10,7 +12,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <UserAuthContextProvider>
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </UserAuthContextProvider>
     </Provider>
   </React.StrictMode>

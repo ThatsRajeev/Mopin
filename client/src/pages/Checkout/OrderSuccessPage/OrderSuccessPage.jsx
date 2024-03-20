@@ -68,7 +68,7 @@ function OrderSuccessPage() {
         <Card className="order-card">
           {isLoading ? (
             <div className="loading-spinner">
-              <CircularProgress style={{ color: '#f16122' }} />
+              <CircularProgress style={{ color: '#FF5B22' }} />
             </div>
           ) : orderStatus === 'Success' ? (
             <>

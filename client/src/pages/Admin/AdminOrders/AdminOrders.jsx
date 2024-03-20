@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders } from "../../../store/ordersSlice";
 import axios from 'axios';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from '@mui/material/Skeleton';
 import "./AdminOrders.css";
 
 const AdminOrders = () => {
@@ -88,11 +87,14 @@ const AdminOrders = () => {
   return (
     <div className="admin-orders-container">
       {loading ? (
-        <div>
-          <h3><Skeleton width={156} height={36} highlightColor="#d9d9d9" /></h3>
-          <ul>
-            <Skeleton height={56} count={5} highlightColor="#d9d9d9" />
-          </ul>
+        <div className="skeleton">
+          {Array(6).fill().map((item, index) => (
+            <div key={index} className="skeleton-item">
+              <Skeleton variant="text" width={`52%`} height={24} />
+              <Skeleton variant="text" width={`68%`} height={24} />
+              <Skeleton variant="rectangular" width={`86%`} height={100} />
+            </div>
+            ))}
         </div>
       ) : (
         <div>
