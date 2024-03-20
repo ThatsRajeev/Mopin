@@ -3,6 +3,10 @@ import { Button } from '@mui/material';
 import { useSelector, useDispatch } from "react-redux";
 import { addSubscription, removeSubscription } from "../../../store/subscriptionsSlice";
 import { Link } from "react-router-dom";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import "./MealSubscription.css";
 
 const MealSubscription = ({ sellerDetails, showCheckboxes, setShowCheckboxes }) => {
@@ -86,19 +90,22 @@ const MealSubscription = ({ sellerDetails, showCheckboxes, setShowCheckboxes }) 
             ))}
           </div>
           <div className="pay-div">
-            <div className="form-group">
-              <select className="form-control date-select" value={subsDays} onChange={(e) => setSubsDays(e.target.value)} required>
-                <option value="" disabled>
-                  Days
-                </option>
+            <FormControl fullWidth size="small">
+              <InputLabel id="demo-simple-select-label">Days</InputLabel>
+              <Select
+                value={subsDays}
+                label="Days"
+                onChange={(e) => setSubsDays(e.target.value)}
+                required
+              >
                 {daysOptions.map((option) => (
-                  <option key={option} value={option}>
+                  <MenuItem key={option} value={option}>
                     {option}
-                  </option>
+                  </MenuItem>
                 ))}
-              </select>
-            </div>
-            <Button variant="contained" size='small' sx={{marginTop: '8px'}} disabled={!subsDays || selectedMeals.length===0}>
+              </Select>
+            </FormControl>
+            <Button variant="contained" size='medium' sx={{marginTop: '16px'}} disabled={!subsDays || selectedMeals.length===0}>
               <Link className="custom-link" to="/checkout" disabled={!subsDays || selectedMeals.length===0}>
                   To Pay (₹{subsPrice})
               </Link>

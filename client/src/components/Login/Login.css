@@ -53,42 +53,7 @@
   cursor: pointer;
 }
 
-.otp-text {
-  margin-bottom: 16px;
-}
-
-.form-group:first-child {
-  margin-top: 24px;
-}
-
-.form-control {
-  padding: 8px;
-  border-radius: 12px;
-  border: 0.72px solid rgba(0, 0, 0, 0.6);
-  margin-bottom: 18px;
-  width: 100%;
-}
-
-.PhoneInput {
-  padding: 0 8px;
-
-  >input {
-    border: none;
-    padding: 10px 10px 10px 5px;
-  }
-}
-
-.otpInput {
-  border: 1px solid rgb(204, 204, 204);
-  border-radius: 8px;
-  width: 44px;
-  height: 44px;
-  font-size: 24px;
-  color: #222222;
-  font-weight: 800;
-  margin: 0 6px 18px 0;
-  box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 4px 0px;
-}
+.otp-text { margin-bottom: 16px; }
 
 .loader-img { margin-left: 6px; }
 
@@ -102,52 +67,6 @@
   margin-bottom: 16px;
   font-size: 13px;
   color: rgb(102, 102, 102);
-}
-
-.resend-btn {
-  text-align: justify;
-  margin-bottom: 16px;
-  cursor: pointer;
-  width: 100%;
-  padding: 0.8rem;
-  border-radius: 8px;
-  background-color: #fff;
-  color: #F16122;
-  font-size: 16px;
-  border: 1px solid #F16122;
-  font-weight: 400;
-}
-
-.close-button {
-  display: none;
-  position: absolute;
-  top: 0px;
-  right: -26px;
-  padding: 1.6px;
-  background-color: #f0f0f0;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 28px;
-
-  @media (width > 768px) {
-    display: flex;
-  }
-}
-
-.errorDiv {
-  display: flex;
-  justify-content: center;
-}
-
-.errormessage {
-  color: #000;
-  font-weight: 500;
-  padding: 6px;
-  background-color: #fff;
-  display: flex;
-  position: fixed;
-  bottom: 24px;
 }
 
 .back-button-div {

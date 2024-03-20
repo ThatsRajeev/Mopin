@@ -79,11 +79,15 @@
   }
 }
 
+.date-div {
+  margin-top: 4px;
+}
+
 .datepicker {
   max-width: 8rem;
   border-radius: 8px;
   border: 0.72px solid #bfbfc0;
-  padding: 6px 10px 5px 28px !important;
+  padding: 8px 10px 6px 28px !important;
 }
 
 .subs-head {

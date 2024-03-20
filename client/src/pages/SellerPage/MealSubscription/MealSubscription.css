@@ -9,7 +9,7 @@
   background-color: #fff;
   padding: 8px;
   border-radius: 8px;
-  z-index: 6000;
+  z-index: 1000;
 }
 
 .checkbox-div {
@@ -46,15 +46,6 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 6px;
-
-  .form-group {
-    margin: 8px 0 0;
-    width: 100%;
-
-    .form-control {
-      margin-bottom: 8px;
-    }
-  }
 
   >h3 {
     font-size: 16px;

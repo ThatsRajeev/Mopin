@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PhoneInput from "react-phone-number-input";
+import { MuiTelInput } from 'mui-tel-input'
 import axios from "axios";
 import "./DataDeletion.css"
 
@@ -11,7 +11,7 @@ function DataDeletion() {
     event.preventDefault();
     const msg = "delete my account"
     const data = {
-      number,
+      number: number.replace(/\s/g, ''),
       msg,
     };
 
@@ -38,10 +38,8 @@ function DataDeletion() {
         </p>
         <form onSubmit={handleSubmit}>
           <div>
-            <div className="form-group">
-            <PhoneInput defaultCountry="IN" placeholder="Your phone number" className="form-control"
-              autoComplete="off" value={number} onChange={setNumber} />
-            </div>
+            <MuiTelInput defaultCountry="IN" fullWidth size="small" placeholder="Phone Number"
+            sx={{margin: '18px 0'}} value={number} onChange={setNumber} />
           </div>
 
           <button type="submit" className="submit-btn">Submit</button>

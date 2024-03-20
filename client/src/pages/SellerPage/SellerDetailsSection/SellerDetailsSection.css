@@ -101,6 +101,7 @@
   >img {
     width: 64%;
     margin: 0 auto -36%;
+    will-change: transform;
     transform: translateY(-50%);
     filter: drop-shadow(0px 2px 5px grey);
   }

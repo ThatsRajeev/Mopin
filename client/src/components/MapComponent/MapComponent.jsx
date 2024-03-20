@@ -169,13 +169,13 @@ const MapComponent = ({ setShowMap }) => {
         {isEditing && (
           <div>
             <div className="address-form-group">
-              <TextField type="text" value={addressInfo.houseNo} onChange={(event) => setAddressInfo(prev => ({...prev, houseNo: event.target.value}))} required label="House / Apartment No." sx={{ width: '100%' }} />
+              <TextField size="small" value={addressInfo.houseNo} onChange={(event) => setAddressInfo(prev => ({...prev, houseNo: event.target.value}))} required label="House / Apartment No." sx={{ width: '100%' }} />
             </div>
             <div className="address-form-group">
-              <TextField type="text" value={addressInfo.houseName} onChange={(event) => setAddressInfo(prev => ({...prev, houseName: event.target.value}))} required label="House / Apartment Name." sx={{ width: '100%' }} />
+              <TextField size="small" value={addressInfo.houseName} onChange={(event) => setAddressInfo(prev => ({...prev, houseName: event.target.value}))} required label="House / Apartment Name." sx={{ width: '100%' }} />
             </div>
             <div className="address-form-group">
-              <TextField type="text" value={addressInfo.landmark} onChange={(event) => setAddressInfo(prev => ({...prev, landmark: event.target.value}))} label="LandMark / Street Details" sx={{ width: '100%' }} />
+              <TextField size="small" value={addressInfo.landmark} onChange={(event) => setAddressInfo(prev => ({...prev, landmark: event.target.value}))} label="LandMark / Street Details" sx={{ width: '100%' }} />
             </div>
             <ul className="address-type">
               <p>Address Type</p>

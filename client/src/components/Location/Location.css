@@ -107,6 +107,7 @@
   font-size: 0.8rem;
   letter-spacing: 1.2px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .choose-location {

@@ -76,7 +76,7 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
       {overlayParams.get("map") && (
         <Overlay>
           <div className="profile-head mob-view" onClick={() => toggleOverlay('map')}>
-            <ArrowBackIosIcon/>
+            <ArrowBackIosIcon sx={{fontSize: '20px'}}/>
             <p> Edit Address </p>
           </div>
           <MapComponent setShowMap={() => {toggleOverlay('map')}} />

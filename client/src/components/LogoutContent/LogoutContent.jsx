@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/AuthContext";
 import Overlay from "../Overlay/Overlay";
+import Button from '@mui/material/Button';
 import "./LogoutContent.css";
 
 const LogoutContent = ({ active }) => {
@@ -28,10 +29,8 @@ const LogoutContent = ({ active }) => {
         <Overlay unsetDims="true">
           <div className="delete-container">
             <h3 className="delete-heading">Are you sure you want to logout? </h3>
-            <div>
-              <button className="delete" onClick={handleLogout}>Yes</button>
-              <button className="cancel" onClick={handleCancel}>Cancel</button>
-            </div>
+            <Button variant="outlined" color="secondary" onClick={handleLogout} sx={{marginRight: '28px', padding: '8px 32px'}}>Yes</Button>
+            <Button variant="contained" color="secondary" onClick={handleCancel} sx={{padding: '8px 32px'}}>Cancel</Button>
           </div>
         </Overlay>
       )}

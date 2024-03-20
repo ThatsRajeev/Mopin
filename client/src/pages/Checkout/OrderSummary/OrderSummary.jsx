@@ -6,6 +6,10 @@ import homecooks from "../../../data/homecooks";
 import { useNavigate } from "react-router-dom";
 import { getDayOfTheWeek } from "../../../utils/getFilteredDishes";
 import DatePicker from "react-datepicker";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import "react-datepicker/dist/react-datepicker.css";
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
@@ -41,7 +45,7 @@ const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
                        [...originalDetails.selectedMeals, event.target.value] :
                        originalDetails.selectedMeals.filter(m => m !== event.target.value)
       };
-    } else if (event.target && event.target.type === 'select-one') {
+    } else if (event.target && event.target.name === 'day-select') {
       const selectedIndex = event.target.selectedIndex;
       newDetails = { ...originalDetails, subsDays: event.target.value }
     } else {
@@ -136,23 +140,25 @@ const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
             </div>
             <div>
             <h4 className="subs-head">Duration:</h4>
-              <div className="subs-details">
-                <div className="date-group">
-                  <select className="date-select" value={subsDetails.subsDays} onChange={(e) => handleSubscription(e, subsDetails, seller)} required>
-                    <option value="" disabled>
-                      Days
-                    </option>
-                    {[28, 21, 14, 7].map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+            <FormControl fullWidth size="small" sx={{marginTop: '4px'}}>
+              <InputLabel id="demo-simple-select-label">Days</InputLabel>
+              <Select
+                value={subsDetails.subsDays}
+                label="Days"
+                name="day-select"
+                onChange={(e) => handleSubscription(e, subsDetails, seller)}
+                required
+              >
+                {[28, 21, 14, 7].map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             </div>
           </div>
-          <h4 className="subs-head">Total Cost:</h4>
+          <h4 className="subs-head" style={{marginTop: '0'}}>Total Cost:</h4>
           <div className="subs-details">
             <h4>₹{subsDetails.subsPrice}<small>&nbsp;(excluding taxes)</small></h4>
           </div>

@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
 import Button from '@mui/material/Button';
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
-import OtpInput from "react-otp-input";
+import { MuiTelInput } from 'mui-tel-input'
+import { MuiOtpInput } from 'mui-one-time-password-input'
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import loader from "../../assets/loader.svg";
 import { useUserAuth } from "../../context/AuthContext";
+import TextField from '@mui/material/TextField';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import "./Login.css";
 
@@ -21,7 +21,6 @@ function Login({ setShowProp }) {
   const [loading, setLoading] = useState(false);
   const [resendTimer, setResendTimer] = useState(30);
   const [resendDisabled, setResendDisabled] = useState(true);
-
   const { setUpRecaptha } = useUserAuth();
 
   useEffect(() => {
@@ -72,7 +71,7 @@ function Login({ setShowProp }) {
     return new Promise(async (resolve, reject) => {
       try {
         const data = {
-          phoneNumber: number,
+          phoneNumber: number.replace(/\s/g, ''),
           name: name,
           email: email,
         };
@@ -88,7 +87,7 @@ function Login({ setShowProp }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if ((!isSignUp && !number) ||
-      (isSignUp && (!number || !name || !email))) {
+      (isSignUp && (number.length<6 || !name || !email))) {
       return toast.error("Please fill in all required fields.");
     }
 
@@ -177,55 +176,34 @@ function Login({ setShowProp }) {
         <form>
           {showOtp ? (
             <>
-              <div className="form-group">
-                <OtpInput numInputs={6} inputType="number" value={otp} onChange={setOtp}
-                 shouldAutoFocus={otp.length === 0} renderInput={(props) => <input {...props} />}
-                 inputStyle={{
-                    border: "1px solid rgb(204, 204, 204)",
-                    borderRadius: "8px",
-                    width: "44px",
-                    height: "44px",
-                    fontSize: "24px",
-                    margin: "0 6px 18px 0",
-                    boxShadow: "rgba(0, 0, 0, 0.04) 0px 4px 4px 0px"
-                  }}
-                  focusStyle={{
-                    border: "1px solid #CFD3DB",
-                    outline: "none"
-                  }}
-                />
-              </div>
+              <MuiOtpInput display="flex" gap={1.6} TextFieldsProps={{size: 'small'}} autoFocus value={otp} onChange={setOtp}
+                sx={{marginBottom: '16px'}} fullWidth validateChar={(value) => {return /^\d$/.test(value) ? value : ""}} length={6}/>
+
               {resendTimer > 0 ? (
                 <p className="resend-p">Didn't recieve code? Resend OTP after <b>{resendTimer} seconds</b></p>
               ) : (
                 resendDisabled ? (
                   <p className="resend-p">Maximum resend attempts reached</p>
                 ) : (
-                  <button className="resend-btn" onClick={handleSubmit}>Resend OTP on SMS</button>
+                  <Button fullWidth size="large" variant="outlined" onClick={handleSubmit} sx={{marginBottom: '16px'}}>Resend OTP on SMS</Button>
                 )
               )}
             </>
           ) : (
-            <div className="form-group">
-              <PhoneInput defaultCountry="IN" placeholder="Phone number" className="form-control"
-               autoComplete="off" value={number} onChange={setNumber} />
-            </div>
+            <MuiTelInput defaultCountry="IN" fullWidth size="small" placeholder="Phone Number"
+            sx={{margin: '18px 0'}} value={number} onChange={setNumber} />
           )}
 
           {isSignUp && (
             <>
-              <div className="form-group">
-                <input type="text" autoComplete="off" placeholder="Full Name" className="form-control" id="name" name="name"
-                 value={name} onChange={(e) => {setName(e.target.value)}} required/>
-              </div>
-              <div className="form-group">
-                <input type="email" autoComplete="off" maxLength="40" placeholder="Email Address" className="form-control" id="email"
-                 name="email" value={email} onChange={(e) => {setEmail(e.target.value)}} required/>
-              </div>
+              <TextField name="name" fullWidth label="Name" size="small" sx={{marginBottom: '18px'}}
+               value={name} onChange={(e) => setName(e.target.value)}/>
+              <TextField name="email" fullWidth label="Email Address" size="small" sx={{marginBottom: '18px'}}
+              value={email} onChange={(e) => setEmail(e.target.value)}/>
             </>
           )}
 
-          <Button fullWidth size="large" variant="contained" id="sign-in-button"
+          <Button type="submit" fullWidth size="large" variant="contained" id="sign-in-button"
            onClick={showOtp ? "" : handleSubmit} disabled={showOtp && otp.length !== 6}>
              {isSignUp ? "Sign Me Up" : "Login With OTP"}
              {loading && <img className="loader-img" src={loader} alt="load-img" />}

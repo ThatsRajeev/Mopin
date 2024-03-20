@@ -1,12 +1,17 @@
 import React, {useState} from "react";
-import PhoneInput from "react-phone-number-input";
+import { MuiTelInput } from 'mui-tel-input'
 import axios from "axios";
 import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import "./HelpAndSupport.css";
 
 function HelpAndSupport({setShowProp}) {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [number, setNumber] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -24,7 +29,7 @@ function HelpAndSupport({setShowProp}) {
 
     const data = {
       name,
-      phone,
+      number: number.replace(/\s/g, ''),
       subject,
       message,
     };
@@ -46,36 +51,40 @@ function HelpAndSupport({setShowProp}) {
             If you have any questions or need help with your order, please don't hesitate to contact us.</p>
           <form onSubmit={handleSubmit}>
             <div>
-              <div className="form-group">
-              <PhoneInput defaultCountry="IN" placeholder="Your phone number" className="form-control"
-               autoComplete="off" value={phone} onChange={setPhone} />
-              </div>
+              <MuiTelInput defaultCountry="IN" fullWidth size="small" placeholder="Phone Number"
+              sx={{margin: '18px 0'}} value={number} onChange={setNumber} />
 
-              <div className="form-group">
-              <input name="name" type="text" autoComplete="off" placeholder="Your name" className="form-control"
-               value={name} onChange={(e) => setName(e.target.value)} required/>
-              </div>
+              <TextField name="name" fullWidth label="Name" size="small" sx={{marginBottom: '18px'}}
+               value={name} onChange={(e) => setName(e.target.value)}/>
 
-              <div className="form-group">
-                <select name="subject" id="subject" className="form-control" value={subject} onChange={(e) => setSubject(e.target.value)} required>
-                  <option value="" disabled>
-                    Select your issue:
-                  </option>
+              <FormControl fullWidth size="small" sx={{marginBottom: '18px'}}>
+                <InputLabel>Issue:</InputLabel>
+                <Select
+                  value={subject}
+                  label="subject"
+                  onChange={(e) => setSubject(e.target.value)}
+                  required
+                >
                   {subjectOptions.map((option) => (
-                    <option key={option} value={option}>
+                    <MenuItem key={option} value={option}>
                       {option}
-                    </option>
+                    </MenuItem>
                   ))}
-                </select>
-              </div>
+                </Select>
+              </FormControl>
 
-              <div className="form-group">
-              <textarea name="message" type="text" autoComplete="off" placeholder="Your message" className="form-control"
-                value={message} required rows="4" onChange={(e) => setMessage(e.target.value)} required/>
-              </div>
+              <TextField
+                name="message"
+                label="Message"
+                multiline fullWidth
+                rows={4}
+                value={message}
+                sx={{marginBottom: '18px'}}
+                onChange={(e) => setMessage(e.target.value)}
+              />
             </div>
 
-            <Button type="submit" variant="contained" disabled={!name || !phone || !subject || !message} fullWidth>Submit</Button>
+            <Button type="submit" variant="contained" disabled={!name || !number || !subject || !message} fullWidth>Submit</Button>
 
           </form>
         </>

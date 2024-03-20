@@ -20,11 +20,6 @@ input:focus, textarea:focus {
   outline: none;
 }
 
-input::placeholder {
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.36);
-}
-
 a, a:visited, a:hover, a:active {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
