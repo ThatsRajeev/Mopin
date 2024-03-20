@@ -70,7 +70,7 @@
   width: 170px;
   padding: 3px;
   border-radius: 50%;
-  background: linear-gradient(316.32deg, #FF5B22 7.28%, #222222 90.74%);
+  background: linear-gradient(316.32deg, #F16122 7.28%, #222222 90.74%);
 
   >div {
     display: flex;
@@ -113,7 +113,7 @@
 .read-btn {
   display: flex;
   border-radius: 12px;
-  background: linear-gradient(180deg, #000 0%, #FF5B22 236.46%);
+  background: linear-gradient(180deg, #000 0%, #F16122 236.46%);
   border: none;
   color: #ffffff;
   font-size: 1.1em;

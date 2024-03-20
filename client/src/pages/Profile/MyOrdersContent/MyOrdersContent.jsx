@@ -100,10 +100,10 @@ const MyOrdersContent = () => {
                   </div>
                   <hr />
                   <div className="order-buttons">
-                    <Button variant="contained" style={{ backgroundColor: '#FF5B22', color: '#fff', margin: '12px 12px 0 0' }}>
+                    <Button variant="contained" style={{ backgroundColor: '#F16122', color: '#fff', margin: '12px 12px 0 0' }}>
                       Reorder
                     </Button>
-                    <Button variant="outlined" style={{ color: '#FF5B22', border: '1px solid #FF5B22', margin: '12px 12px 0 0' }}>
+                    <Button variant="outlined" style={{ color: '#F16122', border: '1px solid #F16122', margin: '12px 12px 0 0' }}>
                       View Order Details
                     </Button>
                   </div>

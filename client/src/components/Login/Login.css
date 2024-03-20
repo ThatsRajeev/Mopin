@@ -48,7 +48,7 @@
 }
 
 .inactive-text {
-  color: #FF5B22;
+  color: #F16122;
   cursor: pointer;
 }
 
@@ -100,7 +100,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #FF5B22;
+  background-color: #F16122;
   border-radius: 12px;
   font-size: 16px;
   color: #fff;
@@ -139,9 +139,9 @@
   padding: 0.8rem;
   border-radius: 8px;
   background-color: #fff;
-  color: #FF5B22;
+  color: #F16122;
   font-size: 16px;
-  border: 1px solid #FF5B22;
+  border: 1px solid #F16122;
   font-weight: 400;
 }
 

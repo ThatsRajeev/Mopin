@@ -75,14 +75,14 @@ const FoodCategoryContainer = styled.div`
     font-weight: 600;
     padding: 8px 14px;
     background-color: #fff;
-    border: 2px solid #FF5B22;
+    border: 2px solid #F16122;
     border-radius: 20px;
     white-space: nowrap;
     opacity: 0.64;
   }
 
   div.active-catgor {
-    background-color: #FF5B22 !important;
+    background-color: #F16122 !important;
     color: #fff;
     opacity: 1 !important;
   }
@@ -189,7 +189,7 @@ function Homepage() {
               <div className="feature-bcg">
                 <HeaderContainer>
                   <CardHeader customStyles={{margin: '0 auto'}}>
-                    Grab your <span style={{ color: "#FF5B22" }}>ORDER NOW!</span>
+                    Grab your <span style={{ color: "#F16122" }}>ORDER NOW!</span>
                   </CardHeader>
                 </HeaderContainer>
                 <Features />

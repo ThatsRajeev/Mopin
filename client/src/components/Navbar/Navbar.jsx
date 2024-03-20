@@ -39,7 +39,7 @@ const GlobalNav = styled.nav`
 
 const Logo = styled(Link)`
   display: none;
-  color: #FF5B22;
+  color: #F16122;
   font-size: 26px;
   letter-spacing: 2px;
   font-weight: 800;
@@ -227,7 +227,7 @@ const handleProfileClick = () => {
         <FlexContainer adr={"true"}>
           <Logo to="/"> mopin </Logo>
           <NavLink onClick={() => {toggleOverlay('address')}} open={showAddress}>
-            <PinDropOutlinedIcon style={{ color: '#FF5B22', marginRight: '8px', fontSize: '22px'}} />
+            <PinDropOutlinedIcon style={{ color: '#F16122', marginRight: '8px', fontSize: '22px'}} />
             <Address>{localStorage.getItem("userLocation")}</Address>
             <ExpandMoreOutlinedIcon style={{ color: '#222222', marginRight: '6px', fontSize: '20px'}}/>
           </NavLink>
@@ -288,7 +288,7 @@ const handleProfileClick = () => {
         <SearchBarContainer to="/search">
           <SearchOutlinedIcon className="search-icon"/>
           <input type="text" placeholder="Search your favourite food..." />
-          <svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="-8 -968 976 976" width="36" style={{backgroundColor: '#FF5B22', padding: '6px', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><path d="M710-150q-63 0-106.5-43.5T560-300q0-63 43.5-106.5T710-450q63 0 106.5 43.5T860-300q0 63-43.5 106.5T710-150Zm0-80q29 0 49.5-20.5T780-300q0-29-20.5-49.5T710-370q-29 0-49.5 20.5T640-300q0 29 20.5 49.5T710-230Zm-550-30v-80h320v80H160Zm90-250q-63 0-106.5-43.5T100-660q0-63 43.5-106.5T250-810q63 0 106.5 43.5T400-660q0 63-43.5 106.5T250-510Zm0-80q29 0 49.5-20.5T320-660q0-29-20.5-49.5T250-730q-29 0-49.5 20.5T180-660q0 29 20.5 49.5T250-590Zm230-30v-80h320v80H480Zm230 320ZM250-660Z" fill="#fff"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="-8 -968 976 976" width="36" style={{backgroundColor: '#F16122', padding: '6px', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><path d="M710-150q-63 0-106.5-43.5T560-300q0-63 43.5-106.5T710-450q63 0 106.5 43.5T860-300q0 63-43.5 106.5T710-150Zm0-80q29 0 49.5-20.5T780-300q0-29-20.5-49.5T710-370q-29 0-49.5 20.5T640-300q0 29 20.5 49.5T710-230Zm-550-30v-80h320v80H160Zm90-250q-63 0-106.5-43.5T100-660q0-63 43.5-106.5T250-810q63 0 106.5 43.5T400-660q0 63-43.5 106.5T250-510Zm0-80q29 0 49.5-20.5T320-660q0-29-20.5-49.5T250-730q-29 0-49.5 20.5T180-660q0 29 20.5 49.5T250-590Zm230-30v-80h320v80H480Zm230 320ZM250-660Z" fill="#fff"/></svg>
         </SearchBarContainer>
       </FlexContainer>
 
