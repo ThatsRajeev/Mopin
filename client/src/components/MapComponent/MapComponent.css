@@ -51,7 +51,7 @@
 .address-type {
   list-style: none;
   display: flex;
-  margin: 12px 0;
+  margin: 12px 0 24px;
 
   >li {
     display: flex;
@@ -117,7 +117,7 @@
 
   h2 {
     font-size: 18px;
-    margin: 10px 0;
+    margin: 5px 0 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

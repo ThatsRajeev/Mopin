@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from '@mui/material';
 import { Link } from "react-router-dom";
 import "./CartContainer.css";
 
@@ -14,11 +15,11 @@ const CartContainer = ({ totalItems, totalPrice }) => {
             <span>|</span>
             <h4>₹{totalPrice}</h4>
           </div>
-          <button className="toCheckout">
+          <Button variant="contained">
             <Link className="custom-link" to="/checkout">
-              <div className="continue-div">CONTINUE</div>
+              CONTINUE
             </Link>
-          </button>
+          </Button>
         </div>
       )}
     </>

@@ -1,4 +1,5 @@
 import React from "react";
+import Button from '@mui/material/Button';
 import "./Hero.css"
 
 function Hero() {
@@ -22,8 +23,8 @@ function Hero() {
             Support local women entrepreneurs by bringing their homemade Indian
             food to your table!
           </p>
-          <button className="hero-btn" onClick={scroll}>GET FOOD</button>
-          <button className="hero-btn ghost-btn">SELL FOOD</button>
+          <Button onClick={scroll} variant="contained" sx={{fontSize: '1.6rem', borderRadius: '8px'}}>GET FOOD</Button>
+          <Button variant="outlined" sx={{fontSize: '1.6rem', marginLeft: '1.6rem', borderRadius: '8px'}}>SELL FOOD</Button>
         </div>
       </div>
       <div className="hero-smallScreen-div" onClick={scroll}>

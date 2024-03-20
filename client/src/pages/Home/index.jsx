@@ -4,7 +4,7 @@ import SkeletonCard from "./skeleton.jsx"
 import LocateMePrompt from "../../components/LocateMePrompt/LocateMePrompt";
 import Navbar from "../../components/Navbar/Navbar";
 import homecooks from "../../data/homecooks";
-import styled from "styled-components";
+import { styled } from "@mui/system";
 import "leaflet/dist/leaflet.css";
 
 const Hero = lazy(() => import("./Hero/Hero"));
@@ -17,81 +17,79 @@ const Makers = lazy(() => import("./Makers/Makers"));
 const Testimonials = lazy(() => import("./Testimonials/Testimonials"));
 const Footer = lazy(() => import("../../components/Footer/Footer"));
 
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 4.2vw 16px 0;
-  max-width: 1200px;
-  justify-content: space-between;
+const HeaderContainer = styled('div')({
+  display: "flex",
+  alignItems: "center",
+  margin: "4.2vw 16px 0",
+  maxWidth: 1200,
+  justifyContent: "space-between",
 
-  @media (width > 768px) {
-    margin: 3.2vw 14px 2.4vw;
+  "@media (width > 768px)": {
+    margin: "3.2vw 14px 2.4vw",
+  },
+
+  "@media (width > 1240px)": {
+    width: "100%",
+    margin: "3.2vw auto 2.4vw",
   }
+});
 
-  @media (width > 1240px) {
-    width: 100%;
-    margin: 3.2vw auto 2.4vw;
+const CardHeader = styled('h1')({
+  color: "#222222",
+  fontSize: "1.2rem",
+
+  "@media (width > 768px)": {
+    fontSize: "1.6rem",
+    lineHeight: "1.8rem",
+    letterSpacing: "1px",
   }
-`;
+});
 
-const CardHeader = styled.h1`
-  color: #222222;
-  font-size: 1.2rem;
-  ${({ customStyles }) => customStyles && customStyles};
+const SeeAllButton = styled('button')({
+  display: "flex",
+  alignItems: "center",
+  padding: "12px 24px",
+  fontWeight: 600,
+  color: "#fff",
+  backgroundColor: "#349E46",
+  border: "none",
+  borderRadius: "6px",
+  height: "100%",
+  cursor: "pointer",
 
-  @media (width > 768px) {
-    font-size: 1.6rem;
-    line-height: 1.8rem;
-    letter-spacing: 1px;
+  "& .material-symbols-outlined": {
+    margin: "0 -8px 0 4px",
   }
-`;
+});
 
-const SeeAllButton = styled.button`
-  display: flex;
-  align-items: center;
-  padding: 12px 24px;
-  font-weight: 600;
-  color: #fff;
-  background-color: #349E46;
-  border: none;
-  border-radius: 6px;
-  height: 100%;
-  cursor: pointer;
+const FoodCategoryContainer = styled('div')({
+  display: "flex",
+  gap: "12px",
+  margin: "0 16px",
+  overflow: "auto",
 
-  .material-symbols-outlined {
-    margin: 0 -8px 0 4px;
+  "div": {
+    fontSize: "16px",
+    fontWeight: 600,
+    padding: "8px 14px",
+    backgroundColor: "#fff",
+    border: "2px solid #F16122",
+    borderRadius: "20px",
+    whiteSpace: "nowrap",
+    opacity: 0.64,
+  },
+
+  "div.active-catgor": {
+    backgroundColor: "#F16122",
+    color: "#fff",
+    opacity: 1,
+  },
+
+  "&::-webkit-scrollbar": {
+    width: 0,
+    height: 0,
   }
-`;
-
-
-const FoodCategoryContainer = styled.div`
-  display: flex;
-  gap: 12px;
-  margin: 0 16px;
-  overflow: auto;
-
-  div {
-    font-size: 16px;
-    font-weight: 600;
-    padding: 8px 14px;
-    background-color: #fff;
-    border: 2px solid #F16122;
-    border-radius: 20px;
-    white-space: nowrap;
-    opacity: 0.64;
-  }
-
-  div.active-catgor {
-    background-color: #F16122 !important;
-    color: #fff;
-    opacity: 1 !important;
-  }
-
-  ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-`;
+});
 
 function Homepage() {
   const [active, setActive] = useState('All');
@@ -188,7 +186,7 @@ function Homepage() {
 
               <div className="feature-bcg">
                 <HeaderContainer>
-                  <CardHeader customStyles={{margin: '0 auto'}}>
+                  <CardHeader style={{margin: '0 auto'}}>
                     Grab your <span style={{ color: "#F16122" }}>ORDER NOW!</span>
                   </CardHeader>
                 </HeaderContainer>

@@ -63,7 +63,7 @@ const MyOrdersContent = () => {
                 alt="Default"
               />
               <h2 className="coming-soon">You don't have any orders!</h2>
-              <button className="explore-btn">Explore Dishes</button>
+              <Button variant="contained" size="large">Explore Dishes</Button>
             </>
           ) : (
             <ul>
@@ -100,10 +100,10 @@ const MyOrdersContent = () => {
                   </div>
                   <hr />
                   <div className="order-buttons">
-                    <Button variant="contained" style={{ backgroundColor: '#F16122', color: '#fff', margin: '12px 12px 0 0' }}>
+                    <Button variant="contained" style={{ margin: '12px 12px 0 0' }}>
                       Reorder
                     </Button>
-                    <Button variant="outlined" style={{ color: '#F16122', border: '1px solid #F16122', margin: '12px 12px 0 0' }}>
+                    <Button variant="outlined" style={{ margin: '12px 12px 0 0' }}>
                       View Order Details
                     </Button>
                   </div>

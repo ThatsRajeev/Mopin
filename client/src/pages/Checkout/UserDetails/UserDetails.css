@@ -122,29 +122,10 @@
   z-index: 0;
 }
 
-.proceed-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #fff;
-  background-color: #F16122;
-  padding: 12px;
-  width: 100%;
-  font-size: 16px;
-}
-
-.proceed-btn:disabled {
-  background-color: rgb(192, 192, 201);
-  cursor: default;
-}
-
 .user-details-container-mob {
   align-items: center;
   background-color: #fff;
-  border-radius: 12px;
+  border-radius: 8px;
   bottom: 0;
   box-shadow: 0 7px 29px 0 #64646f33;
   display: flex;

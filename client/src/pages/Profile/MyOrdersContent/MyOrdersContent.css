@@ -8,17 +8,6 @@
   margin: 0 16px;
 }
 
-.explore-btn {
-  font-size: 18px;
-  padding: 12px 30px;
-  border-radius: 10px;
-  margin-top: 24px;
-  color: #fff;
-  background-color: #F16122;
-  border: none;
-  cursor: pointer;
-}
-
 .orders-container {
   margin-top: -16%;
 

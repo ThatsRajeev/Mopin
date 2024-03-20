@@ -88,12 +88,6 @@
   }
 }
 
-.backFavBtn-icon {
-  margin: 0;
-  font-size: 20px;
-  color: #fff;
-}
-
 .seller-details-wrapper {
   position: relative;
   background: #f2f2f2;
@@ -121,16 +115,6 @@
     font-size: 15px;
     color: #666666;
   }
-}
-
-.subscribe {
-  margin: 12px 0 0;
-  font-size: 18px;
-  border: none;
-  border-radius: 12px;
-  padding: 8px 16px;
-  color: #fff;
-  background-color: #222222;
 }
 
 .rating-svg {

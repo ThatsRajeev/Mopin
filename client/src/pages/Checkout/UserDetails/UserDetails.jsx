@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button } from '@mui/material';
 import { Toaster } from "react-hot-toast";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../../context/AuthContext";
@@ -137,12 +138,11 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
             <div className="login-insist">Choose Payment Method</div>
           </div>
           <div className="contact-details">
-            <button className="proceed-btn" disabled={loading}
-              onClick={() => {handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost, setLoading)}}
-              disabled={!addressChoosen}>
+            <Button sx={{width: '100%', textTransform: 'none'}} variant="contained" size="large" disabled={!addressChoosen || loading}
+              onClick={() => {handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost, setLoading)}}>
               {loading ? 'Processing Payment...' : 'Proceed to Pay'}
               {loading && <img className="loader-img" src={loader} alt="load-img" />}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -160,9 +160,9 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
                 <ManageAddressContent setAddressChoosen={setAddressChoosen} />
               </div>
             )}
-             <button className="proceed-btn" onClick={() => {!user ? toggleOverlay('login') : toggleOverlay('address')}}>
+             <Button sx={{width: '100%', textTransform: 'none'}} variant="contained" size="large" onClick={() => {!user ? toggleOverlay('login') : toggleOverlay('address')}}>
               {!user ? "Login / SignUp" : "Choose Address"}
-             </button>
+            </Button>
           </div>
           ) : (
           <div className="contact-details mobile-details">
@@ -175,11 +175,11 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
                 {address}
               </div>
             </div>
-            <button className="proceed-btn" disabled={loading}
+            <Button sx={{width: '100%', textTransform: 'none'}} variant="contained" size="large" disabled={loading}
               onClick={() => {handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost, setLoading)}}>
-              <h4>{loading ? 'Processing Payment...' : 'Proceed to Pay (₹' + totalCost + ')'}</h4>
+              {loading ? 'Processing Payment...' : 'Proceed to Pay (₹' + totalCost + ')'}
               {loading && <img className="loader-img" src={loader} alt="load-img" />}
-          </button>
+            </Button>
         </div>
       )}
       </div>

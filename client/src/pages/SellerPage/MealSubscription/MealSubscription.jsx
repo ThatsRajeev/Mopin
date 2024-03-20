@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button } from '@mui/material';
 import { useSelector, useDispatch } from "react-redux";
 import { addSubscription, removeSubscription } from "../../../store/subscriptionsSlice";
 import { Link } from "react-router-dom";
@@ -97,13 +98,11 @@ const MealSubscription = ({ sellerDetails, showCheckboxes, setShowCheckboxes }) 
                 ))}
               </select>
             </div>
-            <button disabled={!subsDays || selectedMeals.length===0}>
+            <Button variant="contained" size='small' sx={{marginTop: '8px'}} disabled={!subsDays || selectedMeals.length===0}>
               <Link className="custom-link" to="/checkout" disabled={!subsDays || selectedMeals.length===0}>
-                <div className="subsPay">
                   To Pay (₹{subsPrice})
-                </div>
               </Link>
-            </button>
+            </Button>
           </div>
         </div>
       )}

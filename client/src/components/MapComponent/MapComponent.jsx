@@ -179,7 +179,7 @@ const MapComponent = ({ setShowMap }) => {
             </ul>
           </div>
         )}
-        <Button variant="contained" color="ochra" disabled={loading || isEditing && (!addressInfo.houseNo || !addressInfo.houseName) } onClick={() => {isEditing ? handleSave() : setIsEditing(true)}}>
+        <Button variant="contained" disabled={loading || isEditing && (!addressInfo.houseNo || !addressInfo.houseName) } size='large' onClick={() => {isEditing ? handleSave() : setIsEditing(true)}} sx={{textTransform: 'none'}}>
           {isEditing ? "Save Address Details" : "Confirm Location and Proceed"}
         </Button>
       </div>

@@ -1,10 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Button } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import woman from "../../../assets/woman.png";
 import "./SellerDetailsSection.css";
 
 const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes }) => {
   const navigate = useNavigate();
+  const [isSticky, setSticky] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +18,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
       const backFavBtnDiv = document.querySelector(".backFavBtn-div");
 
       const isSticky = scrollPosition > 180;
+      setSticky(isSticky);
 
       backFavBtnDiv.classList.toggle("backFavBtn-div-sticky", isSticky);
       backFavBtnWrapper.classList.toggle("backFavBtn-wrapper-unfixed", isSticky);
@@ -29,7 +35,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
     const handleScroll = () => {
       const images = document.querySelectorAll(".anim-food-img");
       const scrollPosition = window.scrollY;
-      const maxRotation = 1.96;
+      const maxRotation = 2;
 
       let rotation = (scrollPosition / window.innerHeight) * maxRotation;
       if (window.oldScrollY > scrollPosition) {
@@ -38,8 +44,7 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
       window.oldScrollY = scrollPosition;
 
       images.forEach((image) => {
-        const currentTransform = getComputedStyle(image).transform;
-        image.style.transform = `${currentTransform} rotate(${rotation}deg)`;
+        image.style.transform = `$translateY(-50%) rotate(${rotation}deg)`;
       });
     };
 
@@ -85,12 +90,12 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
       <div className="seller-div-mobile mob-view">
         <div className="backFavBtn-wrapper">
           <div className="backFavBtn-div">
-            <span className="material-symbols-outlined backFavBtn-icon" onClick={() => navigate(-1)}>arrow_back_ios</span>
+            <ArrowBackIosIcon onClick={() => navigate(-1)} sx={{color: isSticky ? "#222222" : "#fff"}}></ArrowBackIosIcon>
             <div>
               <div>{sellerDetails.name}</div>
               <div>{sellerDetails.foodType}</div>
             </div>
-            <span className="material-symbols-outlined backFavBtn-icon">favorite</span>
+            <FavoriteBorderIcon sx={{color: isSticky ? "#222222" : "#fff"}}></FavoriteBorderIcon>
           </div>
         </div>
         <div className="seller-details-wrapper">
@@ -98,9 +103,9 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
           <div>
             <h1> {sellerDetails.name} </h1>
             <p>{sellerDetails.foodType}</p>
-            <button className="subscribe" onClick={() => setShowCheckboxes(!showCheckboxes)}>
+            <Button color="secondary" variant="contained" sx={{marginTop: '12px', borderRadius: '12px', textTransform: 'none', fontSize: '18px', fontWeight: '400'}} onClick={() => setShowCheckboxes(!showCheckboxes)}>
               Subscribe
-            </button>
+            </Button>
           </div>
           <div className="sub-info-mobile">
             <p>Feeds: {sellerDetails.feeds}</p>

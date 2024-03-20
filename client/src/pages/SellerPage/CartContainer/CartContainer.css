@@ -6,7 +6,7 @@
   bottom: 0;
   width: -webkit-fill-available;
   height: unset;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
   z-index: 999;
   transition: all 0.3s ease-in-out;
@@ -41,23 +41,7 @@
   }
 }
 
-.toCheckout {
-  border-radius: 8px;
-  border: none;
-  background-color: #F16122;
-}
-
 .custom-link {
   font-weight: 600;
   color: #fff;
-}
-
-.continue-div {
-  padding: 8px 16px;
-  font-weight: 600;
-  color: #fff;
-
-  @media (width > 768px) {
-    padding: 12px 24px;
-  }
 }

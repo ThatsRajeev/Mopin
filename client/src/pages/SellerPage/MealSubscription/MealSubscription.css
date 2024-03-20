@@ -60,21 +60,6 @@
     font-size: 16px;
     line-height: 2.2;
   }
-
-  >button {
-    border: none;
-    padding: 8px 16px;
-    margin: 8px 0px;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #F16122;
-    color: #fff;
-  }
-
-  >button:disabled {
-    background-color: rgb(192, 192, 201);
-    cursor: default;
-  }
 }
 
 .subsPay {
