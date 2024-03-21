@@ -9,6 +9,7 @@ const { validationResult } = require('express-validator');
 const paymentRoutes = require('./routes/payment');
 const path = require('path');
 const Order = require('./models/order');
+const Seller = require('./models/Seller');
 
 dotenv.config();
 
@@ -265,6 +266,7 @@ app.get('/api/ordersdata', async (req, res) => {
     const orders = await Order.find({ paymentStatus: "SUCCESS" }).populate('items.sellerId');
 
     const transformedOrders = transformOrdersForFrontend(orders);
+    console.log(transformedOrders);
     res.json(transformedOrders);
   } catch (err) {
     handleErrors(res, err);

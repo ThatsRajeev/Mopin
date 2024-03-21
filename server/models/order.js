@@ -8,7 +8,7 @@ const orderSchema = new mongoose.Schema({
   sellerName: String,
   items: [
     {
-      sellerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' }, 
+      sellerId: { type: String }, 
       dishName: String,
       quantity: Number,
       mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner']},
