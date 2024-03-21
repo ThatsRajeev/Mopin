@@ -10,7 +10,6 @@ const orderSchema = new mongoose.Schema({
     deliveryDate: Date,
     items: [
       {
-        sellerId: { type: String },
         sellerName: { type: String },
         dishName: String,
         quantity: Number,

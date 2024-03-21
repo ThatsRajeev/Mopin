@@ -10,6 +10,7 @@ import './MyOrdersContent.css';
 const MyOrdersContent = () => {
   const { user } = useUserAuth();
   const [loading, setLoading] = useState(true);
+  const [emptyOrders, setEmptyOrders] = useState(false);
   const [orders, setOrders] = useState([]);
 
   function trimDate(originalDate) {
@@ -28,8 +29,13 @@ const MyOrdersContent = () => {
       try {
         if (user && Object.keys(user).length !== 0) {
           const response = await axios.get(`https://mopin-server.vercel.app/api/orders/${user.phoneNumber}`);
-          setOrders(response.data.orders);
-          console.log(response.data.orders);
+
+          if(response.data.orders.length === 0) {
+            setEmptyOrders(true);
+          } else {
+            const sortedOrders = response.data.orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            setOrders(sortedOrders);
+          }
         }
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -55,7 +61,7 @@ const MyOrdersContent = () => {
         </div>
       ) : (
         <div className="orders-container">
-          {orders.length === 0 ? (
+          {emptyOrders ? (
             <>
               <img
                 className="default-img"
@@ -90,11 +96,13 @@ const MyOrdersContent = () => {
                   <h3><b>{order.sellerName}</b></h3>
                   <div className="order-items">
                     <ul>
-                      {order.items.map((item) => (
-                        <li key={item.dishName}>
-                          <span>{item.quantity} x {item.dishName}</span>
-                          <span>₹{item.price * item.quantity}</span>
-                        </li>
+                      {order.orderItems.map((itemGroup) => (
+                        itemGroup.items.map((item) => (
+                          <li key={item._id}>
+                            <span>{item.quantity} x {item.dishName}</span>
+                            <span>₹{item.price * item.quantity}</span>
+                          </li>
+                        ))
                       ))}
                     </ul>
                   </div>

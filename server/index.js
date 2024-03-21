@@ -207,14 +207,13 @@ function getDateFromDay(targetDay) {
   const currentDay = days[today.getDay()];
 
   const targetDate = (currentDay === targetDay) ? today : new Date(today.getTime() + ((days.indexOf(targetDay) - days.indexOf(currentDay) + 7) % 7) * 24 * 60 * 60 * 1000);
-  const formattedDate = targetDate.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata' });
 
-  return formattedDate;
+  return targetDate;
 }
 
-async function getDishInfo(sellerId, dishName) {
+async function getDishInfo(sellerName, dishName) {
     try {
-        const seller = await Seller.findOne({ _id: sellerId });
+        const seller = await Seller.findOne({ name: sellerName });
 
         if (!seller) {
             return null;
@@ -251,11 +250,11 @@ app.post("/api/order", async (req, res) => {
         const deliveryDate = getDateFromDay(dish.availability[0].day);
         const itemGroup = newOrder.orderItems.find(group => group.deliveryDate.toISOString().slice(0,10) === deliveryDate.toISOString().slice(0,10));
 
-        const dishInfo = getDishInfo(seller, dish.name);
+        const dishInfo = await getDishInfo(seller, dish.name);
 
         if (itemGroup) {
           itemGroup.items.push({
-            sellerId: seller,
+            sellerName: seller,
             dishName: dish.name,
             quantity: dish.qty,
             mealTime: dish.availability[0].meal,
@@ -266,7 +265,7 @@ app.post("/api/order", async (req, res) => {
           newOrder.orderItems.push({
             deliveryDate,
             items: [{
-              sellerId: seller,
+              sellerName: seller,
               dishName: dish.name,
               quantity: dish.qty,
               mealTime: dish.availability[0].meal,
@@ -275,7 +274,7 @@ app.post("/api/order", async (req, res) => {
             }]
           });
         }
-        newOrder.totalAmount += dish.qty * parseInt(dish.price);
+        newOrder.totalAmount += dish.qty * parseInt(dishInfo.price);
       }
     }
 
@@ -303,7 +302,7 @@ today.setHours(0, 0, 0, 0);
 
 app.get('/api/ordersdata', async (req, res) => {
   try {
-    const orders = await Order.find({ paymentStatus: "SUCCESS" }).populate('items.sellerId');
+    const orders = await Order.find({ paymentStatus: "SUCCESS" }).populate('items.sellerName');
     console.log(orders);
 
     const transformedOrders = transformOrdersForFrontend(orders);
@@ -322,14 +321,14 @@ function transformOrdersForFrontend(orders) {
       const frontendDateObj = frontendOrders[dateKey] || {};
 
       itemsGroup.items.forEach(item => {
-        const sellerName = item.sellerId;
+        const sellerName = item.sellerName;
         const mealTime = item.mealTime;
 
         const frontendMealTimeObj = frontendDateObj[mealTime] || {};
         const frontendSellerObj = frontendMealTimeObj[sellerName] || { dish: null, customers: [], sellerTotal: 0 };
 
         if (!frontendSellerObj.dish) {
-          const dishInfo = getDishInfo(item.sellerId, item.dishName);
+          const dishInfo = getDishInfo(item.sellerName, item.dishName);
           frontendSellerObj.dish = dishInfo ? { dishName: dishInfo.name, price: dishInfo.price } : null;
         }
 
