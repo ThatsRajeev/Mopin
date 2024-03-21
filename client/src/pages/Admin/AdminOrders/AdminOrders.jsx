@@ -30,7 +30,6 @@ const AdminOrders = () => {
   if(Object.keys(ordersData).length) {
    setOrders(transformFrontendData(ordersData));
    setLoading(false);
-console.log(transformFrontendData(ordersData));
   }
  }, [ordersData]);
 
@@ -116,7 +115,7 @@ const transformFrontendData = (ordersData) => {
               <TableCell>{trimDate(order.date)}</TableCell>
               <TableCell>{order.mealTime}</TableCell>
               <TableCell>{order.seller}</TableCell>
-              <TableCell>{order.dish.dishName} - ₹{order.dish.price}</TableCell>
+              <TableCell>{order.dish.dishName} x {order.dish.quantity}</TableCell>
               <TableCell>
                 {order.customers.map((customer, index) => (
                   <div key={index}>
