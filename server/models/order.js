@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Seller = require('./seller');
 
 // Order Schema
 const orderSchema = new mongoose.Schema({
@@ -10,7 +11,7 @@ const orderSchema = new mongoose.Schema({
     deliveryDate: Date,
     items: [
       {
-        sellerName: { type: String },
+        sellerName: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' },
         dishName: String,
         quantity: Number,
         mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner'] },
