@@ -190,6 +190,17 @@ app.post('/api/deletedata', async (req, res) => {
   }
 });
 
+//Seller Route
+app.get('/api/sellers', async (req, res) => {
+  try {
+    const sellers = await Seller.find({});
+    res.json(sellers);
+  } catch (err) {
+    handleErrors(res, err); 
+  }
+});
+
+
 // Order routes
 function getDateFromDay(targetDay) {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
