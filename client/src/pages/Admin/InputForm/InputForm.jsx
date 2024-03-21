@@ -40,7 +40,7 @@ const InputForm = ({ homemaker, formType }) => {
             description: dish.description,
             price: dish.price,
             imgURL: dish.imgURL,
-            isVeg: dish.isVeg,
+            isVeg: dish.isVeg ? "yes" : "no",
           } : null;
         });
 
@@ -51,7 +51,7 @@ const InputForm = ({ homemaker, formType }) => {
       console.log(values);
     }
   });
-  
+
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);

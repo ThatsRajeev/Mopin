@@ -129,7 +129,7 @@ function AdminNavbar({children}) {
   return (
     <NavCase>
       <GlobalNav>
-        <Logo to="/"> mopin </Logo>
+        <Logo to="/admin?nav=Orders"> mopin </Logo>
 
         <Menu>
           <Item>

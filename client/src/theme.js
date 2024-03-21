@@ -14,6 +14,12 @@ const theme = createTheme({
       dark: '#9C9C9C',
       contrastText: getContrastRatio('#F16122', '#fff') > 1.5 ? '#fff' : '#222222',
     },
+    ochra: {
+      main: '#349E46',
+      light: '#228B22	',
+      dark: '#2E8B57',
+      contrastText: getContrastRatio('#F16122', '#fff') > 1.5 ? '#fff' : '#222222',
+    }
   },
   typography: {
     fontFamily: '"Montserrat", sans-serif',
