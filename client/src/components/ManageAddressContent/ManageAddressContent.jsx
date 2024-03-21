@@ -95,10 +95,10 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
           <p onClick={() => setAddressChoosen && setAddressChoosen(true)}>{address}</p>
           <div className="modify-div">
             <Fab size="small"  aria-label="edit"  sx={{margin: '12px 12px 0 0 '}}>
-              <EditOutlinedIcon onClick={() => {toggleOverlay('map')}} sx={{color: "#f16122"}}/>
+              <EditOutlinedIcon onClick={() => {toggleOverlay('map')}}/>
             </Fab>
             <Fab size="small"  aria-label="delete"  sx={{margin: '12px 12px 0 0'}}>
-              <DeleteOutlineIcon onClick={() => {toggleOverlay('delete')}} sx={{color: "#f16122"}}/>
+              <DeleteOutlineIcon onClick={() => {toggleOverlay('delete')}}/>
             </Fab>
 
             {overlayParams.get("delete") && (

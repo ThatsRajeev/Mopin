@@ -149,7 +149,7 @@ const MapComponent = ({ setShowMap }) => {
           <DraggableMarker setAddressInfo={setAddressInfo} setCurrentLocation={setCurrentLocation} setLoading={setLoading}/>
           <LocationButton getCurrentLocation={getCurrentLocation}/>
           <div className="tooltip-container">
-            <Tooltip title="Drag the map to set your location" placement="top" title="Drag the map to set your location" open={!isEditing} sx={{width: '180px', fontSize: '38px'}} >
+            <Tooltip title="Drag the map to set your location" placement="top" open={!isEditing} sx={{width: '180px', fontSize: '38px'}}>
               <FmdGoodIcon/>
             </Tooltip>
           </div>

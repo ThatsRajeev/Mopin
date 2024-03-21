@@ -60,3 +60,7 @@
   font-size: 24px;
   color: #F16122;
 }
+
+.MuiTooltip-popper[data-popper-placement*="bottom"] .css-vapq85-MuiTooltip-tooltip {
+  display: none !important;
+}
