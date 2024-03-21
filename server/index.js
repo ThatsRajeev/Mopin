@@ -325,7 +325,6 @@ async function transformOrdersForFrontend(orders) {
       for (const item of itemsGroup.items) {
         const sellerName = item.sellerName;
         const mealTime = item.mealTime;
-        console.log(item);
 
         const frontendMealTimeObj = frontendDateObj[mealTime] || {};
         const frontendSellerObj = frontendMealTimeObj[sellerName] || { dish: null, customers: [], sellerTotal: 0 };
@@ -339,7 +338,7 @@ async function transformOrdersForFrontend(orders) {
           name: order.name,
           phoneNumber: order.phoneNumber,
           address: order.address,
-          quantity: item.quantity
+          orderId: order.orderId
         });
 
         // Accumulate seller total
@@ -353,6 +352,41 @@ async function transformOrdersForFrontend(orders) {
   }
   return frontendOrders;
 }
+
+app.post('/api/editOrdersdata', async (req, res) => {
+  try {
+    const { orderId, sellerName, dishName, status } = req.body;
+
+    const updateResult = await Order.updateOne(
+    {
+      orderId: orderId,
+      "orderItems": {
+        $elemMatch: { // Target a 'deliveryDate' subdocument
+          "items": { // Filter within the nested 'items'
+            $elemMatch: {
+              dishName: dishName,
+              sellerName: sellerName
+            }
+          }
+        }
+      }
+    },
+    {
+      $set: { "orderItems.$[outer].items.$[inner].status": status }
+    }
+  );
+
+      if (updateResult.matchedCount === 0) {
+       res.status(404).json({ message: "Order or dish not found" });
+     } else if (updateResult.modifiedCount === 0) {
+       res.status(400).json({ message: "Status was already the same" });
+     } else {
+       res.status(200).json({ message: 'Dish status updated successfully' });
+     }
+  } catch (err) {
+    handleErrors(res, err);
+  }
+});
 
 // Server Start
 app.listen(process.env.PORT, () => {
