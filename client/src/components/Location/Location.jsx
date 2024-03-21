@@ -4,6 +4,7 @@ import handlePlaceSearch from "../../utils/handlePlaceSearch";
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import loader from "../../assets/loader2.svg";
@@ -108,7 +109,7 @@ const Location = ({ setShowProp }) => {
       </p>
       <div className="choose-location">
         <div className="location-icon-container">
-          <LocationOnOutlinedIcon style={{ color: '#222222', fontSize: '48px'}} />
+          <FmdGoodIcon style={{ color: '#222222', fontSize: '48px'}} />
         </div>
         <p className="choose-location-p1"> Choose your location! </p>
         <p className="choose-location-p2"> And enjoy delicious homemade cuisines near your location </p>

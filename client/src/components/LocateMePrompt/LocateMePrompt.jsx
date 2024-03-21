@@ -4,6 +4,7 @@ import handlePlaceSearch from "../../utils/handlePlaceSearch";
 import handleGeolocation from "../../utils/handleGeolocation";
 import Overlay from "../Overlay/Overlay"
 import Location from "../Location/Location";
+import Button from '@mui/material/Button';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import CloseIcon from '@mui/icons-material/Close';
@@ -87,20 +88,19 @@ function LocateMePrompt() {
           />
           {inputValue ? (
             <button className="clear-button" onClick={handleClearInput}>
-              <CloseIcon style={{ color: '#222222', fontSize: '18px' }} />
+              <CloseIcon color="secondary" />
             </button>
-          )
-          : (
+          ) : (
             <p className="gps-location" onClick={getCurrentLocation}>
-              <MyLocationIcon style={{ color: '#222222', marginRight: '12px'}} />
+              <MyLocationIcon color="secondary" sx={{marginRight: '12px'}}/>
               Locate Me
             </p>
           )}
-          <h3 className="explore-foods">Explore food</h3>
+          <Button variant="contained" sx={{borderRadius: '0', textTransform: 'none', fontSize: '18px', minWidth: '160px'}}>Explore Food</Button>
         </div>
-        <button onClick={() => {toggleOverlay()}} className="locateMe-btn mob-view">
+        <Button onClick={() => {toggleOverlay()}} variant="contained" fullWidth size="large" sx={{textTransform: 'none', display: {tablet: "none"}}}>
           Set your Location
-        </button>
+        </Button>
         <ul className="suggUL">
           {suggestions.length !== 0 && (
             <div className="list-div">

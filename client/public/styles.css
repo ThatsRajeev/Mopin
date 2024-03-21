@@ -12,22 +12,23 @@ body {
   overflow-x: hidden;
 }
 
-ul li {
-  list-style: none;
+textarea:focus, input:focus{
+  outline: none;
 }
 
-input:focus, textarea:focus {
-  outline: none;
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input::placeholder {
+  color: rgba(0, 0, 0, 0.48);
 }
 
 a, a:visited, a:hover, a:active {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
-}
-
-button:disabled {
-  background-color: rgb(192, 192, 201);
-  cursor: default;
 }
 
 hr {
@@ -84,17 +85,13 @@ hr {
   }
 }
 
-.profile-head {
+.head {
   display: flex;
   align-items: center;
   background-color: #fff;
   font-size: 16px;
   font-weight: 600;
   padding: 16px;
-
-  span {
-    margin-right: 16px;
-  }
 }
 
 .circularProgress {
@@ -105,7 +102,7 @@ hr {
 }
 
 .pc-view {
-  display: none !important;;
+  display: none !important;
 
   @media (width > 768px){
     display: flex !important;

@@ -30,8 +30,6 @@
   }
 
   .address-input-div {
-    display: flex;
-    align-items: center;
     border: 1px solid rgb(214, 214, 214);
   }
 
@@ -39,10 +37,6 @@
     font-size: 16px;
     font-weight: 600;
     padding: 18px 0 18px 18px;
-  }
-
-  .address-input::placeholder {
-    color: rgba(0, 0, 0, 0.48);
   }
 
   .gps-location {
@@ -55,27 +49,13 @@
     opacity: 0.78;
     white-space: nowrap;
     z-index: 1;
-    margin: unset;
+    margin: 0 16px 0 0;
   }
 
   .list-div {
     position: relative;
     overflow-y: hidden;
   }
-}
-
-.locateMe-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #F16122;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #fff;
-  padding: 12px;
-  width: 100%;
-  border: none;
-  cursor: pointer;
 }
 
 .locateMe-img {
@@ -182,15 +162,4 @@
   font-size: 26px;
   opacity: 0.78;
   margin: 16px 0 32px;
-}
-
-.explore-foods {
-  background-color: #F16122;
-  white-space: nowrap;
-  color: #fff;
-  align-items: center;
-  display: flex;
-  padding: 16px;
-  margin-left: 16px;
-  cursor: pointer;
 }

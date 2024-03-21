@@ -4,10 +4,12 @@ import axios from "axios";
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
-import locationIcon from "../../assets/location-icon.png";
 import { useUserAuth } from "../../context/AuthContext";
 import handleGeolocation from "../../utils/handleGeolocation";
+import Fab from '@mui/material/Fab';
 import { TextField, Button } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MyLocationOutlinedIcon from '@mui/icons-material/MyLocationOutlined';
 import "./MapComponent.css"
@@ -53,8 +55,9 @@ function LocationButton({getCurrentLocation}) {
       const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom location-button');
 
       const iconContainer = document.createElement('div');
-      iconContainer.style.display = 'flex';
-      ReactDOM.render(<MyLocationOutlinedIcon />, iconContainer);
+      ReactDOM.render(<Fab size="small" aria-label="location">
+        <MyLocationOutlinedIcon sx={{color: '#f16122'}}/>
+      </Fab>, iconContainer);
       container.appendChild(iconContainer);
 
       container.onclick = function(){
@@ -146,10 +149,9 @@ const MapComponent = ({ setShowMap }) => {
           <DraggableMarker setAddressInfo={setAddressInfo} setCurrentLocation={setCurrentLocation} setLoading={setLoading}/>
           <LocationButton getCurrentLocation={getCurrentLocation}/>
           <div className="tooltip-container">
-            <img src={locationIcon} alt="marker" />
-            <span className="tooltip">
-              Drag the map to set your location
-            </span>
+            <Tooltip title="Drag the map to set your location" placement="top" title="Drag the map to set your location" open={!isEditing} sx={{width: '180px', fontSize: '38px'}} >
+              <FmdGoodIcon/>
+            </Tooltip>
           </div>
         </MapContainer>
       )}
@@ -157,7 +159,7 @@ const MapComponent = ({ setShowMap }) => {
       <div className={`set-address ${isEditing ? "address-editing" : ""}`}>
         {isEditing && (
           <>
-            <div className="profile-head" onClick={() => setIsEditing(false)}>
+            <div className="head" onClick={() => setIsEditing(false)}>
               <ArrowBackIcon style={{fontSize: '20px', marginRight: '16px'}} />
               <p> Edit Address </p>
             </div>
@@ -165,7 +167,7 @@ const MapComponent = ({ setShowMap }) => {
           </>
         )}
         <p> Your Delivery Location </p>
-        <h2>{loading ? "Loading..." : addressInfo.address}</h2>
+        <h2 style={{opacity: loading ? '0.48' : '1', lineHeight: isEditing ? '1.8rem' : 'auto'}}>{loading ? "Loading..." : addressInfo.address}</h2>
         {isEditing && (
           <div>
             <div className="address-form-group">

@@ -68,15 +68,15 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
   return (
     <div className="component address-comp">
       <div className="new-address-div addresses" onClick={() => {toggleOverlay('map')}}>
-        <Fab size="medium"  aria-label="add"  sx={{marginRight: '12px'}}>
-        <AddIcon />
-      </Fab>
+        <Fab size="medium" aria-label="add" sx={{marginRight: '12px'}}>
+          <AddIcon />
+        </Fab>
         <h3> Add New Address </h3>
       </div>
 
       {overlayParams.get("map") && (
         <Overlay>
-          <div className="profile-head mob-view" onClick={() => toggleOverlay('map')}>
+          <div className="head mob-view" onClick={() => toggleOverlay('map')}>
             <ArrowBackIosIcon sx={{fontSize: '20px'}}/>
             <p> Edit Address </p>
           </div>
@@ -94,10 +94,10 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
           </div>
           <p onClick={() => setAddressChoosen && setAddressChoosen(true)}>{address}</p>
           <div className="modify-div">
-            <Fab size="small"  aria-label="edit"  sx={{marginRight: '12px'}}>
+            <Fab size="small"  aria-label="edit"  sx={{margin: '12px 12px 0 0 '}}>
               <EditOutlinedIcon onClick={() => {toggleOverlay('map')}} sx={{color: "#f16122"}}/>
             </Fab>
-            <Fab size="small"  aria-label="delete"  sx={{marginRight: '12px'}}>
+            <Fab size="small"  aria-label="delete"  sx={{margin: '12px 12px 0 0'}}>
               <DeleteOutlineIcon onClick={() => {toggleOverlay('delete')}} sx={{color: "#f16122"}}/>
             </Fab>
 
@@ -105,10 +105,8 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
               <Overlay unsetDims="true">
                 <div className="delete-container">
                   <h3 className="delete-heading">Are you sure you want to delete? </h3>
-                  <div>
-                    <Button variant="outlined" color="secondary" onClick={deleteAddress} sx={{marginRight: '28px', padding: '8px 32px'}}>Yes</Button>
-                    <Button variant="contained" color="secondary" onClick={() => toggleOverlay('delete')} sx={{padding: '8px 32px'}}>Cancel</Button>
-                  </div>
+                  <Button variant="outlined" color="secondary" onClick={deleteAddress} sx={{marginRight: '28px', padding: '8px 32px'}}>Yes</Button>
+                  <Button variant="contained" color="secondary" onClick={() => toggleOverlay('delete')} sx={{padding: '8px 32px'}}>Cancel</Button>
                 </div>
               </Overlay>
             )}

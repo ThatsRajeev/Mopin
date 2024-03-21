@@ -6,6 +6,7 @@ import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import loader from "../../assets/loader.svg";
 import { useUserAuth } from "../../context/AuthContext";
+import Fab from '@mui/material/Fab';
 import TextField from '@mui/material/TextField';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import "./Login.css";
@@ -151,17 +152,15 @@ function Login({ setShowProp }) {
       <Toaster
         position="bottom-center"
       />
-      <div className="back-button-div mob-view">
-        <button className="back-button">
-          <ArrowBackIosIcon onClick={() => setShowProp('login')} sx={{fontSize: '16px'}}/>
-        </button>
-      </div>
+      <Fab size="small" aria-label="back" onClick={() => setShowProp('login')} sx={{position: 'absolute', top: '6px', left: '6px', display: {tablet: "none"}}}>
+        <ArrowBackIosIcon />
+      </Fab>
       <div className="login-img"></div>
       <div className="login-div">
         {showOtp ? (
           <p className="otp-text">
             <div className="active-text">
-              <ArrowBackIosIcon onClick={(event) => setShowOtp(false)} sx={{marginRight: '8px'}}/>
+              <ArrowBackIosIcon onClick={(event) => setShowOtp(false)} sx={{marginRight: '6px', cursor: 'pointer'}}/>
               Enter OTP
             </div>
             We've sent an OTP to your phone number.
@@ -176,8 +175,8 @@ function Login({ setShowProp }) {
         <form>
           {showOtp ? (
             <>
-              <MuiOtpInput display="flex" gap={1.6} TextFieldsProps={{size: 'small'}} autoFocus value={otp} onChange={setOtp}
-                sx={{marginBottom: '16px'}} fullWidth type="numeric" validateChar={(value) => {return /^\d$/.test(value) ? value : ""}} length={6}/>
+              <MuiOtpInput display="flex" gap={1.2} TextFieldsProps={{size: 'small', type: 'number'}} autoFocus
+                value={otp} onChange={setOtp} sx={{marginBottom: '16px'}} fullWidth  length={6}/>
 
               {resendTimer > 0 ? (
                 <p className="resend-p">Didn't recieve code? Resend OTP after <b>{resendTimer} seconds</b></p>
@@ -207,7 +206,7 @@ function Login({ setShowProp }) {
            onClick={showOtp ? "" : handleSubmit} disabled={showOtp && otp.length !== 6}>
              {isSignUp ? "Sign Me Up" : "Login With OTP"}
              {loading && <img className="loader-img" src={loader} alt="load-img" />}
-           </Button>
+         </Button>
         </form>
         <p className="login-tc" >By {isSignUp ? 'creating an account': 'signing in'}, I accept the Terms and Conditions of Mopin.</p>
       </div>

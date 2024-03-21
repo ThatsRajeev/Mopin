@@ -60,10 +60,3 @@
   font-size: 24px;
   color: #F16122;
 }
-
-.modify-div >button {
-  border: none;
-  background-color: inherit;
-  margin: 12px 12px 0 0;
-  cursor: pointer;
-}

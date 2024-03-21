@@ -119,7 +119,7 @@ const MealtimeFilter = () => {
 
       {searchParams.get('breakfast') && (
         <Overlay>
-          <div className="profile-head" onClick={() => toggleOverlay('breakfast')}>
+          <div className="head" onClick={() => toggleOverlay('breakfast')}>
             <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px', fontSize: '18px'}}/>
             <p>Breakfast</p>
           </div>
@@ -134,7 +134,7 @@ const MealtimeFilter = () => {
       )}
       {searchParams.get('lunch') && (
         <Overlay>
-          <div className="profile-head" onClick={() => toggleOverlay('lunch')}>
+          <div className="head" onClick={() => toggleOverlay('lunch')}>
             <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px', fontSize: '18px'}}/>
             <p>Lunch</p>
           </div>
@@ -149,7 +149,7 @@ const MealtimeFilter = () => {
       )}
       {searchParams.get('dinner') && (
         <Overlay>
-          <div className="profile-head" onClick={() => toggleOverlay('dinner')}>
+          <div className="head" onClick={() => toggleOverlay('dinner')}>
             <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px', fontSize: '18px'}}/>
             <p>Dinner</p>
           </div>

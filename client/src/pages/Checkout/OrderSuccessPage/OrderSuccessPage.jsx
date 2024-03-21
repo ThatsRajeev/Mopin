@@ -60,7 +60,7 @@ function OrderSuccessPage() {
   return (
     <>
     <Navbar header="Order Tracking" showAddress="none" showNavbar = {windowWidth < 768 ? "none" : ""}/>
-    <div className="profile-head mob-view">
+    <div className="head mob-view">
       <ArrowBackIosNewOutlinedIcon  onClick={() => navigate('/')}/>
       <p>Order Tracking</p>
     </div>
