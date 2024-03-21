@@ -8,6 +8,8 @@ import homecooks from "../../../data/homecooks";
 import "./AdminProductList.css";
 
 const AdminProductList = () => {
+  const [formType, setFormType] = useState(null);
+  const [selectedHomemaker, setSelectedHomemaker] = useState(null);
   const [formParams, setFormParams] = useSearchParams();
   const [switchStates, setSwitchStates] = useState(homecooks.map(cook => true));
 
@@ -16,16 +18,29 @@ const AdminProductList = () => {
   }
 
   const handleAddHomemakerClick = () => {
-    setFormParams(params => {
-      params.set("form", "true");
-      return params;
-    });
+   setFormType('add');
+   setFormParams((prev) => {
+    prev.set("edit", "false");
+    return prev;
+   });
+  };
+
+  const handleEditHomemakerClick = (homemaker) => {
+   setSelectedHomemaker(homemaker);
+   setFormType('edit');
+   setFormParams((prev) => {
+    prev.set("edit", "true");
+    return prev;
+   });
   };
 
   return (
     <section className="admin-homecooks">
-      {formParams.get("form") === "true" ? (
-        <InputForm />
+      {(formParams.get("edit") !== null) ? (
+        <InputForm
+          homemaker={selectedHomemaker}
+          formType={formType}
+        />
       ) : (
         <>
           <div className="homemakers-head">
@@ -71,7 +86,7 @@ const AdminProductList = () => {
                   </div>
                 </div>
               </div>
-              <button className="homemaker-edit"><EditIcon />Edit Homemaker Info</button>
+              <button className="homemaker-edit" onClick={() => handleEditHomemakerClick(cook)}><EditIcon />Edit Homemaker Info</button>
             </Link>
           ))}
         </>
