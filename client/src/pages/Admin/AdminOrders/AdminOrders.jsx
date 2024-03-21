@@ -28,7 +28,7 @@ const AdminOrders = () => {
 
  useEffect(() => {
   if(Object.keys(ordersData).length) {
-   setOrders(transformFrontendData(ordersData)); // Updated transformation
+   setOrders(transformFrontendData(ordersData));
    setLoading(false);
   }
  }, [ordersData]);
@@ -44,13 +44,6 @@ const AdminOrders = () => {
   return trimmedDate;
  }
 
- const toggleDate = (date) => {
-  setExpandedDates((prevExpanded) => ({
-   ...prevExpanded,
-   [date]: !prevExpanded[date]
-  }));
- };
-
  const toggleMealTime = (date, mealTime) => {
   setExpandedDates((prevExpanded) => ({
    ...prevExpanded,
@@ -65,30 +58,6 @@ const AdminOrders = () => {
   const updatedCustomers = [...expandedCustomers];
   updatedCustomers[index] = !updatedCustomers[index];
   setExpandedCustomers(updatedCustomers);
- };
-
- const copyOrderDetailsToClipboard = (customers) => {
-  const orderDetails = customers.map((customer) => (
-   `${customer.name}, ${customer.phoneNumber}, ${customer.address}\n- ${customer.quantity} items`
-  )).join('\n');
-
-  const textArea = document.createElement('textarea');
-  textArea.value = orderDetails;
-  document.body.appendChild(textArea);
-  textArea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textArea);
- };
-
- const sortOrders = (unorderedOrders) => {
-  const orderedDates = Object.keys(unorderedOrders).sort((a, b) => new Date(a) - new Date(b));
-  const orderedOrders = {};
-
-  orderedDates.forEach(date => {
-   orderedOrders[date] = unorderedOrders[date];
-  });
-
-  return orderedOrders;
  };
 
 const columns = [
@@ -112,10 +81,9 @@ const transformFrontendData = (ordersData) => {
           };
         });
       });
-    }).flat(2); // Flatten the nested arrays
+    }).flat(2);
     return transformedData;
   };
-
 
  return (
   <div className="admin-orders-container">
@@ -143,16 +111,15 @@ const transformFrontendData = (ordersData) => {
         </TableHead>
         <TableBody>
           {Array.isArray(orders) && orders.map((order) => (
-            <TableRow key={order.date + order.mealTime + order.seller}> {/* Combined key */}
+            <TableRow key={order.date + order.mealTime + order.seller}>
               <TableCell>{trimDate(order.date)}</TableCell>
               <TableCell>{order.mealTime}</TableCell>
               <TableCell>{order.seller}</TableCell>
               <TableCell>{order.dish.dishName} - ₹{order.dish.price}</TableCell>
               <TableCell>
-                {/* Since customers is an array now, display them directly */}
                 {order.customers.map((customer, index) => (
                   <div key={index}>
-                    {customer.name}, {customer.phoneNumber}, {customer.address} - {customer.quantity} items
+                    <b>{customer.name}</b>, {customer.phoneNumber}, {customer.address}
                   </div>
                 ))}
               </TableCell>

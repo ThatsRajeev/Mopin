@@ -28,11 +28,11 @@ const handlePayment = async (name, number, address, dishes, subscriptions, total
       name, number, address, dishes, subscriptions, totalCost
     };
 
-    const response = await axios.post('http://localhost:5000/api/payment/orders', orderData, {
+    const response = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {
       withCredentials: true,
     });
 
-    await axios.post('http://localhost:5000/api/order', {
+    await axios.post('https://mopin-server.vercel.app/api/order', {
       orderData,
       orderId: response.data.order_id
     }, {

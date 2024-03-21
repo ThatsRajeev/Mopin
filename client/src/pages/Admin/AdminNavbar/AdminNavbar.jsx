@@ -7,7 +7,7 @@ import Overlay from "../../../components/Overlay/Overlay";
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import LunchDiningOutlinedIcon from '@mui/icons-material/LunchDiningOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
 
 const NavCase = styled('header')({
   display: "block",
@@ -151,9 +151,9 @@ function AdminNavbar({children}) {
             </NavLink>
           </Item>
           <Item>
-            <NavLink sc={navParams.get("nav")!=='Settings' ? "true" : "false"} onClick={() => setNav('Settings')}>
-              <SettingsOutlinedIcon />
-              &nbsp;Settings
+            <NavLink sc={navParams.get("nav")!=='Analytics' ? "true" : "false"} onClick={() => setNav('Analytics')}>
+              <AnalyticsOutlinedIcon />
+              &nbsp;Analytics
             </NavLink>
           </Item>
         </Menu>
@@ -178,10 +178,10 @@ function AdminNavbar({children}) {
             Customers
           </NavItem>
         </NavLink>
-        <NavLink sc={navParams.get("nav")!=='Settings' ? "true" : "false"} onClick={() => setNav('Settings')}>
+        <NavLink sc={navParams.get("nav")!=='Analytics' ? "true" : "false"} onClick={() => setNav('Analytics')}>
           <NavItem>
-            <SettingsOutlinedIcon />
-            Settings
+            <AnalyticsOutlinedIcon />
+            Analytics
           </NavItem>
         </NavLink>
       </MobNav>

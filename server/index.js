@@ -302,25 +302,27 @@ today.setHours(0, 0, 0, 0);
 
 app.get('/api/ordersdata', async (req, res) => {
   try {
-    const orders = await Order.find({ paymentStatus: "SUCCESS" }).populate('items.sellerName');
-    console.log(orders);
+    const orders = await Order.find({ paymentStatus: "SUCCESS" }).populate({
+      path: 'items.sellerName',
+      strictPopulate: false
+  });
 
-    const transformedOrders = transformOrdersForFrontend(orders);
+    const transformedOrders = await transformOrdersForFrontend(orders);
     res.json(transformedOrders);
   } catch (err) {
     handleErrors(res, err);
   }
 });
 
-function transformOrdersForFrontend(orders) {
+async function transformOrdersForFrontend(orders) {
   const frontendOrders = {};
 
-  orders.forEach(order => {
-    order.orderItems.forEach(itemsGroup => {
+  for (const order of orders) {
+    for (const itemsGroup of order.orderItems) {
       const dateKey = itemsGroup.deliveryDate.toISOString().slice(0, 10);
       const frontendDateObj = frontendOrders[dateKey] || {};
 
-      itemsGroup.items.forEach(item => {
+      for (const item of itemsGroup.items) {
         const sellerName = item.sellerName;
         const mealTime = item.mealTime;
 
@@ -328,7 +330,7 @@ function transformOrdersForFrontend(orders) {
         const frontendSellerObj = frontendMealTimeObj[sellerName] || { dish: null, customers: [], sellerTotal: 0 };
 
         if (!frontendSellerObj.dish) {
-          const dishInfo = getDishInfo(item.sellerName, item.dishName);
+          const dishInfo = await getDishInfo(item.sellerName, item.dishName);
           frontendSellerObj.dish = dishInfo ? { dishName: dishInfo.name, price: dishInfo.price } : null;
         }
 
@@ -346,10 +348,9 @@ function transformOrdersForFrontend(orders) {
         frontendMealTimeObj[sellerName] = frontendSellerObj;
         frontendDateObj[mealTime] = frontendMealTimeObj;
         frontendOrders[dateKey] = frontendDateObj;
-      });
-    });
-  });
-
+      }
+    }
+  }
   return frontendOrders;
 }
 

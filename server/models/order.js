@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
     deliveryDate: Date,
     items: [
       {
-        sellerName: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' },
+        sellerName: { type: String, ref: 'Seller' },
         dishName: String,
         quantity: Number,
         mealTime: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner'] },
