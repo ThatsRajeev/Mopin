@@ -211,7 +211,10 @@
 }
 
 .checkout-counter {
+  position: unset;
+  opacity: 1;
   width: 72px;
+  height: 36px;
   padding: 0.8%;
   transform: unset;
 

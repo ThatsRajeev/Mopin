@@ -21,15 +21,10 @@ const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
   const dispatch = useDispatch();
 
   const handleIncrement = (event, dish, seller) => {
-    const counterValue = event.target.previousElementSibling;
-    counterValue.textContent = parseInt(counterValue.textContent) + 1;
     dispatch(updateDish({ sellerName: seller, dishName: dish.name, qtyChange: 1 }));
   };
 
   const handleDecrement = (event, dish, seller) => {
-    const counterValue = event.target.nextElementSibling;
-    const newValue = parseInt(counterValue.textContent) - 1;
-    counterValue.textContent = newValue;
     dispatch(updateDish({ sellerName: seller, dishName: dish.name, qtyChange: -1 }));
   };
 
