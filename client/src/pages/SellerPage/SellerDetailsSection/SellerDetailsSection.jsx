@@ -37,10 +37,9 @@ const SellerDetailsSection = ({ sellerDetails, showCheckboxes, setShowCheckboxes
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const maxRotation = 20;
-      let rotation = (scrollPosition / 10) % 360;
+      let rotation = (scrollPosition / 16) % 360;
       if (rotation > 180) {
-        rotation -= 360; 
+        rotation -= 360;
       }
       if (imageRef.current) {
         imageRef.current.style.transform = `translateY(-50%) rotate(${rotation}deg)`;

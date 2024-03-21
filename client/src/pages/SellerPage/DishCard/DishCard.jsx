@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addDish, updateDish } from "../../../store/dishesSlice";
 import "./DishCard.css";
@@ -6,49 +6,35 @@ import "./DishCard.css";
 const DishCard = ({ sellerName, dishItem }) => {
   const dispatch = useDispatch();
   const dishes = useSelector((state) => state.dishes);
-  const dishData = useMemo(() => dishes.bySeller[sellerName]?.[dishItem.name] || {},
-                                 [dishes.bySeller[sellerName]])
-  const quantityGreaterThanZero = dishData?.qty > 0;
+  const dishData = useMemo(() => dishes.bySeller[sellerName]?.[dishItem.name] || {}, [dishes.bySeller[sellerName]]);
+  const [isCounterVisible, setIsCounterVisible] = useState(dishData?.qty > 0);
+  const counterRef = useRef(null);
+  const addRef = useRef(null);
 
-  const handleButtonClick = (event, dish, qty) => {
-    const button = event.target;
-    const counter = button.nextElementSibling;
-    button.classList.add('hidden');
+  useEffect(() => {
+    setIsCounterVisible(dishData?.qty > 0);
+  }, [dishes.bySeller[sellerName]]);
 
+  useEffect(() => {
+    if (isCounterVisible) {
+      addRef.current.classList.add('hidden');
+      counterRef.current.classList.add('active');
+    } else {
+      addRef.current.classList.remove('hidden');
+      counterRef.current.classList.remove('active');
+    }
+  }, [isCounterVisible]);
+
+  const handleButtonClick = (event, dish) => {
     dispatch(addDish({ sellerName, dish }));
-
-    setTimeout(() => {
-      button.style.display = 'none';
-      counter.style.display = 'flex';
-      counter.classList.remove('hidden');
-    }, 300);
   };
 
   const handleIncrement = (event, dish) => {
-    const counterValue = event.target.previousElementSibling;
-    counterValue.textContent = parseInt(counterValue.textContent) + 1;
-
     dispatch(updateDish({ sellerName, dishName: dish.name, qtyChange: 1 }));
   };
 
   const handleDecrement = (event, dish) => {
-    const counterValue = event.target.nextElementSibling;
-    const newValue = parseInt(counterValue.textContent) - 1;
-
     dispatch(updateDish({ sellerName, dishName: dish.name, qtyChange: -1 }));
-
-    if(newValue === 0) {
-      const counter = event.target.parentElement;
-      const addButton = counter.previousElementSibling;
-      counter.classList.add('hidden');
-      setTimeout(() => {
-        addButton.style.display = 'flex';
-        counter.style.display = 'none';
-        addButton.classList.remove('hidden');
-      }, 300);
-    } else {
-      counterValue.textContent = newValue;
-    }
   };
 
   return (
@@ -80,11 +66,11 @@ const DishCard = ({ sellerName, dishItem }) => {
         <img className="food-card-img" src={dishItem.imgURL} alt="food-img" />
       </div>
       <div className="button-container">
-        <button className={`add-btn ${quantityGreaterThanZero ? 'hidden' : ""}`} onClick={(e) => handleButtonClick(e, dishItem, 1)}> Add</button>
-        <div className={`counter ${quantityGreaterThanZero ? "" : 'hidden'}`}>
+        <button className={`add-btn ${isCounterVisible ? 'hidden' : 'active'}`} ref={addRef} onClick={(e) => handleButtonClick(e, dishItem)}>Add</button>
+        <div className={`counter ${isCounterVisible ? 'active' : 'hidden'}`} ref={counterRef}>
           <button className="counter-button" onClick={(e) => handleDecrement(e, dishItem)}>-</button>
-          <span className="counter-value">{quantityGreaterThanZero ? dishData.qty : 1}</span>
-          <button className="counter-button" onClick={(e) => handleIncrement(e, dishItem)}> +</button>
+          <span className="counter-value">{isCounterVisible ? dishData.qty : 1}</span>
+          <button className="counter-button" onClick={(e) => handleIncrement(e, dishItem)}>+</button>
         </div>
       </div>
     </div>

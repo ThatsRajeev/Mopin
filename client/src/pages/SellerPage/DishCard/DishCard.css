@@ -65,6 +65,7 @@
 }
 
 .add-btn, .counter {
+  position: absolute;
   display: flex;
   color: #349E46;
   background-color: #fff;
@@ -77,10 +78,23 @@
   align-items: center;
   padding: 1.6%;
   width: 100px;
+  height: 44px;
   transform: translateY(-50%);
-  transition: all 0.3s ease-in-out;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
   opacity: 1;
   aspect-ratio: 2.4;
+}
+
+.counter {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.add-btn.active, .counter.active {
+  opacity: 1;
+  transform: scale(1)  translateY(-50%);
+  z-index: 100;
 }
 
 .counter-button {
@@ -104,7 +118,5 @@
 }
 
 .hidden {
-  display: none;
   opacity: 0;
-  transform: translateY(-24px);
 }
