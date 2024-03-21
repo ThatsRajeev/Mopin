@@ -210,6 +210,7 @@ app.post("/api/order", async (req, res) => {
       const orderItems = [];
       for (const [dishName, dish] of Object.entries(sellerDishes)) {
         orderItems.push({
+          sellerId: seller,
           dishName: dish.name,
           quantity: dish.qty,
           mealTime: dish.availability[0].meal,
@@ -261,47 +262,54 @@ today.setHours(0, 0, 0, 0);
 
 app.get('/api/ordersdata', async (req, res) => {
   try {
-    const orders = await Order.find({
-      "paymentStatus": "SUCCESS",
-    });
-    const categorizedOrders = {};
+    const orders = await Order.find({ paymentStatus: "SUCCESS" }).populate('items.sellerId');
 
-    orders.forEach(order => {
-      const { name, phoneNumber, address, sellerName, items } = order;
-
-      items.forEach(item => {
-        const { dishName, quantity, price, mealTime, deliveryDate, status } = item;
-
-        if (status !== "Delivered" || status !== "Cancelled") {
-          const dateObj = categorizedOrders[deliveryDate] || {};
-          const mealTimeObj = dateObj[mealTime] || {};
-          const sellerNameObj = mealTimeObj[sellerName] || { dish: [], customers: [] };
-
-          sellerNameObj.dish.push({
-            dishName,
-            price,
-          });
-
-          sellerNameObj.customers.push({
-            quantity,
-            name,
-            phoneNumber,
-            address,
-          });
-
-          mealTimeObj[sellerName] = sellerNameObj;
-          dateObj[mealTime] = mealTimeObj;
-          categorizedOrders[deliveryDate] = dateObj;
-        }
-      });
-    });
-
-    res.json(categorizedOrders);
-
+    const transformedOrders = transformOrdersForFrontend(orders);
+    res.json(transformedOrders);
   } catch (err) {
     handleErrors(res, err);
   }
 });
+
+function transformOrdersForFrontend(orders) {
+  const frontendOrders = {};
+
+  orders.forEach(order => {
+    const dateKey = order.deliveryDate.toISOString().slice(0, 10);
+    const frontendDateObj = frontendOrders[dateKey] || {};
+
+    order.items.forEach(item => {
+      const sellerName = item.sellerId.name;
+      const mealTime = item.mealTime;
+      const dish = item.sellerId.dishes.find(d => d.mealTime === mealTime); // Find the dish
+
+      const frontendMealTimeObj = frontendDateObj[mealTime] || {};
+      const frontendSellerObj = frontendMealTimeObj[sellerName] || { dish: null, customers: [] };
+
+      // Set the dish (only once)
+      if (!frontendSellerObj.dish && dish) {
+        frontendSellerObj.dish = {
+          dishName: dish.dishName,
+          price: dish.price,
+        };
+      }
+
+      // Add customers
+      frontendSellerObj.customers.push({
+        name: order.name,
+        phoneNumber: order.phoneNumber,
+        address: order.address,
+        quantity: item.quantity
+      });
+
+      frontendMealTimeObj[sellerName] = frontendSellerObj;
+      frontendDateObj[mealTime] = frontendMealTimeObj;
+      frontendOrders[dateKey] = frontendDateObj;
+    });
+  });
+
+  return frontendOrders;
+}
 
 // Server Start
 app.listen(process.env.PORT, () => {
