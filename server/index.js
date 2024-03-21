@@ -9,7 +9,7 @@ const { validationResult } = require('express-validator');
 const paymentRoutes = require('./routes/payment');
 const path = require('path');
 const Order = require('./models/order');
-const Seller = require('./models/Seller');
+const Seller = require('./models/seller');
 
 dotenv.config();
 
