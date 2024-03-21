@@ -4,153 +4,166 @@ import { fetchOrders } from "../../../store/ordersSlice";
 import axios from 'axios';
 import Skeleton from '@mui/material/Skeleton';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import "./AdminOrders.css";
 
 const AdminOrders = () => {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [expandedDates, setExpandedDates] = useState({});
-  const [expandedCustomers, setExpandedCustomers] = useState([]);
-  const dispatch = useDispatch();
-  const ordersData = useSelector((state) => state.orders.items);
-  const ordersStatus = useSelector((state) => state.orders.status);
+ const [orders, setOrders] = useState([]);
+ const [loading, setLoading] = useState(true);
+ const [expandedDates, setExpandedDates] = useState({});
+ const [expandedCustomers, setExpandedCustomers] = useState([]);
+ const dispatch = useDispatch();
+ const ordersData = useSelector((state) => state.orders.items);
+ const ordersStatus = useSelector((state) => state.orders.status);
 
-  useEffect(() => {
-    dispatch(fetchOrders());
-  }, [dispatch]);
+ useEffect(() => {
+  dispatch(fetchOrders());
+ }, [dispatch]);
 
-  useEffect(() => {
-    if(Object.keys(ordersData).length) {
-      const sortedOrders = sortOrders(ordersData);
-      setOrders(sortedOrders);
-      setLoading(false);
-    }
-  }, [ordersData]);
+ useEffect(() => {
+  if(Object.keys(ordersData).length) {
+   setOrders(transformFrontendData(ordersData)); // Updated transformation
+   setLoading(false);
+  }
+ }, [ordersData]);
 
-  function trimDate(originalDate) {
-    const trimmedDate = new Date(originalDate).toLocaleDateString("en-US", {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
+ function trimDate(originalDate) {
+  const trimmedDate = new Date(originalDate).toLocaleDateString("en-US", {
+   weekday: 'short',
+   month: 'short',
+   day: 'numeric',
+   year: 'numeric'
+  });
 
-    return trimmedDate;
-  }
+  return trimmedDate;
+ }
 
-  const toggleDate = (date) => {
-    setExpandedDates((prevExpanded) => ({
-      ...prevExpanded,
-      [date]: !prevExpanded[date]
-    }));
+ const toggleDate = (date) => {
+  setExpandedDates((prevExpanded) => ({
+   ...prevExpanded,
+   [date]: !prevExpanded[date]
+  }));
+ };
+
+ const toggleMealTime = (date, mealTime) => {
+  setExpandedDates((prevExpanded) => ({
+   ...prevExpanded,
+   [date]: {
+    ...prevExpanded[date],
+    [mealTime]: !prevExpanded[date]?.[mealTime]
+   }
+  }));
+ };
+
+ const toggleCustomer = (index) => {
+  const updatedCustomers = [...expandedCustomers];
+  updatedCustomers[index] = !updatedCustomers[index];
+  setExpandedCustomers(updatedCustomers);
+ };
+
+ const copyOrderDetailsToClipboard = (customers) => {
+  const orderDetails = customers.map((customer) => (
+   `${customer.name}, ${customer.phoneNumber}, ${customer.address}\n- ${customer.quantity} items`
+  )).join('\n');
+
+  const textArea = document.createElement('textarea');
+  textArea.value = orderDetails;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textArea);
+ };
+
+ const sortOrders = (unorderedOrders) => {
+  const orderedDates = Object.keys(unorderedOrders).sort((a, b) => new Date(a) - new Date(b));
+  const orderedOrders = {};
+
+  orderedDates.forEach(date => {
+   orderedOrders[date] = unorderedOrders[date];
+  });
+
+  return orderedOrders;
+ };
+
+const columns = [
+   { id: 'date', label: 'Date', align: 'left' },
+   { id: 'mealTime', label: 'Meal Time', align: 'left' },
+   { id: 'seller', label: 'Seller', align: 'left' },
+   { id: 'dish', label: 'Dish', align: 'left' },
+   { id: 'customers', label: 'Customers', align: 'left' },
+];
+
+const transformFrontendData = (ordersData) => {
+    const transformedData = Object.entries(ordersData).map(([date, dateObj]) => {
+      return Object.entries(dateObj).map(([mealTime, mealTimeObj]) => {
+        return Object.entries(mealTimeObj).map(([seller, sellerObj]) => {
+          return {
+            date,
+            mealTime,
+            seller,
+            dish: sellerObj.dish,
+            customers: sellerObj.customers
+          };
+        });
+      });
+    }).flat(2); // Flatten the nested arrays
+    return transformedData;
   };
 
-  const toggleMealTime = (date, mealTime) => {
-    setExpandedDates((prevExpanded) => ({
-      ...prevExpanded,
-      [date]: {
-        ...prevExpanded[date],
-        [mealTime]: !prevExpanded[date]?.[mealTime]
-      }
-    }));
-  };
 
-  const toggleCustomer = (index) => {
-    const updatedCustomers = [...expandedCustomers];
-    updatedCustomers[index] = !updatedCustomers[index];
-    setExpandedCustomers(updatedCustomers);
-  };
-
-  const copyOrderDetailsToClipboard = (customers) => {
-    const orderDetails = customers.map((customer) => (
-      `${customer.name}, ${customer.phoneNumber}, ${customer.address}\n- ${customer.quantity} items`
-    )).join('\n');
-
-    const textArea = document.createElement('textarea');
-    textArea.value = orderDetails;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-  };
-
-  const sortOrders = (unorderedOrders) => {
-    const orderedDates = Object.keys(unorderedOrders).sort((a, b) => new Date(a) - new Date(b));
-    const orderedOrders = {};
-
-    orderedDates.forEach(date => {
-      orderedOrders[date] = unorderedOrders[date];
-    });
-
-    return orderedOrders;
-  };
-
-  return (
-    <div className="admin-orders-container">
-      {loading ? (
-        <div className="skeleton">
-          {Array(6).fill().map((item, index) => (
-            <div key={index} className="skeleton-item">
-              <Skeleton variant="text" width={`52%`} height={24} />
-              <Skeleton variant="text" width={`68%`} height={24} />
-              <Skeleton variant="rectangular" width={`86%`} height={100} />
-            </div>
+ return (
+  <div className="admin-orders-container">
+   {loading ? (
+    <div className="skeleton">
+     {Array(6).fill().map((item, index) => (
+      <div key={index} className="skeleton-item">
+       <Skeleton variant="text" width={`52%`} height={24} />
+       <Skeleton variant="text" width={`68%`} height={24} />
+       <Skeleton variant="rectangular" width={`86%`} height={100} />
+      </div>
+      ))}
+    </div>
+   ) : (
+  <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="orders table">
+        <TableHead>
+          <TableRow>
+            {columns.map((column) => (
+              <TableCell key={column.id} align={column.align}>
+                {column.label}
+              </TableCell>
             ))}
-        </div>
-      ) : (
-        <div>
-          <h3>Upcoming Orders</h3>
-          {Object.keys(orders).length > 0 ? (
-            Object.entries(orders).map(([date, dateObj]) => (
-              <div key={date} className="order-date">
-                <div className="toggle-arrow" onClick={() => toggleDate(date)}>
-                  {expandedDates[date] ? '\u25BC' : '\u25B6'}
-                </div>
-                <span>{trimDate(date)}</span>
-                {expandedDates[date] && Object.entries(dateObj).map(([mealTime, sellers]) => (
-                  <div key={mealTime} className="order-time">
-                    <div className="toggle-arrow" onClick={() => toggleMealTime(date, mealTime)}>
-                      {expandedDates[date]?.[mealTime] ? '\u25BC' : '\u25B6'}
-                    </div>
-                    <span>{mealTime}</span>
-                    {expandedDates[date]?.[mealTime] && Object.entries(sellers).map(([sellerName, { dish, customers }]) => (
-                      <div key={sellerName} className="order-seller">
-                        <span>{sellerName} &nbsp;</span>
-                        {Array.isArray(dish) && dish.length > 0 && (
-                          <p className="dishInfo">{dish[0].dishName} - ₹{dish[0].price}</p>
-                        )}
-                        <div className="order-details">
-                          {Array.isArray(customers) && customers.length > 0 && (
-                            customers.map((customer, i) => (
-                            <>
-                              <div
-                                key={i}
-                                className={`customer ${expandedCustomers[i] ? 'expanded' : ''}`}
-                                onClick={() => toggleCustomer(i)}
-                              >
-                                {customer.name}, {customer.phoneNumber}, {customer.address}
-                              </div>
-                            <p><b>{customer.quantity} items</b></p>
-                          </>
-                            ))
-                          )}
-                        <button className="copy-btn" onClick={() => {copyOrderDetailsToClipboard(customers)}}>
-                          <ContentCopyOutlinedIcon/>
-                        </button>
-                        </div>
-                      </div>
-                    ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {Array.isArray(orders) && orders.map((order) => (
+            <TableRow key={order.date + order.mealTime + order.seller}> {/* Combined key */}
+              <TableCell>{trimDate(order.date)}</TableCell>
+              <TableCell>{order.mealTime}</TableCell>
+              <TableCell>{order.seller}</TableCell>
+              <TableCell>{order.dish.dishName} - ₹{order.dish.price}</TableCell>
+              <TableCell>
+                {/* Since customers is an array now, display them directly */}
+                {order.customers.map((customer, index) => (
+                  <div key={index}>
+                    {customer.name}, {customer.phoneNumber}, {customer.address} - {customer.quantity} items
                   </div>
                 ))}
-              </div>
-            ))
-          ) : (
-            <p>No upcoming orders.</p>
-          )}
-        </div>
-      )}
-    </div>
-  );
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+   )}
+  </div>
+ );
 };
 
 export default AdminOrders;

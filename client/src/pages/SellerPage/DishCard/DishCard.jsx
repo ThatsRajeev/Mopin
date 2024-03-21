@@ -26,6 +26,7 @@ const DishCard = ({ sellerName, dishItem }) => {
   }, [isCounterVisible]);
 
   const handleButtonClick = (event, dish) => {
+    console.log(dish);
     dispatch(addDish({ sellerName, dish }));
   };
 

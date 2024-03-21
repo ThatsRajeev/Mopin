@@ -4,7 +4,7 @@ export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
   async () => {
     try {
-      const response = await fetch('https://mopin-server.vercel.app/api/ordersdata');
+      const response = await fetch('http://localhost:5000/api/ordersdata');
       const data = await response.json();
       return data;
     } catch (error) {

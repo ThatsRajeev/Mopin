@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
-    const response = await fetch ('http://localhost:8080/homemakers');
+    const response = await fetch ('https://mopin-server.vercel.app/api/sellers');
     return response.json();
   }
 );
