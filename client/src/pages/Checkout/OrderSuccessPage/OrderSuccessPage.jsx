@@ -33,7 +33,7 @@ function OrderSuccessPage() {
         setIsLoading(true);
         const response = await axios.post(
           'https://mopin-server.vercel.app/api/payment/paymentstatus',
-          { payment_id: order_id },
+          { order_id: order_id },
           { withCredentials: true }
         );
 

@@ -9,11 +9,11 @@ Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
 router.post("/paymentstatus", async (req, res) => {
   try {
-    const { payment_id } = req.body;
-    const orders = await Order.find({ paymentId: payment_id });
+    const { order_id } = req.body;
+    const orders = await Order.find({ orderId: order_id });
 
     if (!orders || orders.length === 0) {
-      res.status(404).json({ message: "No orders found for the provided payment_id" });
+      res.status(404).json({ message: "No orders found for the provided order_id" });
     } else {
       const paymentStatuses = orders.map(order => ({
         orderId: order.orderId,
@@ -59,11 +59,11 @@ router.post("/verify", async (req, res) => {
     Cashfree.PGVerifyWebhookSignature(req.headers["x-webhook-signature"], rawBody, req.headers["x-webhook-timestamp"]);
 
     const webhookData = req.body.data;
-    const paymentId = webhookData.order.order_id;
+    const orderId = webhookData.order.order_id;
     const paymentStatus = webhookData.payment.payment_status;
 
     const updateResult = await Order.updateMany(
-      { paymentId },
+      { orderId },
       { paymentStatus }
     );
 

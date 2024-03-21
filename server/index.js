@@ -196,10 +196,9 @@ app.get('/api/sellers', async (req, res) => {
     const sellers = await Seller.find({});
     res.json(sellers);
   } catch (err) {
-    handleErrors(res, err); 
+    handleErrors(res, err);
   }
 });
-
 
 // Order routes
 function getDateFromDay(targetDay) {
@@ -213,44 +212,74 @@ function getDateFromDay(targetDay) {
   return formattedDate;
 }
 
+async function getDishInfo(sellerId, dishName) {
+    try {
+        const seller = await Seller.findOne({ _id: sellerId });
+
+        if (!seller) {
+            return null;
+        }
+
+        const dish = seller.dishes.find(d => d.name === dishName);
+
+        return dish ? { dishName: dish.name, price: dish.price } : null;
+
+    } catch (err) {
+        console.error('Error fetching dish info: ', err);
+        throw err;
+    }
+}
+
 app.post("/api/order", async (req, res) => {
   try {
     const { name, number, address, dishes, subscriptions } = req.body.orderData;
 
-    const orderPromises = [];
+    const newOrder = new Order({
+      orderId: req.body.orderId,
+      name: name,
+      phoneNumber: number,
+      address,
+      orderItems: [],
+      totalAmount: 0,
+      paymentStatus: "Pending",
+      createdAt: new Date(),
+      updatedAt: null,
+    });
+
     for (const [seller, sellerDishes] of Object.entries(dishes)) {
-      const orderItems = [];
       for (const [dishName, dish] of Object.entries(sellerDishes)) {
-        orderItems.push({
-          sellerId: seller,
-          dishName: dish.name,
-          quantity: dish.qty,
-          mealTime: dish.availability[0].meal,
-          deliveryDate: getDateFromDay(dish.availability[0].day),
-          price: parseInt(dish.price),
-          status: "Pending",
-        });
+        const deliveryDate = getDateFromDay(dish.availability[0].day);
+        const itemGroup = newOrder.orderItems.find(group => group.deliveryDate.toISOString().slice(0,10) === deliveryDate.toISOString().slice(0,10));
+
+        const dishInfo = getDishInfo(seller, dish.name);
+
+        if (itemGroup) {
+          itemGroup.items.push({
+            sellerId: seller,
+            dishName: dish.name,
+            quantity: dish.qty,
+            mealTime: dish.availability[0].meal,
+            price: parseInt(dishInfo.price),
+            status: "Pending",
+          });
+        } else {
+          newOrder.orderItems.push({
+            deliveryDate,
+            items: [{
+              sellerId: seller,
+              dishName: dish.name,
+              quantity: dish.qty,
+              mealTime: dish.availability[0].meal,
+              price: parseInt(dishInfo.price),
+              status: "Pending",
+            }]
+          });
+        }
+        newOrder.totalAmount += dish.qty * parseInt(dish.price);
       }
-      const totalAmount = orderItems.reduce((acc, dish) => acc + dish.quantity * dish.price, 0);
-
-      const newOrder = new Order({
-        orderId: Date.now().toString(),
-        paymentId: req.body.paymentId,
-        name: name,
-        phoneNumber: number,
-        address,
-        sellerName: seller,
-        items: orderItems,
-        totalAmount,
-        paymentStatus: "Pending",
-        createdAt: new Date(),
-        updatedAt: null,
-      });
-
-      orderPromises.push(newOrder.save());
     }
 
-    await Promise.all(orderPromises);
+    await newOrder.save();
 
     res.status(200).json({ message: "Orders placed successfully!" });
   } catch (err) {
@@ -275,9 +304,9 @@ today.setHours(0, 0, 0, 0);
 app.get('/api/ordersdata', async (req, res) => {
   try {
     const orders = await Order.find({ paymentStatus: "SUCCESS" }).populate('items.sellerId');
+    console.log(orders);
 
     const transformedOrders = transformOrdersForFrontend(orders);
-    console.log(transformedOrders);
     res.json(transformedOrders);
   } catch (err) {
     handleErrors(res, err);
@@ -288,36 +317,37 @@ function transformOrdersForFrontend(orders) {
   const frontendOrders = {};
 
   orders.forEach(order => {
-    const dateKey = order.deliveryDate.toISOString().slice(0, 10);
-    const frontendDateObj = frontendOrders[dateKey] || {};
+    order.orderItems.forEach(itemsGroup => {
+      const dateKey = itemsGroup.deliveryDate.toISOString().slice(0, 10);
+      const frontendDateObj = frontendOrders[dateKey] || {};
 
-    order.items.forEach(item => {
-      const sellerName = item.sellerId.name;
-      const mealTime = item.mealTime;
-      const dish = item.sellerId.dishes.find(d => d.mealTime === mealTime); // Find the dish
+      itemsGroup.items.forEach(item => {
+        const sellerName = item.sellerId;
+        const mealTime = item.mealTime;
 
-      const frontendMealTimeObj = frontendDateObj[mealTime] || {};
-      const frontendSellerObj = frontendMealTimeObj[sellerName] || { dish: null, customers: [] };
+        const frontendMealTimeObj = frontendDateObj[mealTime] || {};
+        const frontendSellerObj = frontendMealTimeObj[sellerName] || { dish: null, customers: [], sellerTotal: 0 };
 
-      // Set the dish (only once)
-      if (!frontendSellerObj.dish && dish) {
-        frontendSellerObj.dish = {
-          dishName: dish.dishName,
-          price: dish.price,
-        };
-      }
+        if (!frontendSellerObj.dish) {
+          const dishInfo = getDishInfo(item.sellerId, item.dishName);
+          frontendSellerObj.dish = dishInfo ? { dishName: dishInfo.name, price: dishInfo.price } : null;
+        }
 
-      // Add customers
-      frontendSellerObj.customers.push({
-        name: order.name,
-        phoneNumber: order.phoneNumber,
-        address: order.address,
-        quantity: item.quantity
+        // Add customers
+        frontendSellerObj.customers.push({
+          name: order.name,
+          phoneNumber: order.phoneNumber,
+          address: order.address,
+          quantity: item.quantity
+        });
+
+        // Accumulate seller total
+        frontendSellerObj.sellerTotal += item.quantity * (frontendSellerObj.dish ? frontendSellerObj.dish.price : 0);
+
+        frontendMealTimeObj[sellerName] = frontendSellerObj;
+        frontendDateObj[mealTime] = frontendMealTimeObj;
+        frontendOrders[dateKey] = frontendDateObj;
       });
-
-      frontendMealTimeObj[sellerName] = frontendSellerObj;
-      frontendDateObj[mealTime] = frontendMealTimeObj;
-      frontendOrders[dateKey] = frontendDateObj;
     });
   });
 
