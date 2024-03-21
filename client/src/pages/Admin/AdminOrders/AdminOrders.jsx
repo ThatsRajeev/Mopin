@@ -30,6 +30,7 @@ const AdminOrders = () => {
   if(Object.keys(ordersData).length) {
    setOrders(transformFrontendData(ordersData));
    setLoading(false);
+console.log(transformFrontendData(ordersData));
   }
  }, [ordersData]);
 

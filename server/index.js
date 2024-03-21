@@ -331,7 +331,7 @@ async function transformOrdersForFrontend(orders) {
 
         if (!frontendSellerObj.dish) {
           const dishInfo = await getDishInfo(item.sellerName, item.dishName);
-          frontendSellerObj.dish = dishInfo ? { dishName: dishInfo.name, price: dishInfo.price } : null;
+          frontendSellerObj.dish = dishInfo ? { dishName: dishInfo.dishName, price: dishInfo.price, quantity: dishInfo.quantity, status: dishInfo.status } : null;
         }
 
         // Add customers
