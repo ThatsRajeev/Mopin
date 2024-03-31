@@ -42,7 +42,8 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
 
   const deleteAddress = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/deletedata`, {
+      const encodedPhoneNumber = encodeURIComponent(user.phoneNumber);
+      const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/addresses/${encodedPhoneNumber}`, {
         withCredentials: true
       });
       localStorage.removeItem("savedAddress");

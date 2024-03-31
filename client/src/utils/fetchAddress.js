@@ -6,7 +6,8 @@ const fetchAddress = async (user) => {
     return JSON.parse(storedAddress)
   } else {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/addressdata`, user);
+      const encodedPhoneNumber = encodeURIComponent(user.phoneNumber);
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/addresses/${encodedPhoneNumber}`, user);
       localStorage.setItem("savedAddress", JSON.stringify(response.data));
       return response.data;
     } catch (error) {

@@ -19,13 +19,13 @@ exports.createUser = async (req, res) => {
     const foundUserByEmail = email ? await User.findOne({ email: {$eq: email} }) : null;
 
     if (foundUserByPhone && name) {
-      return res.status(409).json({ message: 'Phone number already exists' });
+      return res.status(202).json({ message: 'Phone number already exists' });
     } else if (foundUserByEmail) {
-      return res.status(409).json({ message: 'Email already exists' });
+      return res.status(202).json({ message: 'Email already exists' });
     } else if (foundUserByPhone && !email) {
       return res.status(201).json({ message: 'User Found' });
     } else if (!foundUserByPhone && !email) {
-      return res.status(409).json({ message: 'Create an Account' });
+      return res.status(202).json({ message: 'Create an Account' });
     } else {
       const newUser = new User({ phoneNumber, name, email, role: "user" });
       await newUser.save();

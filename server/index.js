@@ -7,15 +7,17 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const { validationResult } = require('express-validator');
 const path = require('path');
+
 const Order = require('./model/Order');
 const Seller = require('./model/Seller');
 const sellersRouter = require('./routes/Sellers');
 const userRouter = require('./routes/Users');
+const addressRouter = require('./routes/Addresses');
 const paymentRouter = require('./routes/Payments');
 
 dotenv.config();
 
-// Middleware
+// Middlewares
 app.use((req, res, next) => {
     req.rawBody = new Promise(resolve => {
       buf = '';
@@ -35,8 +37,10 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use('/sellers', sellersRouter.router);
 app.use('/users', userRouter.router);
+app.use('/addresses', addressRouter.router);
 app.use('/payments', paymentRouter.router);
 
 // MongoDB Connection
@@ -56,70 +60,6 @@ function handleErrors(res, error, message = 'Error processing request') {
   console.error(error);
   return res.status(500).send(message);
 }
-
-// Address Routes
-const addressSchema = new mongoose.Schema({
-  phoneNumber: Number,
-  address: String,
-  houseNo: String,
-  houseName: String,
-  landmark: String,
-  addressType: String
-});
-
-const Address = mongoose.model("Address", addressSchema);
-
-app.post("/api/savepoint", async (req, res) => {
-  try {
-    const phoneNumber = req.body.phoneNumber;
-    const existingAddress = await Address.findOne({ phoneNumber: {$eq: phoneNumber} });
-
-    if (existingAddress) {
-      await Address.findOneAndUpdate(
-        { phoneNumber: {$eq: phoneNumber} },
-        { ...req.body }
-      );
-      return res.json({ message: 'Address Details Updated' });
-    } else {
-      const newAddress = new Address({ phoneNumber, ...req.body });
-      await newAddress.save();
-      return res.json({ message: 'Address Details Saved' });
-    }
-  } catch (err) {
-    handleErrors(res, err);
-  }
-});
-
-// Address Data Route
-app.post('/api/addressdata', async (req, res) => {
-  try {
-    const foundAddress = await Address.findOne({ phoneNumber: { $eq: req.body.phoneNumber} });
-
-    if (!foundAddress) {
-      return res.status(404).json({ message: 'Address not found' });
-    }
-
-    res.json({
-      address: foundAddress.address,
-      houseNo: foundAddress.houseNo,
-      houseName: foundAddress.houseName,
-      landmark: foundAddress.landmark,
-      addressType: foundAddress.addressType
-    });
-  } catch (err) {
-    handleErrors(res, err);
-  }
-});
-
-// Delete Data Route
-app.post('/api/deletedata', async (req, res) => {
-  try {
-    await Address.deleteOne({ phoneNumber: req.body.phoneNumber });
-    res.json({ message: 'Address Deleted Successfully' });
-  } catch (err) {
-    handleErrors(res, err);
-  }
-});
 
 // Order routes
 function getDateFromDay(targetDay) {
@@ -210,7 +150,7 @@ app.post("/api/order", async (req, res) => {
 app.get("/api/orders/:phoneNumber", async (req, res) => {
   try {
     const phoneNumber = req.params.phoneNumber;
-    const orders = await Order.find({ phoneNumber: {$eq: phoneNumber} });
+    const orders = await Order.findOne({ phoneNumber: {$eq: phoneNumber} });
 
     res.status(200).json({ orders });
   } catch (err) {
@@ -223,7 +163,7 @@ today.setHours(0, 0, 0, 0);
 
 app.get('/api/ordersdata', async (req, res) => {
   try {
-    const orders = await Order.find({ paymentStatus: "SUCCESS" }).populate({
+    const orders = await Order.findOne({ paymentStatus: "SUCCESS" }).populate({
       path: 'items.sellerName',
       strictPopulate: false
   });

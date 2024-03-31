@@ -4,7 +4,7 @@ const { fetchUserByNumber, createUser, updateUser } = require('../controller/Use
 const router = express.Router();
 // /sellers is already added in base path
 router.post('/', createUser)
-      .get('/:id', fetchUserByNumber)
-      .patch('/:id', updateUser);
+      .get('/:encodedPhoneNumber', fetchUserByNumber)
+      .patch('/:encodedPhoneNumber', updateUser);
 
 exports.router = router;
