@@ -32,7 +32,7 @@ function OrderSuccessPage() {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          'https://mopin-server.vercel.app/payment/${id}',
+          `${process.env.REACT_APP_SERVER_URL}/payment/${id}`,
           { withCredentials: true }
         );
 
@@ -51,7 +51,7 @@ function OrderSuccessPage() {
     };
 
     fetchOrderStatus();
-  }, [order_id]);
+  }, [id]);
 
   return (
     <>
@@ -80,7 +80,7 @@ function OrderSuccessPage() {
                 variant="outlined"
                 color="secondary"
                 component={Link}
-                to={`/view-order/${order_id}`} // Assuming a route for viewing order details
+                to={`/view-order/${id}`} // Assuming a route for viewing order details
                 className="view-order-button"
               >
                 View Order

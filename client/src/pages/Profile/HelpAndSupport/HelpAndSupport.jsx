@@ -41,7 +41,7 @@ function HelpAndSupport({ setShowProp }) {
     };
 
     try {
-      const res = await axios.post("https://mopin-server.vercel.app/formspree", data);
+      const res = await axios.post(process.env.REACT_APP_SERVER_URL + '/formspree', data);
       setIsSuccess(res.status === 200);
       setIsError(false);
     } catch (error) {

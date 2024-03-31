@@ -6,7 +6,7 @@ const fetchAddress = async (user) => {
     return JSON.parse(storedAddress)
   } else {
     try {
-      const response = await axios.post('https://mopin-server.vercel.app/api/addressdata', user);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/addressdata`, user);
       localStorage.setItem("savedAddress", JSON.stringify(response.data));
       return response.data;
     } catch (error) {

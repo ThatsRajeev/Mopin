@@ -42,7 +42,7 @@ const ManageAddressContent = ({ setAddressChoosen }) => {
 
   const deleteAddress = async () => {
     try {
-      const response = await axios.post('https://mopin-server.vercel.app/api/deletedata', {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/deletedata`, {
         withCredentials: true
       });
       localStorage.removeItem("savedAddress");

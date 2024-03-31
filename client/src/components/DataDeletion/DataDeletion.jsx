@@ -15,7 +15,7 @@ function DataDeletion() {
       msg,
     };
 
-    await axios.post("https://mopin-server.vercel.app/formspree", data);
+    await axios.post(process.env.REACT_APP_SERVER_URL + '/formspree', data);
     setRequestSubmitted(true);
   };
 

@@ -14,7 +14,7 @@ const fetchUserData = async (user) => {
   }
 
   try {
-    const response = await axios.post('https://mopin-server.vercel.app/api/userdata', user);
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/userdata`, user);
     localStorage.setItem("userData", JSON.stringify({
       data: response.data,
       timestamp: Date.now()

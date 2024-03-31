@@ -125,7 +125,7 @@ const MapComponent = ({ setShowMap }) => {
           landmark: addressInfo.landmark,
           addressType: addressInfo.addressType
         };
-        const response = await axios.post("https://mopin-server.vercel.app/api/savepoint", data);
+        const response = await axios.post(process.env.REACT_APP_SERVER_URL + '/api/savepoint', data);
         localStorage.removeItem("savedAddress");
         setShowMap(false);
         resolve(response.data);

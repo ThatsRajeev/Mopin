@@ -19,7 +19,8 @@ const doPayment = async (payment_session_id) => {
   	if(result.redirect){
   		console.log("Redirection")
   	}
-  });};
+  });
+};
 
 const handlePayment = async (name, number, address, dishes, subscriptions, totalCost, setLoading) => {
   try {
@@ -28,11 +29,11 @@ const handlePayment = async (name, number, address, dishes, subscriptions, total
       name, number, address, dishes, subscriptions, totalCost
     };
 
-    const response = await axios.post('https://mopin-server.vercel.app/api/payment/orders', orderData, {
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/payments`, orderData, {
       withCredentials: true,
     });
 
-    await axios.post('https://mopin-server.vercel.app/api/order', {
+    await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order`, {
       orderData,
       orderId: response.data.order_id
     }, {
