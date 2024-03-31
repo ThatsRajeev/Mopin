@@ -1,11 +1,9 @@
 const { User } = require('../model/User');
 
 exports.fetchUserByNumber = async (req, res) => {
-  const { encodedPhoneNumber } = req.params;
-  const decodedPhoneNumber = decodeURIComponent(encodedPhoneNumber);
+  const { phoneNumber } = req.params;
   try {
-    // const user = await User.findById(id, 'name email phoneNumber, role').exec();
-    const user = await User.findOne({ phoneNumber: { $eq: decodedPhoneNumber} });
+    const user = await User.findOne({ phoneNumber: { $eq: phoneNumber} });
     res.status(200).json(user);
   } catch (err) {
     res.status(400).json(err);

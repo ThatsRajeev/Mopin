@@ -15,3 +15,5 @@ async function getDishInfo(sellerName, dishName) {
         throw err;
     }
 }
+
+exports.getDishInfo = getDishInfo;

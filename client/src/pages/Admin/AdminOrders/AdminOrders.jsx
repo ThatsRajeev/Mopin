@@ -69,7 +69,7 @@ const AdminOrders = () => {
     const handleStatusChange = async (order, status) => {
         try {
             await Promise.all(order.customers.map(async (o) => {
-                await axios.post('http://localhost:5000/api/editOrdersdata', {
+                await axios.patch(process.env.REACT_APP_SERVER_URL + '/orders', {
                     orderId: o.orderId,
                     sellerName: order.seller,
                     dishName: order.dish.dishName,

@@ -8,4 +8,4 @@ function getDateFromDay(targetDay) {
   return targetDate;
 }
 
-export default getDateFromDay;
+exports.getDateFromDay = getDateFromDay;

@@ -33,7 +33,7 @@ const handlePayment = async (name, number, address, dishes, subscriptions, total
       withCredentials: true,
     });
 
-    await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order`, {
+    await axios.post(`${process.env.REACT_APP_SERVER_URL}/orders`, {
       orderData,
       orderId: response.data.order_id
     }, {

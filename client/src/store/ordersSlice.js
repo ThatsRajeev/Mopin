@@ -4,7 +4,7 @@ export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
   async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/ordersdata`);
+      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/orders`);
       const data = await response.json();
       return data;
     } catch (error) {
