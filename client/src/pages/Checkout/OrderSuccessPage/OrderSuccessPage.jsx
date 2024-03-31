@@ -22,7 +22,7 @@ function OrderSuccessPage() {
   const [orderStatus, setOrderStatus] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const order_id = searchParams.get("order_id");
+  const id = searchParams.get("order_id");
   const windowWidth = useWindowResize();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,17 +31,13 @@ function OrderSuccessPage() {
     const fetchOrderStatus = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.post(
-          'https://mopin-server.vercel.app/api/payment/paymentstatus',
-          { order_id: order_id },
+        const response = await axios.get(
+          'https://mopin-server.vercel.app/payment/${id}',
           { withCredentials: true }
         );
 
-        const { paymentStatuses } = response.data;
-
-        const isOrderSuccessful = paymentStatuses.every(
-          (order) => order.paymentStatus === 'SUCCESS'
-        );
+        const { paymentStatus } = response.data;
+        const isOrderSuccessful = paymentStatus.order.paymentStatus === 'SUCCESS';
 
         setOrderStatus(isOrderSuccessful ? 'Success' : 'Failed');
         dispatch(emptySubscription());

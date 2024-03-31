@@ -6,11 +6,11 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const request = require('request');
 const { validationResult } = require('express-validator');
-const paymentRoutes = require('./routes/payment');
 const path = require('path');
 const Order = require('./model/Order');
 const Seller = require('./model/Seller');
 const sellersRouter = require('./routes/Sellers');
+const paymentRoutes = require('./routes/Payments');
 
 dotenv.config();
 
@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'build')));
 app.use('/sellers', sellersRouter.router);
+app.use('/payments', paymentRoutes.router);
 
 app.use(cors({
   origin: ["https://mopin-frontend.vercel.app", "http://localhost:3000"],
@@ -54,9 +55,6 @@ function handleErrors(res, error, message = 'Error processing request') {
   console.error(error);
   return res.status(500).send(message);
 }
-
-// Payment Routes
-app.use("/api/payment", paymentRoutes);
 
 // Formspree Route
 app.post('/formspree', (req, res) => {

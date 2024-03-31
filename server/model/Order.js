@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const Seller = require('./Seller');
 
-// Order Schema
 const orderSchema = new mongoose.Schema({
-  orderId: { type: String, unique: true },
+  orderId: { type: String, required: true, unique: true },
   name: String,
   phoneNumber: String,
   address: String,
@@ -26,6 +25,4 @@ const orderSchema = new mongoose.Schema({
   updatedAt: Date,
 });
 
-const Order = mongoose.model('Order', orderSchema);
-
-module.exports = Order;
+exports.Order = mongoose.model('Order', orderSchema);

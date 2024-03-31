@@ -28,10 +28,9 @@ const sellerSchema = new mongoose.Schema({
   }]
 });
 
-const virtual = sellerSchema.virtual('id');
-virtual.get(function(){
-  return this._id;
-})
+sellerSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
 sellerSchema.set('toJSON',{
   virtuals: true,
   versionKey: false,
