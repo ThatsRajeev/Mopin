@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { Cashfree } = require('cashfree-pg');
-const Order = require('../models/order');
+const Order = require('../model/Order');
 require("dotenv").config();
 
 Cashfree.XClientId = process.env.CASHFREE_CLIENT_ID;

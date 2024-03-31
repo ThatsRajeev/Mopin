@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const sellerSchema = new mongoose.Schema({
-  id: String,
   name: { type: String, required: true },
   imgURL: { type: String, required: true },
   foodType: String,
@@ -29,5 +28,14 @@ const sellerSchema = new mongoose.Schema({
   }]
 });
 
-const Seller = mongoose.model('Seller', sellerSchema);
-module.exports = Seller;
+const virtual = sellerSchema.virtual('id');
+virtual.get(function(){
+  return this._id;
+})
+sellerSchema.set('toJSON',{
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret) {delete ret._id}
+})
+
+exports.Seller = mongoose.model('Seller', sellerSchema);

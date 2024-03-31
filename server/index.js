@@ -8,8 +8,9 @@ const request = require('request');
 const { validationResult } = require('express-validator');
 const paymentRoutes = require('./routes/payment');
 const path = require('path');
-const Order = require('./models/order');
-const Seller = require('./models/seller');
+const Order = require('./model/Order');
+const Seller = require('./model/Seller');
+const sellersRouter = require('./routes/Sellers');
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'build')));
+app.use('/sellers', sellersRouter.router);
 
 app.use(cors({
   origin: ["https://mopin-frontend.vercel.app", "http://localhost:3000"],
@@ -185,16 +187,6 @@ app.post('/api/deletedata', async (req, res) => {
   try {
     await Address.deleteOne({ phoneNumber: req.body.phoneNumber });
     res.json({ message: 'Address Deleted Successfully' });
-  } catch (err) {
-    handleErrors(res, err);
-  }
-});
-
-//Seller Route
-app.get('/api/sellers', async (req, res) => {
-  try {
-    const sellers = await Seller.find({});
-    res.json(sellers);
   } catch (err) {
     handleErrors(res, err);
   }
