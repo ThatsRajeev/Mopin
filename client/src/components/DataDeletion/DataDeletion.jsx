@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MuiTelInput } from 'mui-tel-input'
 import axios from "axios";
+import sendFormData from "../../utils/sendFormData";
 import "./DataDeletion.css"
 
 function DataDeletion() {
@@ -15,7 +16,7 @@ function DataDeletion() {
       msg,
     };
 
-    await axios.post(process.env.REACT_APP_SERVER_URL + '/formspree', data);
+    sendFormData(data);
     setRequestSubmitted(true);
   };
 

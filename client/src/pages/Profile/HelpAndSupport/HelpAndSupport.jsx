@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import CircularProgress from '@mui/material/CircularProgress';
+import sendFormData from "../../../utils/sendFormData";
 import "./HelpAndSupport.css";
 
 function HelpAndSupport({ setShowProp }) {
@@ -41,8 +42,8 @@ function HelpAndSupport({ setShowProp }) {
     };
 
     try {
-      const res = await axios.post(process.env.REACT_APP_SERVER_URL + '/formspree', data);
-      setIsSuccess(res.status === 200);
+      const res = await sendFormData(data);
+      setIsSuccess(res.ok === true);
       setIsError(false);
     } catch (error) {
       console.error(error);

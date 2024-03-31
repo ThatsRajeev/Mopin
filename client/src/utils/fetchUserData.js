@@ -14,7 +14,8 @@ const fetchUserData = async (user) => {
   }
 
   try {
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/userdata`, user);
+    const encodedPhoneNumber = encodeURIComponent(user.phoneNumber);
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/userdata/${encodedPhoneNumber}`);
     localStorage.setItem("userData", JSON.stringify({
       data: response.data,
       timestamp: Date.now()

@@ -76,7 +76,7 @@ function Login({ setShowProp }) {
           name: name,
           email: email,
         };
-        const res = await axios.post(process.env.REACT_APP_SERVER_URL + "/api/endpoint", data);
+        const res = await axios.post(process.env.REACT_APP_SERVER_URL + "/users", data);
         resolve(res.data);
       } catch (error) {
         toast.error(error.message);

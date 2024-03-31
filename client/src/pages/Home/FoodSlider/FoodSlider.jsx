@@ -2,22 +2,15 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../../store/productsSlice";
 import { Link } from "react-router-dom";
-import "./FoodSlider.css"
-
-// Import Swiper React components
+import "./FoodSlider.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import FoodItemCard from "../FoodItemCard/FoodItemCard";
-import homecooks from "../../../data/homecooks";
-
-// import required modules
 import { Keyboard, Navigation, Pagination, FreeMode } from "swiper/modules";
+import { Skeleton } from "@mui/material"; // Import Skeleton from Material-UI
 
 const FoodSlider = (props) => {
   const dispatch = useDispatch();
@@ -82,23 +75,26 @@ const FoodSlider = (props) => {
       }}
       modules={[Keyboard, Navigation, Pagination]}
     >
-      {homecooks
-        .filter(cook => props.func(cook))
+      {(productsStatus === "loading" ? Array.from(Array(5).keys()) : products)
         .map((cook, index) => (
           <SwiperSlide className="card-wrapper" key={index}>
-            <Link to={`/sellers/${cook.name}`}>
-              <FoodItemCard
-                key={index}
-                cardType={"food"}
-                name={cook.name}
-                img={cook.imgURL}
-                foodType={cook.foodType}
-                rating={cook.rating}
-                feeds={cook.feeds}
-                noOfOrders={cook.noOfOrders}
-                minPrice={cook.minPrice}
-              />
-            </Link>
+            {productsStatus === "loading" ? (
+              <Skeleton variant="rectangular" width={300} height={300} sx={{borderRadius: '12px'}}/>
+            ) : (
+              <Link to={`/sellers/${cook.name}`}>
+                <FoodItemCard
+                  key={index}
+                  cardType={"food"}
+                  name={cook.name}
+                  img={cook.imgURL}
+                  foodType={cook.foodType}
+                  rating={cook.rating}
+                  feeds={cook.feeds}
+                  noOfOrders={cook.noOfOrders}
+                  minPrice={cook.minPrice}
+                />
+              </Link>
+            )}
           </SwiperSlide>
       ))}
     </Swiper>

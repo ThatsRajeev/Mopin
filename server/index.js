@@ -10,7 +10,8 @@ const path = require('path');
 const Order = require('./model/Order');
 const Seller = require('./model/Seller');
 const sellersRouter = require('./routes/Sellers');
-const paymentRoutes = require('./routes/Payments');
+const userRouter = require('./routes/Users');
+const paymentRouter = require('./routes/Payments');
 
 dotenv.config();
 
@@ -25,18 +26,18 @@ app.use((req, res, next) => {
     });
     next();
   });
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(path.resolve(__dirname, 'build')));
-app.use('/sellers', sellersRouter.router);
-app.use('/payments', paymentRoutes.router);
-
 app.use(cors({
   origin: ["https://mopin-frontend.vercel.app", "http://localhost:3000"],
-  methods: ["POST", "GET"],
+  methods: ["POST", "GET", "PATCH"],
   credentials: true,
 }));
+app.use(express.json());
+app.use(express.static(path.resolve(__dirname, 'build')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/sellers', sellersRouter.router);
+app.use('/users', userRouter.router);
+app.use('/payments', paymentRouter.router);
 
 // MongoDB Connection
 async function connectToDatabase() {
@@ -55,76 +56,6 @@ function handleErrors(res, error, message = 'Error processing request') {
   console.error(error);
   return res.status(500).send(message);
 }
-
-// Formspree Route
-app.post('/formspree', (req, res) => {
-  const url = 'https://formspree.io/f/mknlpedg';
-  request.post({ url, form: req.body }, (err, httpResponse, body) => {
-    if (err) {
-      return handleErrors(res, err);
-    }
-    res.send(body);
-  });
-});
-
-// User Routes
-const userSchema = new mongoose.Schema({
-  phoneNumber: Number,
-  name: String,
-  email: String,
-  address: String,
-  role: {type: String, enum: ['user', 'admin'], default: 'user'},
-});
-
-const User = mongoose.model("User", userSchema);
-
-app.post("/api/endpoint", async (req, res) => {
-  try {
-    const { phoneNumber, name, email } = req.body;
-    const foundUserByPhone = await User.findOne({ phoneNumber: {$eq: phoneNumber} });
-    const foundUserByEmail = email ? await User.findOne({ email: {$eq: email} }) : null;
-
-    if (foundUserByPhone && name) {
-      return res.json({ message: 'Phone number already exists' });
-    } else if (foundUserByEmail) {
-      return res.json({ message: 'Email already exists' });
-    } else if (foundUserByPhone && !email) {
-      return res.json({ message: 'User Found' });
-    } else if (!foundUserByPhone && !email) {
-      return res.json({ message: 'Create an Account' });
-    } else {
-      const newUser = new User({ phoneNumber, name, email, role: "user" });
-      await newUser.save();
-      return res.json({ message: 'User Details Saved' });
-    }
-  } catch (err) {
-    handleErrors(res, err);
-  }
-});
-
-// UserData Route
-app.post('/api/userdata', async (req, res) => {
-  try {
-    const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-      return res.status(400).json({errors: errors.array() })
-    }
-    const foundUserByPhone = await User.findOne({ phoneNumber: { $eq: req.body.phoneNumber} });
-
-    if (!foundUserByPhone) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    res.json({
-      name: foundUserByPhone.name,
-      email: foundUserByPhone.email,
-      phoneNumber: foundUserByPhone.phoneNumber,
-      role: foundUserByPhone.role
-    });
-  } catch (err) {
-    handleErrors(res, err);
-  }
-});
 
 // Address Routes
 const addressSchema = new mongoose.Schema({
