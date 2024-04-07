@@ -144,9 +144,8 @@ function Homepage() {
                 <CardHeader>All Homechefs Nearby</CardHeader>
               </HeaderContainer>
               {homecooks.map((cook, index) => (
-                <Link to ={`/sellers/${cook.name}`}>
+                <Link to ={`/sellers/${cook.name}`} key={index}>
                   <FoodItemCard
-                    key={index}
                     cardType={"chef"}
                     name={cook.name}
                     img={cook.imgURL}

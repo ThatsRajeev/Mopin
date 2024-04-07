@@ -122,7 +122,7 @@ const NavLink = styled(Link)(({ open, sc }) => ({
   fontSize: "0.8rem",
   fontWeight: "bold",
   letterSpacing: "1.6px",
-  color: sc ? "#9C9C9C" : "#222222",
+  color: sc==='true' ? "#9C9C9C" : "#222222",
 }));
 
 const MobNav = styled('nav')({
@@ -283,25 +283,25 @@ const handleProfileClick = () => {
    </FlexContainer>
 
    <MobNav>
-    <NavLink sc={navItem!=='Home'} to="/">
+    <NavLink sc={navItem!=='Home' ? 'true' : ''} to="/">
      <NavItem>
       <HomeOutlinedIcon />
       Home
      </NavItem>
     </NavLink>
-    <NavLink sc={navItem!=='Profile'} onClick={handleProfileClick}>
+    <NavLink sc={navItem!=='Profile' ? 'true' : ''} onClick={handleProfileClick}>
      <NavItem>
       <PersonOutlineOutlinedIcon />
       Profile
      </NavItem>
     </NavLink>
-    <NavLink sc={navItem!=='Search'} to="/search">
+    <NavLink sc={navItem!=='Search' ? 'true' : ''} to="/search">
      <NavItem>
       <SearchOutlinedIcon />
       Search
      </NavItem>
     </NavLink>
-    <NavLink sc={navItem!=='Checkout'} to="/checkout">
+    <NavLink sc={navItem!=='Checkout' ? 'true' : ''} to="/checkout">
      <NavItem>
       <ShoppingCartOutlinedIcon />
       Checkout

@@ -10,12 +10,14 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import FoodItemCard from "../FoodItemCard/FoodItemCard";
 import { Keyboard, Navigation, Pagination, FreeMode } from "swiper/modules";
-import { Skeleton } from "@mui/material"; // Import Skeleton from Material-UI
+import useWindowResize from "../../../hooks/useWindowResize";
+import { Skeleton } from "@mui/material";
 
 const FoodSlider = (props) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.items);
   const productsStatus = useSelector((state) => state.products.status);
+  const windowWidth = useWindowResize();
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -79,7 +81,7 @@ const FoodSlider = (props) => {
         .map((cook, index) => (
           <SwiperSlide className="card-wrapper" key={index}>
             {productsStatus === "loading" ? (
-              <Skeleton variant="rectangular" width={300} height={300} sx={{borderRadius: '12px'}}/>
+              <Skeleton variant="rectangular" width={windowWidth > 768 ? 300 : 200} height={windowWidth > 768 ? 300 : 200} sx={{borderRadius: '12px'}}/>
             ) : (
               <Link to={`/sellers/${cook.name}`}>
                 <FoodItemCard

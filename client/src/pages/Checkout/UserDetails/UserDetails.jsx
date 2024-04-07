@@ -142,7 +142,7 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
           </div>
           <div className="contact-details">
             <Button sx={{width: '100%', textTransform: 'none'}} variant="contained" size="large" disabled={!addressChoosen || loading}
-              onClick={() => {handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost, setLoading)}}>
+              onClick={() => {handlePayment(name, user.phoneNumber, user.uid, address, dishes, subscriptions, totalCost, setLoading)}}>
               {loading ? 'Processing Payment...' : 'Proceed to Pay'}
               {loading && <img className="loader-img" src={loader} alt="load-img" />}
             </Button>
@@ -179,7 +179,7 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
               </div>
             </div>
             <Button sx={{width: '100%', textTransform: 'none'}} variant="contained" size="large" disabled={loading}
-              onClick={() => {handlePayment(name, user.phoneNumber, address, dishes, subscriptions, totalCost, setLoading)}}>
+              onClick={() => {handlePayment(name, user.phoneNumber, user.uid, address, dishes, subscriptions, totalCost, setLoading)}}>
               {loading ? 'Processing Payment...' : 'Proceed to Pay (₹' + totalCost + ')'}
               {loading && <img className="loader-img" src={loader} alt="load-img" />}
             </Button>

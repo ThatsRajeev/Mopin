@@ -16,13 +16,14 @@ const paymentRouter = require('./routes/Payments');
 dotenv.config();
 
 app.use(cors({
-  origin: ["https://mopin-frontend.vercel.app", "http://localhost:3000"],
+  origin: process.env.FRONTEND_ORIGIN,
   methods: ["POST", "GET", "PATCH", "DELETE"],
   credentials: true,
 }));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'build')));
 app.use(bodyParser.json());
+app.use(bodyParser.raw());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/sellers', sellersRouter.router);

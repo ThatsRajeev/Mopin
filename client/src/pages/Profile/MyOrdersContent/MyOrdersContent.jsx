@@ -30,10 +30,10 @@ const MyOrdersContent = () => {
         if (user && Object.keys(user).length !== 0) {
           const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/orders/${user.phoneNumber}`);
 
-          if(response.data.orders.length === 0) {
+          if(response.data.length === 0) {
             setEmptyOrders(true);
           } else {
-            const sortedOrders = response.data.orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            const sortedOrders = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             setOrders(sortedOrders);
           }
         }
@@ -46,7 +46,7 @@ const MyOrdersContent = () => {
 
     fetchOrders();
   }, [user.phoneNumber]);
-
+  
   return (
     <div className="component">
       {loading ? (

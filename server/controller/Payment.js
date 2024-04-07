@@ -3,6 +3,10 @@ const Order = require('../model/Order');
 const Payment = require('../model/Payment');
 require("dotenv").config();
 
+Cashfree.XClientId = process.env.CASHFREE_CLIENT_ID;
+Cashfree.XClientSecret = process.env.CASHFREE_SECRET_KEY;
+Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+
 exports.createPayment = async (req, res) => {
   const sixteenMinutesFromNow = new Date(Date.now() + 16 * 60000);
   try {
@@ -12,19 +16,21 @@ exports.createPayment = async (req, res) => {
       "order_id": Date.now().toString(),
       "order_expiry_time": sixteenMinutesFromNow.toISOString(),
       "customer_details": {
-        "customer_id": req.body.number.slice(3),
-        "customer_phone": req.body.number.slice(3)
+        "customer_id": req.body.uid,
+        "customer_phone": req.body.number
       },
       "order_meta": {
-        "return_url": "https://mopin-frontend.vercel.app/order-success?order_id={order_id}",
-        "notify_url": "https://mopin-server.vercel.app/payments/verify"
+        "return_url": process.env.FRONTEND_ORIGIN + "/order-success?order_id={order_id}",
+        "notify_url": process.env.FRONTEND_ORIGIN + "/payments/verify"
       },
     };
     const payment = new Payment(request);
     await payment.save();
+
     const response = await Cashfree.PGCreateOrder("2023-08-01", request);
     res.status(201).json(response.data);
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 };
@@ -38,13 +44,22 @@ exports.verifyPayment = async (req, res) => {
     const orderId = webhookData.order.order_id;
     const paymentStatus = webhookData.payment.payment_status;
 
-    const payment = await Order.findByIdAndUpdate(orderId, paymentStatus, {new:true});
+    const updatedOrder = await Order.findOneAndUpdate(
+      { orderId: orderId },
+      { $set: { paymentStatus: paymentStatus } },
+      { new: true }
+    );
 
-    res.status(201).json({ message: 'Payment status updated successfully' });
+    if (updatedOrder) {
+      res.status(201).json({ message: 'Payment status updated successfully' });
+    } else {
+      res.status(404).json({ message: 'Order not found' });
+    }
   } catch (err) {
     res.status(400).json(err);
   }
 };
+
 
 exports.fetchPaymentStatus = async (req, res) => {
   try {

@@ -4,7 +4,7 @@ const { fetchAddressByNumber, createAddress, deleteAddress } = require('../contr
 const router = express.Router();
 // /sellers is already added in base path
 router.post('/', createAddress)
-      .get('/:encodedPhoneNumber', fetchAddressByNumber)
-      .delete('/:encodedPhoneNumber', deleteAddress);
+      .get('/:phoneNumber', fetchAddressByNumber)
+      .delete('/:phoneNumber', deleteAddress);
 
 exports.router = router;

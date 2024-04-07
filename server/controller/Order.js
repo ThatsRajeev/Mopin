@@ -1,18 +1,16 @@
 const { Order } = require('../model/Order');
-const { Seller } = require('../model/Seller');
-const getDateFromDay = require('../utils/getDateFromDay');
-const getDishInfo = require('../utils/getDishInfo');
-const transformOrdersForFrontend = require('../utils/transformOrdersForFrontend');
+const { getDateFromDay } = require('../utils/getDateFromDay');
+const { getDishInfo } = require('../utils/getDishInfo');
+const { transformOrdersForFrontend } = require('../utils/transformOrdersForFrontend');
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
 exports.createOrder = async (req, res) => {
   try {
-    const { orderId, name, number, address, dishes, subscriptions } = req.body.orderData;
-
+    const { name, number, address, dishes, subscriptions } = req.body.orderData;
     const newOrder = new Order({
-      orderId: orderId,
+      orderId: req.body.orderId,
       name: name,
       phoneNumber: number,
       address,
@@ -59,6 +57,7 @@ exports.createOrder = async (req, res) => {
     const doc = await newOrder.save();
     res.status(201).json(doc);
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 };
@@ -80,7 +79,7 @@ exports.fetchAllOrders = async (req, res) => {
 exports.fetchOrderByNumber = async (req, res) => {
   const { phoneNumber } = req.params;
   try {
-    const orders = await Order.findOne({ phoneNumber: {$eq: phoneNumber} });
+    const orders = await Order.find({ phoneNumber: {$eq: phoneNumber} });
 
     res.status(200).json(orders);
   } catch (err) {

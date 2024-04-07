@@ -22,11 +22,11 @@ const doPayment = async (payment_session_id) => {
   });
 };
 
-const handlePayment = async (name, number, address, dishes, subscriptions, totalCost, setLoading) => {
+const handlePayment = async (name, number, uid, address, dishes, subscriptions, totalCost, setLoading) => {
   try {
     setLoading(true);
     const orderData = {
-      name, number, address, dishes, subscriptions, totalCost
+      name, number, uid, address, dishes, subscriptions, totalCost
     };
 
     const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/payments`, orderData, {

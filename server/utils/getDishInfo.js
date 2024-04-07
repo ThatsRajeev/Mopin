@@ -1,3 +1,5 @@
+const { Seller } = require('../model/Seller');
+
 async function getDishInfo(sellerName, dishName) {
     try {
         const seller = await Seller.findOne({ name: sellerName });
