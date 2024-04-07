@@ -64,14 +64,16 @@ exports.createOrder = async (req, res) => {
 
 exports.fetchAllOrders = async (req, res) => {
   try {
-    const orders = await Order.findOne({ paymentStatus: "SUCCESS" }).populate({
+    const orders = await Order.find({ paymentStatus: "SUCCESS" }).populate({
       path: 'items.sellerName',
       strictPopulate: false
   });
 
     const transformedOrders = await transformOrdersForFrontend(orders);
+    console.log(transformedOrders);
     res.status(201).json(transformedOrders);
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 };
@@ -91,35 +93,36 @@ exports.updateOrder = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const { orderId, sellerName, dishName, status } = req.body;
+    const { orderId, sellerName, dishName, paymentStatus } = req.body;
 
     const updateResult = await Order.updateOne(
-    {
-      orderId: orderId,
-      "orderItems": {
-        $elemMatch: { // Target a 'deliveryDate' subdocument
-          "items": { // Filter within the nested 'items'
-            $elemMatch: {
-              dishName: dishName,
-              sellerName: sellerName
-            }
+      {
+        orderId: orderId,
+        "orderItems.items": {
+          $elemMatch: {
+            dishName: dishName,
+            sellerName: sellerName
           }
         }
+      },
+      {
+        $set: { "orderItems.$[order].items.$[item].status": paymentStatus }
+      },
+      {
+        arrayFilters: [
+          { "order.items.dishName": dishName, "order.items.sellerName": sellerName },
+          { "item.dishName": dishName }
+        ]
       }
-    },
-    {
-      $set: { "orderItems.$[outer].items.$[inner].status": status }
-    }
-  );
+    );
 
-      if (updateResult.matchedCount === 0) {
-       res.status(404).json({ message: "Order or dish not found" });
-     } else if (updateResult.modifiedCount === 0) {
-       res.status(400).json({ message: "Status was already the same" });
-     } else {
-       res.status(200).json({ message: 'Dish status updated successfully' });
-     }
+    if (updateResult.nModified === 0) {
+      res.status(400).json({ message: "No documents were modified" });
+    } else {
+      res.status(200).json({ message: 'Dish status updated successfully' });
+    }
   } catch (err) {
+    console.error(err);
     res.status(400).json(err);
   }
 };

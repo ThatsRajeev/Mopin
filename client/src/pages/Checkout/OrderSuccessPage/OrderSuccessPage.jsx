@@ -32,12 +32,12 @@ function OrderSuccessPage() {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/payment/${id}`,
+          `${process.env.REACT_APP_SERVER_URL}/payments/${id}`,
           { withCredentials: true }
         );
 
         const { paymentStatus } = response.data;
-        const isOrderSuccessful = paymentStatus.order.paymentStatus === 'SUCCESS';
+        const isOrderSuccessful = paymentStatus.toUpperCase() === 'SUCCESS';
 
         setOrderStatus(isOrderSuccessful ? 'Success' : 'Failed');
         dispatch(emptySubscription());
@@ -101,7 +101,7 @@ function OrderSuccessPage() {
             variant="contained"
             color="primary"
             component={Link}
-            to="/" // Assuming a route for the homepage
+            to="/" 
             className="continue-shopping-button"
           >
             Continue Browsing

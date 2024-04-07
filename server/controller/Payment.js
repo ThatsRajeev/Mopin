@@ -1,6 +1,6 @@
 const { Cashfree } = require('cashfree-pg');
-const Order = require('../model/Order');
-const Payment = require('../model/Payment');
+const { Order } = require('../model/Order');
+const { Payment } = require('../model/Payment');
 require("dotenv").config();
 
 Cashfree.XClientId = process.env.CASHFREE_CLIENT_ID;
@@ -64,13 +64,13 @@ exports.verifyPayment = async (req, res) => {
 exports.fetchPaymentStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const order = await Order.find({orderId: id});
-
+    const order = await Order.findOne({orderId: id});
+    
     if (!order) {
       res.status(404).json({ message: "No order found for the provided order_id" });
     } else {
       const paymentStatus = order.paymentStatus;
-      res.status(200).json({ paymentStatus });
+      res.status(200).json({ paymentStatus: paymentStatus });
     }
   } catch (err) {
     res.status(400).json(err);

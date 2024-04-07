@@ -1,3 +1,5 @@
+const { getDishInfo } = require('./getDishInfo');
+
 async function transformOrdersForFrontend(orders) {
   const frontendOrders = {};
 
