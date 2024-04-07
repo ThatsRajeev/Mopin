@@ -21,9 +21,9 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
+app.use(express.raw({type: 'application/json'}));
 app.use(express.static(path.resolve(__dirname, 'build')));
 app.use(bodyParser.json());
-app.use(bodyParser.raw());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/sellers', sellersRouter.router);
