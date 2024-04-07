@@ -56,6 +56,7 @@ exports.verifyPayment = async (req, res) => {
       res.status(404).json({ message: 'Order not found' });
     }
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 };
@@ -65,7 +66,7 @@ exports.fetchPaymentStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const order = await Order.findOne({orderId: id});
-    
+
     if (!order) {
       res.status(404).json({ message: "No order found for the provided order_id" });
     } else {
