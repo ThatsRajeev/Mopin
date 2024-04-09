@@ -16,8 +16,8 @@ exports.createOrder = async (req, res) => {
       paymentStatus: "Pending",
     });
 
-    for (const [seller, sellerDishes] of Object.values(dishes)) {
-      for (const [dishName, dish] of Object.values(sellerDishes)) {
+    for (const [seller, sellerDishes] of Object.entries(dishes)) {
+      for (const [dishName, dish] of Object.entries(sellerDishes)) {
         const deliveryDate = getDateFromDay(dish.availability[0].day);
         const dishInfo = await getDishInfo(seller, dish.name);
         const itemGroup = newOrder.orderItems.find(group => group.deliveryDate.toISOString().slice(0,10) === deliveryDate.toISOString().slice(0,10));
