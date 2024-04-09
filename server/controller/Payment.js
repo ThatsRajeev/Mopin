@@ -21,7 +21,7 @@ exports.createPayment = async (req, res) => {
       },
       "order_meta": {
         "return_url": process.env.FRONTEND_ORIGIN + "/order-success?order_id={order_id}",
-        "notify_url": process.env.FRONTEND_ORIGIN + "/payments/verify"
+        "notify_url": "https://mopin-server.vercel.app/payments/verify"
       },
     };
     const payment = new Payment(request);

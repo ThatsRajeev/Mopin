@@ -6,7 +6,9 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   address: { type: String },
   role: {type: String, enum: ['user', 'admin'], default: 'user'}
-});
+},
+{ timestamps: true }
+);
 
 userSchema.virtual('id').get(function() {
   return this._id.toHexString();

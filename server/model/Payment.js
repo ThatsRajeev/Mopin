@@ -9,6 +9,8 @@ const paymentSchema = new mongoose.Schema({
     customer_id: { type: String, required: true },
     customer_phone: { type: String, required: true }
   },
-});
+},
+  { timestamps: true }
+);
 
 exports.Payment = mongoose.model('Payment', paymentSchema);

@@ -21,8 +21,8 @@ const orderSchema = new mongoose.Schema({
   }],
   totalAmount: Number,
   paymentStatus: { type: String, enum: ['Pending', 'Success', 'Failed', 'Refunded'], default: 'Pending' },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: Date,
-});
+},
+  { timestamps: true }
+);
 
 exports.Order = mongoose.model('Order', orderSchema);

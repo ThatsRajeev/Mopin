@@ -26,7 +26,9 @@ const sellerSchema = new mongoose.Schema({
       meal: { type: String, enum: ['Breakfast', 'Lunch', 'Dinner'] },
     }]
   }]
-});
+},
+  { timestamps: true }
+);
 
 sellerSchema.virtual('id').get(function() {
   return this._id.toHexString();

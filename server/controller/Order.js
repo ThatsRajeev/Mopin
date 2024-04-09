@@ -3,51 +3,40 @@ const { getDateFromDay } = require('../utils/getDateFromDay');
 const { getDishInfo } = require('../utils/getDishInfo');
 const { transformOrdersForFrontend } = require('../utils/transformOrdersForFrontend');
 
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-
 exports.createOrder = async (req, res) => {
   try {
-    const { name, number, address, dishes, subscriptions } = req.body.orderData;
+    const { name, number, address, dishes } = req.body.orderData;
     const newOrder = new Order({
       orderId: req.body.orderId,
-      name: name,
+      name,
       phoneNumber: number,
       address,
       orderItems: [],
       totalAmount: 0,
       paymentStatus: "Pending",
-      createdAt: new Date(),
-      updatedAt: null,
     });
 
-    for (const [seller, sellerDishes] of Object.entries(dishes)) {
-      for (const [dishName, dish] of Object.entries(sellerDishes)) {
+    for (const sellerDishes of Object.values(dishes)) {
+      for (const dish of Object.values(sellerDishes)) {
         const deliveryDate = getDateFromDay(dish.availability[0].day);
+        const dishInfo = await getDishInfo(seller, dish.name);
         const itemGroup = newOrder.orderItems.find(group => group.deliveryDate.toISOString().slice(0,10) === deliveryDate.toISOString().slice(0,10));
 
-        const dishInfo = await getDishInfo(seller, dish.name);
+        const newItem = {
+          sellerName: seller,
+          dishName: dish.name,
+          quantity: dish.qty,
+          mealTime: dish.availability[0].meal,
+          price: parseInt(dishInfo.price),
+          status: "Pending",
+        };
 
         if (itemGroup) {
-          itemGroup.items.push({
-            sellerName: seller,
-            dishName: dish.name,
-            quantity: dish.qty,
-            mealTime: dish.availability[0].meal,
-            price: parseInt(dishInfo.price),
-            status: "Pending",
-          });
+          itemGroup.items.push(newItem);
         } else {
           newOrder.orderItems.push({
             deliveryDate,
-            items: [{
-              sellerName: seller,
-              dishName: dish.name,
-              quantity: dish.qty,
-              mealTime: dish.availability[0].meal,
-              price: parseInt(dishInfo.price),
-              status: "Pending",
-            }]
+            items: [newItem]
           });
         }
         newOrder.totalAmount += dish.qty * parseInt(dishInfo.price);
@@ -57,7 +46,7 @@ exports.createOrder = async (req, res) => {
     const doc = await newOrder.save();
     res.status(201).json(doc);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).json(err);
   }
 };
