@@ -3,7 +3,6 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
 const { validationResult } = require('express-validator');
 const path = require('path');
 
@@ -21,10 +20,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
-app.use(express.raw({type: 'application/json'}));
 app.use(express.static(path.resolve(__dirname, 'build')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/sellers', sellersRouter.router);
 app.use('/users', userRouter.router);
