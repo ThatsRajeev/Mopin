@@ -19,14 +19,6 @@ app.use(cors({
   methods: ["POST", "GET", "PATCH", "DELETE"],
   credentials: true,
 }));
-app.use(function(req, res, next){
-   var data = "";
-   req.on('data', function(chunk){ data += chunk})
-   req.on('end', function(){
-      req.rawBody = data;
-      next();
-   })
-})
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'build')));
 
