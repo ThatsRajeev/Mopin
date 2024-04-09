@@ -38,6 +38,7 @@ exports.createPayment = async (req, res) => {
 exports.verifyPayment = async (req, res) => {
   try {
     const rawBody = await req.rawBody;
+    console.log(rawBody);
     Cashfree.PGVerifyWebhookSignature(req.headers["x-webhook-signature"], rawBody, req.headers["x-webhook-timestamp"]);
 
     const webhookData = req.body.data;
