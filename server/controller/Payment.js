@@ -50,13 +50,12 @@ exports.verifyPayment = async (req, res) => {
       { new: true }
     );
 
-    if (true) {
+    if (updatedOrder) {
       res.status(201).json({ message: 'Payment status updated successfully' });
     } else {
       res.status(404).json({ message: 'Order not found' });
     }
   } catch (err) {
-    console.log(err);
     res.status(400).json(err);
   }
 };
