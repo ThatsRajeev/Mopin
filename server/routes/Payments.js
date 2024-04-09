@@ -5,7 +5,7 @@ const { readRawBody } = require('../middleware/readRawBody');
 const router = express.Router();
 // /payments is already added in base path
 router.post('/', createPayment)
-      .post('/verify', readRawBody, verifyPayment)
+      .post('/verify', verifyPayment)
       .get('/:id', fetchPaymentStatus);
 
 exports.router = router;

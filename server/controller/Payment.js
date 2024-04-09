@@ -45,11 +45,11 @@ exports.verifyPayment = async (req, res) => {
     const orderId = webhookData.order.order_id;
     const paymentStatus = webhookData.payment.payment_status;
 
-    // const updatedOrder = await Order.findOneAndUpdate(
-    //   { orderId: orderId },
-    //   { $set: { paymentStatus: paymentStatus } },
-    //   { new: true }
-    // );
+    const updatedOrder = await Order.findOneAndUpdate(
+      { orderId: orderId },
+      { $set: { paymentStatus: paymentStatus } },
+      { new: true }
+    );
 
     if (true) {
       res.status(201).json({ message: 'Payment status updated successfully' });
