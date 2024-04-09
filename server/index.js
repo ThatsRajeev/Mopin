@@ -19,6 +19,16 @@ app.use(cors({
   methods: ["POST", "GET", "PATCH", "DELETE"],
   credentials: true,
 }));
+app.use((req, res, next) => {
+   req.rawBody = new Promise(resolve => {
+     buf = '';
+     req.on('data', x => buf += x);
+     req.on('end', () => {
+       resolve(buf);
+     });
+   });
+   next();
+ });
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'build')));
 
