@@ -133,7 +133,7 @@ function Homepage() {
       ) : (
         <>
           <Navbar />
-          <Suspense fallback={<SkeletonCard />}>
+          <Suspense fallback={productsStatus === 'loading' && <SkeletonCard />}>
             <Hero />
 
             <div className="mob-view">

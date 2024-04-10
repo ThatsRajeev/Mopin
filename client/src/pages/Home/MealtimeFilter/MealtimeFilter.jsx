@@ -6,7 +6,7 @@ import { getDayOfTheWeek } from "../../../utils/getFilteredDishes";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../../store/productsSlice";
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
-import CircularProgress from '@mui/material/CircularProgress'; // Import CircularProgress
+import CircularProgress from '@mui/material/CircularProgress';
 import "./MealtimeFilter.css";
 
 import breakfast from "../../../assets/breakfast.svg";
@@ -110,7 +110,7 @@ const MealtimeFilter = () => {
    }, [dispatch]);
 
   useEffect(() => {
-    if(productsStatus == 'succeeded' && products) { // Add null check for products
+    if(productsStatus == 'succeeded' && products) {
       searchParams.get('breakfast') && handleFilter('breakfast');
       searchParams.get('lunch') && handleFilter('lunch');
       searchParams.get('dinner') && handleFilter('dinner');
@@ -128,60 +128,74 @@ const MealtimeFilter = () => {
         <img src={dinner} onClick={() => {toggleOverlay("dinner")}} alt="dinner-img" />
       </div>
 
-      {productsStatus === "loading" || loading ? (
+      {searchParams.get('breakfast') && (
         <Overlay>
-          <div className="circularProgress">
-            <CircularProgress />
-          </div>
+          {productsStatus === "loading" ? (
+            <div className="circularProgress">
+              <CircularProgress />
+            </div>
+          ) : (
+            <>
+              <div className="head" onClick={() => toggleOverlay('breakfast')}>
+                <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px', fontSize: '18px'}}/>
+                <p>Breakfast</p>
+              </div>
+              <SearchResult
+                result={results.breakfast}
+                loading={loading}
+                dishInfo={dishInfo}
+                setTotalItems={setTotalItems}
+                setTotalPrice={setTotalPrice}
+              />
+            </>
+          )}
         </Overlay>
-      ) : (
-        <>
-        {searchParams.get('breakfast') && (
-          <Overlay>
-            <div className="head" onClick={() => toggleOverlay('breakfast')}>
-              <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px', fontSize: '18px'}}/>
-              <p>Breakfast</p>
+      )}
+      {searchParams.get('lunch') && (
+        <Overlay>
+          {productsStatus === "loading" ? (
+            <div className="circularProgress">
+              <CircularProgress />
             </div>
-            <SearchResult
-              result={results.breakfast}
-              loading={loading}
-              dishInfo={dishInfo}
-              setTotalItems={setTotalItems}
-              setTotalPrice={setTotalPrice}
-            />
-          </Overlay>
-        )}
-        {searchParams.get('lunch') && (
-          <Overlay>
-            <div className="head" onClick={() => toggleOverlay('lunch')}>
-              <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px', fontSize: '18px'}}/>
-              <p>Lunch</p>
+          ) : (
+            <>
+              <div className="head" onClick={() => toggleOverlay('lunch')}>
+                <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px', fontSize: '18px'}}/>
+                <p>Lunch</p>
+              </div>
+              <SearchResult
+                result={results.lunch}
+                loading={loading}
+                dishInfo={dishInfo}
+                setTotalItems={setTotalItems}
+                setTotalPrice={setTotalPrice}
+              />
+            </>
+          )}
+        </Overlay>
+      )}
+      {searchParams.get('dinner') && (
+        <Overlay>
+          {productsStatus === "loading" ? (
+            <div className="circularProgress">
+              <CircularProgress />
             </div>
-            <SearchResult
-              result={results.lunch}
-              loading={loading}
-              dishInfo={dishInfo}
-              setTotalItems={setTotalItems}
-              setTotalPrice={setTotalPrice}
-            />
-          </Overlay>
-        )}
-        {searchParams.get('dinner') && (
-          <Overlay>
-            <div className="head" onClick={() => toggleOverlay('dinner')}>
-              <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px', fontSize: '18px'}}/>
-              <p>Dinner</p>
-            </div>
-            <SearchResult
-              result={results.dinner}
-              loading={loading}
-              dishInfo={dishInfo}
-              setTotalItems={setTotalItems}
-              setTotalPrice={setTotalPrice}
-            />
-          </Overlay>
-        )}
-      </>
+          ) : (
+            <>
+              <div className="head" onClick={() => toggleOverlay('dinner')}>
+                <ArrowBackIosNewOutlinedIcon sx={{marginRight: '8px', fontSize: '18px'}}/>
+                <p>Dinner</p>
+              </div>
+              <SearchResult
+                result={results.dinner}
+                loading={loading}
+                dishInfo={dishInfo}
+                setTotalItems={setTotalItems}
+                setTotalPrice={setTotalPrice}
+              />
+            </>
+          )}
+        </Overlay>
       )}
     </div>
   )
