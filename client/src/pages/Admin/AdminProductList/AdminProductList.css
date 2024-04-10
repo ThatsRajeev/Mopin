@@ -176,3 +176,7 @@
     width: calc(100vw / 5);
   }
 }
+
+.circularProgress {
+  margin: auto;
+}

@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Skeleton from '@mui/material/Skeleton';
 import Navbar from "../Navbar/Navbar";
 import DishCard from "../../pages/SellerPage/DishCard/DishCard";
 import CartContainer from "../../pages/SellerPage/CartContainer/CartContainer";
 import { getDayOfTheWeek } from "../../utils/getFilteredDishes";
-import homecooks from "../../data/homecooks";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProducts } from "../../store/productsSlice";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import "./Search.css";
 
 export const SearchResult = ({ result, loading }) => {
+  const productsStatus = useSelector((state) => state.products.status);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const dishes = useSelector((state) => state.dishes);
@@ -35,7 +36,7 @@ export const SearchResult = ({ result, loading }) => {
 
   return (
     <>
-      {loading ? (
+      {productsStatus === "loading" || loading ? (
         <div className="skeleton">
           {Array(6).fill().map((item, index) => (
             <div key={index} className="skeleton-item">
@@ -96,6 +97,8 @@ export const SearchResult = ({ result, loading }) => {
 };
 
 const Search = () => {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.items);
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchResults, setSearchResults] = useState([]);
   const [sortType, setSortType] = useState('price');
@@ -158,6 +161,10 @@ const Search = () => {
   };
 
   useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
     const query = searchParams.get("q");
 
     const handleSearch = async () => {
@@ -169,7 +176,7 @@ const Search = () => {
       setLoading(true);
       const resultsByDay = {};
 
-       homecooks.forEach((homecook) => {
+       products.forEach((homecook) => {
         const filteredDishes = homecook.dishes.filter((dish) =>
           dish.name.toLowerCase().includes(query.toLowerCase())
         );
@@ -199,13 +206,12 @@ const Search = () => {
 
      const sortedResults = sortDays(resultsByDay);
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
       setSearchResults(sortedResults);
       setLoading(false);
     };
 
     handleSearch();
-  }, [searchParams])
+  }, [searchParams, products])
 
   return (
     <>

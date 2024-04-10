@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addDish, updateDish } from "../../../store/dishesSlice";
 import { addSubscription, removeSubscription } from "../../../store/subscriptionsSlice";
-import homecooks from "../../../data/homecooks";
+import { fetchProducts } from "../../../store/productsSlice";
 import { useNavigate } from "react-router-dom";
 import { getDayOfTheWeek } from "../../../utils/getFilteredDishes";
 import DatePicker from "react-datepicker";
@@ -19,6 +19,8 @@ import "./OrderSummary.css"
 const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.items);
+  const productsStatus = useSelector((state) => state.products.status);
 
   const handleIncrement = (event, dish, seller) => {
     dispatch(updateDish({ sellerName: seller, dishName: dish.name, qtyChange: 1 }));
@@ -30,7 +32,7 @@ const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
 
   const handleSubscription = (event, subsDetails, seller) => {
     const originalDetails = subscriptions[seller];
-    const sellerDetails = homecooks.find(item => item.name === seller);
+    const sellerDetails = products.find(item => item.name === seller);
 
     let newDetails;
     if (event.target && event.target.type === 'checkbox') {
@@ -64,6 +66,10 @@ const OrderSummary = ({ dishes, subscriptions, costDetails }) => {
       dispatch(addSubscription({ sellerName: seller, subscriptionDetails: newDetails }));
     }
   };
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   return (
     <div className="order-summary">

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import SkeletonCard from "./skeleton.jsx"
 import LocateMePrompt from "../../components/LocateMePrompt/LocateMePrompt";
 import Navbar from "../../components/Navbar/Navbar";
-import homecooks from "../../data/homecooks";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProducts } from "../../store/productsSlice";
 import { styled } from "@mui/system";
 import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
 import "leaflet/dist/leaflet.css";
@@ -89,6 +90,9 @@ const FoodCategoryContainer = styled('div')({
 });
 
 function Homepage() {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.items);
+  const productsStatus = useSelector((state) => state.products.status);
   const [active, setActive] = useState('All');
   const foodCatgor = ['All', 'Spicy', 'Veg', 'Non-veg', 'Dairy-free'];
 
@@ -118,6 +122,10 @@ function Homepage() {
     return categoryMap[active];
   };
 
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
   return (
     <>
       {localStorage.getItem("userLocation") === null ? (
@@ -143,7 +151,7 @@ function Homepage() {
               <HeaderContainer>
                 <CardHeader>All Homechefs Nearby</CardHeader>
               </HeaderContainer>
-              {homecooks.map((cook, index) => (
+              {products.map((cook, index) => (
                 <Link to ={`/sellers/${cook.name}`} key={index}>
                   <FoodItemCard
                     cardType={"chef"}
