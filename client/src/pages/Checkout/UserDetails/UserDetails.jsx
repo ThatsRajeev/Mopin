@@ -187,7 +187,7 @@ const UserDetails = ({ dishes, subscriptions, costDetails }) => {
       )}
       </div>
       {overlayParams.get("address") && (
-        <div className="backgroundOverlay" onClick={() => toggleOverlay('address')}></div>
+        <div className="backgroundOverlay" style={{zIndex: '444'}} onClick={() => toggleOverlay('address')}></div>
       )}
     </>
   );

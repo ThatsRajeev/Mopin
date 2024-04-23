@@ -74,21 +74,6 @@ const Address = styled('div')({
   },
 });
 
-const SearchBarContainer = styled(Link)({
-  display: "flex",
-  alignItems: "center",
-  backgroundColor: "#fff",
-  borderRadius: "16px",
-  border: "1px solid rgb(239, 239, 239)",
-  padding: "6px",
-  width: "100%",
-  height: "48px",
-  boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.12)",
-  "@media (width > 768px)": {
-    display: "none",
-  },
-});
-
 const Menu = styled('ul')(({ open }) => ({
   display: "none",
   width: open ? "18%" : "46%",

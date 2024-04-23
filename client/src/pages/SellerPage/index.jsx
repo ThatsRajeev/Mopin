@@ -17,7 +17,7 @@ function SellerPage() {
   const products = useSelector((state) => state.products.items);
   const productsStatus = useSelector((state) => state.products.status);
   const { sellerId } = useParams();
-  const sellerDetails = products.find(item => item && item.name === sellerId); // Add null check here
+  const sellerDetails = products.find(item => item && item.name === sellerId);
   const dishes = useSelector((state) => state.dishes);
   const dishesData = useMemo(() => dishes.bySeller[sellerDetails?.name] || {}, [dishes.bySeller[sellerDetails?.name]])
   const [showCheckboxes, setShowCheckboxes] = useState(false);
@@ -42,6 +42,10 @@ function SellerPage() {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  useEffect(() => {
+    document.body.style.overflowY = showCheckboxes ? 'hidden' : ''; 
+  }, [showCheckboxes]);
 
   return (
     <>

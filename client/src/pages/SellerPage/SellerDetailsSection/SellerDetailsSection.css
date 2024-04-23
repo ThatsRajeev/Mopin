@@ -118,6 +118,10 @@
   }
 }
 
+.span {
+  margin: 0 28px;
+}
+
 .rating-svg {
   display: flex;
   align-items: center;
@@ -145,11 +149,12 @@
 
   >span {
     font-size: 24px;
+    margin: 0;
   }
 }
 
 .seller-details-div {
-  padding: 24px 16px;
+  margin: 32px;
   max-width: 100%;
 
   @media (width > 900px) {
@@ -185,7 +190,6 @@
   background-color: rgba(217, 217, 217, 0.16);
   border-radius: 50px;
   display: flex;
-  margin: 0 8px 16px;
   padding-right: 4px;
   width: max-content;
   align-items: center;
@@ -206,24 +210,9 @@
   color: #f2f2f2;
 }
 
-.quote-div {
-  height: 24px;
-  width: 24px;
-  margin-left: 8px;
-  border-radius: 50%;
-  color: #fff;
-  font-family: "PT Sans", sans-serif;
-  font-size: 36px;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.12);
-}
-
 .tag-line {
   display: block;
-  height: 1px;
-  position: relative;
-  bottom: 12px;
-  left: 32px;
+  height: 2px;
   background-color: rgba(255, 255, 255, 0.12);
 }
 
@@ -236,7 +225,6 @@
   color: #f2f2f2;
   font-size: 26px;
   opacity: 64%;
-  margin-left: 16px;
 }
 
 .seller-sub-info {
@@ -244,7 +232,6 @@
   display: flex;
   justify-content: space-between;
   padding-top: 0.24rem;
-  margin: 16px 0 0 16px;
   font-size: 20px;
   line-height: 3.2rem;
 

@@ -10,9 +10,15 @@ const theme = createTheme({
     },
     secondary: {
       main: '#222222',
-      light: '#FECDA6',
+      light: '#FFF',
       dark: '#9C9C9C',
       contrastText: getContrastRatio('#F16122', '#fff') > 1.5 ? '#fff' : '#222222',
+    },
+    tertiary: {
+      main: '#FFF',
+      light: '#fdfdfd',
+      dark: '#ededed',
+      contrastText: getContrastRatio('#222222', '#fff') > 1.5 ? '#222222' : '#fff',
     },
     ochra: {
       main: '#349E46',
