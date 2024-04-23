@@ -12,6 +12,18 @@ import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import "./Search.css";
 
+export const SearchBar = () => {
+  return (
+    <div className="searchBar-container mob-view">
+      <Link to="/search" className="searchBar">
+        <SearchOutlinedIcon className="search-icon" />
+        <input type="text" placeholder="Search your favourite food..." style={{fontSize: '14px'}}/>
+        <svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="-8 -968 976 976" width="36" style={{backgroundColor: '#F16122', padding: '6px', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><path d="M710-150q-63 0-106.5-43.5T560-300q0-63 43.5-106.5T710-450q63 0 106.5 43.5T860-300q0 63-43.5 106.5T710-150Zm0-80q29 0 49.5-20.5T780-300q0-29-20.5-49.5T710-370q-29 0-49.5 20.5T640-300q0 29 20.5 49.5T710-230Zm-550-30v-80h320v80H160Zm90-250q-63 0-106.5-43.5T100-660q0-63 43.5-106.5T250-810q63 0 106.5 43.5T400-660q0 63-43.5 106.5T250-510Zm0-80q29 0 49.5-20.5T320-660q0-29-20.5-49.5T250-730q-29 0-49.5 20.5T180-660q0 29 20.5 49.5T250-590Zm230-30v-80h320v80H480Zm230 320ZM250-660Z" fill="#fff"/></svg>
+      </Link>
+    </div>
+  );
+};
+
 export const SearchResult = ({ result, loading }) => {
   const productsStatus = useSelector((state) => state.products.status);
   const [totalItems, setTotalItems] = useState(0);

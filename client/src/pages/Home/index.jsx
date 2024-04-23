@@ -1,7 +1,8 @@
-import React, { useEffect, useState, lazy, Suspense } from "react";
+import React, { useEffect, useState, useMemo, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import SkeletonCard from "./skeleton.jsx"
 import LocateMePrompt from "../../components/LocateMePrompt/LocateMePrompt";
+import { SearchBar } from "../../components/Search/Search";
 import Navbar from "../../components/Navbar/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../store/productsSlice";
@@ -91,8 +92,9 @@ const FoodCategoryContainer = styled('div')({
 
 function Homepage() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.items);
-  const productsStatus = useSelector((state) => state.products.status);
+  const products = useSelector((state) => state.products);
+  const productsData = useMemo(() => products.items || {},
+                                  [products.items])
   const [active, setActive] = useState('All');
   const foodCatgor = ['All', 'Spicy', 'Veg', 'Non-veg', 'Dairy-free'];
 
@@ -133,106 +135,113 @@ function Homepage() {
       ) : (
         <>
           <Navbar />
-          <Suspense fallback={productsStatus === 'loading' && <SkeletonCard />}>
-            <Hero />
+          <Suspense fallback={<SkeletonCard />}>
+            {!productsData.length ? (
+              <SkeletonCard />
+            ) : (
+              <>
+                <SearchBar />
+                <Hero />
 
-            <div className="mob-view">
-              <FoodCategoryContainer>
-                {foodCatgor.map((catgor, index) => (
-                  <div key={index} className={`${active === catgor ? "active-catgor" : ""}`}
-                    onClick={() => setActive(catgor)}>{catgor}</div>
-                ))}
-              </FoodCategoryContainer>
-              <FoodSlider func={filterDish} />
-              <hr />
+                <div className="mob-view">
+                  <FoodCategoryContainer>
+                    {foodCatgor.map((catgor, index) => (
+                      <div key={index} className={`${active === catgor ? "active-catgor" : ""}`}
+                        onClick={() => setActive(catgor)}>{catgor}</div>
+                    ))}
+                  </FoodCategoryContainer>
+                  <FoodSlider func={filterDish} />
+                  <hr />
 
-              <MealtimeFilter />
+                  <MealtimeFilter />
 
-              <HeaderContainer>
-                <CardHeader>All Homechefs Nearby</CardHeader>
-              </HeaderContainer>
-              {products.map((cook, index) => (
-                <Link to ={`/sellers/${cook.name}`} key={index}>
-                  <FoodItemCard
-                    cardType={"chef"}
-                    name={cook.name}
-                    img={cook.imgURL}
-                    foodType={cook.foodType}
-                    rating={cook.rating}
-                    feeds={cook.feeds}
-                    noOfOrders={cook.noOfOrders}
-                    minPrice={cook.minPrice}
-                  />
-                  </Link>
-              ))}
+                  <HeaderContainer>
+                    <CardHeader>All Homechefs Nearby</CardHeader>
+                  </HeaderContainer>
+                  {productsData.map((cook, index) => (
+                    <Link to ={`/sellers/${cook.name}`} key={index}>
+                      <FoodItemCard
+                        cardType={"chef"}
+                        name={cook.name}
+                        img={cook.imgURL}
+                        foodType={cook.foodType}
+                        rating={cook.rating}
+                        feeds={cook.feeds}
+                        noOfOrders={cook.noOfOrders}
+                        minPrice={cook.minPrice}
+                      />
+                      </Link>
+                  ))}
 
-              <img className="hero-smallScreen" loading="lazy" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/Group-182.avif" alt="footer_img" />
-            </div>
+                  <img className="hero-smallScreen" loading="lazy" src="https://mopin-assets.s3.ap-south-1.amazonaws.com/base+images/Group-182.avif" alt="footer_img" />
+                </div>
 
-            <div className="pc-view" style={{flexDirection: 'column'}}>
-              <HeaderContainer>
-                <CardHeader>Added Afresh</CardHeader>
-                <SeeAllButton>
-                  See All Recently Added
-                  <NavigateNextOutlinedIcon sx={{margin: '0 -8px 0 4px'}}/>
-                </SeeAllButton>
-              </HeaderContainer>
+                <div className="pc-view" style={{flexDirection: 'column'}}>
+                  <HeaderContainer>
+                    <CardHeader>Added Afresh</CardHeader>
+                    <SeeAllButton>
+                      See All Recently Added
+                      <NavigateNextOutlinedIcon sx={{margin: '0 -8px 0 4px'}}/>
+                    </SeeAllButton>
+                  </HeaderContainer>
 
-              <FoodSlider func={newly} />
-              <hr />
+                  <FoodSlider func={newly} />
+                  <hr />
 
-              <HeaderContainer>
-                <CardHeader>Added Afresh</CardHeader>
-              </HeaderContainer>
-              <Fooder />
+                  <HeaderContainer>
+                    <CardHeader>Added Afresh</CardHeader>
+                  </HeaderContainer>
+                  <Fooder />
 
-              <div className="feature-bcg">
-                <HeaderContainer>
-                  <CardHeader style={{margin: '0 auto'}}>
-                    Grab your <span style={{ color: "#F16122" }}>ORDER NOW!</span>
-                  </CardHeader>
-                </HeaderContainer>
-                <Features />
-              </div>
+                  <div className="feature-bcg">
+                    <HeaderContainer>
+                      <CardHeader style={{margin: '0 auto'}}>
+                        Grab your <span style={{ color: "#F16122" }}>ORDER NOW!</span>
+                      </CardHeader>
+                    </HeaderContainer>
+                    <Features />
+                  </div>
 
-                <HeaderContainer>
-                  <CardHeader>Most Loved near you</CardHeader>
-                  <SeeAllButton>
-                    See All Mostly Loved
-                    <NavigateNextOutlinedIcon sx={{margin: '0 -8px 0 4px'}}/>
-                  </SeeAllButton>
-                </HeaderContainer>
+                    <HeaderContainer>
+                      <CardHeader>Most Loved near you</CardHeader>
+                      <SeeAllButton>
+                        See All Mostly Loved
+                        <NavigateNextOutlinedIcon sx={{margin: '0 -8px 0 4px'}}/>
+                      </SeeAllButton>
+                    </HeaderContainer>
 
-              <FoodSlider func={rated} />
-              <hr />
+                  <FoodSlider func={rated} />
+                  <hr />
 
-                <HeaderContainer>
-                  <CardHeader>Healthy Picks</CardHeader>
-                  <SeeAllButton>
-                    See All Healthy Picks
-                    <NavigateNextOutlinedIcon sx={{margin: '0 -8px 0 4px'}}/>
-                  </SeeAllButton>
-                </HeaderContainer>
+                    <HeaderContainer>
+                      <CardHeader>Healthy Picks</CardHeader>
+                      <SeeAllButton>
+                        See All Healthy Picks
+                        <NavigateNextOutlinedIcon sx={{margin: '0 -8px 0 4px'}}/>
+                      </SeeAllButton>
+                    </HeaderContainer>
 
-              <FoodSlider func={healthy} />
-              <hr />
+                  <FoodSlider func={healthy} />
+                  <hr />
 
-              <HeaderContainer>
-                <CardHeader>
-                  Meet the Makers
-                </CardHeader>
-              </HeaderContainer>
-              <Makers />
+                  <HeaderContainer>
+                    <CardHeader>
+                      Meet the Makers
+                    </CardHeader>
+                  </HeaderContainer>
+                  <Makers />
 
-              <HeaderContainer>
-                <CardHeader>
-                  What do our Customers have to say
-                </CardHeader>
-              </HeaderContainer>
-              <Testimonials />
+                  <HeaderContainer>
+                    <CardHeader>
+                      What do our Customers have to say
+                    </CardHeader>
+                  </HeaderContainer>
+                  <Testimonials />
 
-              <Footer />
-            </div>
+                  <Footer />
+                </div>
+              </>
+            )}
           </Suspense>
         </>
       )}
