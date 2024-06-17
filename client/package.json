@@ -11,7 +11,7 @@
     "@reduxjs/toolkit": "^2.2.1",
     "axios": "^1.6.1",
     "babel": "^6.23.0",
-    "firebase": "^10.6.0",
+    "firebase": "^10.12.1",
     "formik": "^2.4.5",
     "json-server": "^1.0.0-alpha.23",
     "libphonenumber-js": "^1.10.58",
